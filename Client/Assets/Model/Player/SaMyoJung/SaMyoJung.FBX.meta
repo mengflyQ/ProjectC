@@ -1,0 +1,930 @@
+fileFormatVersion: 2
+guid: 75f60f9433d34f645b343c36140db4f0
+timeCreated: 1541224870
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bip01
+    100002: Bip01Head
+    100004: Bip01LCalf
+    100006: Bip01LClavicle
+    100008: Bip01LFinger0
+    100010: Bip01LFinger01
+    100012: Bip01LFinger02
+    100014: Bip01LFinger1
+    100016: Bip01LFinger11
+    100018: Bip01LFinger12
+    100020: Bip01LFinger2
+    100022: Bip01LFinger21
+    100024: Bip01LFinger22
+    100026: Bip01LFoot
+    100028: Bip01LForeArm
+    100030: Bip01LHand
+    100032: Bip01LThigh
+    100034: Bip01LToe0
+    100036: Bip01LUpperArm
+    100038: Bip01Neck
+    100040: Bip01Neck1
+    100042: Bip01Pelvis
+    100044: Bip01Ponytail1
+    100046: Bip01Ponytail11
+    100048: Bip01Ponytail12
+    100050: Bip01Ponytail4
+    100052: Bip01Ponytail5
+    100054: Bip01Ponytail6
+    100056: Bip01RCalf
+    100058: Bip01RClavicle
+    100060: Bip01RFinger0
+    100062: Bip01RFinger01
+    100064: Bip01RFinger02
+    100066: Bip01RFinger1
+    100068: Bip01RFinger11
+    100070: Bip01RFinger12
+    100072: Bip01RFinger2
+    100074: Bip01RFinger21
+    100076: Bip01RFinger22
+    100078: Bip01RFoot
+    100080: Bip01RForeArm
+    100082: Bip01RHand
+    100084: Bip01RThigh
+    100086: Bip01RToe0
+    100088: Bip01RUpperArm
+    100090: Bip01Spine
+    100092: Bip01Spine1
+    100094: Bip01Spine2
+    100096: Bip01Tail
+    100098: BoneA01
+    100100: BoneA02
+    100102: BoneA04
+    100104: BoneA05
+    100106: BoneA07
+    100108: BoneA08
+    100110: BoneB01
+    100112: BoneB02
+    100114: BoneB03
+    100116: BoneB05
+    100118: BoneB06
+    100120: BoneC01
+    100122: BoneC02
+    100124: BoneC04
+    100126: BoneC06
+    100128: BoneC11
+    100130: BoneC12
+    100132: BoneC13
+    100134: BoneC15
+    100136: BoneC21
+    100138: BoneC23
+    100140: BoneC24
+    100142: BoneC25
+    100144: BoneC28
+    100146: BoneC31
+    100148: BoneC32
+    100150: BoneC33
+    100152: BoneC34
+    100154: BoneC35
+    100156: BoneC36
+    100158: BoneC37
+    100160: BoneC38
+    100162: BoneC40
+    100164: BoneC42
+    100166: BoneC43
+    100168: BoneC44
+    100170: BoneC45
+    100172: BoneC46
+    100174: BoneEyeL
+    100176: BoneEyeR
+    100178: Bonenose
+    100180: Particle View 01
+    100182: Root
+    100184: samyojung
+    100186: //RootNode
+    100188: WeaponL
+    100190: WeaponR
+    400000: Bip01
+    400002: Bip01Head
+    400004: Bip01LCalf
+    400006: Bip01LClavicle
+    400008: Bip01LFinger0
+    400010: Bip01LFinger01
+    400012: Bip01LFinger02
+    400014: Bip01LFinger1
+    400016: Bip01LFinger11
+    400018: Bip01LFinger12
+    400020: Bip01LFinger2
+    400022: Bip01LFinger21
+    400024: Bip01LFinger22
+    400026: Bip01LFoot
+    400028: Bip01LForeArm
+    400030: Bip01LHand
+    400032: Bip01LThigh
+    400034: Bip01LToe0
+    400036: Bip01LUpperArm
+    400038: Bip01Neck
+    400040: Bip01Neck1
+    400042: Bip01Pelvis
+    400044: Bip01Ponytail1
+    400046: Bip01Ponytail11
+    400048: Bip01Ponytail12
+    400050: Bip01Ponytail4
+    400052: Bip01Ponytail5
+    400054: Bip01Ponytail6
+    400056: Bip01RCalf
+    400058: Bip01RClavicle
+    400060: Bip01RFinger0
+    400062: Bip01RFinger01
+    400064: Bip01RFinger02
+    400066: Bip01RFinger1
+    400068: Bip01RFinger11
+    400070: Bip01RFinger12
+    400072: Bip01RFinger2
+    400074: Bip01RFinger21
+    400076: Bip01RFinger22
+    400078: Bip01RFoot
+    400080: Bip01RForeArm
+    400082: Bip01RHand
+    400084: Bip01RThigh
+    400086: Bip01RToe0
+    400088: Bip01RUpperArm
+    400090: Bip01Spine
+    400092: Bip01Spine1
+    400094: Bip01Spine2
+    400096: Bip01Tail
+    400098: BoneA01
+    400100: BoneA02
+    400102: BoneA04
+    400104: BoneA05
+    400106: BoneA07
+    400108: BoneA08
+    400110: BoneB01
+    400112: BoneB02
+    400114: BoneB03
+    400116: BoneB05
+    400118: BoneB06
+    400120: BoneC01
+    400122: BoneC02
+    400124: BoneC04
+    400126: BoneC06
+    400128: BoneC11
+    400130: BoneC12
+    400132: BoneC13
+    400134: BoneC15
+    400136: BoneC21
+    400138: BoneC23
+    400140: BoneC24
+    400142: BoneC25
+    400144: BoneC28
+    400146: BoneC31
+    400148: BoneC32
+    400150: BoneC33
+    400152: BoneC34
+    400154: BoneC35
+    400156: BoneC36
+    400158: BoneC37
+    400160: BoneC38
+    400162: BoneC40
+    400164: BoneC42
+    400166: BoneC43
+    400168: BoneC44
+    400170: BoneC45
+    400172: BoneC46
+    400174: BoneEyeL
+    400176: BoneEyeR
+    400178: Bonenose
+    400180: Particle View 01
+    400182: Root
+    400184: samyojung
+    400186: //RootNode
+    400188: WeaponL
+    400190: WeaponR
+    4300000: samyojung
+    7400000: idle
+    7400002: run
+    7400004: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: samyojung
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: idle
+      takeName: Take 001
+      firstFrame: 1411
+      lastFrame: 1535
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Particle View 01
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Bip01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh/Bip01LCalf
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh/Bip01LCalf/Bip01LFoot
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh/Bip01LCalf/Bip01LFoot/Bip01LToe0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh/Bip01RCalf
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh/Bip01RCalf/Bip01RFoot
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh/Bip01RCalf/Bip01RFoot/Bip01RToe0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger0/Bip01LFinger01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger0/Bip01LFinger01/Bip01LFinger02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger1/Bip01LFinger11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger1/Bip01LFinger11/Bip01LFinger12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger2
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger2/Bip01LFinger21
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger2/Bip01LFinger21/Bip01LFinger22
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/BoneA01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/BoneA01/BoneA02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/WeaponL
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail1/Bip01Ponytail11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail1/Bip01Ponytail11/Bip01Ponytail12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail4
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail4/Bip01Ponytail5
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail4/Bip01Ponytail5/Bip01Ponytail6
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneC01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneC01/BoneC06
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneC23
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneEyeL
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneEyeR
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bonenose
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger0/Bip01RFinger01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger0/Bip01RFinger01/Bip01RFinger02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger1/Bip01RFinger11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger1/Bip01RFinger11/Bip01RFinger12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger2
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger2/Bip01RFinger21
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger2/Bip01RFinger21/Bip01RFinger22
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/BoneA04
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/BoneA04/BoneA05
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/WeaponR
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneA07
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneA08
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneB03
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneB06
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC04
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC11/BoneC12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC13
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC15
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC31
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC31/BoneC28
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33/BoneC34
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33/BoneC34/BoneC35
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33/BoneC34/BoneC35/BoneC36
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC37
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC37/BoneC38
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC40
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC42
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC43
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC44
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC45
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC46
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Tail
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneB02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneB02/BoneB05
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneB02/BoneB05/BoneB01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneC21
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneC21/BoneC24
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneC25
+        weight: 1
+      - path: samyojung
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: run
+      takeName: Take 001
+      firstFrame: 700
+      lastFrame: 730
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Particle View 01
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Bip01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh/Bip01LCalf
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh/Bip01LCalf/Bip01LFoot
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh/Bip01LCalf/Bip01LFoot/Bip01LToe0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh/Bip01RCalf
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh/Bip01RCalf/Bip01RFoot
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh/Bip01RCalf/Bip01RFoot/Bip01RToe0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger0/Bip01LFinger01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger0/Bip01LFinger01/Bip01LFinger02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger1/Bip01LFinger11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger1/Bip01LFinger11/Bip01LFinger12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger2
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger2/Bip01LFinger21
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger2/Bip01LFinger21/Bip01LFinger22
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/BoneA01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/BoneA01/BoneA02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/WeaponL
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail1/Bip01Ponytail11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail1/Bip01Ponytail11/Bip01Ponytail12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail4
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail4/Bip01Ponytail5
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail4/Bip01Ponytail5/Bip01Ponytail6
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneC01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneC01/BoneC06
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneC23
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneEyeL
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneEyeR
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bonenose
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger0/Bip01RFinger01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger0/Bip01RFinger01/Bip01RFinger02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger1/Bip01RFinger11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger1/Bip01RFinger11/Bip01RFinger12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger2
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger2/Bip01RFinger21
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger2/Bip01RFinger21/Bip01RFinger22
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/BoneA04
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/BoneA04/BoneA05
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/WeaponR
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneA07
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneA08
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneB03
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneB06
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC04
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC11/BoneC12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC13
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC15
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC31
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC31/BoneC28
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33/BoneC34
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33/BoneC34/BoneC35
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33/BoneC34/BoneC35/BoneC36
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC37
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC37/BoneC38
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC40
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC42
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC43
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC44
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC45
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC46
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Tail
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneB02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneB02/BoneB05
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneB02/BoneB05/BoneB01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneC21
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneC21/BoneC24
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneC25
+        weight: 1
+      - path: samyojung
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 1535
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Particle View 01
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Bip01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh/Bip01LCalf
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh/Bip01LCalf/Bip01LFoot
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01LThigh/Bip01LCalf/Bip01LFoot/Bip01LToe0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh/Bip01RCalf
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh/Bip01RCalf/Bip01RFoot
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01RThigh/Bip01RCalf/Bip01RFoot/Bip01RToe0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger0/Bip01LFinger01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger0/Bip01LFinger01/Bip01LFinger02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger1/Bip01LFinger11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger1/Bip01LFinger11/Bip01LFinger12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger2
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger2/Bip01LFinger21
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/Bip01LFinger2/Bip01LFinger21/Bip01LFinger22
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/BoneA01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/BoneA01/BoneA02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01LClavicle/Bip01LUpperArm/Bip01LForeArm/Bip01LHand/WeaponL
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail1/Bip01Ponytail11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail1/Bip01Ponytail11/Bip01Ponytail12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail4
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail4/Bip01Ponytail5
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bip01Ponytail4/Bip01Ponytail5/Bip01Ponytail6
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneC01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneC01/BoneC06
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneC23
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneEyeL
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/BoneEyeR
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01Neck1/Bip01Head/Bonenose
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger0
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger0/Bip01RFinger01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger0/Bip01RFinger01/Bip01RFinger02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger1
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger1/Bip01RFinger11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger1/Bip01RFinger11/Bip01RFinger12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger2
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger2/Bip01RFinger21
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/Bip01RFinger2/Bip01RFinger21/Bip01RFinger22
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/BoneA04
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/BoneA04/BoneA05
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/Bip01Neck/Bip01RClavicle/Bip01RUpperArm/Bip01RForeArm/Bip01RHand/WeaponR
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneA07
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneA08
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneB03
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneB06
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC04
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC11
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC11/BoneC12
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC13
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC15
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC31
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC31/BoneC28
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33/BoneC34
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33/BoneC34/BoneC35
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC32/BoneC33/BoneC34/BoneC35/BoneC36
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC37
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC37/BoneC38
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC40
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC42
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC43
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC44
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC45
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Spine1/Bip01Spine2/BoneC46
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/Bip01Tail
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneB02
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneB02/BoneB05
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneB02/BoneB05/BoneB01
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneC21
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneC21/BoneC24
+        weight: 1
+      - path: Root/Bip01/Bip01Pelvis/Bip01Spine/BoneC25
+        weight: 1
+      - path: samyojung
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 3
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
