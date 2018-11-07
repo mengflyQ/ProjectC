@@ -1,0 +1,11 @@
+/Client/Assembly-CSharp.csproj
+/Client/Assembly-CSharp-Editor.csproj
+/Client/Assembly-CSharp-vs.csproj
+/Client/Assembly-UnityScript.unityproj
+/Client/Assembly-UnityScript-Editor.unityproj
+/Client/Client.sln
+/Client/Client.userprefs
+/Client/TestNet-csharp.sln
+obj
+Library
+Log
