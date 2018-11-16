@@ -24,7 +24,7 @@ public class CustomHeadFormater : IHeadFormater
             return true;
 
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return false;
         }

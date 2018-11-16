@@ -24,8 +24,6 @@ public class UIJoystick : MonoBehaviour
 		if (Input.GetMouseButtonDown(0) || touchBegin)
 		{
 			mStartPos = touchPos;
-			Vector2 screenSize = new Vector2((float)Screen.width, (float)Screen.height);
-			//mStartPos = mStartPos - screenSize * 0.5f;
 
 			joystick.gameObject.SetActive(true);
 			Vector3 pos = joystick.localPosition;

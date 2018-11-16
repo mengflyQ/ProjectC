@@ -7,9 +7,9 @@ public class NavMeshGenerator
 	[MenuItem("Tools/场景/生成行走层")]
 	public static void GeneratorNavMesh()
 	{
-		UnityEditor.NavMeshBuilder.BuildNavMesh();
+		UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
 
-		UnityEngine.NavMeshTriangulation aMesh = UnityEngine.NavMesh.CalculateTriangulation();
+        UnityEngine.AI.NavMeshTriangulation aMesh = UnityEngine.AI.NavMesh.CalculateTriangulation();
 
 		string scnName = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().name;
 		string directory = Application.dataPath + "/Scenes/" + scnName + "/NavigationModel";
