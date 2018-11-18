@@ -38,7 +38,7 @@ public static class NavigationSystem
 
     public static void OnExitScene()
     {
-        NavSystemImport.Nav_Release();
+        //NavSystemImport.Nav_Release();
     }
 
     public static uint GetLayer(Vector3 pos)
