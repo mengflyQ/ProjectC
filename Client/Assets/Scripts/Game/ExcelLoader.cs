@@ -21,6 +21,12 @@ public class ExcelLoader
 			asset = Resources.Load<TextAsset>("Excel/config/" + className);
 			JsonData data = JsonMapper.ToObject(asset.text);
 
+            Type excel_type = Type.GetType("excel_" + className);
+            FieldInfo excelViewField = excel_type.BaseType.GetField("excelView");
+            Type viewType = excelViewField.FieldType;
+            object vd = System.Activator.CreateInstance(viewType);
+            MethodInfo addMethod = viewType.GetMethod("Add");
+
 			JsonData filesData = data["files"];
 			JsonData fieldData = data["field"];
 			for (int j = 0; j < filesData.Count; ++j)
@@ -40,12 +46,6 @@ public class ExcelLoader
 						continue;
 					}
 
-					Type excel_type = Type.GetType("excel_" + className);
-					FieldInfo excelViewField = excel_type.BaseType.GetField("excelView");
-					Type viewType = excelViewField.FieldType;
-					object vd = System.Activator.CreateInstance(viewType);
-					MethodInfo addMethod = viewType.GetMethod("Add");
-
 					object excel = System.Activator.CreateInstance(excel_type);
 					int id = 0;
 
@@ -55,19 +55,23 @@ public class ExcelLoader
 						string fieldName = fieldDef["name"].ToString();
 						string fieldType = fieldDef["type"].ToString();
 						FieldInfo excelField = excel_type.GetField(fieldName);
-						string strValue = excel_line_data[m];
+                        string strValue = excel_line_data[m];
 						object value = GetFieldValueByType(fieldType, strValue);
 						if (value != null)
 						{
 							if (fieldName == "id")
 							{
-								id = (int)value;
+                                id = (int)value;
 							}
 							excelField.SetValue(excel, value);
 						}
 					}
 					if (id != 0)
 					{
+                        if (filename == "res/anim_list")
+                        {
+                            Debug.LogError("------------- " + id);
+                        }
 						addMethod.Invoke(vd, new object[] {id, excel} );
 					}
 					excelViewField.SetValue(null, vd);

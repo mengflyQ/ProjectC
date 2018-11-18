@@ -11,6 +11,7 @@ public class GameController
 		{
 			GameObject mainPlayer = GameObject.Instantiate(o);
 			mMainPlayer = mainPlayer.GetComponent<Character>();
+            mMainPlayer.mChaList = chaList;
 
 			mainPlayer.transform.position = new Vector3(81.51f, 7.25f, 34.82f);
 			mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);

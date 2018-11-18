@@ -15,7 +15,9 @@ public partial class Character : MonoBehaviour
 	void FixedUpdate()
 	{
 		UpdateMove();
+        UpdateAnim();
 	}
 
 	public Animation mAnimation;
+    public excel_cha_list mChaList;
 }

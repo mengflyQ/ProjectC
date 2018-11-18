@@ -25,18 +25,20 @@ public static class NavigationSystem
 
     static IEnumerator LoadingNav(string path)
     {
-        Debug.LogError("-------------- " + path);
         WWW www = new WWW(path);
 
         yield return www;
 
         bool rst = NavSystemImport.Nav_CreateFromMemory(www.bytes, path);
-        Debug.LogError("-------------- " + rst.ToString());
+        if (!rst)
+        {
+            Debug.LogError("[navigation]创建导航失败");
+        }
     }
 
     public static void OnExitScene()
     {
-        //NavSystemImport.Nav_Release();
+        NavSystemImport.Nav_Release();
     }
 
     public static uint GetLayer(Vector3 pos)
@@ -44,7 +46,11 @@ public static class NavigationSystem
         NAV_VEC3 vPos = new NAV_VEC3(pos);
 
         uint layer;
-        NavSystemImport.Nav_GetLayer(ref vPos, out layer);
+        bool rst = NavSystemImport.Nav_GetLayer(ref vPos, out layer);
+        if (!rst)
+        {
+            Debug.LogError("[navigation]获取layer失败");
+        }
 
         return layer;
     }

@@ -69,7 +69,7 @@ public class UIJoystick : MonoBehaviour
 				Vector3 dir = rot * joystickDir;
 
 				GameController.mMainPlayer.Direction = dir;
-				GameController.mMainPlayer.MoveSpeed = 5.0f * strength;
+				GameController.mMainPlayer.MoveSpeed = 3.0f * strength;
 			}
 		}
 	}

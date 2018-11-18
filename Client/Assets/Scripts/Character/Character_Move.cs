@@ -8,6 +8,8 @@ public partial class Character : MonoBehaviour
 		mLogicPosition = transform.position;
 
         NavLayer = NavigationSystem.GetLayer(mLogicPosition);
+
+        Debug.LogError("++++++++++++ " + NavLayer.ToString());
 	}
 
 	void UpdateMove()
@@ -26,6 +28,7 @@ public partial class Character : MonoBehaviour
             if (NavigationSystem.GetLayerHeight(mLogicPosition, NavLayer, out height))
             {
                 mLogicPosition.y = height;
+                Debug.LogError("**************** " + NavLayer.ToString());
             }
 
 			mLogicPosition += deltaPos;
@@ -33,6 +36,33 @@ public partial class Character : MonoBehaviour
 			transform.position = mLogicPosition;
 		}
 	}
+
+    string GetAnimDirectory()
+    {
+        string[] dirs = mChaList.path.Split(new char[] { '/' }, System.StringSplitOptions.None);
+        if (dirs.Length < 3)
+            return null;
+        string dir = dirs[dirs.Length - 2];
+        return "Animations/" + dir;
+    }
+
+    void UpdateAnim()
+    {
+        string animDirectory = GetAnimDirectory();
+
+        if (MoveSpeed > 0.0f)
+        {
+            excel_anim_list animList = excel_anim_list.Find(2);
+            string path = animDirectory + "/" + animList.name;
+            PlayAnimation(path, AnimPlayType.Base, 1.0f, true, async: false);
+        }
+        else
+        {
+            excel_anim_list animList = excel_anim_list.Find(1);
+            string path = animDirectory + "/" + animList.name;
+            PlayAnimation(path, AnimPlayType.Base, 1.0f, true, async: false);
+        }
+    }
 
 	public Vector3 Direction
 	{
