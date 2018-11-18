@@ -30,6 +30,8 @@ public class GameController
 			RectTransform jt = joystick.GetComponent<RectTransform>();
 			jt.parent = canvas;
 		}
+
+        NavigationSystem.OnEnterScene();
 	}
 
 	public static Character mMainPlayer = null;

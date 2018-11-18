@@ -6,6 +6,8 @@ public class GameApp : MonoBehaviour
 {
 	void Awake()
 	{
+        Instance = this;
+
 		ExcelLoader.Init();
 
 		DontDestroyOnLoad(gameObject);
@@ -16,6 +18,11 @@ public class GameApp : MonoBehaviour
 		StartCoroutine(LoadingScn());
 	}
 
+    void OnApplicationQuit()
+    {
+        NavigationSystem.OnExitScene();
+    }
+
 	IEnumerator LoadingScn()
 	{
 		while (!scnLoadRequest.isDone)
@@ -24,6 +31,12 @@ public class GameApp : MonoBehaviour
 		}
 		GameController.OnLoadScene();
 	}
+
+    public static GameApp Instance
+    {
+        private set;
+        get;
+    }
 
 	AsyncOperation scnLoadRequest;
 }

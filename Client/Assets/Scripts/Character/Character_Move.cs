@@ -6,6 +6,8 @@ public partial class Character : MonoBehaviour
 	{
 		mDirection = transform.forward;
 		mLogicPosition = transform.position;
+
+        NavLayer = NavigationSystem.GetLayer(mLogicPosition);
 	}
 
 	void UpdateMove()
@@ -19,6 +21,13 @@ public partial class Character : MonoBehaviour
 		{
 			Vector3 deltaPos = mSpeed * Time.fixedDeltaTime * mDirection;
 			deltaPos.y = 0.0f;
+
+            float height;
+            if (NavigationSystem.GetLayerHeight(mLogicPosition, NavLayer, out height))
+            {
+                mLogicPosition.y = height;
+            }
+
 			mLogicPosition += deltaPos;
 
 			transform.position = mLogicPosition;
@@ -57,6 +66,12 @@ public partial class Character : MonoBehaviour
 			return mSpeed;
 		}
 	}
+
+    public uint NavLayer
+    {
+        private set;
+        get;
+    }
 
 	float mSpeed = 0.0f;
 	Vector3 mDirection = Vector3.forward;

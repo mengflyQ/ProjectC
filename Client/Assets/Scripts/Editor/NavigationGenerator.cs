@@ -7,7 +7,7 @@ public class NavMeshGenerator
 	[MenuItem("Tools/场景/生成行走层")]
 	public static void GeneratorNavMesh()
 	{
-		UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
+        UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
 
         UnityEngine.AI.NavMeshTriangulation aMesh = UnityEngine.AI.NavMesh.CalculateTriangulation();
 
@@ -69,24 +69,6 @@ public class NavMeshGenerator
 		}
 
 		sw.Close();
-		AssetDatabase.SaveAssets();
-		AssetDatabase.Refresh();
-	}
-
-	[MenuItem("Tools/场景/导出场景")]
-	public static void ExportScene()
-	{
-		GameObject[] gos = new GameObject[3];
-		GameObject terrain = GameObject.Find("Scene/_Terrain");
-		GameObject wall = GameObject.Find("Scene/Wall");
-		GameObject stairs = GameObject.Find("Scene/Stairs");
-		gos[0] = terrain;
-		gos[1] = wall;
-		gos[2] = stairs;
-
-		string scnName = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene ().name;
-		FBXExporter.ExportFBX("", scnName, gos, true);
-
 		AssetDatabase.SaveAssets();
 		AssetDatabase.Refresh();
 	}
