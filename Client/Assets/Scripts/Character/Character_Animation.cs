@@ -57,33 +57,33 @@ public partial class Character : MonoBehaviour
 		}
 		if (async)
 		{
-//			// 未来Lambda改成Request
-//			Resources.LoadAsync(name, (o) => {
-//				AnimationClip c = o as AnimationClip;
-//				if (c == null)
-//					return;
-//				if (loop)
-//				{
-//					mPriorityLength[(int)priority] = -1.0f;
-//				}
-//				else
-//				{
-//					mPriorityLength[(int)priority] = c.length;
-//				}
-//				mPriorityStartTimes[(int)priority] = Time.realtimeSinceStartup;
-//				var state = PlayClipAnimation(c, c.name, AnimPlayType.Priority, speed, loop, reverse, fadeLength, time);
-//				if (state != null)
-//				{
-//					float sign = 1.0f;
-//					if (state.speed < 0.0f)
-//						sign = -1.0f;
-//					state.speed = mAnimSpeed * sign;
-//				}
-//			});
+			// 未来Lambda改成Request
+			ResourceSystem.LoadAsync<AnimationClip>(name, (o) => {
+				AnimationClip c = o as AnimationClip;
+				if (c == null)
+					return;
+				if (loop)
+				{
+					mPriorityLength[(int)priority] = -1.0f;
+				}
+				else
+				{
+					mPriorityLength[(int)priority] = c.length;
+				}
+				mPriorityStartTimes[(int)priority] = Time.realtimeSinceStartup;
+				var state = PlayClipAnimation(c, c.name, AnimPlayType.Priority, speed, loop, reverse, fadeLength, time);
+				if (state != null)
+				{
+					float sign = 1.0f;
+					if (state.speed < 0.0f)
+						sign = -1.0f;
+					state.speed = mAnimSpeed * sign;
+				}
+			});
 		}
 		else
 		{
-			AnimationClip c = Resources.Load<AnimationClip>(name);
+            AnimationClip c = ResourceSystem.Load<AnimationClip>(name);
 			if (c == null)
 				return false;
 			if (loop)
@@ -119,23 +119,24 @@ public partial class Character : MonoBehaviour
 		if (async)
 		{
 			// 未来Lambda改成Request
-//			ResourceSystem.LoadAsync(path, (o) => {
-//				AnimationClip c = o as AnimationClip;
-//				if (c == null)
-//					return;
-//				var state = PlayClipAnimation(c, c.name, type, speed, loop, reverse, fadeLength, time);
-//				if (state != null)
-//				{
-//					float sign = 1.0f;
-//					if (state.speed < 0.0f)
-//						sign = -1.0f;
-//					state.speed = mAnimSpeed * sign;
-//				}
-//			});
+            ResourceSystem.LoadAsync<AnimationClip>(path, (o) =>
+            {
+                AnimationClip c = o as AnimationClip;
+                if (c == null)
+                    return;
+                var state = PlayClipAnimation(c, c.name, type, speed, loop, reverse, fadeLength, time);
+                if (state != null)
+                {
+                    float sign = 1.0f;
+                    if (state.speed < 0.0f)
+                        sign = -1.0f;
+                    state.speed = mAnimSpeed * sign;
+                }
+            });
 		}
 		else
 		{
-			AnimationClip c = Resources.Load<AnimationClip>(path);
+            AnimationClip c = ResourceSystem.Load<AnimationClip>(path);
 			if (c == null)
 				return false;
 			var state = PlayClipAnimation(c, c.name, type, speed, loop, reverse, fadeLength, time);

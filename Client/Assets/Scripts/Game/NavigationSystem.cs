@@ -78,7 +78,7 @@ public static class NavigationSystem
         return rst;
     }
 
-    public static bool Nav_LineTest(Vector3 start, Vector3 end, uint layer)
+    public static bool LineTest(Vector3 start, Vector3 end, uint layer)
     {
         NAV_VEC3 vStart = new NAV_VEC3(start);
         NAV_VEC3 vEnd = new NAV_VEC3(end);

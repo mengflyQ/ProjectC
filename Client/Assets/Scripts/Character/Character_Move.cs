@@ -24,16 +24,54 @@ public partial class Character : MonoBehaviour
 		{
 			Vector3 deltaPos = mSpeed * Time.fixedDeltaTime * mDirection;
 			deltaPos.y = 0.0f;
-
-            float height;
-            if (NavigationSystem.GetLayerHeight(mLogicPosition, NavLayer, out height))
+            mLogicPosition += deltaPos;
+            
+            Vector3 edgePoint0, edgePoint1;
+			Vector3 hitPoint;
+            if (NavigationSystem.LineCastEdge(transform.position, mLogicPosition, NavLayer, out hitPoint, out edgePoint0, out edgePoint1))
             {
-                mLogicPosition.y = height;
+                Vector3 dir0 = edgePoint1 - edgePoint0;
+                dir0.y = 0.0f;
+                dir0.Normalize();
+                Vector3 dir1 = -dir0;
+                Vector3 dir3 = transform.forward;
+                dir3.Normalize();
+
+                float cos0 = Vector3.Dot(dir0, dir3);
+                float cos1 = Vector3.Dot(dir1, dir3);
+
+                if (cos0 > cos1)
+                {
+                    mLogicPosition.x = transform.position.x + Time.fixedDeltaTime * MoveSpeed * 0.5f * dir0.x;
+                    mLogicPosition.z = transform.position.z + Time.fixedDeltaTime * MoveSpeed * 0.5f * dir0.z;
+                }
+                else
+                {
+                    mLogicPosition.x = transform.position.x + Time.fixedDeltaTime * MoveSpeed * 0.5f * dir1.x;
+                    mLogicPosition.z = transform.position.z + Time.fixedDeltaTime * MoveSpeed * 0.5f * dir1.z;
+                }
+                if (!NavigationSystem.LineTest(transform.position, mLogicPosition, NavLayer))
+                {
+                    float height;
+                    if (NavigationSystem.GetLayerHeight(mLogicPosition, NavLayer, out height))
+                    {
+                        mLogicPosition.y = height;
+                    }
+                    transform.position = mLogicPosition;
+                }
+            }
+            else
+            {
+                float height;
+                if (NavigationSystem.GetLayerHeight(mLogicPosition, NavLayer, out height))
+                {
+                    mLogicPosition.y = height;
+                }
+                transform.position = mLogicPosition;
             }
 
-			mLogicPosition += deltaPos;
-
-			transform.position = mLogicPosition;
+            mLogicPosition = transform.position;
+			// transform.position = mLogicPosition;
 		}
 	}
 
@@ -54,13 +92,13 @@ public partial class Character : MonoBehaviour
         {
             excel_anim_list animList = excel_anim_list.Find(2);
             string path = animDirectory + "/" + animList.name;
-            PlayAnimation(path, AnimPlayType.Base, 1.0f, true, async: false);
+            PlayAnimation(path, AnimPlayType.Base, 1.0f, true);
         }
         else
         {
             excel_anim_list animList = excel_anim_list.Find(1);
             string path = animDirectory + "/" + animList.name;
-            PlayAnimation(path, AnimPlayType.Base, 1.0f, true, async: false);
+            PlayAnimation(path, AnimPlayType.Base, 1.0f, true);
         }
     }
 
