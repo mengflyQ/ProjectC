@@ -7,8 +7,8 @@ public partial class Character : MonoBehaviour
 		mDirection = transform.forward;
 		mLogicPosition = transform.position;
 
-        Vector3 p = mLogicPosition;
-        p.y += 1.0f;
+        //Vector3 p = mLogicPosition;
+        //p.y += 1.0f;
         // NavLayer = NavigationSystem.GetLayer(mLogicPosition);
         NavLayer = 1;
 	}

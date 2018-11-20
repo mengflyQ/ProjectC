@@ -8,12 +8,16 @@ public class GameApp : MonoBehaviour
 	{
         Instance = this;
 
+        UserName = "";
+        Password = "";
+        Platform = Application.platform.ToString();
+        DeviceUniqueIdentifier = SystemInfo.deviceUniqueIdentifier;
+        ScreenWidth = Screen.width;
+        ScreenHeight = Screen.height;
+
 		ExcelLoader.Init();
 
 		DontDestroyOnLoad(gameObject);
-
-		excel_scn_list scnList = excel_scn_list.Find(1);
-		scnLoadRequest = SceneManager.LoadSceneAsync(scnList.name);
 
 		StartCoroutine(LoadingScn());
 	}
@@ -25,11 +29,12 @@ public class GameApp : MonoBehaviour
 
 	IEnumerator LoadingScn()
 	{
+        excel_scn_list scnList = excel_scn_list.Find(loginScnID);
+        AsyncOperation scnLoadRequest = SceneManager.LoadSceneAsync(scnList.name);
 		while (!scnLoadRequest.isDone)
 		{
 			yield return new WaitForEndOfFrame();
 		}
-		GameController.OnLoadScene();
 	}
 
     public static GameApp Instance
@@ -38,5 +43,41 @@ public class GameApp : MonoBehaviour
         get;
     }
 
-	AsyncOperation scnLoadRequest;
+    public string Platform
+    {
+        get;
+        private set;
+    }
+
+    public string DeviceUniqueIdentifier
+    {
+        get;
+        private set;
+    }
+
+    public int ScreenWidth
+    {
+        get;
+        private set;
+    }
+
+    public int ScreenHeight
+    {
+        get;
+        private set;
+    }
+
+    public string UserName
+    {
+        get;
+        set;
+    }
+
+    public string Password
+    {
+        get;
+        set;
+    }
+
+    private const int loginScnID = 1;
 }

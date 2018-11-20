@@ -2,6 +2,5 @@
 
 public enum ActionType
 {
-    RankAdd = 1000,
-    RankSelect = 1001
+    Login = 1001,
 }

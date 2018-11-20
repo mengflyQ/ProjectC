@@ -1,75 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections;
+using System;
 using GameRanking.Pack;
 using ZyGames.Framework.Common.Serialization;
 
-public class Action1001 : BaseAction//GameAction
+public class Action1001 : GameAction
 {
-    private Response1001Pack _responseData;
-    private bool isCustom;
+    public Action1001() : base((int)ActionType.Login)
+	{
+		
+	}
 
-    public Action1001()
-        : base((int)ActionType.RankSelect)
-    {
-    }
+	public override ActionResult GetResponseData()
+	{
+        return actionResult;
+	}
 
-    protected override void SendParameter(NetWriter writer, ActionParam actionParam)
-    {
-        if (actionParam.HasValue)
-        {
-            //自定对象参数格式
-            isCustom = true;
-            Request1001Pack requestPack = actionParam.GetValue<Request1001Pack>();
-            byte[] data = ProtoBufUtils.Serialize(requestPack);
-            writer.SetBodyData(data);
-        }
-        else
-        {
-            isCustom = false;
-            //默认url参数格式
-            actionParam.Foreach((k, v) =>
-            {
-                writer.writeString(k, v.ToString());
-                return true;
-            });
-        }
-    }
+	// 服务器返回的内容，按照服务器Push的顺序返回相应值;
+	protected override void DecodePackage (NetReader reader)
+	{
+		if (reader != null && reader.StatusCode == 0)
+		{
+            actionResult = new ActionResult();
+			Debug.Log("Login Success " + reader.readString());
+		}
+	}
 
-    protected override void DecodePackage(NetReader reader)
-    {
-        if (reader != null && reader.StatusCode == 0)
-        {
-            if (isCustom)
-            {
-                //自定对象格式解包
-                _responseData = ProtoBufUtils.Deserialize<Response1001Pack>(reader.Buffer);
-            }
-            else
-            {
-                //默认Scut流格式解包
-                _responseData = new Response1001Pack();
-                _responseData.PageCount = reader.getInt();
-                int nNum = reader.getInt();
-                _responseData.Items = new List<RankData>();
-                for (int i = 0; i < nNum; i++)
-                {
-                    reader.recordBegin();
-                    RankData item = new RankData();
-                    item.UserName = reader.readString();
-                    item.Score = reader.getInt();
-                    reader.recordEnd();
-                    _responseData.Items.Add(item);
-                }
-            }
-        }
-    }
+	protected override void SendParameter(NetWriter writer, ActionParam actionParam)
+	{
+        writer.writeInt32("ScreenX", GameApp.Instance.ScreenWidth);
+        writer.writeInt32("ScreenY", GameApp.Instance.ScreenHeight);
+        writer.writeString("UserName", GameApp.Instance.UserName);
+        writer.writeString("Password", GameApp.Instance.Password);
+	}
 
-    public override ActionResult GetResponseData()
-    {
-        if (_responseData != null)
-        {
-            UnityEngine.Debug.Log(string.Format("The action{0} receive ok, record count:{1}", ActionId, _responseData.Items == null ? 0 : _responseData.Items.Count));
-        }
-        return new ActionResult(_responseData);
-    }
+    private ActionResult actionResult;
 }

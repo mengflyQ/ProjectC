@@ -42,28 +42,6 @@ public class TestGUI : MonoBehaviour
     {
         GUILayout.BeginArea(new Rect(10, 10, 800, 100));
         GUILayout.BeginHorizontal();
-        // Now create any Controls you like, and they will be displayed with the custom Skin
-        if (GUILayout.Button("Get ranking for Http"))
-        {
-            NetWriter.SetUrl("http://ph.scutgame.com/service.aspx");
-            Net.Instance.Send((int)ActionType.RankSelect, OnRankingCallback, GetReuqest1001());
-        }
-        GUILayout.Space(20);
-        // Any Controls created here will use the default Skin and not the custom Skin
-        if (GUILayout.Button("Get ranking for Socket"))
-        {
-            NetWriter.SetUrl("ph.scutgame.com:9001");
-            Net.Instance.Send((int)ActionType.RankSelect, OnRankingCallback, GetReuqest1001());
-        }
-        GUILayout.Space(20);
-        if (GUILayout.Button("Add ranking for Socket"))
-        {
-            NetWriter.SetUrl("ph.scutgame.com:9001");
-            var actionParam = new ActionParam(new RankData() { Score = 90, UserName = "Cocos" + index });
-            index++;
-            Net.Instance.Send((int)ActionType.RankAdd, OnRankAddCallback, actionParam);
-        }
-		GUILayout.Space(20);
 		if (GUILayout.Button ("向服务器请求Action100的操作"))
 		{
 			NetWriter.SetUrl("127.0.0.1:9001");

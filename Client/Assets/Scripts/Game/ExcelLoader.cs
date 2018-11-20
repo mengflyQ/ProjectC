@@ -68,10 +68,6 @@ public class ExcelLoader
 					}
 					if (id != 0)
 					{
-                        if (filename == "res/anim_list")
-                        {
-                            Debug.LogError("------------- " + id);
-                        }
 						addMethod.Invoke(vd, new object[] {id, excel} );
 					}
 					excelViewField.SetValue(null, vd);
