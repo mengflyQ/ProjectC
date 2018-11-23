@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZyGames.Framework.Game.Service;
-using ZyGames.Framework.Game.Sns;
+using ZyGames.Framework.Cache.Generic;
 
 namespace GameServer.CsScript.LoginServer
 {
@@ -22,29 +19,39 @@ namespace GameServer.CsScript.LoginServer
             mUserName = httpGet.GetString("UserName");
             mDeviceID = httpGet.GetString("DeviceID");
 
-            // string[] userList = SnsManager.GetRegPassport(mDeviceID);
-            mPassport = "1";    // userList[0];
-            mPassword = "123";  // userList[1];
-
             return true;
         }
 
         public override bool TakeAction()
         {
+            ShareCacheStruct<UserInfo> cache = new ShareCacheStruct<UserInfo>();
+            UserInfo userInfo = cache.FindKey(mUserName);
+            if (userInfo == null)
+            {
+                userInfo = new UserInfo();
+                userInfo.Account = mUserName;
+                userInfo.Password = "";
+                userInfo.RegisterTime = DateTime.Now;
+                userInfo.LastLoginTime = DateTime.Now;
+                if (!cache.Add(userInfo))
+                {
+                    Console.WriteLine("Regist UserInfo Failed!");
+                }
+            }
+
             return true;
         }
 
         public override void BuildPacket()
         {
-            PushIntoStack(mPassport);
-            PushIntoStack(mPassword);
+            PushIntoStack(mUserName);
+            PushIntoStack(mDeviceID);
+            PushIntoStack(this.UserId);
         }
 
         int mScreenX;
         int mScreenY;
         string mUserName;
-        string mPassport;
-        string mPassword;
         string mDeviceID;
     }
 }

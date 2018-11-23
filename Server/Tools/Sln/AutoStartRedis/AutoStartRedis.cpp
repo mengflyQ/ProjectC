@@ -8,7 +8,7 @@
 
 static std::vector<std::string> servers = {
 	"LoginServer",
-	"GateServer",
+	"LobbyServer",
 };
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -28,9 +28,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		std::string redisCmd = dir + "\\redis-server.exe " + dir + "\\redis.windows.conf";
 		WinExec(redisCmd.c_str(), 1);
 	}
-	
-	
-	system("PAUSE");
 	return 0;
 }
 

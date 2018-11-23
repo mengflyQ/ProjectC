@@ -129,14 +129,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\CsScript\Action\Action1001.cs" />
     <Compile Include="Script\CsScript\Action\ActionType.cs" />
+    <Compile Include="Script\CsScript\Action\Action1002.cs" />
     <Compile Include="Script\CsScript\Locale\SimplifiedLanguage.cs" />
     <Compile Include="Script\CsScript\MainClass.cs" />
     <Compile Include="Script\CsScript\Remote\GateHandler.cs" />
-    <Compile Include="Script\Model\GuestUser.cs" />
-    <Compile Include="Script\Model\UserRole.cs" />
+    <Compile Include="Script\Model\UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="LoginServer.exe.config" />
+    <None Include="LoginServer.exe.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="NLog.config" />
   </ItemGroup>
   <ItemGroup />
