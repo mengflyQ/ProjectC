@@ -65,7 +65,7 @@ public class UILogin : MonoBehaviour
 
         Net.Instance.CloseSocket();
 
-        SceneSystem.Instance.ChangeScene(SceneSystem.lobbyScnID);
+        SceneSystem.Instance.ChangeScene(SceneSystem.roomScnID);
 
         NetWriter.SetUrl(ServerManager.LobbyServerUrl);
         Net.Instance.Send((int)ActionType.EnterLobby, EnterLobbyCallback, null);

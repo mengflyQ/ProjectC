@@ -81,9 +81,12 @@ public class ExcelLoader
 		if (fieldType == "int")
 		{
 			int rst = 0;
-			if (int.TryParse(value, out rst))
-				return rst;
-			Debug.LogError("Excel Error: Bad Data Type -- Int");
+            if (!string.IsNullOrEmpty(value))
+            {
+                if (int.TryParse(value, out rst))
+                    return rst;
+                Debug.LogError("Excel Error: Bad Data Type -- Int");
+            }
 			return 0;
 		}
 		if (fieldType == "string")
@@ -93,43 +96,54 @@ public class ExcelLoader
 		if (fieldType == "float")
 		{
 			float rst = 0.0f;
-			if (float.TryParse(value, out rst))
-				return rst;
-			Debug.LogError("Excel Error: Bad Data Type -- Float");
+            if (!string.IsNullOrEmpty(value))
+            {
+                if (float.TryParse(value, out rst))
+                    return rst;
+                Debug.LogError("Excel Error: Bad Data Type -- Float");
+            }
 			return 0.0f;
 		}
 		if (fieldType == "int[]")
 		{
-			string[] vs = value.Split('*');
-			int[] rst = new int[vs.Length];
-			for (int i = 0; i < vs.Length; ++i)
-			{
-				string v = vs[i];
-				int r = 0;
-				if (!int.TryParse(v, out r))
-				{
-					Debug.LogError("Excel Error: Bad Data Type -- Int[]");
-					r = 0;
-				}
-				rst[i] = r;
-			}
+            int[] rst = null;
+            if (!string.IsNullOrEmpty(value))
+            {
+                string[] vs = value.Split('*');
+                rst = new int[vs.Length];
+                for (int i = 0; i < vs.Length; ++i)
+                {
+                    string v = vs[i];
+                    int r = 0;
+                    if (!int.TryParse(v, out r))
+                    {
+                        Debug.LogError("Excel Error: Bad Data Type -- Int[]");
+                        r = 0;
+                    }
+                    rst[i] = r;
+                }
+            }
 			return rst;
 		}
 		if (fieldType == "float[]")
 		{
-			string[] vs = value.Split('*');
-			float[] rst = new float[vs.Length];
-			for (int i = 0; i < vs.Length; ++i)
-			{
-				string v = vs[i];
-				float r = 0.0f;
-				if (!float.TryParse(v, out r))
-				{
-					Debug.LogError("Excel Error: Bad Data Type -- float[]");
-					r = 0.0f;
-				}
-				rst[i] = r;
-			}
+            float[] rst = null;
+            if (!string.IsNullOrEmpty(value))
+            {
+                string[] vs = value.Split('*');
+                rst = new float[vs.Length];
+                for (int i = 0; i < vs.Length; ++i)
+                {
+                    string v = vs[i];
+                    float r = 0.0f;
+                    if (!float.TryParse(v, out r))
+                    {
+                        Debug.LogError("Excel Error: Bad Data Type -- float[]");
+                        r = 0.0f;
+                    }
+                    rst[i] = r;
+                }
+            }
 			return rst;
 		}
 		Debug.LogError("Excel Error: Bad Data Type -- Unknown -- " + fieldType);

@@ -1,7 +1,8 @@
 {
   "field": [
     {"name": "id", "type": "int"},
-    {"name": "name", "type": "string"}
+    {"name": "name", "type": "string"},
+	{"name": "temp", "type": "int"}
   ],
   "files": [
     "scn/scn_list"

@@ -4,12 +4,17 @@ public class GameController
 {
 	public static void OnLoadScene()
 	{
-		excel_cha_list chaList = excel_cha_list.Find(1);
+        Scene scn = SceneSystem.Instance.mCurrentScene;
+        if (scn == null)
+            return;
+        if (scn.mScnLists == null)
+            return;
+
+        excel_cha_list chaList = excel_cha_list.Find(scn.mScnLists.temp);
 
 		GameObject o = Resources.Load<GameObject>(chaList.path);
 		if (o != null)
 		{
-            Debug.LogError("------------");
 			GameObject mainPlayer = GameObject.Instantiate(o);
 			mMainPlayer = mainPlayer.GetComponent<Character>();
             mMainPlayer.mChaList = chaList;

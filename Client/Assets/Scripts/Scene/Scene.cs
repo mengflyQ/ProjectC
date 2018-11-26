@@ -5,7 +5,10 @@ public class Scene
 {
     public void Enter()
     {
-        // GameController.OnLoadScene();
+        if (mScnLists.temp > 0)
+        {
+            GameController.OnLoadScene();
+        }
     }
 
     public void Exit()

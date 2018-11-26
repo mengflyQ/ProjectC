@@ -31,8 +31,6 @@ public class Action5001 : BaseAction
         ctsBytes.CopyTo(bd, 0);
         response.CopyTo(bd, ctsBytes.Length);
         data.CopyTo(bd, ctsBytes.Length + 1);
-
-        Debug.LogError("------------  " + bd.Length);
         
         writer.SetBodyData(bd);
     }

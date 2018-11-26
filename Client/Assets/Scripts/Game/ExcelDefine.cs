@@ -5,6 +5,7 @@ public class excel_scn_list : ExcelBase<excel_scn_list>
 {
 	public int id;
 	public string name;
+    public int temp;
 }
 
 public class excel_cha_list : ExcelBase<excel_cha_list>
