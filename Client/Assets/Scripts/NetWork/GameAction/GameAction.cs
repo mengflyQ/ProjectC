@@ -18,6 +18,7 @@ public abstract class GameAction
         get { return Head.ActionId; }
     }
     public event Action<ActionResult> Callback;
+    public static event Action<int, ActionResult> ActionCallback;
     public PackageHead Head { get; private set; }
 
     public byte[] Send(ActionParam actionParam)
@@ -53,12 +54,27 @@ public abstract class GameAction
         {
             if(Callback != null)
 			{
-				Callback(result);	
+				Callback(result);
 			}
         }
         catch (Exception ex)
         {
             Debug.Log(string.Format("Action {0} callback process error:{1}", ActionId, ex));
+        }
+    }
+
+    public static void OnActionCallback(int actionID, ActionResult result)
+    {
+        try
+        {
+            if (ActionCallback != null)
+            {
+                ActionCallback(actionID, result);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(string.Format("Action {0} actionCallback process error:{1}", actionID, ex));
         }
     }
 

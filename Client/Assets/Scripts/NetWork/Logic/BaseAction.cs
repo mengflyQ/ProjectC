@@ -1,5 +1,5 @@
 ﻿using System;
-using GameRanking.Pack;
+using UnityEngine;
 using ZyGames.Framework.Common.Serialization;
 
 /// <summary>
@@ -14,8 +14,8 @@ public abstract class BaseAction : GameAction
 
     protected override void SetActionHead(NetWriter writer)
     {
-        //todo 启用自定的结构
-        MessagePack headPack = new MessagePack()
+        //todo 启用自定的结构;
+        CTSPackageHead headPack = new CTSPackageHead()
         {
             MsgId = Head.MsgId,
             ActionId = ActionId,

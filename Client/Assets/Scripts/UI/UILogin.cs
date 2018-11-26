@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using ProtoBuf;
+using ZyGames.Framework.Common.Serialization;
 
 public class UILogin : MonoBehaviour
 {
@@ -14,24 +16,68 @@ public class UILogin : MonoBehaviour
 
     public void OnClickLogin()
     {
-        NetWriter.SetUrl("127.0.0.1:9001");
-        Net.Instance.Send((int)ActionType.Login, LoginCallback, null);
+        GameApp.Instance.UserName = UserName;
+
+        NetWriter.SetUrl(ServerManager.LoginServerUrl);
+
+        LoginData data = new LoginData();
+        data.UserName = GameApp.Instance.UserName;
+        data.DeviceUniqueIdentifier = GameApp.Instance.DeviceUniqueIdentifier;
+        data.DeviceModel = GameApp.Instance.DeviceModel;
+        data.DeviceTypeStr = GameApp.Instance.DeviceTypeStr;
+        data.Platform = GameApp.Instance.Platform;
+        data.ScreenWidth = GameApp.Instance.ScreenWidth;
+        data.ScreenHeight = GameApp.Instance.ScreenHeight;
+        NetWork.SendPacket<LoginData>(CTS.CTS_Login, data, LoginCallback);
     }
 
-    private void LoginCallback(ActionResult actionResult)
+    public void OnClickReigst()
     {
-        StartCoroutine(LoadingScn());
+        NetWriter.SetUrl(ServerManager.LoginServerUrl);
+        RegistData data = new RegistData();
+        data.NickName = registInput.text;
+        NetWork.SendPacket<RegistData>(CTS.CTS_Regist, data, LoginCallback);
     }
 
-    IEnumerator LoadingScn()
+    private void LoginCallback(byte[] responseData)
     {
-        excel_scn_list scnList = excel_scn_list.Find(2);
-        AsyncOperation scnLoadRequest = SceneManager.LoadSceneAsync(scnList.name);
-        while (!scnLoadRequest.isDone)
+        if (responseData == null)
         {
-            yield return new WaitForEndOfFrame();
+            return;
         }
-        GameController.OnLoadScene();
+
+        LoginResponse response = null;
+        bool regist = (responseData.Length == 4);
+        if (regist)
+        {
+            GameController.mUserInfo.uid = BitConverter.ToInt32(responseData, 0);
+            loginFrame.SetActive(false);
+            registFrame.SetActive(true);
+            return;
+        }
+        else
+        {
+            response = ProtoBufUtils.Deserialize<LoginResponse>(responseData);
+            GameController.mUserInfo.uid = response.UserID;
+            loginFrame.SetActive(true);
+            registFrame.SetActive(false);
+        }
+
+        Net.Instance.CloseSocket();
+
+        SceneSystem.Instance.ChangeScene(SceneSystem.lobbyScnID);
+
+        NetWriter.SetUrl(ServerManager.LobbyServerUrl);
+        Net.Instance.Send((int)ActionType.EnterLobby, EnterLobbyCallback, null);
+    }
+
+    private void EnterLobbyCallback(ActionResult actionResult)
+    {
+        if (actionResult == null)
+        {
+            return;
+        }
+        actionResult.Get<string>("NickName");
     }
 
     public string UserName
@@ -42,6 +88,8 @@ public class UILogin : MonoBehaviour
         }
     }
 
+    public GameObject loginFrame;
+    public GameObject registFrame;
     public InputField userNameInput;
-    public Button loginBtn;
+    public InputField registInput;
 }

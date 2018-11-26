@@ -88,6 +88,7 @@ public class Net : MonoBehaviour, IHttpCallback
             {
                 ActionResult actionResult = gameAction.GetResponseData();
                 gameAction.OnCallback(actionResult);
+                GameAction.OnActionCallback(gameAction.ActionId, actionResult);
             }
             else
             {
@@ -146,6 +147,15 @@ public class Net : MonoBehaviour, IHttpCallback
         if (mSocket != null)
         {
             mSocket.Close();
+        }
+    }
+
+    public void CloseSocket()
+    {
+        if (mSocket != null)
+        {
+            mSocket.Close();
+            mSocket = null;
         }
     }
 
@@ -351,6 +361,7 @@ public class Net : MonoBehaviour, IHttpCallback
         {
             ActionResult actionResult = package.Action.GetResponseData();
             package.Action.OnCallback(actionResult);
+            GameAction.OnActionCallback(package.Action.ActionId, actionResult);
         }
         else
         {

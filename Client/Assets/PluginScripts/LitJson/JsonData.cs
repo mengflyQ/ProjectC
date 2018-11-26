@@ -75,6 +75,22 @@ namespace LitJson
         }
         #endregion
 
+        public int AsInt
+        {
+            get { return inst_int; }
+        }
+        public float AsFloat
+        {
+            get { return (float)inst_double; }
+        }
+        public long AsLong
+        {
+            get { return inst_long; }
+        }
+        public string AsString
+        {
+            get { return inst_string; }
+        }
 
         #region ICollection Properties
         int ICollection.Count {

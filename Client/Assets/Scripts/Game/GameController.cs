@@ -9,6 +9,7 @@ public class GameController
 		GameObject o = Resources.Load<GameObject>(chaList.path);
 		if (o != null)
 		{
+            Debug.LogError("------------");
 			GameObject mainPlayer = GameObject.Instantiate(o);
 			mMainPlayer = mainPlayer.GetComponent<Character>();
             mMainPlayer.mChaList = chaList;
@@ -36,4 +37,6 @@ public class GameController
 	}
 
 	public static Character mMainPlayer = null;
+
+    public static UserInfo mUserInfo = new UserInfo();
 }
