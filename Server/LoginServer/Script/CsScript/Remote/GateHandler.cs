@@ -19,10 +19,7 @@ namespace GameServer.CsScript.LoginServer
 
         protected override bool Check()
         {
-            if (paramGetter.GetString("UserName", ref mUserName))
-            {
-                return true;
-            }
+            paramGetter.GetMessage();
             return false;
         }
 

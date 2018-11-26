@@ -131,15 +131,27 @@
     <Compile Include="Script\CsScript\Action\Action2001.cs" />
     <Compile Include="Script\CsScript\Action\ActionType.cs" />
     <Compile Include="Script\CsScript\Locale\SimplifiedLanguage.cs" />
+    <Compile Include="Script\CsScript\Logic\Player.cs" />
+    <Compile Include="Script\CsScript\Logic\PlayerManager.cs" />
     <Compile Include="Script\CsScript\MainClass.cs" />
+    <Compile Include="Script\CsScript\Plugins\IJsonWrapper.cs" />
+    <Compile Include="Script\CsScript\Plugins\JsonData.cs" />
+    <Compile Include="Script\CsScript\Plugins\JsonException.cs" />
+    <Compile Include="Script\CsScript\Plugins\JsonMapper.cs" />
+    <Compile Include="Script\CsScript\Plugins\JsonMockWrapper.cs" />
+    <Compile Include="Script\CsScript\Plugins\JsonReader.cs" />
+    <Compile Include="Script\CsScript\Plugins\JsonWriter.cs" />
+    <Compile Include="Script\CsScript\Plugins\Lexer.cs" />
+    <Compile Include="Script\CsScript\Plugins\ParserToken.cs" />
+    <Compile Include="Script\Model\CacheSet.cs" />
+    <Compile Include="Script\Model\Define.cs" />
+    <Compile Include="Script\Model\UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LobbyServer.exe.config" />
     <None Include="NLog.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Script\Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

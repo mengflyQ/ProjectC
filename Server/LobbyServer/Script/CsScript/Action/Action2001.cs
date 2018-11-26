@@ -1,7 +1,10 @@
 ﻿using System;
 using ZyGames.Framework.Game.Service;
+using ZyGames.Framework.Game.Contract;
+using ZyGames.Framework.Game.Lang;
+using GameServer.Model;
 
-namespace GameServer.CsScript.Action
+namespace GameServer.LobbyServer
 {
     public class Action2001 : BaseStruct
     {
@@ -10,9 +13,42 @@ namespace GameServer.CsScript.Action
         {
         }
 
+        public override bool GetUrlElement()
+        {
+            if (!httpGet.GetInt("UserID", ref mUserID))
+            {
+                return false;
+            }
+            return true;
+        }
+
         public override bool TakeAction()
         {
-            throw new NotImplementedException();
+            GameSession session = httpGet.GetSession();
+            mUserInfo = CacheSet.UserInfoCach.FindKey(mUserID);
+            if (session != null || mUserInfo != null)
+            {
+                ErrorCode = (int)CodeType.EnterLobbyError;
+                ErrorInfo = "EnterLobby Error!";
+                return false;
+            }
+            PlayerManager.Instance.AddPlayer(mUserID, session, mUserInfo);
+
+            return true;
         }
+
+        public override void BuildPacket()
+        {
+            if (mUserInfo == null)
+                return;
+            PushIntoStack(mUserInfo.NickName);
+            PushIntoStack(mUserInfo.Level);
+            PushIntoStack(mUserInfo.Exp);
+            PushIntoStack(mUserInfo.Money);
+            PushIntoStack(mUserInfo.VIPLevel);
+        }
+
+        UserInfo mUserInfo = null;
+        int mUserID = -1;
     }
 }

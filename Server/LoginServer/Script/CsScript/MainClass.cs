@@ -27,6 +27,8 @@ using ZyGames.Framework.Game.Runtime;
 using ZyGames.Framework.Game.Service;
 using ZyGames.Framework.RPC.Sockets;
 using ZyGames.Framework.Script;
+using GameServer.LoginServer;
+using GameServer.CommonLib;
 
 namespace Game.Script
 {
@@ -34,14 +36,17 @@ namespace Game.Script
     {
         public MainClass()
         {
+            GameEnvironment.Setting.ActionDispatcher = new CustomActionDispatcher();
         }
      
         protected override void OnStartAffer()
         {
+            NetWorkRegister.Initialize();
         }
 
         protected override void OnServiceStop()
         {
+            NetWorkRegister.Uninitialize();
             GameEnvironment.Stop();
         }
 

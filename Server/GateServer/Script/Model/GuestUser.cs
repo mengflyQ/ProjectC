@@ -1,4 +1,4 @@
-﻿/****************************************************************************
+/****************************************************************************
 Copyright (c) 2013-2015 scutgame.com
 
 http://www.scutgame.com
@@ -21,39 +21,25 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
+
 using System;
 using ProtoBuf;
-using ZyGames.Framework.Event;
+using ZyGames.Framework.Game.Context;
 using ZyGames.Framework.Model;
-using ZyGames.Framework.Cache.Generic;
 
-namespace GameServer.Model
+namespace GameServer.Script.Model
 {
-    /// <summary>
-    /// user ranking
-    /// </summary>
     [Serializable, ProtoContract]
-    [EntityTable(CacheType.Entity, "ConnData")]
-    public class UserRanking : ShareEntity
+    [EntityTable("ConnData")]
+    public class GameUser : BaseUser
     {
-        public UserRanking()
-            : base(false)
-        {
-            CreateDate = DateTime.Now;
-            Items = new CacheList<EquiAttrInfo>();
-        }
-
         [ProtoMember(1)]
         [EntityField(true)]
-        public int UserID
-        {
-            get;
-            set;
-        }
+        public int UserId { get; set; }
 
         [ProtoMember(2)]
         [EntityField]
-        public string UserName
+        public String NickName
         {
             get;
             set;
@@ -61,7 +47,7 @@ namespace GameServer.Model
 
         [ProtoMember(3)]
         [EntityField]
-        public int Score
+        public String PassportId
         {
             get;
             set;
@@ -69,38 +55,52 @@ namespace GameServer.Model
 
         [ProtoMember(4)]
         [EntityField]
-        public DateTime CreateDate
+        public String RetailId
         {
             get;
             set;
         }
 
-        [ProtoMember(100)]
-        [EntityField]
-        public CacheList<EquiAttrInfo> Items { get; set; }
+        [ProtoMember(5)]
+        public int CurrRoleId { get; set; }
+
+        public string SId { get; set; }
 
         protected override int GetIdentityId()
         {
-            return UserID;
+            return UserId;
         }
-    }
-
-    [Serializable, ProtoContract]
-    public class EquiAttrInfo : EntityChangeEvent
-    {
-        public EquiAttrInfo()
-            : base(false)
+        
+        public override int GetUserId()
         {
+            return UserId;
         }
 
-        /// <summary>
-        /// 灞炴€?
-        /// </summary>
-        [ProtoMember(1)]
-        public int AttrType
+        public override string GetNickName()
+        {
+            return NickName;
+        }
+
+        public override string GetPassportId()
+        {
+            return PassportId;
+        }
+
+        public override string GetRetailId()
+        {
+            return RetailId;
+        }
+
+        public override bool IsLock
+        {
+            get { return false; }
+        }
+
+        public override DateTime OnlineDate
         {
             get;
             set;
         }
     }
+
 }

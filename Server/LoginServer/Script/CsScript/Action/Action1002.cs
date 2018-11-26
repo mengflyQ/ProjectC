@@ -1,9 +1,10 @@
 ﻿using System;
+using ZyGames.Framework.Game.Contract.Action;
 using ZyGames.Framework.Game.Service;
 
-namespace GameServer.CsScript.LoginServer
+namespace GameServer.LoginServer
 {
-    public class Action1002 : BaseStruct
+    public class Action1002 : AuthorizeAction
     {
         public Action1002(ActionGetter httpGet)
             : base((int)ActionType.LoginOver, httpGet)
@@ -14,7 +15,7 @@ namespace GameServer.CsScript.LoginServer
         {
             httpGet.Session.Close();
 
-            return true;
+            return false;
         }
 
         public override bool TakeAction()

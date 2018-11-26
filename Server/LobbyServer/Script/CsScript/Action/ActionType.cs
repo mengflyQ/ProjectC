@@ -1,4 +1,4 @@
-﻿namespace GameServer.CsScript.Action
+﻿namespace GameServer.LobbyServer
 {
     public enum ActionType
     {
