@@ -12,3 +12,17 @@ Log
 ScriptRuntimeDomain
 temp
 bin
+/Server/GateServer/*.suo
+/Server/GateServer/*.user
+/Server/Tools/AutoStartRedis/*.pdb
+/Server/Tools/Sln/AutoStartRedis/*.sdf
+/Server/Tools/Sln/AutoStartRedis/*.suo
+Debug
+Release
+/Server/*.suo
+/Server/LoginServer/*.rdb
+/Server/LoginServer/*.suo
+/Server/LoginServer/*.user
+/Server/Tools/AutoStartRedis/*.rdb
+/Server/LobbyServer/*.suo
+/Server/LobbyServer/*.user
