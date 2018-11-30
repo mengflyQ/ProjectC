@@ -8,6 +8,7 @@ public enum CTS
 
     CTS_EnterLobby,
     CTS_Match,
+    CTS_MatchReady,
 }
 
 public enum STC
@@ -17,4 +18,5 @@ public enum STC
     STC_RoomAddPlayer,
     STC_MatchSuccess,
     STC_MatchFailed,
+    STC_MatchReady,
 }

@@ -14,8 +14,6 @@ public class Action6001 : BaseAction
 
     public override ActionResult GetResponseData()
     {
-        if (actionResult == null)
-            throw new Exception("Error: actionResult is null!");
         return actionResult;
     }
 

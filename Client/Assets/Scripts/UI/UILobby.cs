@@ -18,10 +18,44 @@ public class UILobby : MonoBehaviour
     {
         Instance = this;
 
+        playerIDs = new int[texPlayerNames.Length];
+        ResetRoomGUI();
+
         MessageSystem.Instance.MsgRegister(MessageType.SetPlayerInfo, OnSetPlayerInfo);
 
         NetWork.RegisterNotify(STC.STC_RoomInfo, NotifyRoomInfo);
         NetWork.RegisterNotify(STC.STC_MatchFailed, NotifyMatchFailed);
+        NetWork.RegisterNotify(STC.STC_MatchReady, NotifyMatchReady);
+    }
+
+    void FixedUpdate()
+    {
+        if (restTime > 0.0f)
+        {
+            restTime -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            restTime = 0.0f;
+        }
+        restTimeText.text = string.Format("{0}s", (int)restTime);
+    }
+
+    void ResetRoomGUI()
+    {
+        for (int i = 0; i < playerIDs.Length; ++i)
+        {
+            playerIDs[i] = 0;
+            playerLocks[i].SetActive(false);
+            Text uiText = texPlayerNames[i];
+            uiText.text = string.Empty;
+        }
+        readyBtn.interactable = true;
+
+        mainMenuRoot.SetActive(true);
+        matchRoot.SetActive(false);
+
+        restTime = 30.0f;
     }
 
     void OnSetPlayerInfo(params object[] objs)
@@ -40,14 +74,14 @@ public class UILobby : MonoBehaviour
         NetWork.SendPacket<ReqMatch>(CTS.CTS_Match, req, null);
     }
 
+    public void ReadyMatch()
+    {
+        EmptyMsg req = new EmptyMsg();
+        NetWork.SendPacket<EmptyMsg>(CTS.CTS_MatchReady, req, null);
+    }
+
     void NotifyRoomInfo(byte[] data)
     {
-        for (int i = 0; i < texPlayerNames.Length; ++i)
-        {
-            Text uiText = texPlayerNames[i];
-            uiText.text = string.Empty;
-        }
-
         NotifyRoomInfo roomInfo = ProtoBufUtils.Deserialize<NotifyRoomInfo>(data);
 
         for (int i = 0; i < roomInfo.Players.Count; ++i)
@@ -56,7 +90,9 @@ public class UILobby : MonoBehaviour
             if (roomPlayerInfo == null)
                 continue;
             texPlayerNames[i].text = roomPlayerInfo.Name;
+            playerIDs[i] = roomPlayerInfo.UserID;
         }
+        restTime = roomInfo.RestTime;
 
         mainMenuRoot.SetActive(false);
         matchRoot.SetActive(true);
@@ -64,8 +100,25 @@ public class UILobby : MonoBehaviour
 
     void NotifyMatchFailed(byte[] data)
     {
-        mainMenuRoot.SetActive(true);
-        matchRoot.SetActive(false);
+        ResetRoomGUI();
+    }
+
+    void NotifyMatchReady(byte[] data)
+    {
+        ReqMatch msg = ProtoBufUtils.Deserialize<ReqMatch>(data);
+
+        if (msg.UserID == GameController.mUserInfo.uid)
+        {
+            readyBtn.interactable = false;
+        }
+
+        for (int i = 0; i < playerIDs.Length; ++i)
+        {
+            int uid = playerIDs[i];
+            if (msg.UserID != uid)
+                continue;
+            playerLocks[i].SetActive(true);
+        }
     }
 
     public UILobby Instance
@@ -80,4 +133,9 @@ public class UILobby : MonoBehaviour
     public GameObject matchRoot;
     public Button[] btnPlayers;
     public Text[] texPlayerNames;
+    public GameObject[] playerLocks;
+    public Button readyBtn;
+    public Text restTimeText;
+    private int[] playerIDs;
+    private float restTime;
 }
