@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class SceneSystem
 {
-    public void ChangeScene(int scnID)
+    public void ChangeScene(int scnID, Action<Scene> onLoaded = null)
     {
         Debug.Log("Change Scene To " + scnID + " ...");
         if (mCurrentScene != null)
@@ -20,10 +20,10 @@ public class SceneSystem
             Debug.LogError("没有找到ID为" + scnID + "的场景表!");
             return;
         }
-        GameApp.Instance.StartCoroutine(LoadingScn(scnList));
+        GameApp.Instance.StartCoroutine(LoadingScn(scnList, onLoaded));
     }
 
-    IEnumerator LoadingScn(excel_scn_list scnList)
+    IEnumerator LoadingScn(excel_scn_list scnList, Action<Scene> onLoaded)
     {
         AsyncOperation scnLoadRequest = SceneManager.LoadSceneAsync(scnList.name);
         while (!scnLoadRequest.isDone)
@@ -35,6 +35,11 @@ public class SceneSystem
         scn.mScnLists = scnList;
 
         mCurrentScene = scn;
+
+        if (onLoaded != null)
+        {
+            onLoaded(scn);
+        }
 
         scn.Enter();
     }
@@ -55,4 +60,7 @@ public class SceneSystem
     public const int roomScnID = 3;
 
     public Scene mCurrentScene = null;
+
+    public delegate void OnLoadedScene(Scene scn);
+    OnLoadedScene mOnLoaded = null;
 }

@@ -33,6 +33,7 @@ public class GameApp : MonoBehaviour
         ScreenWidth = Screen.width;
         ScreenHeight = Screen.height;
 
+        // Net.Instance.HeadFormater = new CustomHeadFormater();
 		ExcelLoader.Init();
 
         SceneSystem.Instance.ChangeScene(SceneSystem.loginScnID);

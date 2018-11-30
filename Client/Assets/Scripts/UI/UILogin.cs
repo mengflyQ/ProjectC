@@ -63,21 +63,26 @@ public class UILogin : MonoBehaviour
             registFrame.SetActive(false);
         }
 
-        Net.Instance.CloseSocket();
-
-        SceneSystem.Instance.ChangeScene(SceneSystem.roomScnID);
-
-        NetWriter.SetUrl(ServerManager.LobbyServerUrl);
-        Net.Instance.Send((int)ActionType.EnterLobby, EnterLobbyCallback, null);
-    }
-
-    private void EnterLobbyCallback(ActionResult actionResult)
-    {
-        if (actionResult == null)
+        if (response == null)
         {
+            Debug.LogError("网络解析错误，未解析LoginResponse");
             return;
         }
-        actionResult.Get<string>("NickName");
+
+        Net.Instance.CloseSocket();
+
+        SceneSystem.Instance.ChangeScene(SceneSystem.lobbyScnID, (scn) => {
+            NetWriter.SetUrl(ServerManager.LobbyServerUrl);
+            NetWork.SendPacket<LoginResponse>(CTS.CTS_EnterLobby, response, EnterLobbyCallback);
+        });
+    }
+
+    private void EnterLobbyCallback(byte[] result)
+    {
+        if (result == null)
+            return;
+        EnterLobbyResponse enterLobby = ProtoBufUtils.Deserialize<EnterLobbyResponse>(result);
+        MessageSystem.Instance.MsgDispatch(MessageType.SetPlayerInfo, enterLobby.NickName, enterLobby.Level);
     }
 
     public string UserName

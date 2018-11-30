@@ -1,6 +1,7 @@
 ﻿using System;
 using LitJson;
 using UnityEngine;
+using System.Collections.Generic;
 
 public static class NetWork
 {
@@ -38,4 +39,17 @@ public static class NetWork
             }
         }, param);
     }
+
+    public static void RegisterNotify(STC stc, Action<byte[]> callback)
+    {
+        Action<byte[]> action;
+        if (mRegsterBytesSTC.TryGetValue(stc, out action))
+        {
+            action += callback;
+            return;
+        }
+        mRegsterBytesSTC.Add(stc, callback);
+    }
+
+    public static Dictionary<STC, Action<byte[]>> mRegsterBytesSTC = new Dictionary<STC, Action<byte[]>>();
 }
