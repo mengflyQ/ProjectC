@@ -24,9 +24,11 @@ namespace GameServer.LobbyServer
 
             mPlayers.Add(player);
             mNotReady.Add(player);
+            player.mRoom = this;
             
             NotifyRoomAddPlayer addPlayer = new NotifyRoomAddPlayer();
             addPlayer.NewPlayer = new RoomPlayerInfo();
+            addPlayer.NewPlayer.UserID = player.mUserID;
             addPlayer.NewPlayer.Name = player.mPlayerInfo.NickName;
             addPlayer.NewPlayer.Portrait = null;
 
@@ -36,10 +38,13 @@ namespace GameServer.LobbyServer
             {
                 Player p = mPlayers[i];
                 RoomPlayerInfo playerInfo = new RoomPlayerInfo();
+                playerInfo.UserID = p.mUserID;
                 playerInfo.Name = p.mPlayerInfo.NickName;
                 playerInfo.Portrait = null;
                 roomInfo.Players.Add(playerInfo);
             }
+            float life = Time.ElapsedSeconds - mStartTime;
+            roomInfo.RestTime = mTime - life;
 
             for (int i = 0; i < mPlayers.Count; ++i)
             {
@@ -63,6 +68,15 @@ namespace GameServer.LobbyServer
             if (index < 0)
                 return;
             mNotReady.RemoveAt(index);
+
+            ReqMatch msg = new ReqMatch();
+            msg.UserID = player.mUserID;
+
+            for (int i = 0; i < mPlayers.Count; ++i)
+            {
+                Player p = mPlayers[i];
+                NetWork.NotifyMessage<ReqMatch>(p.mUserID, STC.STC_MatchReady, msg);
+            }
         }
 
         public void Tick()
@@ -80,7 +94,7 @@ namespace GameServer.LobbyServer
         private void OnTimeOver()
         {
             NotifyMatch result = new NotifyMatch();
-            if (mNotReady.Count > 0)
+            if (mNotReady.Count > 0 || mPlayers.Count < mMaxCount)
             {
                 result.Success = 0;
             }
@@ -91,6 +105,7 @@ namespace GameServer.LobbyServer
             for (int i = 0; i < mPlayers.Count; ++i)
             {
                 Player player = mPlayers[i];
+                player.mRoom = null;
                 NetWork.NotifyMessage<NotifyMatch>(player.mUserID, STC.STC_MatchFailed, result);
             }
         }

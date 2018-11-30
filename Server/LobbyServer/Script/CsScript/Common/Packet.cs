@@ -68,6 +68,9 @@ public class RoomPlayerInfo
     public string Name;
 
     [ProtoMember(2)]
+    public int UserID;
+
+    [ProtoMember(3)]
     public byte[] Portrait;
 }
 
@@ -76,6 +79,9 @@ public class NotifyRoomInfo
 {
     [ProtoMember(1)]
     public List<RoomPlayerInfo> Players;
+
+    [ProtoMember(2)]
+    public float RestTime;
 }
 
 [Serializable, ProtoContract]

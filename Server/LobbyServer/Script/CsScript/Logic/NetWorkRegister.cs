@@ -55,10 +55,25 @@ namespace GameServer.LobbyServer
             RoomManager.Instance.Match(player);
         }
 
+        static void OnMatchReady(byte[] data, Action5001 action)
+        {
+            int uid = action.UserId;
+
+            Player player = PlayerManager.Instance.FindPlayer(uid);
+            if (player == null)
+                return;
+
+            if (player.mRoom == null)
+                return;
+
+            player.mRoom.ReadyPlayer(player);
+        }
+
         public static void Initialize()
         {
             NetWork.RegisterMessage(CTS.CTS_EnterLobby, OnEnterLobby);
             NetWork.RegisterMessage(CTS.CTS_Match, OnMatch);
+            NetWork.RegisterMessage(CTS.CTS_MatchReady, OnMatchReady);
         }
 
         public static void Uninitialize()

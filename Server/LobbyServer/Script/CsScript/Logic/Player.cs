@@ -24,6 +24,7 @@ namespace GameServer.LobbyServer
         public int mUserID;
         public GameSession mSession;
         public PlayerInfo mPlayerInfo;
+        public Room mRoom = null;
 
         public PlayerStatus mStatus;
     }
