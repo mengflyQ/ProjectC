@@ -112,6 +112,11 @@ public class UILobby : MonoBehaviour
 
     void NotifyMatchFailed(byte[] data)
     {
+        NotifyMatch matchResult = ProtoBufUtils.Deserialize<NotifyMatch>(data);
+        if (matchResult.Success > 0)
+        {
+            SceneSystem.Instance.ChangeScene(SceneSystem.roomScnID);
+        }
         ResetRoomGUI();
     }
 
