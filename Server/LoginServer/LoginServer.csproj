@@ -135,7 +135,7 @@
     <Compile Include="Script\CsScript\Action\ActionType.cs" />
     <Compile Include="Script\CsScript\Action\Action1002.cs" />
     <Compile Include="Script\CsScript\Action\NetWork.cs" />
-    <Compile Include="Script\CsScript\Action\NetWorkRegister.cs" />
+    <Compile Include="Script\CsScript\Logic\NetWorkRegister.cs" />
     <Compile Include="Script\CsScript\Common\CTSPackageHead.cs" />
     <Compile Include="Script\CsScript\Common\CustomActionDispatcher.cs" />
     <Compile Include="Script\CsScript\Common\Packet.cs" />

@@ -23,7 +23,7 @@ namespace GameServer.LobbyServer
 
         public int mUserID;
         public GameSession mSession;
-        public UserInfo mUserInfo;
+        public PlayerInfo mPlayerInfo;
 
         public PlayerStatus mStatus;
     }

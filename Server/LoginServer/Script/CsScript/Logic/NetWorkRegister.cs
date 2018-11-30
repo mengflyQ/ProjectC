@@ -17,9 +17,7 @@ namespace GameServer.LoginServer
             LoginData loginData = null;
             loginData = ProtoBufUtils.Deserialize<LoginData>(data);
 
-            var cache = CacheSet.UserInfoCach;
-
-            var listUser = cache.FindAll(t => t.Account == loginData.UserName);
+            var listUser = CacheSet.UserInfoCach.FindAll(t => t.Account == loginData.UserName);
             UserInfo userInfo = null;
             if (listUser.Count >= 1)
                 userInfo = listUser[0];
@@ -30,7 +28,7 @@ namespace GameServer.LoginServer
             if (userInfo == null)
             {
                 userInfo = new UserInfo();
-                userInfo.UserId = (uint)cache.GetNextNo();
+                userInfo.UserId = (int)CacheSet.UserInfoCach.GetNextNo();
                 userInfo.Account = loginData.UserName;
                 userInfo.Platform = loginData.Platform;
                 userInfo.DeviceID = loginData.DeviceUniqueIdentifier;
@@ -39,7 +37,7 @@ namespace GameServer.LoginServer
                 userInfo.RegisterTime = DateTime.Now;
                 userInfo.LastLoginTime = DateTime.Now;
                 userInfo.Token = 1;
-                if (!cache.Add(userInfo))
+                if (!CacheSet.UserInfoCach.Add(userInfo))
                 {
                     Console.WriteLine("Regist UserInfo Failed!");
                 }
@@ -49,10 +47,7 @@ namespace GameServer.LoginServer
             {
                 response = new LoginResponse();
                 response.NickName = userInfo.NickName;
-                response.Level = userInfo.Level;
-                response.Exp = userInfo.Exp;
-                response.Money = userInfo.Money;
-                response.VIPLevel = userInfo.VIPLevel;
+                response.UserID = (int)userInfo.UserId;
 
                 userInfo.ModifyLocked(() =>
                 {
@@ -101,8 +96,7 @@ namespace GameServer.LoginServer
         {
             int uid = action.GetActionGetter().GetSession().UserId;
 
-            var cache = CacheSet.UserInfoCach;
-            var userInfo = cache.FindKey(uid);
+            var userInfo = CacheSet.UserInfoCach.FindKey(uid);
             if (userInfo == null)
                 return;
 
@@ -116,10 +110,6 @@ namespace GameServer.LoginServer
             LoginResponse response = new LoginResponse();
             response.UserID = uid;
             response.NickName = userInfo.NickName;
-            response.Level = userInfo.Level;
-            response.Exp = userInfo.Exp;
-            response.Money = userInfo.Money;
-            response.VIPLevel = userInfo.VIPLevel;
             byte[] responseData = ProtoBufUtils.Serialize(response);
             action.SetResponseData(responseData);
         }

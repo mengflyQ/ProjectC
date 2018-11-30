@@ -16,15 +16,11 @@ namespace GameServer.Model
             RegisterTime = DateTime.Now;
 
             NickName = string.Empty;
-            Level = 1;
-            Exp = 0;
-            Money = 0;
-            VIPLevel = 0;
         }
 
         [ProtoMember(1)]
         [EntityField(true)]
-        public uint UserId { get; set; }
+        public int UserId { get; set; }
 
         [ProtoMember(2)]
         [EntityField(IsUnique = true)]
@@ -56,25 +52,9 @@ namespace GameServer.Model
 
         [ProtoMember(9)]
         [EntityField]
-        public int Level { get; set; }
-
-        [ProtoMember(10)]
-        [EntityField]
-        public int Exp { get; set; }
-
-        [ProtoMember(11)]
-        [EntityField]
-        public int Money { get; set; }
-
-        [ProtoMember(12)]
-        [EntityField]
-        public int VIPLevel { get; set; }
-
-        [ProtoMember(13)]
-        [EntityField]
         public DateTime RegisterTime { get; set; }
 
-        [ProtoMember(14)]
+        [ProtoMember(10)]
         [EntityField]
         public DateTime LastLoginTime { get; set; }
     }

@@ -44,10 +44,6 @@ namespace GameServer.LoginServer
             PushIntoStack(UserId);
 
             PushIntoStack(mUserInfo.NickName);
-            PushIntoStack(mUserInfo.Level);
-            PushIntoStack(mUserInfo.Exp);
-            PushIntoStack(mUserInfo.Money);
-            PushIntoStack(mUserInfo.VIPLevel);
         }
 
         private int mUserID;

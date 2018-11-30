@@ -111,6 +111,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -129,10 +131,23 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\CsScript\Action\Action2001.cs" />
+    <Compile Include="Script\CsScript\Action\Action5001.cs" />
+    <Compile Include="Script\CsScript\Action\Action5002.cs" />
     <Compile Include="Script\CsScript\Action\ActionType.cs" />
+    <Compile Include="Script\CsScript\Action\NetWork.cs" />
+    <Compile Include="Script\CsScript\Common\CTSPackageHead.cs" />
+    <Compile Include="Script\CsScript\Common\CustomActionDispatcher.cs" />
+    <Compile Include="Script\CsScript\Common\Packet.cs" />
+    <Compile Include="Script\CsScript\Common\ProtocalDef.cs" />
+    <Compile Include="Script\CsScript\Common\STCPackageHead.cs" />
     <Compile Include="Script\CsScript\Locale\SimplifiedLanguage.cs" />
+    <Compile Include="Script\CsScript\Logic\Common\BaseSystem.cs" />
+    <Compile Include="Script\CsScript\Logic\Common\Time.cs" />
+    <Compile Include="Script\CsScript\Logic\NetWorkRegister.cs" />
     <Compile Include="Script\CsScript\Logic\Player.cs" />
     <Compile Include="Script\CsScript\Logic\PlayerManager.cs" />
+    <Compile Include="Script\CsScript\Logic\Room.cs" />
+    <Compile Include="Script\CsScript\Logic\RoomManager.cs" />
     <Compile Include="Script\CsScript\MainClass.cs" />
     <Compile Include="Script\CsScript\Plugins\IJsonWrapper.cs" />
     <Compile Include="Script\CsScript\Plugins\JsonData.cs" />
@@ -145,7 +160,7 @@
     <Compile Include="Script\CsScript\Plugins\ParserToken.cs" />
     <Compile Include="Script\Model\CacheSet.cs" />
     <Compile Include="Script\Model\Define.cs" />
-    <Compile Include="Script\Model\UserInfo.cs" />
+    <Compile Include="Script\Model\PlayerInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LobbyServer.exe.config" />

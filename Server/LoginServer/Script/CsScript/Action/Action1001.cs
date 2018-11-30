@@ -39,7 +39,7 @@ namespace GameServer.LoginServer
             if (userInfo == null)
             {
                 userInfo = new UserInfo();
-                userInfo.UserId = (uint)cache.GetNextNo();
+                userInfo.UserId = (int)cache.GetNextNo();
                 userInfo.Account = mUserName;
                 userInfo.Platform = mPlatform;
                 userInfo.DeviceID = mDeviceID;
@@ -57,10 +57,6 @@ namespace GameServer.LoginServer
             else
             {
                 mNickName = userInfo.NickName;
-                mLevel = userInfo.Level;
-                mExp = userInfo.Exp;
-                mMoney = userInfo.Money;
-                mVIPLevel = userInfo.VIPLevel;
 
                 userInfo.ModifyLocked(() => {
                     userInfo.Account = mUserName;
@@ -100,11 +96,6 @@ namespace GameServer.LoginServer
             PushIntoStack(UserId);
             if (!mRegist)
             {
-                PushIntoStack(mNickName);
-                PushIntoStack(mLevel);
-                PushIntoStack(mExp);
-                PushIntoStack(mMoney);
-                PushIntoStack(mVIPLevel);
             }
         }
 
@@ -117,9 +108,5 @@ namespace GameServer.LoginServer
         string mDeviceType;
         bool mRegist;
         string mNickName;
-        int mLevel;
-        int mExp;
-        int mMoney;
-        int mVIPLevel;
     }
 }

@@ -7,7 +7,7 @@ namespace GameServer.LobbyServer
 {
     public class PlayerManager
     {
-        public void AddPlayer(int uid, GameSession session, UserInfo userInfo)
+        public void AddPlayer(int uid, GameSession session, PlayerInfo userInfo)
         {
             SessionUser user = new SessionUser();
             user.UserId = uid;
@@ -25,8 +25,21 @@ namespace GameServer.LobbyServer
             Player player = new Player();
             player.mUserID = uid;
             player.mSession = session;
-            player.mUserInfo = userInfo;
+            player.mPlayerInfo = userInfo;
             player.mStatus = PlayerStatus.Online;
+
+            mPlayers.Add(player);
+            mPlayersMap[uid] = player;
+        }
+
+        public Player FindPlayer(int uid)
+        {
+            Player player;
+            if (!mPlayersMap.TryGetValue(uid, out player))
+            {
+                return null;
+            }
+            return player;
         }
 
         static PlayerManager mInstance = null;

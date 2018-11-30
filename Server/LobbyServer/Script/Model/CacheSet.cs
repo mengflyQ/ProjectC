@@ -1,10 +1,10 @@
 ﻿using ZyGames.Framework.Cache.Generic;
 using GameServer.Model;
 
-namespace GameServer.LobbyServer
+namespace GameServer.Model
 {
     public class CacheSet
     {
-        public static ShareCacheStruct<UserInfo> UserInfoCach = new ShareCacheStruct<UserInfo>();
+        public static PersonalCacheStruct<PlayerInfo> PlayerInfoCache = new PersonalCacheStruct<PlayerInfo>();
     }
 }

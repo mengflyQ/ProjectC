@@ -24,17 +24,9 @@ public class LoginData
 public class LoginResponse
 {
     [ProtoMember(1)]
-    public string NickName;
-    [ProtoMember(2)]
-    public int Level;
-    [ProtoMember(3)]
-    public int Exp;
-    [ProtoMember(4)]
-    public int Money;
-    [ProtoMember(5)]
-    public int VIPLevel;
-    [ProtoMember(6)]
     public int UserID;
+    [ProtoMember(2)]
+    public string NickName;
 }
 
 [Serializable, ProtoContract]

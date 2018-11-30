@@ -24,31 +24,13 @@ namespace GameServer.LobbyServer
 
         public override bool TakeAction()
         {
-            GameSession session = httpGet.GetSession();
-            mUserInfo = CacheSet.UserInfoCach.FindKey(mUserID);
-            if (session != null || mUserInfo != null)
-            {
-                ErrorCode = (int)CodeType.EnterLobbyError;
-                ErrorInfo = "EnterLobby Error!";
-                return false;
-            }
-            PlayerManager.Instance.AddPlayer(mUserID, session, mUserInfo);
-
             return true;
         }
 
         public override void BuildPacket()
         {
-            if (mUserInfo == null)
-                return;
-            PushIntoStack(mUserInfo.NickName);
-            PushIntoStack(mUserInfo.Level);
-            PushIntoStack(mUserInfo.Exp);
-            PushIntoStack(mUserInfo.Money);
-            PushIntoStack(mUserInfo.VIPLevel);
         }
 
-        UserInfo mUserInfo = null;
         int mUserID = -1;
     }
 }
