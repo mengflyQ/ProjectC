@@ -9,6 +9,7 @@
 static std::vector<std::string> servers = {
 	"LoginServer",
 	"LobbyServer",
+	"RoomServer",
 };
 
 int _tmain(int argc, _TCHAR* argv[])
