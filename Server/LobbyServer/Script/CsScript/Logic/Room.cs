@@ -15,6 +15,8 @@ namespace GameServer.LobbyServer
             mTime = time;
 
             IsVanish = false;
+
+            ID = RoomManager.Instance.GenRoomID();
         }
 
         public bool AddPlayer(Player player)
@@ -97,6 +99,7 @@ namespace GameServer.LobbyServer
             if (mNotReady.Count > 0 || mPlayers.Count < mMaxCount)
             {
                 result.Success = 0;
+                result.RoomID = ID;
             }
             else
             {
@@ -111,6 +114,12 @@ namespace GameServer.LobbyServer
         }
 
         public bool IsVanish
+        {
+            private set;
+            get;
+        }
+
+        public int ID
         {
             private set;
             get;

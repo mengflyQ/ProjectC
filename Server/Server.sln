@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LobbyServer", "LobbyServer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateServer", "GateServer\GateServer.csproj", "{68B91AD3-16E8-428F-B98D-F3BA9CD88AC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomServer", "RoomServer\RoomServer.csproj", "{849D18DA-1403-4254-9B18-EDCEC3057C0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{68B91AD3-16E8-428F-B98D-F3BA9CD88AC0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{68B91AD3-16E8-428F-B98D-F3BA9CD88AC0}.Release|x86.ActiveCfg = Release|x86
 		{68B91AD3-16E8-428F-B98D-F3BA9CD88AC0}.Release|x86.Build.0 = Release|x86
+		{849D18DA-1403-4254-9B18-EDCEC3057C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{849D18DA-1403-4254-9B18-EDCEC3057C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{849D18DA-1403-4254-9B18-EDCEC3057C0B}.Debug|x86.ActiveCfg = Debug|x86
+		{849D18DA-1403-4254-9B18-EDCEC3057C0B}.Debug|x86.Build.0 = Debug|x86
+		{849D18DA-1403-4254-9B18-EDCEC3057C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{849D18DA-1403-4254-9B18-EDCEC3057C0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{849D18DA-1403-4254-9B18-EDCEC3057C0B}.Release|x86.ActiveCfg = Release|x86
+		{849D18DA-1403-4254-9B18-EDCEC3057C0B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

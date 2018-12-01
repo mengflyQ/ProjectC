@@ -96,4 +96,7 @@ public class NotifyMatch
 {
     [ProtoMember(1)]
     public int Success;
+
+    [ProtoMember(2)]
+    public int RoomID;
 }
