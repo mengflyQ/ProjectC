@@ -19,4 +19,14 @@ public enum STC
     STC_MatchSuccess,
     STC_MatchFailed,
     STC_MatchReady,
+    STC_SceneReady,
+
+    STC_ScnLoad,
+    STC_StartClienGame,
+}
+
+public enum STS
+{
+    STS_Default,
+    STS_CreateScn,
 }

@@ -141,6 +141,10 @@
     <Compile Include="Script\CsScript\Logic\Common\BaseSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Common\Time.cs" />
     <Compile Include="Script\CsScript\Logic\NetWorkRegister.cs" />
+    <Compile Include="Script\CsScript\Logic\Player.cs" />
+    <Compile Include="Script\CsScript\Logic\PlayerManager.cs" />
+    <Compile Include="Script\CsScript\Logic\Scene.cs" />
+    <Compile Include="Script\CsScript\Logic\SceneManager.cs" />
     <Compile Include="Script\CsScript\MainClass.cs" />
     <Compile Include="Script\CsScript\Common\CustomActionDispatcher.cs" />
     <Compile Include="Script\CsScript\Plugins\IJsonWrapper.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="Script\CsScript\Plugins\JsonWriter.cs" />
     <Compile Include="Script\CsScript\Plugins\Lexer.cs" />
     <Compile Include="Script\CsScript\Plugins\ParserToken.cs" />
+    <Compile Include="Script\CsScript\Remote\RemoteHandle.cs" />
     <Compile Include="Script\Model\CacheSet.cs" />
   </ItemGroup>
   <ItemGroup>

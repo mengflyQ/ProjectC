@@ -6,7 +6,6 @@ using ZyGames.Framework.Game.Service;
 using ZyGames.Framework.Game.Contract;
 using ZyGames.Framework.Cache.Generic;
 using ZyGames.Framework.Common.Serialization;
-using ZyGames.Framework.Cache.Generic;
 
 namespace GameServer.LobbyServer
 {
@@ -80,6 +79,7 @@ namespace GameServer.LobbyServer
         {
             NetWork.UnregisterMessage(CTS.CTS_Login);
             NetWork.UnregisterMessage(CTS.CTS_Match);
+            NetWork.UnregisterMessage(CTS.CTS_MatchReady);
         }
     }
 }

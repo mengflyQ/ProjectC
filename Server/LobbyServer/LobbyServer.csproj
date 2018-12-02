@@ -158,6 +158,7 @@
     <Compile Include="Script\CsScript\Plugins\JsonWriter.cs" />
     <Compile Include="Script\CsScript\Plugins\Lexer.cs" />
     <Compile Include="Script\CsScript\Plugins\ParserToken.cs" />
+    <Compile Include="Script\CsScript\Remote\RemoteHandle.cs" />
     <Compile Include="Script\Model\CacheSet.cs" />
     <Compile Include="Script\Model\Define.cs" />
     <Compile Include="Script\Model\PlayerInfo.cs" />

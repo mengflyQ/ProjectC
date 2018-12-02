@@ -43,6 +43,7 @@ namespace Game.Script
         protected override void OnStartAffer()
         {
             NetWorkRegister.Initialize();
+            NetWork.InitialAllServers();
             Time.Start();
         }
 

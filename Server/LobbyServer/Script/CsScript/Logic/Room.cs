@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LitJson;
 
 namespace GameServer.LobbyServer
 {
@@ -85,11 +86,13 @@ namespace GameServer.LobbyServer
         {
             if (IsVanish)
                 return;
-            float life = Time.ElapsedSeconds - mStartTime;
-            if (life >= mTime)
+            if (mTime > 0.0f)
             {
-                IsVanish = true;
-                OnTimeOver();
+                float life = Time.ElapsedSeconds - mStartTime;
+                if (life >= mTime)
+                {
+                    OnTimeOver();
+                }
             }
         }
 
@@ -99,17 +102,34 @@ namespace GameServer.LobbyServer
             if (mNotReady.Count > 0 || mPlayers.Count < mMaxCount)
             {
                 result.Success = 0;
-                result.RoomID = ID;
+                IsVanish = true;
             }
             else
             {
                 result.Success = 1;
+                mTime = -1;
+
+                JsonData json = new JsonData();
+                json["maxCount"] = mMaxCount;
+                NetWork.SendToServer("RoomServer", STS.STS_CreateScn, json, OnCreateScnSuccess);
             }
             for (int i = 0; i < mPlayers.Count; ++i)
             {
                 Player player = mPlayers[i];
                 player.mRoom = null;
                 NetWork.NotifyMessage<NotifyMatch>(player.mUserID, STC.STC_MatchFailed, result);
+            }
+        }
+
+        void OnCreateScnSuccess(JsonData json)
+        {
+            int roomID = json["scnID"].AsInt;
+            NotifySceneReady roomReady = new NotifySceneReady();
+            roomReady.SceneID = roomID;
+            for (int i = 0; i < mPlayers.Count; ++i)
+            {
+                Player player = mPlayers[i];
+                NetWork.NotifyMessage<NotifySceneReady>(player.mUserID, STC.STC_SceneReady, roomReady);
             }
         }
 
