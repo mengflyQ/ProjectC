@@ -1,5 +1,12 @@
 ﻿using UnityEngine;
 
+public enum CharacterType
+{
+    Player,
+    Monster,
+    NPC,
+}
+
 public partial class Character : MonoBehaviour
 {
 	void Awake()
@@ -12,12 +19,17 @@ public partial class Character : MonoBehaviour
 		OnInitMove();
 	}
 
+    protected virtual void Initialize()
+    {
+    }
+
 	void FixedUpdate()
 	{
 		UpdateMove();
         UpdateAnim();
 	}
 
-	public Animation mAnimation;
+    public CharacterType mType;
+    public Animation mAnimation;
     public excel_cha_list mChaList;
 }

@@ -16,7 +16,7 @@ public class GameController
 		if (o != null)
 		{
 			GameObject mainPlayer = GameObject.Instantiate(o);
-			mMainPlayer = mainPlayer.GetComponent<Character>();
+			mMainPlayer = mainPlayer.GetComponent<Player>();
             mMainPlayer.mChaList = chaList;
 
 			mainPlayer.transform.position = new Vector3(81.51f, 7.25f, 34.82f);
@@ -41,7 +41,9 @@ public class GameController
         NavigationSystem.OnEnterScene();
 	}
 
-	public static Character mMainPlayer = null;
+	public static Player mMainPlayer = null;
 
     public static UserInfo mUserInfo = new UserInfo();
+
+    public static int mScnUID = -1;
 }

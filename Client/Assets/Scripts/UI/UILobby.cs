@@ -25,20 +25,16 @@ public class UILobby : MonoBehaviour
 
         NetWork.RegisterNotify(STC.STC_RoomInfo, NotifyRoomInfo);
         NetWork.RegisterNotify(STC.STC_RoomAddPlayer, NotifyRoomAddPlayer);
-        NetWork.RegisterNotify(STC.STC_MatchFailed, NotifyMatchFailed);
+        NetWork.RegisterNotify(STC.STC_MatchFailed, NotifyMatchOver);
         NetWork.RegisterNotify(STC.STC_MatchReady, NotifyMatchReady);
+        NetWork.RegisterNotify(STC.STC_SceneReady, NotifyScnReady);
     }
 
     void FixedUpdate()
     {
-        if (restTime > 0.0f)
-        {
-            restTime -= Time.fixedDeltaTime;
-        }
-        else
-        {
-            restTime = 0.0f;
-        }
+        if (endTime <= 0.0f)
+            return;
+        restTime = endTime - Time.realtimeSinceStartup;
         restTimeText.text = string.Format("{0}s", (int)restTime);
     }
 
@@ -57,6 +53,7 @@ public class UILobby : MonoBehaviour
         matchRoot.SetActive(false);
 
         restTime = 30.0f;
+        endTime = 0.0f;
         playerCount = 0;
     }
 
@@ -96,6 +93,7 @@ public class UILobby : MonoBehaviour
             ++playerCount;
         }
         restTime = roomInfo.RestTime;
+        endTime = Time.realtimeSinceStartup + roomInfo.RestTime;
 
         mainMenuRoot.SetActive(false);
         matchRoot.SetActive(true);
@@ -110,13 +108,8 @@ public class UILobby : MonoBehaviour
         ++playerCount;
     }
 
-    void NotifyMatchFailed(byte[] data)
+    void NotifyMatchOver(byte[] data)
     {
-        NotifyMatch matchResult = ProtoBufUtils.Deserialize<NotifyMatch>(data);
-        if (matchResult.Success > 0)
-        {
-            SceneSystem.Instance.ChangeScene(SceneSystem.roomScnID);
-        }
         ResetRoomGUI();
     }
 
@@ -138,6 +131,25 @@ public class UILobby : MonoBehaviour
         }
     }
 
+    void NotifyScnReady(byte[] data)
+    {
+        NotifySceneReady roomReady = ProtoBufUtils.Deserialize<NotifySceneReady>(data);
+
+        GameController.mScnUID = roomReady.SceneID;
+        NetWork.SetUrl(ServerManager.RoomServerUrl);
+        SceneSystem.Instance.ChangeScene(SceneSystem.roomScnID);
+
+        ReqEnterScene reqEnterScn = GetReqEnterScn();
+        reqEnterScn.UserID = GameController.mUserInfo.uid;
+        reqEnterScn.NickName = GameController.mUserInfo.nickName;
+        NetWork.SendPacket<ReqEnterScene>(CTS.CTS_EnterScn, reqEnterScn, null);
+    }
+
+    private static ReqEnterScene GetReqEnterScn()
+    {
+        return new ReqEnterScene();
+    }
+
     public UILobby Instance
     {
         private set;
@@ -156,4 +168,5 @@ public class UILobby : MonoBehaviour
     public Button readyBtn;
     public Text restTimeText;
     private float restTime;
+    private float endTime;
 }

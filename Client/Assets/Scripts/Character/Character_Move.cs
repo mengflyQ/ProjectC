@@ -2,7 +2,7 @@
 
 public partial class Character : MonoBehaviour
 {
-	void OnInitMove()
+    protected void OnInitMove()
 	{
 		mDirection = transform.forward;
 		mLogicPosition = transform.position;
@@ -13,7 +13,7 @@ public partial class Character : MonoBehaviour
         NavLayer = 1;
 	}
 
-	void UpdateMove()
+	protected void UpdateMove()
 	{
 		if (mDirectionChg)
 		{
@@ -75,7 +75,7 @@ public partial class Character : MonoBehaviour
 		}
 	}
 
-    string GetAnimDirectory()
+    protected string GetAnimDirectory()
     {
         string[] dirs = mChaList.path.Split(new char[] { '/' }, System.StringSplitOptions.None);
         if (dirs.Length < 3)
@@ -84,7 +84,7 @@ public partial class Character : MonoBehaviour
         return "Animations/" + dir;
     }
 
-    void UpdateAnim()
+    protected void UpdateAnim()
     {
         string animDirectory = GetAnimDirectory();
 

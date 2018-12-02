@@ -26,4 +26,11 @@ public class ServerManager
             return "192.168.0.102:9003";
         }
     }
+    public static string RoomServerUrl
+    {
+        get
+        {
+            return "192.168.0.102:9004";
+        }
+    }
 }

@@ -29,14 +29,14 @@ public partial class Character : MonoBehaviour
 	public static string mBoneUpFull = "FootCenter/Bip01/Bip01 Pelvis/Bip01 Spine/Bip01 Spine1";
 	public static string[] mBoneRoot = { "FootCenter", "Bip01", "Bip01 Pelvis" };
 	public static int[] mAnimTypeLayer = { 4, 0, 1, 2, 2, 3 };
-	// 上次播的某个名字的动画的类型;
-	private Dictionary<string, AnimPlayType> mLastPlayTypes = new Dictionary<string, AnimPlayType>();
+    // 上次播的某个名字的动画的类型;
+    protected Dictionary<string, AnimPlayType> mLastPlayTypes = new Dictionary<string, AnimPlayType>();
 	// 正在播放的动画;
-	private string[] mCurAnimNames = new string[(int)AnimPlayType.All];
-	// 高优先级动画的优先级;
-	private float[] mPriorityStartTimes = new float[(int)AnimPriority.Count];
-	private float[] mPriorityLength = new float[(int)AnimPriority.Count];
-	private uint[] mAnimBaseMachineStates = null;
+	protected string[] mCurAnimNames = new string[(int)AnimPlayType.All];
+    // 高优先级动画的优先级;
+    protected float[] mPriorityStartTimes = new float[(int)AnimPriority.Count];
+    protected float[] mPriorityLength = new float[(int)AnimPriority.Count];
+    protected uint[] mAnimBaseMachineStates = null;
 
 	public uint AnimBaseMachineID = 1;
 	private float mAnimSpeed = 1.0f;
@@ -297,7 +297,7 @@ public partial class Character : MonoBehaviour
 		}
 	}
 
-	void MixingClip(AnimationState state, AnimPlayType type)
+	protected void MixingClip(AnimationState state, AnimPlayType type)
 	{
 		if (type == AnimPlayType.Up)
 		{

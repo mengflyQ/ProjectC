@@ -51,5 +51,11 @@ public static class NetWork
         mRegsterBytesSTC.Add(stc, callback);
     }
 
+    public static void SetUrl(string url)
+    {
+        Net.Instance.CloseSocket();
+        NetWriter.SetUrl(url);
+    }
+
     public static Dictionary<STC, Action<byte[]>> mRegsterBytesSTC = new Dictionary<STC, Action<byte[]>>();
 }

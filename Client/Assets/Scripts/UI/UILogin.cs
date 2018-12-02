@@ -18,7 +18,7 @@ public class UILogin : MonoBehaviour
     {
         GameApp.Instance.UserName = UserName;
 
-        NetWriter.SetUrl(ServerManager.LoginServerUrl);
+        NetWork.SetUrl(ServerManager.LoginServerUrl);
 
         LoginData data = new LoginData();
         data.UserName = GameApp.Instance.UserName;
@@ -33,7 +33,6 @@ public class UILogin : MonoBehaviour
 
     public void OnClickReigst()
     {
-        NetWriter.SetUrl(ServerManager.LoginServerUrl);
         RegistData data = new RegistData();
         data.NickName = registInput.text;
         NetWork.SendPacket<RegistData>(CTS.CTS_Regist, data, LoginCallback);
@@ -69,10 +68,9 @@ public class UILogin : MonoBehaviour
             return;
         }
 
-        Net.Instance.CloseSocket();
+        NetWork.SetUrl(ServerManager.LobbyServerUrl);
 
         SceneSystem.Instance.ChangeScene(SceneSystem.lobbyScnID, (scn) => {
-            NetWriter.SetUrl(ServerManager.LobbyServerUrl);
             NetWork.SendPacket<LoginResponse>(CTS.CTS_EnterLobby, response, EnterLobbyCallback);
         });
     }
