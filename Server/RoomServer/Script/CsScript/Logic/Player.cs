@@ -11,7 +11,7 @@ namespace GameServer.RoomServer
         Offline
     }
 
-    public class Player
+    public class Player : Character
     {
         public void OnReplace()
         {
@@ -21,10 +21,7 @@ namespace GameServer.RoomServer
             }
         }
 
-        public int mUserID;
-        public string mNickName;
         public GameSession mSession;
-        public Scene mScene = null;
 
         public PlayerStatus mStatus;
     }

@@ -5,7 +5,8 @@ using GameServer.Model;
 
 namespace GameServer.RoomServer
 {
-    public class PlayerManager
+    // 玩家加载场景期间，暂时把玩家数据存于此;
+    public class PlayerLoadingManager : BaseSystem
     {
         public Player AddPlayer(int uid, GameSession session)
         {
@@ -23,7 +24,7 @@ namespace GameServer.RoomServer
             session.Bind(user);
 
             Player player = new Player();
-            player.mUserID = uid;
+            player.UID = uid;
             player.mSession = session;
             player.mStatus = PlayerStatus.Online;
 
@@ -43,13 +44,21 @@ namespace GameServer.RoomServer
             return player;
         }
 
-        static PlayerManager mInstance = null;
-        public static PlayerManager Instance
+        public void RemovePlayer(Player player)
+        {
+            mPlayers.Remove(player);
+            mPlayersMap.Remove(player.UID);
+        }
+
+        static PlayerLoadingManager mInstance = null;
+        public static PlayerLoadingManager Instance
         {
             get
             {
                 if (mInstance == null)
-                    mInstance = new PlayerManager();
+                {
+                    mInstance = new PlayerLoadingManager();
+                }                   
                 return mInstance;
             }
         }

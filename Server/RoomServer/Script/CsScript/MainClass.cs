@@ -37,6 +37,7 @@ namespace Game.Script
         public MainClass()
         {
             GameEnvironment.Setting.ActionDispatcher = new CustomActionDispatcher();
+            ExcelLoader.Init();
         }
      
         protected override void OnStartAffer()

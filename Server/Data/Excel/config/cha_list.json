@@ -1,0 +1,11 @@
+{
+  "field": [
+    {"name": "id", "type": "int"},
+    {"name": "name", "type": "string"},
+	{"name": "path", "type": "string"},
+	{"name": "scale", "type": "float[]"}
+  ],
+  "files": [
+    "cha/cha_list"
+  ]
+}

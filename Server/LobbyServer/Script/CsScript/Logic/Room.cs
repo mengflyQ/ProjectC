@@ -54,10 +54,12 @@ namespace GameServer.LobbyServer
                 Player p = mPlayers[i];
                 if (p == player)
                 {
+                    // 如果添加的玩家是自己，则通知自己所有角色数据;
                     NetWork.NotifyMessage<NotifyRoomInfo>(p.mUserID, STC.STC_RoomInfo, roomInfo);
                 }
                 else
                 {
+                    // 如果添加的玩家不是自己，则把添加的玩家数据通知自己;
                     NetWork.NotifyMessage<NotifyRoomAddPlayer>(p.mUserID, STC.STC_RoomAddPlayer, addPlayer);
                 }
             }
@@ -65,6 +67,7 @@ namespace GameServer.LobbyServer
             return mPlayers.Count >= mMaxCount;
         }
 
+        // 玩家准备完毕;
         public void ReadyPlayer(Player player)
         {
             int index = mNotReady.IndexOf(player);
@@ -78,6 +81,7 @@ namespace GameServer.LobbyServer
             for (int i = 0; i < mPlayers.Count; ++i)
             {
                 Player p = mPlayers[i];
+                // 更新客户端的Ready标志;
                 NetWork.NotifyMessage<ReqMatch>(p.mUserID, STC.STC_MatchReady, msg);
             }
         }
@@ -109,10 +113,13 @@ namespace GameServer.LobbyServer
                 result.Success = 1;
                 mTime = -1;
 
+                // 通知Room服务器创建场景;
                 JsonData json = new JsonData();
                 json["maxCount"] = mMaxCount;
+                json["scnID"] = 3;
                 NetWork.SendToServer("RoomServer", STS.STS_CreateScn, json, OnCreateScnSuccess);
             }
+            // 通知所有玩家匹配失败;
             for (int i = 0; i < mPlayers.Count; ++i)
             {
                 Player player = mPlayers[i];
@@ -121,6 +128,7 @@ namespace GameServer.LobbyServer
             }
         }
 
+        // Room服务器创建场景成功的回复;
         void OnCreateScnSuccess(JsonData json)
         {
             int roomID = json["scnID"].AsInt;

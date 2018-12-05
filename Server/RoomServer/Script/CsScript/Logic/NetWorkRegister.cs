@@ -11,6 +11,7 @@ namespace GameServer.RoomServer
 {
     public class NetWorkRegister
     {
+        // 客户端角色开始加载场景;
         static void OnEnterScene(byte[] data, Action5001 action)
         {
             ReqEnterScene enterScn = ProtoBufUtils.Deserialize<ReqEnterScene>(data);
@@ -20,20 +21,21 @@ namespace GameServer.RoomServer
                 return;
             }
 
-            Player player = PlayerManager.Instance.AddPlayer(enterScn.UserID, session);
+            Player player = PlayerLoadingManager.Instance.AddPlayer(enterScn.UserID, session);
             if (player != null)
             {
                 player.mNickName = enterScn.NickName;
             }
         }
 
+        // 客户端角色加载场景完成;
         static void OnPlayerLoadedScn(byte[] data, Action5001 action)
         {
             ReqLoadedScn loadedScn = ProtoBufUtils.Deserialize<ReqLoadedScn>(data);
             Scene scn = SceneManager.Instance.FindScene(loadedScn.ScnUID);
             if (scn == null)
                 return;
-            Player player = PlayerManager.Instance.FindPlayer(action.UserId);
+            Player player = PlayerLoadingManager.Instance.FindPlayer(action.UserId);
             if (player == null)
                 return;
             int maxPlayerCount = scn.GetPlayerCount();
@@ -42,6 +44,7 @@ namespace GameServer.RoomServer
                 return;
             }
             scn.AddPlayer(player);
+            PlayerLoadingManager.Instance.RemovePlayer(player);
 
             maxPlayerCount = scn.GetPlayerCount();
             if (maxPlayerCount >= scn.PlayerMaxCount)
@@ -50,10 +53,12 @@ namespace GameServer.RoomServer
             }
         }
 
+        // Lobby服务器通知创建场景;
         static void CreateScene(JsonData json, RemoteHandle handle)
         {
             int maxCount = json["maxCount"].AsInt;
-            Scene scene = new Scene(maxCount);
+            int scnID = json["scnID"].AsInt;
+            Scene scene = new Scene(scnID, maxCount);
             SceneManager.Instance.mScenes.Add(scene);
 
             JsonData responseData = new JsonData();

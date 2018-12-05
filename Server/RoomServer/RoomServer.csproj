@@ -16,11 +16,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\GateServer\Debug\</OutputPath>
+    <OutputPath>..\bin\RoomServer\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,6 +60,9 @@
     </Reference>
     <Reference Include="KopiLua">
       <HintPath>.\KopiLua.dll</HintPath>
+    </Reference>
+    <Reference Include="MathLibrary">
+      <HintPath>..\bin\MathLibrary\MathLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Dynamic">
       <HintPath>.\Microsoft.Dynamic.dll</HintPath>
@@ -138,11 +141,14 @@
     <Compile Include="Script\CsScript\Common\ProtocalDef.cs" />
     <Compile Include="Script\CsScript\Common\STCPackageHead.cs" />
     <Compile Include="Script\CsScript\Locale\SimplifiedLanguage.cs" />
+    <Compile Include="Script\CsScript\Logic\Character.cs" />
     <Compile Include="Script\CsScript\Logic\Common\BaseSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Common\Time.cs" />
+    <Compile Include="Script\CsScript\Logic\Game\ExcelDefine.cs" />
+    <Compile Include="Script\CsScript\Logic\Game\ExcelLoader.cs" />
     <Compile Include="Script\CsScript\Logic\NetWorkRegister.cs" />
     <Compile Include="Script\CsScript\Logic\Player.cs" />
-    <Compile Include="Script\CsScript\Logic\PlayerManager.cs" />
+    <Compile Include="Script\CsScript\Logic\PlayerLoadingManager.cs" />
     <Compile Include="Script\CsScript\Logic\Scene.cs" />
     <Compile Include="Script\CsScript\Logic\SceneManager.cs" />
     <Compile Include="Script\CsScript\MainClass.cs" />
@@ -160,10 +166,11 @@
     <Compile Include="Script\Model\CacheSet.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RoomServer.exe.config" />
+    <None Include="RoomServer.exe.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="NLog.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
