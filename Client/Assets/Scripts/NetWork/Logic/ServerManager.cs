@@ -9,28 +9,28 @@ public class ServerManager
     {
         get
         {
-            return "192.168.0.102:9001";
+            return "192.168.0.103:9001";
         }
     }
     public static string LoginServerUrl
     {
         get
         {
-            return "192.168.0.102:9002";
+            return "192.168.0.103:9002";
         }
     }
     public static string LobbyServerUrl
     {
         get
         {
-            return "192.168.0.102:9003";
+            return "192.168.0.103:9003";
         }
     }
     public static string RoomServerUrl
     {
         get
         {
-            return "192.168.0.102:9004";
+            return "192.168.0.103:9004";
         }
     }
 }

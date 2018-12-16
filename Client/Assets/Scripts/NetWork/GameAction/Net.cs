@@ -134,6 +134,8 @@ public class Net : MonoBehaviour, IHttpCallback
             {
                 OnSocketRespond(data);
             }
+            if (mSocket == null)
+                return;
             data = mSocket.DequeuePush();
             if (data != null)
             {

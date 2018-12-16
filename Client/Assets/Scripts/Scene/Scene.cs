@@ -30,8 +30,7 @@ public class Scene
     {
         NotifyStartGame startGame = ProtoBufUtils.Deserialize<NotifyStartGame>(data);
         excel_scn_list scnList = SceneSystem.Instance.mCurrentScene.mScnLists;
-
-        Debug.LogError("---------------- " + startGame.Players.Count);
+        
         for (int i = 0; i < startGame.Players.Count; ++i)
         {
             ScnPlayerInfo playerInfo = startGame.Players[i];
@@ -50,8 +49,21 @@ public class Scene
 
                 mainPlayer.transform.position = new Vector3(82.51f, 7.25f, 34.82f);
                 mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
+
+                mPlayersList.Add(player);
+                mPlayers.Add(playerInfo.UserID, player);
             }
         }
+    }
+
+    public Player GetPlayer(int uid)
+    {
+        Player player;
+        if (mPlayers.TryGetValue(uid, out player))
+        {
+            return player;
+        }
+        return null;
     }
 
     void InitializeNet()
@@ -60,5 +72,6 @@ public class Scene
     }
 
     public excel_scn_list mScnLists = null;
-    public List<Character> mPlayers = new List<Character>();
+    public List<Player> mPlayersList = new List<Player>();
+    public Dictionary<int, Player> mPlayers = new Dictionary<int, Player>();
 }

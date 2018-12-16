@@ -1,0 +1,12 @@
+{
+  "field": [
+    {"name": "id", "type": "int"},
+    {"name": "name", "type": "string"},
+	{"name": "stages", "type": "int[]"},
+	{"name": "hits", "type": "int[]"},
+	{"name": "trait", "type": "int"}
+  ],
+  "files": [
+    "skill/skill_list_cmn"
+  ]
+}

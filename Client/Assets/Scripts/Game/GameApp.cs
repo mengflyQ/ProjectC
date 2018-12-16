@@ -39,6 +39,11 @@ public class GameApp : MonoBehaviour
         SceneSystem.Instance.ChangeScene(SceneSystem.loginScnID);
 	}
 
+    void FixedUpdate()
+    {
+        GameController.LogicTick();
+    }
+
     void OnApplicationQuit()
     {
         NavigationSystem.OnExitScene();

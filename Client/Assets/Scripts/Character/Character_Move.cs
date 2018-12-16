@@ -4,7 +4,8 @@ public partial class Character : MonoBehaviour
 {
     protected void OnInitMove()
 	{
-		mDirection = transform.forward;
+        SyncMove = new CharactorReplay(this);
+        mDirection = transform.forward;
 		mLogicPosition = transform.position;
 
         //Vector3 p = mLogicPosition;
@@ -15,7 +16,9 @@ public partial class Character : MonoBehaviour
 
 	protected void UpdateMove()
 	{
-		if (mDirectionChg)
+        SyncMove.LogicTick();
+
+        if (mDirectionChg)
 		{
 			transform.forward = mDirection;
 			mDirectionChg = false;
@@ -108,9 +111,14 @@ public partial class Character : MonoBehaviour
 		{
 			if (mDirection == value)
 				return;
-			mDirection = value;
-			mDirection.y = 0.0f;
-			mDirection.Normalize();
+            Vector3 v = value;
+            v.y = 0.0f;
+            v.Normalize();
+            float dot = Vector3.Dot(v, mDirection);
+            if (dot > 0.98f)
+                return;
+
+            mDirection = v;
 			if (mDirection != Vector3.zero)
 			{
 				transform.forward = mDirection;
@@ -135,14 +143,34 @@ public partial class Character : MonoBehaviour
 		}
 	}
 
+    public Vector3 Position
+    {
+        set
+        {
+            transform.position = value;
+            mLogicPosition = value;
+        }
+        get
+        {
+            return transform.position;
+        }
+    }
+
     public uint NavLayer
     {
         private set;
         get;
     }
 
-	float mSpeed = 0.0f;
+    public CharactorReplay SyncMove
+    {
+        private set;
+        get;
+    }
+
+    float mSpeed = 0.0f;
 	Vector3 mDirection = Vector3.forward;
 	bool mDirectionChg = false;
 	Vector3 mLogicPosition = Vector3.zero;
+    
 }
