@@ -5,6 +5,16 @@ namespace GameServer.RoomServer
 {
     public class BaseSystem
     {
+        public BaseSystem()
+        {
+            Initialize();
+        }
+
+        public virtual void Initialize()
+        {
+
+        }
+
         protected virtual void Tick()
         {
 
@@ -12,7 +22,7 @@ namespace GameServer.RoomServer
 
         public static void StartTick(BaseSystem system)
         {
-            if (mTickSystems.Contains(system))
+            if (system == null || mTickSystems.Contains(system))
             {
                 return;
             }
@@ -29,6 +39,8 @@ namespace GameServer.RoomServer
             for (int i = 0; i < mTickSystems.Count; ++i)
             {
                 BaseSystem sys = mTickSystems[i];
+                if (sys == null)
+                    continue;
                 sys.Tick();
             }
         }

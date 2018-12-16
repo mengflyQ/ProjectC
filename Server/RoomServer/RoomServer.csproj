@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GameServer</RootNamespace>
-    <AssemblyName>Scut.Demo</AssemblyName>
+    <AssemblyName>RoomServer</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -60,9 +60,6 @@
     </Reference>
     <Reference Include="KopiLua">
       <HintPath>.\KopiLua.dll</HintPath>
-    </Reference>
-    <Reference Include="MathLibrary">
-      <HintPath>..\bin\MathLibrary\MathLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Dynamic">
       <HintPath>.\Microsoft.Dynamic.dll</HintPath>
@@ -137,6 +134,10 @@
     <Compile Include="Script\CsScript\Action\ActionType.cs" />
     <Compile Include="Script\CsScript\Action\NetWork.cs" />
     <Compile Include="Script\CsScript\Common\CTSPackageHead.cs" />
+    <Compile Include="Script\CsScript\Common\Math\Matrix4x4.cs" />
+    <Compile Include="Script\CsScript\Common\Math\Vector2.cs" />
+    <Compile Include="Script\CsScript\Common\Math\Vector3.cs" />
+    <Compile Include="Script\CsScript\Common\Math\Vector4.cs" />
     <Compile Include="Script\CsScript\Common\Packet.cs" />
     <Compile Include="Script\CsScript\Common\ProtocalDef.cs" />
     <Compile Include="Script\CsScript\Common\STCPackageHead.cs" />
@@ -144,24 +145,30 @@
     <Compile Include="Script\CsScript\Logic\Character.cs" />
     <Compile Include="Script\CsScript\Logic\Common\BaseSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Common\Time.cs" />
+    <Compile Include="Script\CsScript\Logic\Fight\CampSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Game\ExcelDefine.cs" />
     <Compile Include="Script\CsScript\Logic\Game\ExcelLoader.cs" />
+    <Compile Include="Script\CsScript\Logic\NavigationSystem.cs" />
     <Compile Include="Script\CsScript\Logic\NetWorkRegister.cs" />
     <Compile Include="Script\CsScript\Logic\Player.cs" />
     <Compile Include="Script\CsScript\Logic\PlayerLoadingManager.cs" />
     <Compile Include="Script\CsScript\Logic\Scene.cs" />
     <Compile Include="Script\CsScript\Logic\SceneManager.cs" />
+    <Compile Include="Script\CsScript\Logic\Skill\Skill.cs" />
+    <Compile Include="Script\CsScript\Logic\Skill\SkillContext.cs" />
+    <Compile Include="Script\CsScript\Logic\Skill\SkillHandle.cs" />
     <Compile Include="Script\CsScript\MainClass.cs" />
     <Compile Include="Script\CsScript\Common\CustomActionDispatcher.cs" />
-    <Compile Include="Script\CsScript\Plugins\IJsonWrapper.cs" />
-    <Compile Include="Script\CsScript\Plugins\JsonData.cs" />
-    <Compile Include="Script\CsScript\Plugins\JsonException.cs" />
-    <Compile Include="Script\CsScript\Plugins\JsonMapper.cs" />
-    <Compile Include="Script\CsScript\Plugins\JsonMockWrapper.cs" />
-    <Compile Include="Script\CsScript\Plugins\JsonReader.cs" />
-    <Compile Include="Script\CsScript\Plugins\JsonWriter.cs" />
-    <Compile Include="Script\CsScript\Plugins\Lexer.cs" />
-    <Compile Include="Script\CsScript\Plugins\ParserToken.cs" />
+    <Compile Include="Script\CsScript\Plugins\LitJson\IJsonWrapper.cs" />
+    <Compile Include="Script\CsScript\Plugins\LitJson\JsonData.cs" />
+    <Compile Include="Script\CsScript\Plugins\LitJson\JsonException.cs" />
+    <Compile Include="Script\CsScript\Plugins\LitJson\JsonMapper.cs" />
+    <Compile Include="Script\CsScript\Plugins\LitJson\JsonMockWrapper.cs" />
+    <Compile Include="Script\CsScript\Plugins\LitJson\JsonReader.cs" />
+    <Compile Include="Script\CsScript\Plugins\LitJson\JsonWriter.cs" />
+    <Compile Include="Script\CsScript\Plugins\LitJson\Lexer.cs" />
+    <Compile Include="Script\CsScript\Plugins\LitJson\ParserToken.cs" />
+    <Compile Include="Script\CsScript\Plugins\Navigation\NavSystemImport.cs" />
     <Compile Include="Script\CsScript\Remote\RemoteHandle.cs" />
     <Compile Include="Script\Model\CacheSet.cs" />
   </ItemGroup>

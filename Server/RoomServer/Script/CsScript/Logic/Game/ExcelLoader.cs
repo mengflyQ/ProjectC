@@ -43,6 +43,7 @@ public class ExcelLoader
             Type viewType = excelViewField.FieldType;
             object vd = System.Activator.CreateInstance(viewType);
             MethodInfo addMethod = viewType.GetMethod("Add");
+            MethodInfo initMethod = excel_type.BaseType.GetMethod("Initialize");
 
             JsonData filesData = data["files"];
             JsonData fieldData = data["field"];
@@ -97,10 +98,11 @@ public class ExcelLoader
                     }
                     if (id != 0)
                     {
-                        addMethod.Invoke(vd, new object[] { id, excel });
+                        addMethod.Invoke(vd, new object[] { excel });
                     }
-                    excelViewField.SetValue(null, vd);
                 }
+                excelViewField.SetValue(null, vd);
+                initMethod.Invoke(vd, new object[] { });
             }
         }
     }
@@ -201,17 +203,67 @@ public class ExcelLoader
     }
 }
 
-public class ExcelBase<T>
+public class ExcelSimple
 {
-    public static Dictionary<int, T> excelView = null;
+    public int id;
+}
+
+public class ExcelBase<T> : ExcelSimple where T : ExcelSimple
+{
+    public static List<T> excelView = null;
+
+    public static int Count
+    {
+        get
+        {
+            return excelView.Count;
+        }
+    }
+
+    public static void Initialize()
+    {
+        excelView.Sort(CompareExcel);
+    }
+
+    static int CompareExcel(T t1, T t2)
+    {
+        return t1.id.CompareTo(t2.id);
+    }
+
+    static T BinarySearchExcel(int low, int high, int id)
+    {
+        T highScene = excelView[high];
+        T lowScene = excelView[low];
+
+        int mid = (low + high) / 2;
+
+        if (lowScene.id <= highScene.id)
+        {
+            T midScene = excelView[mid];
+            if (midScene.id == id)
+                return midScene;
+            else if (midScene.id > id)
+                return BinarySearchExcel(low, mid - 1, id);
+            else
+                return BinarySearchExcel(mid + 1, high, id);
+        }
+        return null;
+    }
 
     public static T Find(int id)
     {
-        T excel = default(T);
-        if (excelView.TryGetValue(id, out excel))
+        if (excelView == null || excelView.Count <= 0)
+            return null;
+
+        return BinarySearchExcel(0, excelView.Count - 1, id);
+    }
+
+    public static T GetByIndex(int index)
+    {
+        if (index >= 0 && index < excelView.Count)
         {
-            return excel;
+            return excelView[index];
         }
-        return default(T);
+        return null;
     }
 }

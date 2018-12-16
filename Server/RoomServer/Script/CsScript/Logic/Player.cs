@@ -3,26 +3,24 @@ using System.Collections.Generic;
 using GameServer.Model;
 using ZyGames.Framework.Game.Contract;
 
-namespace GameServer.RoomServer
+
+public enum PlayerStatus
 {
-    public enum PlayerStatus
-    {
-        Online,
-        Offline
-    }
+    Online,
+    Offline
+}
 
-    public class Player : Character
+public class Player : Character
+{
+    public void OnReplace()
     {
-        public void OnReplace()
+        if (mSession != null)
         {
-            if (mSession != null)
-            {
-                mSession.Close();
-            }
+            mSession.Close();
         }
-
-        public GameSession mSession;
-
-        public PlayerStatus mStatus;
     }
+
+    public GameSession mSession;
+
+    public PlayerStatus mStatus;
 }

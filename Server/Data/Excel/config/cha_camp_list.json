@@ -1,0 +1,12 @@
+{
+  "field": [
+    {"name": "id", "type": "int"},
+    {"name": "name", "type": "string"},
+	{"name": "enemyCamps", "type": "int[]"},
+	{"name": "friendCamps", "type": "int[]"},
+	{"name": "teamFriend", "type": "int"}
+  ],
+  "files": [
+    "cha/cha_camp_list"
+  ]
+}

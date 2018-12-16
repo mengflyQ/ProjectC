@@ -38,6 +38,7 @@ namespace Game.Script
         {
             GameEnvironment.Setting.ActionDispatcher = new CustomActionDispatcher();
             ExcelLoader.Init();
+            NavigationSystem.LoadAllNavigation();
         }
      
         protected override void OnStartAffer()
@@ -63,6 +64,11 @@ namespace Game.Script
         protected override void OnDisconnected(GameSession session)
         {
             Console.WriteLine("客户端UserId:[{0}]已与服务器断开", session.RemoteAddress);
+            Player player = SceneManager.Instance.FindPlayer(session.UserId);
+            if (player != null)
+            {
+                player.mScene.DelPlayer(player);
+            }
             base.OnDisconnected(session);
         }
 

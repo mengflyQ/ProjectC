@@ -1,14 +1,9 @@
 ﻿using System;
 
-namespace MathLibrary.Mathf
+namespace MathLib
 {
-    public class Vector4
+    public struct Vector4
     {
-        public Vector4()
-        {
-
-        }
-
         public Vector4(float x, float y, float z, float w)
         {
             this.x = x;
@@ -77,10 +72,11 @@ namespace MathLibrary.Mathf
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
-                throw new NullReferenceException("Vector4");
-            Vector4 v = obj as Vector4;
-            return x == v.x && y == v.y && z == v.z && w == v.w;
+            //if (obj == null)
+            //    throw new NullReferenceException("Vector4");
+            //Vector4 v = obj as Vector4;
+            //return x == v.x && y == v.y && z == v.z && w == v.w;
+            return false;
         }
 
         public override int GetHashCode()
@@ -159,9 +155,9 @@ namespace MathLibrary.Mathf
             }
         }
 
-        public float x = 0.0f;
-        public float y = 0.0f;
-        public float z = 0.0f;
-        public float w = 0.0f;
+        public float x;
+        public float y;
+        public float z;
+        public float w;
     }
 }

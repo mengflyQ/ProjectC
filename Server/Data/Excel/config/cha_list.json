@@ -3,7 +3,9 @@
     {"name": "id", "type": "int"},
     {"name": "name", "type": "string"},
 	{"name": "path", "type": "string"},
-	{"name": "scale", "type": "float[]"}
+	{"name": "scale", "type": "float[]"},
+	{"name": "radius", "type": "float"},
+	{"name": "campID", "type": "int"}
   ],
   "files": [
     "cha/cha_list"

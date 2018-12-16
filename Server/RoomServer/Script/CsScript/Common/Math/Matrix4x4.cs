@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MathLibrary.Mathf
+namespace MathLib
 {
     public class Matrix4x4
     {
