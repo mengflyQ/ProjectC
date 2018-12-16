@@ -1,9 +1,0 @@
-{
-  "field": [
-    {"name": "id", "type": "int"},
-    {"name": "name", "type": "string"}
-  ],
-  "files": [
-    "res/anim_list"
-  ]
-}
