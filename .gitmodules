@@ -1,0 +1,3 @@
+[submodule "Server/Data/Excel"]
+	path = Server/Data/Excel
+	url = https://github.com/zd304/ProjectCSub.git
