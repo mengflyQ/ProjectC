@@ -45,13 +45,16 @@ public class Scene
             {
                 GameObject mainPlayer = GameObject.Instantiate(o);
                 Player player = mainPlayer.GetComponent<Player>();
+                player.ID = playerInfo.UserID;
                 player.mChaList = chaList;
 
                 mainPlayer.transform.position = new Vector3(82.51f, 7.25f, 34.82f);
                 mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
 
                 mPlayersList.Add(player);
+                mCharacterList.Add(player);
                 mPlayers.Add(playerInfo.UserID, player);
+                mCharacters.Add(playerInfo.UserID, player);
             }
         }
     }
@@ -66,12 +69,26 @@ public class Scene
         return null;
     }
 
+    public Character GetCharacter(int uid)
+    {
+        Character cha;
+        if (mCharacters.TryGetValue(uid, out cha))
+        {
+            return cha;
+        }
+        return null;
+    }
+
     void InitializeNet()
     {
         NetWork.RegisterNotify(STC.STC_StartClienGame, OnInitPlayers);
     }
 
     public excel_scn_list mScnLists = null;
+
+    public List<Character> mCharacterList = new List<Character>();
+    public Dictionary<int, Character> mCharacters = new Dictionary<int, Character>();
+
     public List<Player> mPlayersList = new List<Player>();
     public Dictionary<int, Player> mPlayers = new Dictionary<int, Player>();
 }

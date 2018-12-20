@@ -7,6 +7,8 @@ public static class NetWork
 {
     public static void SendPacket<T>(CTS cts, T obj, Action<byte[]> callback)
     {
+        if (GameApp.Instance.directGame)
+            return;
         ActionParam param = new ActionParam();
         param["obj"] = obj;
         param["cts"] = (int)cts;
@@ -24,6 +26,8 @@ public static class NetWork
 
     public static void SendJsonPacket(CTS cts, JsonData json, Action<JsonData> callback)
     {
+        if (GameApp.Instance.directGame)
+            return;
         ActionParam param = new ActionParam();
         param["json"] = json;
         param["cts"] = (int)cts;
@@ -42,6 +46,8 @@ public static class NetWork
 
     public static void RegisterNotify(STC stc, Action<byte[]> callback)
     {
+        if (GameApp.Instance.directGame)
+            return;
         Action<byte[]> action;
         if (mRegsterBytesSTC.TryGetValue(stc, out action))
         {
@@ -53,6 +59,8 @@ public static class NetWork
 
     public static void SetUrl(string url)
     {
+        if (GameApp.Instance.directGame)
+            return;
         Net.Instance.CloseSocket();
         NetWriter.SetUrl(url);
     }

@@ -13,6 +13,9 @@ public enum CTS
     CTS_EnterScn        = 2001,
     CTS_LoadedScn       = 2002,
     CTS_PlayerMove      = 2003,
+    CTS_TargetChg       = 2004,
+    CTS_SkillReq        = 2005,
+    CTS_SkillBegin      = 2006,
 }
 
 public enum STC
@@ -28,4 +31,5 @@ public enum STC
     STC_ScnLoad             = 2001,
     STC_StartClienGame      = 2002,
     STC_PlayerMove          = 2003,
+    STC_TargetChg           = 2004,
 }

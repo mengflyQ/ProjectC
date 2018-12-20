@@ -21,9 +21,19 @@ namespace MathLib
             return new Vector3(a.x - b.x, a.y - b.y, a.z - b.z);
         }
 
+        public static Vector3 operator -(Vector3 a, float f)
+        {
+            return new Vector3(a.x - f, a.y - f, a.z - f);
+        }
+
         public static Vector3 operator +(Vector3 a, Vector3 b)
         {
             return new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
+        }
+
+        public static Vector3 operator +(Vector3 a, float f)
+        {
+            return new Vector3(a.x + f, a.y + f, a.z + f);
         }
 
         public static Vector3 operator *(Vector3 a, Vector3 b)
@@ -61,6 +71,11 @@ namespace MathLib
             return a.x != b.x || a.y != b.y || a.z != b.z;
         }
 
+        public static float Distance(Vector3 a, Vector3 b)
+        {
+            return (b - a).Length();
+        }
+
         public override bool Equals(object obj)
         {
             //if (obj == null)
@@ -77,7 +92,7 @@ namespace MathLib
 
         public float Length()
         {
-            return (float)Math.Sqrt(x * x + y * y + z * z);
+            return (float)System.Math.Sqrt(x * x + y * y + z * z);
         }
 
         public float LengthSquared()

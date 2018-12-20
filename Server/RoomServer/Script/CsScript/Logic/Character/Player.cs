@@ -12,6 +12,11 @@ public enum PlayerStatus
 
 public class Player : Character
 {
+    public Player() : base()
+    {
+
+    }
+
     public void OnReplace()
     {
         if (mSession != null)

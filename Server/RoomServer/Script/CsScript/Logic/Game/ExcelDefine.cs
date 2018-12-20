@@ -4,6 +4,9 @@ public class excel_scn_list : ExcelBase<excel_scn_list>
 {
 	public string name;
     public int temp;
+    public float[] min;
+    public float[] max;
+    public float viewDist;
 }
 
 public class excel_cha_list : ExcelBase<excel_cha_list>

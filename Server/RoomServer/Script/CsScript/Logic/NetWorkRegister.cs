@@ -66,10 +66,23 @@ namespace GameServer.RoomServer
             handle.SetResponseData(responseData);
         }
 
+        static void TargetChg(byte[] data, Action5001 action)
+        {
+            ReqTargetChg targetChg = ProtoBufUtils.Deserialize<ReqTargetChg>(data);
+            Character cha = SceneManager.Instance.FindCharacter(targetChg.uid);
+            if (cha == null)
+                return;
+            Character target = cha.mScene.FindCharacter(targetChg.targetID);
+            if (target == null)
+                return;
+            cha.SetTarget(target, false);
+        }
+
         public static void Initialize()
         {
             NetWork.RegisterMessage(CTS.CTS_EnterScn, OnEnterScene);
             NetWork.RegisterMessage(CTS.CTS_LoadedScn, OnPlayerLoadedScn);
+            NetWork.RegisterMessage(CTS.CTS_TargetChg, TargetChg);
 
             NetWork.RegisterRemote(STS.STS_CreateScn, CreateScene);
         }

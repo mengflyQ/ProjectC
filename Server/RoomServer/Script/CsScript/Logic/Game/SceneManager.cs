@@ -101,6 +101,18 @@ public class SceneManager : BaseSystem
         return null;
     }
 
+    public Character FindCharacter(int uid)
+    {
+        for (int i = 0; i < mScenes.Count; ++i)
+        {
+            Scene scn = mScenes[i];
+            Character cha = scn.FindCharacter(uid);
+            if (cha != null)
+                return cha;
+        }
+        return null;
+    }
+
     void OnPlayerMove(byte[] data, Action5001 action)
     {
         Player player = FindPlayer(action.UserId);
@@ -120,7 +132,7 @@ public class SceneManager : BaseSystem
             {
                 p.Speed = req.speed;
                 p.Direction = req.direction.ToVector3();
-                p.Postion = req.position.ToVector3();
+                p.Position = req.position.ToVector3();
                 continue;
             }
 

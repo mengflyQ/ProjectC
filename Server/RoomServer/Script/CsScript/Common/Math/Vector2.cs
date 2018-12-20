@@ -76,7 +76,7 @@ namespace MathLib
 
         public float Length()
         {
-            return (float)Math.Sqrt(x * x + y * y);
+            return (float)System.Math.Sqrt((double)(x * x + y * y));
         }
 
         public float LengthSquared()

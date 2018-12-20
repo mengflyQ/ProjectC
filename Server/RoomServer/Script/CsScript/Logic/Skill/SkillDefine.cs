@@ -20,6 +20,14 @@ public enum SkillResult
     Unknown,
 }
 
+public enum DistanceCalcType
+{
+    Center,
+    OuterA,
+    OuterB,
+    OuterAB
+}
+
 public enum SkillTargetType
 {
     All,

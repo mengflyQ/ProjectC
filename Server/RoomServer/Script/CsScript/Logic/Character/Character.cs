@@ -5,8 +5,18 @@ using ZyGames.Framework.Game.Contract;
 using MathLib;
 using GameServer.RoomServer;
 
-public class Character
+public partial class Character
 {
+    public Character()
+    {
+        
+    }
+
+    public virtual void Initialize()
+    {
+        InitMove();
+    }
+
     public virtual void Update()
     {
         if (mCurSkill != null)
@@ -16,9 +26,32 @@ public class Character
                 SetSkill(null);
             }
         }
-        if (Speed > 0.0f)
+        UpdateMove();
+    }
+
+    public void SetTarget(Character target, bool sendToSelf = true)
+    {
+        int tid = 0;
+        if (target != null)
         {
-            Postion += Time.DeltaTime * mDirection;
+            tid = target.uid;
+        }
+        if (targetID != tid)
+        {
+            targetID = tid;
+
+            for (int i = 0; i < mScene.GetPlayerCount(); ++i)
+            {
+                Player player = mScene.GetPlayerByIndex(i);
+                if (player == null)
+                    continue;
+                if (!sendToSelf && player == this)
+                    continue;
+                ReqTargetChg targetChg = new ReqTargetChg();
+                targetChg.uid = uid;
+                targetChg.targetID = tid;
+                NetWork.NotifyMessage<ReqTargetChg>(player.uid, STC.STC_TargetChg, targetChg);
+            }
         }
     }
 
@@ -36,7 +69,7 @@ public class Character
         }
     }
 
-    public int TargetID
+    protected int TargetID
     {
         set;
         get;
@@ -46,12 +79,7 @@ public class Character
     {
         set
         {
-            if (value == null)
-            {
-                targetID = 0;
-                return;
-            }
-            targetID = value.uid;
+            
         }
         get
         {
@@ -80,15 +108,29 @@ public class Character
         }
     }
 
-    public Vector3 Postion
+    public Vector3 Position
     {
         set
         {
+            if (mPosition != value)
+            {
+                mPosDirty = true;
+            }
             mPosition = value;
         }
         get
         {
             return mPosition;
+        }
+    }
+
+    public float Radius
+    {
+        get
+        {
+            if (mChaList == null)
+                return 0.0f;
+            return mChaList.radius;
         }
     }
 
@@ -101,5 +143,6 @@ public class Character
     protected float mSpeed;
     protected Vector3 mDirection;
     protected Vector3 mPosition;
+    protected bool mPosDirty = true;
     protected Skill mCurSkill = null;
 }

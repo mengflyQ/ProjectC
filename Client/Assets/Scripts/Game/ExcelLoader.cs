@@ -64,6 +64,10 @@ public class ExcelLoader
 							{
                                 id = (int)value;
 							}
+                            if (excelField == null)
+                            {
+                                return;
+                            }
 							excelField.SetValue(excel, value);
 						}
 					}

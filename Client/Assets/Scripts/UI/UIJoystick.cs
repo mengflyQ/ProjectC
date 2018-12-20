@@ -20,10 +20,21 @@ public class UIJoystick : MonoBehaviour
 			}
 			touchPos = Input.touches[0].position;
 		}
+        if (Input.GetMouseButtonDown(0))
+        {
+            touchBegin = true;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            touchEnd = true;
+        }
 
-		if (Input.GetMouseButtonDown(0) || touchBegin)
+		if (touchBegin)
 		{
-			mStartPos = touchPos;
+            if (touchPos.y > (float)(Screen.height / 2)
+                || touchPos.x > (float)(Screen.width / 2))
+                return;
+            mStartPos = touchPos;
 
 			joystick.gameObject.SetActive(true);
 			Vector3 pos = joystick.localPosition;
@@ -33,8 +44,12 @@ public class UIJoystick : MonoBehaviour
 			mDraging = true;
 		}
 
-		if (Input.GetMouseButtonUp(0) || touchEnd)
+		if (touchEnd)
 		{
+            if (!mDraging)
+            {
+                PickObject.Pick(touchPos);
+            }
 			mStartPos = Vector2.zero;
 			joystick.gameObject.SetActive(false);
 			mDraging = false;

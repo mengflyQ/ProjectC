@@ -90,3 +90,19 @@ public class NotifyPlayerMove
     [ProtoMember(2)]
     public ReqPlayerMove moveData;
 }
+
+[Serializable, ProtoContract]
+public class ReqTargetChg
+{
+    [ProtoMember(1)]
+    public int uid;
+    [ProtoMember(2)]
+    public int targetID;
+}
+
+[Serializable, ProtoContract]
+public class ReqSkill
+{
+    [ProtoMember(1)]
+    public int skillID;
+}

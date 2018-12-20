@@ -36,6 +36,11 @@ public class GameApp : MonoBehaviour
         // Net.Instance.HeadFormater = new CustomHeadFormater();
 		ExcelLoader.Init();
 
+        if (directGame)
+        {
+            SceneSystem.Instance.ChangeScene(SceneSystem.roomScnID);
+            return;
+        }
         SceneSystem.Instance.ChangeScene(SceneSystem.loginScnID);
 	}
 
@@ -96,4 +101,6 @@ public class GameApp : MonoBehaviour
         get;
         set;
     }
+
+    public bool directGame = false;
 }

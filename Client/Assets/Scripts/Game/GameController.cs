@@ -19,6 +19,7 @@ public class GameController
 		{
 			GameObject mainPlayer = GameObject.Instantiate(o);
 			mMainPlayer = mainPlayer.GetComponent<Player>();
+            mMainPlayer.ID = mUserInfo.uid;
             mMainPlayer.mChaList = chaList;
 
             mPlayerSync = new MainPlayerRecord(mMainPlayer);
@@ -32,7 +33,9 @@ public class GameController
 			}
 
             scn.mPlayersList.Add(mMainPlayer);
+            scn.mCharacterList.Add(mMainPlayer);
             scn.mPlayers.Add(mUserInfo.uid, mMainPlayer);
+            scn.mCharacters.Add(mUserInfo.uid, mMainPlayer);
         }
 
 		RectTransform canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
@@ -48,6 +51,7 @@ public class GameController
         NavigationSystem.OnEnterScene();
 
         NetWork.RegisterNotify(STC.STC_PlayerMove, OnPlayerMove);
+        NetWork.RegisterNotify(STC.STC_TargetChg, OnTargetChg);
 	}
 
     public static void LogicTick()
@@ -68,13 +72,25 @@ public class GameController
         Player player = scn.GetPlayer(moveInfo.uid);
         if (player == null)
             return;
-        //player.MoveSpeed = moveInfo.moveData.speed;
-        //player.Direction = moveInfo.moveData.direction.ToVector3();
-        //player.Position = moveInfo.moveData.position.ToVector3();
         player.SyncMove.AddMoveData(moveInfo.moveData);
     }
 
-	public static Player mMainPlayer = null;
+    static void OnTargetChg(byte[] data)
+    {
+        Scene scn = SceneSystem.Instance.mCurrentScene;
+        if (scn == null)
+            return;
+        ReqTargetChg targetChg = ProtoBufUtils.Deserialize<ReqTargetChg>(data);
+        Character cha = scn.GetCharacter(targetChg.uid);
+        if (cha == null)
+            return;
+        Character target = scn.GetCharacter(targetChg.targetID);
+
+        cha.SetTarget(target, false);
+    }
+
+
+    public static Player mMainPlayer = null;
 
     public static MainPlayerRecord mPlayerSync = null;
 

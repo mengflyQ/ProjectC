@@ -37,6 +37,7 @@ public static class SkillHandle
         context.SkillTargetID = targetID;
         context.TargetPos = targetPos;
         Skill skill = new Skill(id, context);
+        cha.SetSkill(skill);
 
         return SkillResult.Success;
     }
