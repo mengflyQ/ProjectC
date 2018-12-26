@@ -3,11 +3,77 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
 using LitJson;
+using System.Xml;
 
 using System.Reflection;
 
 public class ExcelLoader
 {
+    public static void LoadSingleExcel(string className)
+    {
+        TextAsset asset = Resources.Load<TextAsset>("Excel/config/" + className);
+        JsonData data = JsonMapper.ToObject(asset.text);
+
+        Type excel_type = Type.GetType("excel_" + className);
+        FieldInfo excelViewField = excel_type.BaseType.GetField("excelView");
+        Type viewType = excelViewField.FieldType;
+        object vd = System.Activator.CreateInstance(viewType);
+        MethodInfo addMethod = viewType.GetMethod("Add");
+        MethodInfo initMethod = excel_type.BaseType.GetMethod("Initialize");
+
+        JsonData filesData = data["files"];
+        JsonData fieldData = data["field"];
+        for (int j = 0; j < filesData.Count; ++j)
+        {
+            JsonData fileData = filesData[j];
+            string filename = fileData.ToString();
+
+            asset = Resources.Load<TextAsset>("Excel/" + filename);
+            string[] excel_lines = GetLines(asset);
+            for (int l = 1; l < excel_lines.Length; ++l)
+            {
+                string excel_line = excel_lines[l];
+                string[] excel_line_data = excel_line.Split('\t');
+                if (excel_line_data.Length != fieldData.Count)
+                {
+                    Debug.LogError("Excel Error: Excel Data Number Is Not Equal To Config Data Number!");
+                    continue;
+                }
+
+                object excel = System.Activator.CreateInstance(excel_type);
+                int id = 0;
+
+                for (int m = 0; m < fieldData.Count; ++m)
+                {
+                    JsonData fieldDef = fieldData[m];
+                    string fieldName = fieldDef["name"].ToString();
+                    string fieldType = fieldDef["type"].ToString();
+                    FieldInfo excelField = excel_type.GetField(fieldName);
+                    string strValue = excel_line_data[m];
+                    object value = GetFieldValueByType(fieldType, strValue);
+                    if (value != null)
+                    {
+                        if (fieldName == "id")
+                        {
+                            id = (int)value;
+                        }
+                        if (excelField == null)
+                        {
+                            return;
+                        }
+                        excelField.SetValue(excel, value);
+                    }
+                }
+                if (id != 0)
+                {
+                    addMethod.Invoke(vd, new object[] { excel });
+                }
+            }
+            excelViewField.SetValue(null, vd);
+            initMethod.Invoke(vd, new object[] { });
+        }
+    }
+
 	public static void Init()
 	{
 		TextAsset asset = Resources.Load<TextAsset>("Excel/excel_index");

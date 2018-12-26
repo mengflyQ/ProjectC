@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<page name="公共">
+		<skill filename="skill_list_cmn" min="1" max="1000"/>
+		<skillstage filename="skill_stage_cmn" min="1" max="10000"/>
+		<skillhit filename="skill_hit_cmn" min="1" max="10000"/>
+		<skillevent filename="skill_event_cmn" min="1" max="100000"/>
+	</page>
+	<page name="主角">
+		<skill filename="skill_list_player" min="1001" max="2000"/>
+		<skillstage filename="skill_stage_player" min="10001" max="20000"/>
+		<skillhit filename="skill_hit_player" min="10001" max="20000"/>
+		<skillevent filename="skill_event_player" min="100001" max="200000"/>
+	</page>
+	<page name="怪物">
+		<skill filename="skill_list_monster" min="2001" max="3000"/>
+		<skillstage filename="skill_stage_monster" min="20001" max="30000"/>
+		<skillhit filename="skill_hit_monster" min="20001" max="30000"/>
+		<skillevent filename="skill_event_monster" min="200001" max="300000"/>
+	</page>
+</root>

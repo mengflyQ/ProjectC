@@ -45,7 +45,7 @@ public class Scene
             {
                 GameObject mainPlayer = GameObject.Instantiate(o);
                 Player player = mainPlayer.GetComponent<Player>();
-                player.ID = playerInfo.UserID;
+                player.UserID = playerInfo.UserID;
                 player.mChaList = chaList;
 
                 mainPlayer.transform.position = new Vector3(82.51f, 7.25f, 34.82f);

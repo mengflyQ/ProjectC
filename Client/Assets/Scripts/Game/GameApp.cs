@@ -35,6 +35,7 @@ public class GameApp : MonoBehaviour
 
         // Net.Instance.HeadFormater = new CustomHeadFormater();
 		ExcelLoader.Init();
+        SkillEventRegister.Initialize();
 
         if (directGame)
         {

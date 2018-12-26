@@ -19,7 +19,7 @@ public class GameController
 		{
 			GameObject mainPlayer = GameObject.Instantiate(o);
 			mMainPlayer = mainPlayer.GetComponent<Player>();
-            mMainPlayer.ID = mUserInfo.uid;
+            mMainPlayer.UserID = mUserInfo.uid;
             mMainPlayer.mChaList = chaList;
 
             mPlayerSync = new MainPlayerRecord(mMainPlayer);
@@ -52,7 +52,8 @@ public class GameController
 
         NetWork.RegisterNotify(STC.STC_PlayerMove, OnPlayerMove);
         NetWork.RegisterNotify(STC.STC_TargetChg, OnTargetChg);
-	}
+        NetWork.RegisterNotify(STC.STC_SkillNotify, SkillNotify);
+    }
 
     public static void LogicTick()
     {
@@ -89,6 +90,27 @@ public class GameController
         cha.SetTarget(target, false);
     }
 
+    static void SkillNotify(byte[] data)
+    {
+        Scene scn = SceneSystem.Instance.mCurrentScene;
+        if (scn == null)
+            return;
+        ReqSkill reqSkill = ProtoBufUtils.Deserialize<ReqSkill>(data);
+        Character caster = scn.GetCharacter(reqSkill.casterID);
+        if (caster == null)
+            return;
+
+        caster.Position = reqSkill.position.ToVector3();
+        caster.Direction = reqSkill.direction.ToVector3();
+
+        SkillHandle handle = new SkillHandle();
+        handle.skillID = reqSkill.skillID;
+        handle.caster = caster;
+        handle.autoTargetPos = reqSkill.autoTargetPos;
+        handle.targetPos = reqSkill.targetPos.ToVector3();
+        handle.skillTargetID = reqSkill.targetID;
+        SkillHandle.UseSkill(handle);
+    }
 
     public static Player mMainPlayer = null;
 

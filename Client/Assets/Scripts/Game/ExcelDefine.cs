@@ -48,7 +48,7 @@ public class excel_skill_event : ExcelBase<excel_skill_event>
     public string name;
     public int triggerType;
     public int triggerParam1;
-    public int triggerParan2;
+    public int triggerParam2;
     public int eventType;
     public int evnetParam1;
     public int evnetParam2;

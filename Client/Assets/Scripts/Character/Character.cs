@@ -30,7 +30,7 @@ public partial class Character : MonoBehaviour
         int tid = 0;
         if (target != null)
         {
-            tid = target.ID;
+            tid = target.UserID;
         }
         if (TargetID != tid)
         {
@@ -39,7 +39,7 @@ public partial class Character : MonoBehaviour
             if (msg)
             {
                 ReqTargetChg targetChg = new ReqTargetChg();
-                targetChg.uid = ID;
+                targetChg.uid = UserID;
                 targetChg.targetID = tid;
                 NetWork.SendPacket<ReqTargetChg>(CTS.CTS_TargetChg, targetChg, null);
             }
@@ -54,9 +54,38 @@ public partial class Character : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		UpdateMove();
+        if (mCurSkill != null)
+        {
+            if (!mCurSkill.LogicTick())
+            {
+                SetSkill(null);
+            }
+        }
+        UpdateMove();
         UpdateAnim();
 	}
+
+    public void SetSkill(Skill skill)
+    {
+        Skill lastSkill = mCurSkill;
+        mCurSkill = skill;
+        if (lastSkill != null)
+        {
+            lastSkill.Exit();
+        }
+        if (mCurSkill != null)
+        {
+            mCurSkill.Enter();
+        }
+    }
+
+    public float Radius
+    {
+        get
+        {
+            return mChaList.radius;
+        }
+    }
 
     public CharacterType Type
     {
@@ -64,20 +93,7 @@ public partial class Character : MonoBehaviour
         get;
     }
 
-    public Character Target
-    {
-        set
-        {
-            
-        }
-        get
-        {
-            Scene scn = SceneSystem.Instance.mCurrentScene;
-            return scn.GetCharacter(TargetID);
-        }
-    }
-
-    public int ID
+    public int UserID
     {
         set;
         get;
@@ -91,4 +107,6 @@ public partial class Character : MonoBehaviour
     
     public Animation mAnimation;
     public excel_cha_list mChaList;
+
+    protected Skill mCurSkill = null;
 }

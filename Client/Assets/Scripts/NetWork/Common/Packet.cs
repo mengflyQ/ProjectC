@@ -214,4 +214,16 @@ public class ReqSkill
 {
     [ProtoMember(1)]
     public int skillID;
+    [ProtoMember(2)]
+    public int casterID;
+    [ProtoMember(3)]
+    public Vector3Packat direction;
+    [ProtoMember(4)]
+    public Vector3Packat position;
+    [ProtoMember(5)]
+    public bool autoTargetPos;
+    [ProtoMember(6)]
+    public Vector3Packat targetPos;
+    [ProtoMember(7)]
+    public int targetID;
 }

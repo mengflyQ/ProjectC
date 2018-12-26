@@ -78,7 +78,21 @@ public static class NavigationSystem
         return rst;
     }
 
-    public static bool LineTest(Vector3 start, Vector3 end, uint layer)
+    public static bool LineCast(Vector3 start, Vector3 end, uint layer, out Vector3 hitPoint)
+    {
+        NAV_VEC3 vStart = new NAV_VEC3(start);
+        NAV_VEC3 vEnd = new NAV_VEC3(end);
+
+        NAV_VEC3 vHitPoint;
+
+        bool rst = NavSystemImport.Nav_LineCast(ref vStart, ref vEnd, layer, out vHitPoint);
+
+        hitPoint = vHitPoint.ToVector3();
+
+        return rst;
+    }
+
+        public static bool LineTest(Vector3 start, Vector3 end, uint layer)
     {
         NAV_VEC3 vStart = new NAV_VEC3(start);
         NAV_VEC3 vEnd = new NAV_VEC3(end);

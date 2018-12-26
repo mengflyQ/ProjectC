@@ -76,7 +76,83 @@ public partial class Character : MonoBehaviour
             mLogicPosition = transform.position;
 			// transform.position = mLogicPosition;
 		}
-	}
+
+        UpdateSearchMove();
+    }
+
+    public bool IsSearchMoving()
+    {
+        return mPath != null;
+    }
+
+    void UpdateSearchMove()
+    {
+        if (mPath == null || mPath.Length == 0)
+            return;
+        Vector3 nextPos = mPath[mCurrentNodeIndex];
+        Vector3 dir = nextPos - Position;
+        if (dir.magnitude <= 0.1f)
+        {
+            ++mCurrentNodeIndex;
+            if (mCurrentNodeIndex >= mPath.Length)
+            {
+                Direction = dir;
+                StopSearchMove();
+            }
+            return;
+        }
+        Vector3 targetPos = mPath[mPath.Length - 1];
+        if (Vector3.Distance(Position, targetPos) <= mDestRadius)
+        {
+            Direction = dir;
+            StopSearchMove();
+            return;
+        }
+        Direction = dir;
+        MoveSpeed = 3.0f;
+    }
+
+    public void SearchMove(Vector3 pos, float destRadius = 0.3f, bool sync = true)
+    {
+        Vector3[] path;
+        if (!NavigationSystem.Nav_CalcLayerPath(Position, pos, NavLayer, out path))
+        {
+            return;
+        }
+        mPath = path;
+        mCurrentNodeIndex = 0;
+        MoveSpeed = 0.0f;
+        mDestRadius = destRadius;
+    }
+
+    public void LineMove(Vector3 pos, float destRadius = 0.3f, bool sync = true)
+    {
+        Vector3 destPos;
+        if (!NavigationSystem.LineCast(Position, pos, NavLayer, out destPos))
+        {
+            return;
+        }
+        mPath = new Vector3[1] { destPos };
+        mCurrentNodeIndex = 0;
+        MoveSpeed = 0.0f;
+        mDestRadius = destRadius;
+    }
+
+    public void StopMove()
+    {
+        MoveSpeed = 0.0f;
+        if (IsSearchMoving())
+        {
+            StopSearchMove();
+        }
+    }
+
+    public void StopSearchMove()
+    {
+        MoveSpeed = 0.0f;
+        mPath = null;
+        mCurrentNodeIndex = 0;
+    }
 
     protected string GetAnimDirectory()
     {
@@ -172,5 +248,10 @@ public partial class Character : MonoBehaviour
 	Vector3 mDirection = Vector3.forward;
 	bool mDirectionChg = false;
 	Vector3 mLogicPosition = Vector3.zero;
-    
+
+    // Search Path
+    private Vector3[] mPath;
+    private int mCurrentNodeIndex = 0;
+    private float mDestRadius = 0.1f;
+
 }

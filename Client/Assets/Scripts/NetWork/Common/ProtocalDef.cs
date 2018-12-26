@@ -15,7 +15,6 @@ public enum CTS
     CTS_PlayerMove      = 2003,
     CTS_TargetChg       = 2004,
     CTS_SkillReq        = 2005,
-    CTS_SkillBegin      = 2006,
 }
 
 public enum STC
@@ -32,4 +31,5 @@ public enum STC
     STC_StartClienGame      = 2002,
     STC_PlayerMove          = 2003,
     STC_TargetChg           = 2004,
+    STC_SkillNotify         = 2005,
 }
