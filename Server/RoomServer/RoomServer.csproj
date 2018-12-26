@@ -147,6 +147,7 @@
     <Compile Include="Script\CsScript\Logic\Character\Character_Move.cs" />
     <Compile Include="Script\CsScript\Logic\Common\BaseSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Common\Debug.cs" />
+    <Compile Include="Script\CsScript\Logic\Common\DescriptionAttribute.cs" />
     <Compile Include="Script\CsScript\Logic\Common\Time.cs" />
     <Compile Include="Script\CsScript\Logic\Fight\CampSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Game\ExcelDefine.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Script\CsScript\Logic\Skill\Skill.cs" />
     <Compile Include="Script\CsScript\Logic\Skill\SkillContext.cs" />
     <Compile Include="Script\CsScript\Logic\Skill\SkillDefine.cs" />
+    <Compile Include="Script\CsScript\Logic\Skill\SkillEventRegister.cs" />
     <Compile Include="Script\CsScript\Logic\Skill\SkillHandle.cs" />
     <Compile Include="Script\CsScript\Logic\Skill\SkillStage.cs" />
     <Compile Include="Script\CsScript\Logic\Skill\SkillUtility.cs" />

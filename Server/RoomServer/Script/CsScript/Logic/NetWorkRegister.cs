@@ -78,11 +78,27 @@ namespace GameServer.RoomServer
             cha.SetTarget(target, false);
         }
 
+        static void RequestSkill(byte[] data, Action5001 action)
+        {
+            ReqSkill req = ProtoBufUtils.Deserialize<ReqSkill>(data);
+            Character cha = SceneManager.Instance.FindCharacter(action.UserId);
+            if (cha == null)
+                return;
+            SkillHandle handle = new SkillHandle();
+            handle.skillID = req.skillID;
+            handle.caster = cha;
+            handle.skillTargetID = req.targetID;
+            handle.autoTargetPos = req.autoTargetPos;
+            handle.targetPos = req.targetPos.ToVector3();
+            SkillHandle.UseSkill(handle);
+        }
+
         public static void Initialize()
         {
             NetWork.RegisterMessage(CTS.CTS_EnterScn, OnEnterScene);
             NetWork.RegisterMessage(CTS.CTS_LoadedScn, OnPlayerLoadedScn);
             NetWork.RegisterMessage(CTS.CTS_TargetChg, TargetChg);
+            NetWork.RegisterMessage(CTS.CTS_SkillReq, RequestSkill);
 
             NetWork.RegisterRemote(STS.STS_CreateScn, CreateScene);
         }

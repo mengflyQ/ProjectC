@@ -34,7 +34,7 @@ namespace MathLib
             return (int)System.Math.Floor((double)f);
         }
 
-        public static float CeilToInt(float f)
+        public static int CeilToInt(float f)
         {
             return (int)System.Math.Ceiling((double)f);
         }

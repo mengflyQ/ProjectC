@@ -102,7 +102,7 @@ public class Skill
                 Debug.LogError("Error: 找不到技能段{0}，技能ID：{1}", stageID, mSkillInfo.id);
                 continue;
             }
-            if (SkillStage.IsTrait(SkillStageTrait.FirstStage, stageInfo))
+            if (SkillStage.IsStageTrait(SkillStageTrait.FirstStage, stageInfo))
             {
                 firstStageID = stageInfo.id;
                 break;
@@ -127,8 +127,8 @@ public class Skill
             Owner.Direction = dir;
         }
 
-        if (!SkillStage.IsTrait(SkillStageTrait.AllowMove, mCurStage.mStageInfo)
-            || SkillStage.IsTrait(SkillStageTrait.MoveBreak, mCurStage.mStageInfo))
+        if (!SkillStage.IsStageTrait(SkillStageTrait.AllowMove, mCurStage.mStageInfo)
+            || SkillStage.IsStageTrait(SkillStageTrait.MoveBreak, mCurStage.mStageInfo))
         {
             Owner.StopMove(false);
         }
