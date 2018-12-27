@@ -130,6 +130,23 @@ public enum SkillEventTrait
     Count
 }
 
+public enum SkillHitShape
+{
+    [EnumDescription("矩形单体")]
+    RectSingle,
+    [EnumDescription("扇形单体")]
+    FanSingle,
+    [EnumDescription("圆形单体")]
+    CircleSingle,
+
+    [EnumDescription("矩形群体")]
+    RectMultiple,
+    [EnumDescription("扇形群体")]
+    FanMultiple,
+    [EnumDescription("圆形群体")]
+    CircleMultiple,
+}
+
 public enum SkillJumpType
 {
     None,

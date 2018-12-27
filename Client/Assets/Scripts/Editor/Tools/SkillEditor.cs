@@ -958,6 +958,46 @@ public class SkillEditor : EditorWindow
 
         EditorGUILayout.LabelField("判定ID", string.Format("{0}", hitExcel.id));
         hitExcel.name = EditorGUILayout.TextField("判定名称", hitExcel.name);
+        int[] values = Enum.GetValues(typeof(SkillHitShape)) as int[];
+        string[] texts = new string[values.Length];
+        for (int i = 0; i < values.Length; ++i)
+        {
+            texts[i] = ((SkillHitShape)values[i]).ToDescription();
+        }
+        hitExcel.hitType = EditorGUILayout.IntPopup("判定形状", hitExcel.hitType, texts, values);
+        SkillHitShape shape = (SkillHitShape)hitExcel.hitType;
+        if (shape == SkillHitShape.FanSingle || shape == SkillHitShape.FanMultiple)
+        {
+            float radius = (float)hitExcel.hitData1 * 0.001f;
+            radius = EditorGUILayout.FloatField("半径", radius);
+            radius = Mathf.Max(radius, 0.0f);
+            hitExcel.hitData1 = Mathf.FloorToInt(radius * 1000.0f);
+            hitExcel.hitData2 = EditorGUILayout.IntSlider("半角角度", hitExcel.hitData2, 0, 180);
+        }
+        else if (shape == SkillHitShape.CircleSingle || shape == SkillHitShape.CircleMultiple)
+        {
+            float radius = (float)hitExcel.hitData1 * 0.001f;
+            radius = EditorGUILayout.FloatField("半径", radius);
+            radius = Mathf.Max(radius, 0.0f);
+            hitExcel.hitData1 = Mathf.FloorToInt(radius * 1000.0f);
+        }
+        else if (shape == SkillHitShape.RectSingle || shape == SkillHitShape.RectMultiple)
+        {
+            float width = (float)hitExcel.hitData1 * 0.001f;
+            width = EditorGUILayout.FloatField("宽度", width);
+            width = Mathf.Max(width, 0.0f);
+            hitExcel.hitData1 = Mathf.FloorToInt(width * 1000.0f);
+
+            float length = (float)hitExcel.hitData2 * 0.001f;
+            length = EditorGUILayout.FloatField("宽度", length);
+            length = Mathf.Max(length, 0.0f);
+            hitExcel.hitData2 = Mathf.FloorToInt(length * 1000.0f);
+        }
+
+        float height = (float)hitExcel.hitData3 * 0.001f;
+        height = EditorGUILayout.FloatField("高度", height);
+        height = Mathf.Max(height, 0.0f);
+        hitExcel.hitData3 = Mathf.FloorToInt(height * 1000.0f);
     }
 
     void ShowSkillStageData()
@@ -1141,6 +1181,20 @@ public static class EnumExtension
     public static string ToDescription(this SkillEventType enumType)
     {
         Type type = typeof(SkillEventType);
+        FieldInfo info = type.GetField(enumType.ToString());
+        if (info == null)
+            return "Unkown";
+        EnumDescriptionAttribute descAttribute = info.GetCustomAttributes(typeof(EnumDescriptionAttribute), true)[0] as EnumDescriptionAttribute;
+        if (descAttribute != null)
+        {
+            return descAttribute.Description;
+        }
+        return type.ToString();
+    }
+
+    public static string ToDescription(this SkillHitShape enumType)
+    {
+        Type type = typeof(SkillHitShape);
         FieldInfo info = type.GetField(enumType.ToString());
         if (info == null)
             return "Unkown";
