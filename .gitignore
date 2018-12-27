@@ -26,3 +26,5 @@ Release
 /Server/Tools/AutoStartRedis/*.rdb
 /Server/LobbyServer/*.suo
 /Server/LobbyServer/*.user
+/Client/.vs/Client/v15/*.suo
+.vs
