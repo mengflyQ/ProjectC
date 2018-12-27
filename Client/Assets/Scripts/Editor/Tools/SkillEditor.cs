@@ -222,6 +222,19 @@ public class SkillEditor : EditorWindow
             Rect rcbtn= EditorGUILayout.GetControlRect();
             EditorGUILayout.EndHorizontal();
 
+            if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
+            {
+                if (rcbtn.Contains(Event.current.mousePosition))
+                {
+                    GenericMenu menu = new GenericMenu();
+                    menu.AddItem(new GUIContent("添加技能段"), false, SkillMenuEvent, "addStage*" + skillExcel.id);
+                    menu.AddSeparator("");
+                    menu.AddItem(new GUIContent("删除技能"), false, SkillMenuEvent, "delSkill*" + skillExcel.id);
+                    menu.ShowAsContext();
+                    Event.current.Use();
+                }
+            }
+
             GUIStyle skillStyle = EditorStyles.foldout;
             bool bCurExpand = GUI.Toggle(rcfold, isExpand, "", skillStyle);
             GUIStyle style = isSel ? mSkillStyleSelected : mSkillStyleNormal;
@@ -259,13 +272,7 @@ public class SkillEditor : EditorWindow
                 EditorGUILayout.Space();
                 EditorGUILayout.Space();
                 EditorGUILayout.BeginVertical();
-
-                if (GUILayout.Button("...", EditorStyles.boldLabel, GUILayout.Width(32.0f)))
-                {
-                    GenericMenu menu = new GenericMenu();
-                    menu.AddItem(new GUIContent("添加技能段"), false, SkillMenuEvent, "addStage*" + skillExcel.id);
-                    menu.ShowAsContext();
-                }
+                SkillHitList(skillExcel);
                 SkillStageList(skillExcel);
                 EditorGUILayout.Space();
 
@@ -274,6 +281,101 @@ public class SkillEditor : EditorWindow
                 EditorGUILayout.EndHorizontal();
             }
         }
+    }
+
+    void SkillHitList(excel_skill_list skillExcel)
+    {
+        EditorGUILayout.BeginHorizontal();
+        Rect rcfold = EditorGUILayout.GetControlRect(GUILayout.Width(12.0f));
+        Rect rcbtn = EditorGUILayout.GetControlRect();
+        EditorGUILayout.EndHorizontal();
+
+        if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
+        {
+            if (rcbtn.Contains(Event.current.mousePosition))
+            {
+                GenericMenu menu = new GenericMenu();
+                menu.AddItem(new GUIContent("添加判定表"), false, SkillMenuEvent, "addHit*" + skillExcel.id);
+                menu.ShowAsContext();
+                Event.current.Use();
+            }
+        }
+
+        bool isExpand = expandSkillHitIDs.Contains(skillExcel.id);
+        GUIStyle skillStyle = EditorStyles.foldout;
+        bool bCurExpand = GUI.Toggle(rcfold, isExpand, "", skillStyle);
+        GUI.Button(rcbtn, "判定表", mSkillStyleNormal);
+
+        if (bCurExpand && !isExpand)
+        {
+            expandSkillHitIDs.Add(skillExcel.id);
+            GUI.FocusControl("");
+        }
+        else if (!bCurExpand && isExpand)
+        {
+            expandSkillHitIDs.Remove(skillExcel.id);
+            GUI.FocusControl("");
+        }
+        if (!bCurExpand)
+        {
+            return;
+        }
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.BeginVertical();
+        if (skillExcel == null || skillExcel.hits == null)
+        {
+            EditorGUILayout.EndVertical();
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+            return;
+        }
+        for (int i = 0; i < skillExcel.hits.Length; ++i)
+        {
+            int hitID = skillExcel.hits[i];
+            excel_skill_hit hitExcel = excel_skill_hit.Find(hitID);
+            if (hitExcel == null)
+                continue;
+
+            rcbtn = EditorGUILayout.GetControlRect();
+            if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
+            {
+                if (rcbtn.Contains(Event.current.mousePosition))
+                {
+                    GenericMenu menu = new GenericMenu();
+                    menu.AddItem(new GUIContent("删除判定表"), false, SkillMenuEvent, "delHit*" + skillExcel.id + "*" + hitExcel.id);
+                    menu.ShowAsContext();
+                    Event.current.Use();
+                }
+            }
+
+            bool isSel = mCurHitID == hitExcel.id;
+
+            GUIStyle style = isSel ? mSkillStyleSelected : mSkillStyleNormal;
+            if (GUI.Button(rcbtn, "◆ 判定表{" + hitExcel.id + "}::名称{" + hitExcel.name + "}", style))
+            {
+                if (!isSel)
+                {
+                    mCurSkillID = 0;
+                    mCurSkillStageID = 0;
+                    mCurHitID = hitExcel.id;
+                    mCurEventID = 0;
+                }
+                else
+                {
+                    mCurSkillID = 0;
+                    mCurSkillStageID = 0;
+                    mCurHitID = 0;
+                    mCurEventID = 0;
+                }
+            }
+        }
+        EditorGUILayout.EndVertical();
+        GUILayout.FlexibleSpace();
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space();
     }
 
     void SkillStageList(excel_skill_list skillExcel)
@@ -294,6 +396,19 @@ public class SkillEditor : EditorWindow
             Rect rcfold = EditorGUILayout.GetControlRect(GUILayout.Width(12.0f));
             Rect rcbtn = EditorGUILayout.GetControlRect();
             EditorGUILayout.EndHorizontal();
+
+            if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
+            {
+                if (rcbtn.Contains(Event.current.mousePosition))
+                {
+                    GenericMenu menu = new GenericMenu();
+                    menu.AddItem(new GUIContent("添加技能事件"), false, SkillMenuEvent, "addEvent*" + stageExcel.id);
+                    menu.AddSeparator("");
+                    menu.AddItem(new GUIContent("删除技能段"), false, SkillMenuEvent, "delStage*" + skillExcel.id + "*" + stageExcel.id);
+                    menu.ShowAsContext();
+                    Event.current.Use();
+                }
+            }
 
             GUIStyle skillStyle = EditorStyles.foldout;
             bool bCurExpand = GUI.Toggle(rcfold, isExpand, "", skillStyle);
@@ -333,12 +448,6 @@ public class SkillEditor : EditorWindow
                 EditorGUILayout.Space();
                 EditorGUILayout.BeginVertical();
 
-                if (GUILayout.Button("...", EditorStyles.boldLabel, GUILayout.Width(32.0f)))
-                {
-                    GenericMenu menu = new GenericMenu();
-                    menu.AddItem(new GUIContent("添加技能事件"), false, SkillMenuEvent, "addEvent*" + stageExcel.id);
-                    menu.ShowAsContext();
-                }
                 SkillEventList(stageExcel);
 
                 EditorGUILayout.Space();
@@ -362,10 +471,21 @@ public class SkillEditor : EditorWindow
                 continue;
             
             bool isSel = mCurEventID == eventExcel.id;
-
-            EditorGUILayout.BeginHorizontal();
+            
             Rect rcbtn = EditorGUILayout.GetControlRect();
-            EditorGUILayout.EndHorizontal();
+            if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
+            {
+                if (rcbtn.Contains(Event.current.mousePosition))
+                {
+                    GenericMenu menu = new GenericMenu();
+                    menu.AddItem(new GUIContent("删除技能事件"), false, SkillMenuEvent, "delEvent*" + stageExcel.id + "*" + eventExcel.id);
+                    menu.AddSeparator("");
+                    menu.AddItem(new GUIContent("上移"), false, SkillMenuEvent, "upEvent*" + stageExcel.id + "*" + eventExcel.id);
+                    menu.AddItem(new GUIContent("下移"), false, SkillMenuEvent, "downEvent*" + stageExcel.id + "*" + eventExcel.id);
+                    menu.ShowAsContext();
+                    Event.current.Use();
+                }
+            }
 
             GUIStyle skillStyle = EditorStyles.foldout;
             GUIStyle style = isSel ? mSkillStyleSelected : mSkillStyleNormal;
@@ -467,6 +587,122 @@ public class SkillEditor : EditorWindow
         return id;
     }
 
+    int GetEmptySkillHitID()
+    {
+        SkillExcelDomainSet domainSet = mSkillDomain[mCurDomainIndex];
+        if (domainSet == null)
+            return -1;
+        SkillExcelDomain domain = domainSet.skillHitDomain;
+        if (domain == null)
+            return -1;
+        int id = domain.minID;
+        for (int i = 0; i < excel_skill_hit.Count; ++i)
+        {
+            excel_skill_hit excel = excel_skill_hit.GetByIndex(i);
+            if (excel.id < domain.minID || excel.id > domain.maxID)
+                continue;
+            if (id == excel.id)
+            {
+                ++id;
+            }
+            else
+            {
+                return id;
+            }
+        }
+        return id;
+    }
+
+    void DeleteSkillEvent(int stageID, int skillEventID)
+    {
+        excel_skill_stage stageExcel = excel_skill_stage.Find(stageID);
+        if (stageExcel == null)
+            return;
+        excel_skill_event eventExcel = excel_skill_event.Find(skillEventID);
+        if (eventExcel == null)
+            return;
+        expandSkillEventIDs.Remove(skillEventID);
+        if (mCurEventID == skillEventID)
+            mCurEventID = 0;
+        List<int> events = new List<int>(stageExcel.events);
+        events.Remove(skillEventID);
+        stageExcel.events = events.ToArray();
+        excel_skill_event.excelView.Remove(eventExcel);
+    }
+
+    void DeleteSkillHit(int skillID, int skillHitID)
+    {
+        excel_skill_list skillExcel = excel_skill_list.Find(skillID);
+        if (skillExcel == null)
+            return;
+        excel_skill_hit skillHitExcel = excel_skill_hit.Find(skillHitID);
+        if (skillHitExcel == null)
+            return;
+        if (mCurHitID == skillHitID)
+            mCurHitID = 0;
+        List<int> hits = new List<int>(skillExcel.hits);
+        hits.Remove(skillHitID);
+        skillExcel.hits = hits.ToArray();
+        excel_skill_hit.excelView.Remove(skillHitExcel);
+    }
+
+    void DeleteSkillStage(int skillID, int skillStageID)
+    {
+        excel_skill_list skillExcel = excel_skill_list.Find(skillID);
+        if (skillExcel == null)
+            return;
+        excel_skill_stage skillStageExcel = excel_skill_stage.Find(skillStageID);
+        if (skillStageExcel == null)
+            return;
+        if (mCurSkillStageID == skillStageID)
+            mCurSkillStageID = 0;
+        if (skillStageExcel.events != null)
+        {
+            int[] events = skillStageExcel.events.Clone() as int[];
+            for (int i = 0; i < events.Length; ++i)
+            {
+                int eventID = events[i];
+                DeleteSkillEvent(skillStageID, eventID);
+            }
+        }
+        
+        List<int> stages = new List<int>(skillExcel.stages);
+        stages.Remove(skillStageID);
+        skillExcel.stages = stages.ToArray();
+        excel_skill_stage.excelView.Remove(skillStageExcel);
+    }
+
+    void DeleteSkill(int skillID)
+    {
+        excel_skill_list skillExcel = excel_skill_list.Find(skillID);
+        if (skillExcel == null)
+            return;
+        expandSkillIDs.Remove(skillID);
+        expandSkillHitIDs.Remove(skillID);
+        if (mCurSkillID == skillID)
+            mCurSkillID = 0;
+        if (skillExcel.hits != null)
+        {
+            int[] hits = skillExcel.hits.Clone() as int[];
+            for (int i = 0; i < hits.Length; ++i)
+            {
+                int hitID = hits[i];
+                DeleteSkillHit(skillID, hitID);
+            }
+        }
+        if (skillExcel.stages != null)
+        {
+            int[] stages = skillExcel.stages.Clone() as int[];
+            for (int i = 0; i < stages.Length; ++i)
+            {
+                int stageID = stages[i];
+                DeleteSkillStage(skillID, stageID);
+            }
+        }
+        
+        excel_skill_list.excelView.Remove(skillExcel);
+    }
+
     void SkillMenuEvent(object obj)
     {
         string strData = obj as string;
@@ -481,7 +717,7 @@ public class SkillEditor : EditorWindow
             excel_skill_list newSkill = new excel_skill_list();
             newSkill.id = GetEmptySkillID();
             newSkill.name = "newSkill";
-            excel_skill_list.excelView.Add(newSkill);
+            excel_skill_list.Add(newSkill);
         }
         else if (data0 == "addStage")
         {
@@ -507,7 +743,7 @@ public class SkillEditor : EditorWindow
                 origList.CopyTo(skillExcel.stages, 0);
             }
             skillExcel.stages[skillExcel.stages.Length - 1] = newStage.id;
-            excel_skill_stage.excelView.Add(newStage);
+            excel_skill_stage.Add(newStage);
         }
         else if (data0 == "addEvent")
         {
@@ -533,7 +769,151 @@ public class SkillEditor : EditorWindow
                 origList.CopyTo(stageExcel.events, 0);
             }
             stageExcel.events[stageExcel.events.Length - 1] = eventExcel.id;
-            excel_skill_event.excelView.Add(eventExcel);
+            excel_skill_event.Add(eventExcel);
+        }
+        else if (data0 == "addHit")
+        {
+            int skillId = 0;
+            if (!int.TryParse(sdatas[1], out skillId))
+            {
+                return;
+            }
+            excel_skill_list skillExcel = excel_skill_list.Find(skillId);
+            if (skillExcel == null)
+                return;
+            excel_skill_hit hitExcel = new excel_skill_hit();
+            hitExcel.id = GetEmptySkillHitID();
+            hitExcel.name = "newHit";
+            if (skillExcel.hits == null)
+            {
+                skillExcel.hits = new int[1];
+            }
+            else
+            {
+                int[] origList = skillExcel.hits.Clone() as int[];
+                skillExcel.hits = new int[skillExcel.hits.Length + 1];
+                origList.CopyTo(skillExcel.hits, 0);
+            }
+            skillExcel.hits[skillExcel.hits.Length - 1] = hitExcel.id;
+            excel_skill_hit.Add(hitExcel);
+        }
+        else if (data0 == "delHit")
+        {
+            int skillId = 0, skillHitId = 0;
+            if (!int.TryParse(sdatas[1], out skillId))
+            {
+                return;
+            }
+            if (!int.TryParse(sdatas[2], out skillHitId))
+            {
+                return;
+            }
+            if (!EditorUtility.DisplayDialog("提醒", "是否删除判定表[" + skillHitId + "]", "是", "否"))
+            {
+                return;
+            }
+            DeleteSkillHit(skillId, skillHitId);
+        }
+        else if (data0 == "delEvent")
+        {
+            int stageId = 0, eventID = 0;
+            if (!int.TryParse(sdatas[1], out stageId))
+            {
+                return;
+            }
+            if (!int.TryParse(sdatas[2], out eventID))
+            {
+                return;
+            }
+            if (!EditorUtility.DisplayDialog("提醒", "是否删除技能事件[" + eventID + "]", "是", "否"))
+            {
+                return;
+            }
+            DeleteSkillEvent(stageId, eventID);
+        }
+        else if (data0 == "delStage")
+        {
+            int skillId = 0, skillStageId = 0;
+            if (!int.TryParse(sdatas[1], out skillId))
+            {
+                return;
+            }
+            if (!int.TryParse(sdatas[2], out skillStageId))
+            {
+                return;
+            }
+            if (!EditorUtility.DisplayDialog("提醒", "是否删除技能段[" + skillStageId + "]", "是", "否"))
+            {
+                return;
+            }
+            DeleteSkillStage(skillId, skillStageId);
+        }
+        else if (data0 == "delSkill")
+        {
+            int skillId = 0;
+            if (!int.TryParse(sdatas[1], out skillId))
+            {
+                return;
+            }
+            if (!EditorUtility.DisplayDialog("提醒", "是否删除技能[" + skillId + "]", "是", "否"))
+            {
+                return;
+            }
+            DeleteSkill(skillId);
+        }
+        else if (data0 == "upEvent")
+        {
+            int skillStageId = 0, skillEventId = 0;
+            if (!int.TryParse(sdatas[1], out skillStageId))
+            {
+                return;
+            }
+            if (!int.TryParse(sdatas[2], out skillEventId))
+            {
+                return;
+            }
+            excel_skill_stage stageExcel = excel_skill_stage.Find(skillStageId);
+            if (stageExcel == null)
+                return;
+            for (int i = 0; i < stageExcel.events.Length; ++i)
+            {
+                int eventID = stageExcel.events[i];
+                if (skillEventId == eventID)
+                {
+                    if (i == 0)
+                        return;
+                    int tmp = eventID;
+                    stageExcel.events[i] = stageExcel.events[i - 1];
+                    stageExcel.events[i - 1] = tmp;
+                    return;
+                }
+            }
+        }
+        else if (data0 == "downEvent")
+        {
+            int skillStageId = 0, skillEventId = 0;
+            if (!int.TryParse(sdatas[1], out skillStageId))
+            {
+                return;
+            }
+            if (!int.TryParse(sdatas[2], out skillEventId))
+            {
+                return;
+            }
+            excel_skill_stage stageExcel = excel_skill_stage.Find(skillStageId);
+            if (stageExcel == null)
+                return;
+            for (int i = 0; i < stageExcel.events.Length - 1; ++i)
+            {
+                int eventID = stageExcel.events[i];
+                if (skillEventId == eventID)
+                {
+                    int tmp = eventID;
+                    stageExcel.events[i] = stageExcel.events[i + 1];
+                    stageExcel.events[i + 1] = tmp;
+                    return;
+                }
+            }
         }
     }
     #endregion // ListView
@@ -546,6 +926,7 @@ public class SkillEditor : EditorWindow
             EditorGUILayout.LabelField("没有任何数据");
         }
         ShowSkillData();
+        ShowSkillHitData();
         ShowSkillStageData();
         ShowSkillEventData();
     }
@@ -567,6 +948,16 @@ public class SkillEditor : EditorWindow
             texts[i] = ((SkillTargetType)i).ToDescription();
         }
         skillExcel.targetType = EditorGUILayout.IntPopup("目标类型", (int)skillExcel.targetType, texts, values);
+    }
+
+    void ShowSkillHitData()
+    {
+        if (mCurHitID == 0)
+            return;
+        excel_skill_hit hitExcel = excel_skill_hit.Find(mCurHitID);
+
+        EditorGUILayout.LabelField("判定ID", string.Format("{0}", hitExcel.id));
+        hitExcel.name = EditorGUILayout.TextField("判定名称", hitExcel.name);
     }
 
     void ShowSkillStageData()

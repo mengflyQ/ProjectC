@@ -307,4 +307,10 @@ public class ExcelBase<T> : ExcelSimple where T : ExcelSimple
         }
         return null;
     }
+
+    public static void Add(T excel)
+    {
+        excelView.Add(excel);
+        excelView.Sort(CompareExcel);
+    }
 }
