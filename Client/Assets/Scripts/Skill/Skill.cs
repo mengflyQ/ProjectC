@@ -37,7 +37,8 @@ public class Skill
     {
         mSkillState = SkillState.TrackEnemy;
 
-        if (mSkillInfo.targetType != (int)SkillTargetType.All)
+        if (mSkillInfo.targetType != (int)SkillTargetType.All
+            && !IsInRange())
         {
             Character skillTarget = mSkillContext.SkillTarget;
             if (skillTarget == null)
@@ -62,7 +63,11 @@ public class Skill
         {
             case SkillState.TrackEnemy:
                 {
-                    if (IsInRange())
+                    if (!TrackEnemy())
+                    {
+                        mSkillState = SkillState.Break;
+                    }
+                    if (IsInRange() && mSkillState != SkillState.Break)
                     {
                         BeginSkill();
                     }
@@ -90,7 +95,7 @@ public class Skill
         SetStage(0);
     }
 
-    void BeginSkill()
+    public void BeginSkill()
     {
         int firstStageID = -1;
         for (int i = 0; i < mSkillInfo.stages.Length; ++i)
@@ -134,10 +139,26 @@ public class Skill
         }
 
         mSkillState = SkillState.Using;
+
+        // 自己客户端放技能通知服务器开始放技能;
+        if (GameController.IsConntrller(Owner))
+        {
+            SkillBegin req = new SkillBegin();
+            req.uid = Owner.UserID;
+            req.skillID = mSkillInfo.id;
+            req.position = Vector3Packat.FromVector3(Owner.Position);
+            req.direction = Vector3Packat.FromVector3(Owner.Direction);
+            NetWork.SendPacket(CTS.CTS_SkillBegin, req, null);
+        }
     }
 
     bool IsInRange()
     {
+        // 自己追敌相信客户端;
+        if (!GameController.IsConntrller(Owner))
+        {
+            return false;
+        }
         Character skillTarget = mSkillContext.SkillTarget;
         if (skillTarget == null)
         {
@@ -152,11 +173,37 @@ public class Skill
         return true;
     }
 
+    bool TrackEnemy()
+    {
+        Character target = Owner.GetTarget();
+        if (target == null)
+        {
+            return false;
+        }
+        if (mLastTargetPosition == target.Position)
+        {
+            return true;
+        }
+        Owner.SearchMove(target.Position, target.Radius);
+        mLastTargetPosition = target.Position;
+        return true;
+    }
+
     Character Owner
     {
         get
         {
             return mSkillContext.mOwner;
+        }
+    }
+
+    public int SkillID
+    {
+        get
+        {
+            if (mSkillInfo == null)
+                return 0;
+            return mSkillInfo.id;
         }
     }
 
@@ -168,4 +215,6 @@ public class Skill
     SkillContext mSkillContext = null;
     // 技能状态;
     public SkillState mSkillState;
+
+    private Vector3 mLastTargetPosition;
 }

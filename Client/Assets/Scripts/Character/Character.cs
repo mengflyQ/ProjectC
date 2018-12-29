@@ -79,6 +79,11 @@ public partial class Character : MonoBehaviour
         }
     }
 
+    public Skill GetSkill()
+    {
+        return mCurSkill;
+    }
+
     public float Radius
     {
         get

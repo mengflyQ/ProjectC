@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System;
+using System.Text;
 using System.Xml;
 using System.IO;
 using System.Collections.Generic;
@@ -726,6 +727,8 @@ public class SkillEditor : EditorWindow
             {
                 return;
             }
+            if (!expandSkillIDs.Contains(skillId))
+                expandSkillIDs.Add(skillId);
             excel_skill_list skillExcel = excel_skill_list.Find(skillId);
             if (skillExcel == null)
                 return;
@@ -752,6 +755,8 @@ public class SkillEditor : EditorWindow
             {
                 return;
             }
+            if (!expandSkillStageIDs.Contains(stageID))
+                expandSkillStageIDs.Add(stageID);
             excel_skill_stage stageExcel = excel_skill_stage.Find(stageID);
             if (stageExcel == null)
                 return;
@@ -778,6 +783,8 @@ public class SkillEditor : EditorWindow
             {
                 return;
             }
+            if (!expandSkillHitIDs.Contains(skillId))
+                expandSkillHitIDs.Add(skillId);
             excel_skill_list skillExcel = excel_skill_list.Find(skillId);
             if (skillExcel == null)
                 return;
@@ -915,6 +922,10 @@ public class SkillEditor : EditorWindow
                 }
             }
         }
+        else if (data0 == "save")
+        {
+            Save();
+        }
     }
     #endregion // ListView
 
@@ -989,7 +1000,7 @@ public class SkillEditor : EditorWindow
             hitExcel.hitData1 = Mathf.FloorToInt(width * 1000.0f);
 
             float length = (float)hitExcel.hitData2 * 0.001f;
-            length = EditorGUILayout.FloatField("宽度", length);
+            length = EditorGUILayout.FloatField("长度", length);
             length = Mathf.Max(length, 0.0f);
             hitExcel.hitData2 = Mathf.FloorToInt(length * 1000.0f);
         }
@@ -1008,7 +1019,7 @@ public class SkillEditor : EditorWindow
 
         EditorGUILayout.LabelField("技能段ID", string.Format("{0}", stageExcel.id));
         stageExcel.name = EditorGUILayout.TextField("技能段名称", stageExcel.name);
-        stageExcel.time = EditorGUILayout.FloatField("技能段时间", stageExcel.time);
+        stageExcel.time = EditorGUILayout.IntField("技能段帧数", stageExcel.time);
         stageExcel.nextStageID = EditorGUILayout.IntField("后续技能段", stageExcel.nextStageID);
 
         string[] texts = new string[(int)SkillStageTrait.Count];
@@ -1118,6 +1129,192 @@ public class SkillEditor : EditorWindow
         return m;
     }
     #endregion
+
+    protected enum SkillEditorSaveType
+    {
+        Skill,
+        SkillStage,
+        SkillHit,
+        SkillEvent
+    }
+
+    void Save()
+    {
+        try
+        {
+            for (int i = 0; i < mSkillDomain.Count; ++i)
+            {
+                SkillExcelDomainSet domainSet = mSkillDomain[i];
+
+                if (!Save(domainSet.skillDomain, SkillEditorSaveType.Skill))
+                {
+                    Debug.LogError("技能表保存失败");
+                }
+                if (!Save(domainSet.skillStageDomain, SkillEditorSaveType.SkillStage))
+                {
+                    Debug.LogError("技能段保存失败");
+                }
+                if (!Save(domainSet.skillHitDomain, SkillEditorSaveType.SkillHit))
+                {
+                    Debug.LogError("技能判定表保存失败");
+                }
+                if (!Save(domainSet.skillEventDomain, SkillEditorSaveType.SkillEvent))
+                {
+                    Debug.LogError("技能事件表保存失败");
+                }
+            }
+            EditorUtility.DisplayDialog("提示", "技能数据保存成功", "确定");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("文件保存失败：\n" + e.Message);
+        }
+    }
+
+    bool Save(SkillExcelDomain domain, SkillEditorSaveType saveType)
+    {
+        string path = "Assets/Resources/Excel/skill/" + domain.fileName + ".txt";
+        TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+        if (asset == null)
+            return false;
+        string header = string.Empty;
+        int enterPos = asset.text.IndexOf('\n');
+        if (enterPos > 0)
+        {
+            header += asset.text.Substring(0, enterPos + 1);
+        }
+        else
+        {
+            header += asset.text;
+        }
+
+        StringBuilder skillExcelText = new StringBuilder(256);
+        if (saveType == SkillEditorSaveType.Skill)
+        {
+            SaveSkill(domain, ref skillExcelText);
+        }
+        else if (saveType == SkillEditorSaveType.SkillStage)
+        {
+            SaveSkillStage(domain, ref skillExcelText);
+        }
+        else if (saveType == SkillEditorSaveType.SkillHit)
+        {
+            SaveSkillHit(domain, ref skillExcelText);
+        }
+        else if (saveType == SkillEditorSaveType.SkillEvent)
+        {
+            SaveSkillEvent(domain, ref skillExcelText);
+        }
+        string content = skillExcelText.ToString();
+
+        string absPath = Application.dataPath + "/Resources/Excel/skill/" + domain.fileName + ".txt";
+        if (File.Exists(absPath))
+            File.Delete(absPath);
+        using (StreamWriter sw = new StreamWriter(absPath, false, Encoding.Unicode))
+        {
+            string text = header + content;
+            sw.Write(text);
+            sw.Close();
+        }
+        return true;
+    }
+
+    void SaveSkill(SkillExcelDomain domain, ref StringBuilder skillExcelText)
+    {
+        for (int j = 0; j < excel_skill_list.Count; ++j)
+        {
+            excel_skill_list excel = excel_skill_list.GetByIndex(j);
+            if (excel == null)
+                continue;
+            if (excel.id < domain.minID || excel.id > domain.maxID)
+                continue;
+            skillExcelText.Append(excel.id).Append("\t");
+            skillExcelText.Append(excel.name).Append("\t");
+            skillExcelText.Append(IntArrayToString(excel.stages)).Append("\t");
+            skillExcelText.Append(IntArrayToString(excel.hits)).Append("\t");
+            skillExcelText.Append(excel.trait).Append("\t");
+            skillExcelText.Append(excel.maxDistance).Append("\t");
+            skillExcelText.Append(excel.targetType).Append("\r\n");
+        }
+    }
+
+    void SaveSkillStage(SkillExcelDomain domain, ref StringBuilder skillExcelText)
+    {
+        for (int j = 0; j < excel_skill_stage.Count; ++j)
+        {
+            excel_skill_stage excel = excel_skill_stage.GetByIndex(j);
+            if (excel == null)
+                continue;
+            if (excel.id < domain.minID || excel.id > domain.maxID)
+                continue;
+            skillExcelText.Append(excel.id).Append("\t");
+            skillExcelText.Append(excel.name).Append("\t");
+            skillExcelText.Append(IntArrayToString(excel.events)).Append("\t");
+            skillExcelText.Append(excel.trait).Append("\t");
+            skillExcelText.Append(excel.time).Append("\t");
+            skillExcelText.Append(excel.nextStageID).Append("\r\n");
+        }
+    }
+
+    void SaveSkillHit(SkillExcelDomain domain, ref StringBuilder skillExcelText)
+    {
+        for (int j = 0; j < excel_skill_hit.Count; ++j)
+        {
+            excel_skill_hit excel = excel_skill_hit.GetByIndex(j);
+            if (excel == null)
+                continue;
+            if (excel.id < domain.minID || excel.id > domain.maxID)
+                continue;
+            skillExcelText.Append(excel.id).Append("\t");
+            skillExcelText.Append(excel.name).Append("\t");
+            skillExcelText.Append(excel.hitType).Append("\t");
+            skillExcelText.Append(excel.hitData1).Append("\t");
+            skillExcelText.Append(excel.hitData2).Append("\t");
+            skillExcelText.Append(excel.hitData3).Append("\r\n");
+        }
+    }
+
+    void SaveSkillEvent(SkillExcelDomain domain, ref StringBuilder skillExcelText)
+    {
+        for (int j = 0; j < excel_skill_event.Count; ++j)
+        {
+            excel_skill_event excel = excel_skill_event.GetByIndex(j);
+            if (excel == null)
+                continue;
+            if (excel.id < domain.minID || excel.id > domain.maxID)
+                continue;
+            skillExcelText.Append(excel.id).Append("\t");
+            skillExcelText.Append(excel.name).Append("\t");
+            skillExcelText.Append(excel.triggerType).Append("\t");
+            skillExcelText.Append(excel.triggerParam1).Append("\t");
+            skillExcelText.Append(excel.triggerParam2).Append("\t");
+            skillExcelText.Append(excel.eventType).Append("\t");
+            skillExcelText.Append(excel.evnetParam1).Append("\t");
+            skillExcelText.Append(excel.evnetParam2).Append("\t");
+            skillExcelText.Append(excel.evnetParam3).Append("\t");
+            skillExcelText.Append(excel.evnetParam4).Append("\t");
+            skillExcelText.Append(excel.evnetParam5).Append("\t");
+            skillExcelText.Append(excel.evnetParam6).Append("\t");
+            skillExcelText.Append(excel.evnetParam7).Append("\t");
+            skillExcelText.Append(excel.evnetParam8).Append("\t");
+            skillExcelText.Append(excel.evnetParam9).Append("\t");
+            skillExcelText.Append(excel.trait).Append("\r\n");
+        }
+    }
+
+    string IntArrayToString(int[] a)
+    {
+        if (a == null)
+            return string.Empty;
+        StringBuilder text = new StringBuilder();
+        for (int i = 0; i < a.Length; ++i)
+        {
+            text.Append(a[i]);
+            if (i != a.Length - 1)
+                text.Append("*");
+        }
+        return text.ToString();
+    }
 }
 
 public static class EnumExtension

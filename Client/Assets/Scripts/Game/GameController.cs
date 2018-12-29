@@ -53,6 +53,12 @@ public class GameController
         NetWork.RegisterNotify(STC.STC_PlayerMove, OnPlayerMove);
         NetWork.RegisterNotify(STC.STC_TargetChg, OnTargetChg);
         NetWork.RegisterNotify(STC.STC_SkillNotify, SkillNotify);
+        NetWork.RegisterNotify(STC.STC_SkillBegin, SkillBeginFunc);
+    }
+
+    public static bool IsConntrller(Character cha)
+    {
+        return cha == mMainPlayer;
     }
 
     public static void LogicTick()
@@ -110,6 +116,27 @@ public class GameController
         handle.targetPos = reqSkill.targetPos.ToVector3();
         handle.skillTargetID = reqSkill.targetID;
         SkillHandle.UseSkill(handle);
+    }
+
+    static void SkillBeginFunc(byte[] data)
+    {
+        Scene scn = SceneSystem.Instance.mCurrentScene;
+        if (scn == null)
+            return;
+        SkillBegin msg = ProtoBufUtils.Deserialize<SkillBegin>(data);
+        Character cha = scn.GetCharacter(msg.uid);
+        if (cha == null)
+            return;
+        Skill skill = cha.GetSkill();
+        if (skill == null)
+            return;
+        if (skill.SkillID != msg.skillID || skill.mSkillState != SkillState.TrackEnemy)
+        {
+            return;
+        }
+        cha.Position = msg.position.ToVector3();
+        cha.Direction = msg.direction.ToVector3();
+        skill.BeginSkill();
     }
 
     public static Player mMainPlayer = null;

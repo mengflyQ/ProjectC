@@ -6,4 +6,19 @@ public class Player : Character
     {
         Type = CharacterType.Player;
     }
+
+    private bool mIsControl = false;
+    public bool IsControl
+    {
+        set
+        {
+            if (mIsControl == value)
+                return;
+            mIsControl = value;
+        }
+        get
+        {
+            return mIsControl;
+        }
+    }
 }

@@ -186,8 +186,10 @@ public class ReqPlayerMove
     [ProtoMember(3)]
     public Vector3Packat position;
     [ProtoMember(4)]
-    public float timestamp;
+    public bool control;
     [ProtoMember(5)]
+    public float timestamp;
+    [ProtoMember(6)]
     public float timespan;
 }
 
@@ -226,4 +228,17 @@ public class ReqSkill
     public Vector3Packat targetPos;
     [ProtoMember(7)]
     public int targetID;
+}
+
+[Serializable, ProtoContract]
+public class SkillBegin
+{
+    [ProtoMember(1)]
+    public int uid;
+    [ProtoMember(2)]
+    public int skillID;
+    [ProtoMember(3)]
+    public Vector3Packat direction;
+    [ProtoMember(4)]
+    public Vector3Packat position;
 }

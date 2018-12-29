@@ -171,7 +171,7 @@ public class SkillStage
 
     public bool IsTimeOver()
     {
-        int totalTick = Mathf.CeilToInt(mStageInfo.time / 0.0333333f);
+        int totalTick = mStageInfo.time;
 
         if (mTick >= totalTick)
             return true;

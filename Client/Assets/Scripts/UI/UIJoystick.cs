@@ -85,8 +85,13 @@ public class UIJoystick : MonoBehaviour
 
 				GameController.mMainPlayer.Direction = dir;
 				GameController.mMainPlayer.MoveSpeed = 3.0f * strength;
-			}
+                GameController.mMainPlayer.IsControl = true;
+            }
 		}
+        else
+        {
+            GameController.mMainPlayer.IsControl = false;
+        }
 	}
 
 	bool mDraging = false;

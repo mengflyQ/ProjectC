@@ -19,6 +19,7 @@ public class MainPlayerRecord
             req.speed = mMainPlayer.MoveSpeed;
             req.direction = Vector3Packat.FromVector3(mMainPlayer.Direction);
             req.position = Vector3Packat.FromVector3(mMainPlayer.Position);
+            req.control = mMainPlayer.IsControl;
             req.timestamp = Time.realtimeSinceStartup;
             req.timespan = Time.realtimeSinceStartup - mLastTimeStamp;
             NetWork.SendPacket<ReqPlayerMove>(CTS.CTS_PlayerMove, req, null);
@@ -33,6 +34,7 @@ public class MainPlayerRecord
     {
         mLastDirection = mMainPlayer.Direction;
         mLastSpeed = mMainPlayer.MoveSpeed;
+        mLastControl = mMainPlayer.IsControl;
         mDirty = false;
     }
 
@@ -46,6 +48,10 @@ public class MainPlayerRecord
         {
             mDirty = true;
         }
+        if (mMainPlayer.IsControl != mLastControl)
+        {
+            mDirty = true;
+        }
     }
 
     Player mMainPlayer = null;
@@ -55,4 +61,5 @@ public class MainPlayerRecord
     Vector3 mLastDirection = Vector3.zero;
     float mLastSpeed = 0.0f;
     float mLastTimeStamp = 0.0f;
+    bool mLastControl = false;
 }
