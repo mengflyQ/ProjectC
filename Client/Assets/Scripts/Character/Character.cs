@@ -7,6 +7,11 @@ public enum CharacterType
     NPC,
 }
 
+public enum CharacterEventType
+{
+    OnTargetChg,
+}
+
 public partial class Character : MonoBehaviour
 {
 	void Awake()
@@ -35,6 +40,10 @@ public partial class Character : MonoBehaviour
         if (TargetID != tid)
         {
             TargetID = tid;
+            if (mEvent != null)
+            {
+                mEvent(CharacterEventType.OnTargetChg, this);
+            }
 
             if (msg)
             {
@@ -114,4 +123,7 @@ public partial class Character : MonoBehaviour
     public excel_cha_list mChaList;
 
     protected Skill mCurSkill = null;
+
+    public delegate void OnEvent(CharacterEventType evtType, Character self);
+    public OnEvent mEvent = null;
 }

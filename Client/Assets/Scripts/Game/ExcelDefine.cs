@@ -10,6 +10,13 @@ public class excel_scn_list : ExcelBase<excel_scn_list>
     public float viewDist;
 }
 
+public class excel_cha_class : ExcelBase<excel_cha_class>
+{
+    public string name;
+    public int chaListID;
+    public int[] skillIDs;
+}
+
 public class excel_cha_list : ExcelBase<excel_cha_list>
 {
     public string name;

@@ -21,4 +21,6 @@ public class Player : Character
             return mIsControl;
         }
     }
+
+    public excel_cha_class mChaClass = null;
 }

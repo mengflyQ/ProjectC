@@ -1,18 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIFight : MonoBehaviour
 {
 	void Start()
     {
-		
+        MessageSystem.Instance.MsgRegister(MessageType.OnSetChaClass, OnSetChaClass);
 	}
-	
-	void Update()
+
+    private void OnDestroy()
+    {
+        
+    }
+
+    void Update()
     {
 		
 	}
+
+    void OnSetChaClass(params object[] param)
+    {
+        excel_cha_class chaClass = param[0] as excel_cha_class;
+        if (chaClass == null)
+            return;
+        if (skillBtns == null)
+            return;
+        for (int i = 0; i < chaClass.skillIDs.Length && i < skillBtns.Length; ++i)
+        {
+            Button btn = skillBtns[i];
+            int skillID = chaClass.skillIDs[i];
+
+            btn.onClick.AddListener(() =>
+            {
+                DoSkill(skillID);
+            });
+        }
+    }
 
     public void DoSkill(int skillID)
     {
@@ -28,4 +53,6 @@ public class UIFight : MonoBehaviour
         reqSkill.autoTargetPos = true;
         NetWork.SendPacket<ReqSkill>(CTS.CTS_SkillReq, reqSkill, null);
     }
+
+    public Button[] skillBtns;
 }

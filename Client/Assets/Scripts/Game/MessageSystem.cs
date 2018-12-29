@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public enum MessageType
 {
-    SetPlayerInfo
+    SetPlayerInfo,
+    OnSetChaClass,
 }
 
 public class MessageSystem

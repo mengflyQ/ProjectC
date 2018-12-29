@@ -12,7 +12,8 @@ public class GameController
         if (scn.mScnLists == null)
             return;
 
-        excel_cha_list chaList = excel_cha_list.Find(scn.mScnLists.temp);
+        excel_cha_class chaClass = excel_cha_class.Find(scn.mScnLists.temp);
+        excel_cha_list chaList = excel_cha_list.Find(chaClass.chaListID);
 
 		GameObject o = Resources.Load<GameObject>(chaList.path);
 		if (o != null)
@@ -21,6 +22,10 @@ public class GameController
 			mMainPlayer = mainPlayer.GetComponent<Player>();
             mMainPlayer.UserID = mUserInfo.uid;
             mMainPlayer.mChaList = chaList;
+            mMainPlayer.mChaClass = chaClass;
+            mMainPlayer.mEvent += TargetChgEvent;
+
+            MessageSystem.Instance.MsgDispatch(MessageType.OnSetChaClass, chaClass);
 
             mPlayerSync = new MainPlayerRecord(mMainPlayer);
 
@@ -67,6 +72,13 @@ public class GameController
         {
             mPlayerSync.LogicTick();
         }
+    }
+
+    static void TargetChgEvent(CharacterEventType evtType, Character self)
+    {
+        if (evtType != CharacterEventType.OnTargetChg)
+            return;
+        TargetCircle.Instance.SetTarget(self.GetTarget());
     }
 
     static void OnPlayerMove(byte[] data)
