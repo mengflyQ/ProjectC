@@ -745,6 +745,10 @@ public class SkillEditor : EditorWindow
                 skillExcel.stages = new int[skillExcel.stages.Length + 1];
                 origList.CopyTo(skillExcel.stages, 0);
             }
+            if (skillExcel.stages.Length == 1)
+            {
+                newStage.trait |= (1 << (int)(SkillStageTrait.FirstStage));
+            }
             skillExcel.stages[skillExcel.stages.Length - 1] = newStage.id;
             excel_skill_stage.Add(newStage);
         }
@@ -1129,7 +1133,8 @@ public class SkillEditor : EditorWindow
         return m;
     }
     #endregion
-
+    
+    #region Save
     protected enum SkillEditorSaveType
     {
         Skill,
@@ -1315,6 +1320,7 @@ public class SkillEditor : EditorWindow
         }
         return text.ToString();
     }
+    #endregion // Save
 }
 
 public static class EnumExtension
