@@ -38,7 +38,7 @@ public class excel_skill_stage : ExcelBase<excel_skill_stage>
     public string name;
     public int[] events;
     public int trait;
-    public float time;
+    public int time;
     public int nextStageID;
 }
 

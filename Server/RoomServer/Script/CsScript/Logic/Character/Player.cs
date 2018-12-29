@@ -14,7 +14,7 @@ public class Player : Character
 {
     public Player() : base()
     {
-
+        Type = CharacterType.Player;
     }
 
     public void OnReplace()
@@ -22,6 +22,21 @@ public class Player : Character
         if (mSession != null)
         {
             mSession.Close();
+        }
+    }
+
+    private bool mIsControl = false;
+    public bool IsControl
+    {
+        set
+        {
+            if (mIsControl == value)
+                return;
+            mIsControl = value;
+        }
+        get
+        {
+            return mIsControl;
         }
     }
 

@@ -5,6 +5,13 @@ using ZyGames.Framework.Game.Contract;
 using MathLib;
 using GameServer.RoomServer;
 
+public enum CharacterType
+{
+    Player,
+    Monster,
+    NPC,
+}
+
 public partial class Character
 {
     public Character()
@@ -55,6 +62,11 @@ public partial class Character
         }
     }
 
+    public Character GetTarget()
+    {
+        return mScene.FindCharacter(TargetID);
+    }
+
     public void SetSkill(Skill skill)
     {
         Skill lastSkill = mCurSkill;
@@ -67,6 +79,11 @@ public partial class Character
         {
             mCurSkill.Enter();
         }
+    }
+
+    public Skill GetSkill()
+    {
+        return mCurSkill;
     }
 
     protected int TargetID
@@ -132,6 +149,12 @@ public partial class Character
                 return 0.0f;
             return mChaList.radius;
         }
+    }
+
+    public CharacterType Type
+    {
+        set;
+        get;
     }
 
     public int uid;

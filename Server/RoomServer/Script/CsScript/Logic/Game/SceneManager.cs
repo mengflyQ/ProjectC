@@ -133,6 +133,7 @@ public class SceneManager : BaseSystem
                 p.Speed = req.speed;
                 p.Direction = req.direction.ToVector3();
                 p.Position = req.position.ToVector3();
+                p.IsControl = req.control;
                 continue;
             }
 

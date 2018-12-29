@@ -71,6 +71,18 @@ public class Scene
         return mPlayersList[index];
     }
 
+    public int GetCharacterCount()
+    {
+        return mCharactersList.Count;
+    }
+
+    public Character GetCharacterByIndex(int index)
+    {
+        if (index < 0 || index >= mCharactersList.Count)
+            return null;
+        return mCharactersList[index];
+    }
+
     public uint GetCellIndex(Vector3 pos)
     {
         int indexX = (int)(pos.x / mCellSize);

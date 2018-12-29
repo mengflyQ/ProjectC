@@ -1,6 +1,7 @@
 ﻿using MathLib;
 using System;
 using System.Collections.Generic;
+using GameServer.RoomServer;
 
 public class Skill
 {
@@ -37,22 +38,23 @@ public class Skill
     {
         mSkillState = SkillState.TrackEnemy;
 
-        //if (mSkillInfo.targetType != (int)SkillTargetType.All)
-        //{
-        //    Character skillTarget = mSkillContext.SkillTarget;
-        //    if (skillTarget == null)
-        //    {
-        //        mSkillState = SkillState.Failed;
-        //        return;
-        //    }
-        //    // float destRadius = MathLib.Math.Max(mSkillInfo.maxDistance - 0.5f, 0.0f);
-        //    // Owner.SearchMove(skillTarget.Position, destRadius, false);
-        //    mSkillState = SkillState.TrackEnemy;
-        //}
-        //else
-        //{
-        //    BeginSkill();
-        //}
+        if (mSkillInfo.targetType != (int)SkillTargetType.All
+            && !IsInRange())
+        {
+            Character skillTarget = mSkillContext.SkillTarget;
+            if (skillTarget == null)
+            {
+                mSkillState = SkillState.Failed;
+                return;
+            }
+            float destRadius = MathLib.Math.Max(mSkillInfo.maxDistance - 0.5f, 0.0f);
+            Owner.SearchMove(skillTarget.Position, destRadius, false);
+            mSkillState = SkillState.TrackEnemy;
+        }
+        else
+        {
+            BeginSkill();
+        }
     }
 
     public bool LogicTick()
@@ -62,10 +64,14 @@ public class Skill
         {
             case SkillState.TrackEnemy:
                 {
-                    //if (IsInRange())
-                    //{
-                    //    BeginSkill();
-                    //}
+                    if (!TrackEnemy())
+                    {
+                        mSkillState = SkillState.Break;
+                    }
+                    if (IsInRange() && mSkillState != SkillState.Break)
+                    {
+                        BeginSkill();
+                    }
                     rst = true;
                     break;
                 }
@@ -90,7 +96,7 @@ public class Skill
         SetStage(0);
     }
 
-    void BeginSkill()
+    public void BeginSkill()
     {
         int firstStageID = -1;
         for (int i = 0; i < mSkillInfo.stages.Length; ++i)
@@ -134,10 +140,30 @@ public class Skill
         }
 
         mSkillState = SkillState.Using;
+
+        SkillBegin msg = new SkillBegin();
+        msg.uid = Owner.uid;
+        msg.skillID = SkillID;
+        msg.position = Vector3Packat.FromVector3(Owner.Position);
+        msg.direction = Vector3Packat.FromVector3(Owner.Direction);
+
+        Scene scn = Owner.mScene;
+        for (int i = 0; i < scn.GetPlayerCount(); ++i)
+        {
+            Player player = scn.GetPlayerByIndex(i);
+            if (player == Owner)
+                continue;
+            NetWork.NotifyMessage(player.uid, STC.STC_SkillBegin, msg);
+        }
     }
 
     bool IsInRange()
     {
+        // 主角追敌相信客户端;
+        if (Owner.Type == CharacterType.Player)
+        {
+            return false;
+        }
         Character skillTarget = mSkillContext.SkillTarget;
         if (skillTarget == null)
         {
@@ -152,11 +178,42 @@ public class Skill
         return true;
     }
 
+    bool TrackEnemy()
+    {
+        // 主角追敌相信客户端;
+        if (Owner.Type == CharacterType.Player)
+        {
+            return true;
+        }
+        Character target = Owner.GetTarget();
+        if (target == null)
+        {
+            return false;
+        }
+        if (mLastTargetPosition == target.Position)
+        {
+            return true;
+        }
+        Owner.SearchMove(target.Position, target.Radius);
+        mLastTargetPosition = target.Position;
+        return true;
+    }
+
     Character Owner
     {
         get
         {
             return mSkillContext.mOwner;
+        }
+    }
+
+    public int SkillID
+    {
+        get
+        {
+            if (mSkillInfo == null)
+                return 0;
+            return mSkillInfo.id;
         }
     }
 
@@ -168,4 +225,6 @@ public class Skill
     SkillContext mSkillContext = null;
     // 技能状态;
     public SkillState mSkillState;
+
+    private Vector3 mLastTargetPosition;
 }

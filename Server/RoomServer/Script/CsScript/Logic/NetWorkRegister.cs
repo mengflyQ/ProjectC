@@ -93,12 +93,32 @@ namespace GameServer.RoomServer
             SkillHandle.UseSkill(handle);
         }
 
+        static void SkillBeginFunc(byte[] data, Action5001 action)
+        {
+            Player cha = SceneManager.Instance.FindPlayer(action.UserId);
+            if (cha == null)
+                return;
+            SkillBegin msg = ProtoBufUtils.Deserialize<SkillBegin>(data);
+            Skill skill = cha.GetSkill();
+            if (skill == null)
+                return;
+            if (skill.SkillID != msg.skillID || skill.mSkillState != SkillState.TrackEnemy)
+            {
+                cha.SetSkill(null);
+                return;
+            }
+            cha.Position = msg.position.ToVector3();
+            cha.Direction = msg.direction.ToVector3();
+            skill.BeginSkill();
+        }
+
         public static void Initialize()
         {
             NetWork.RegisterMessage(CTS.CTS_EnterScn, OnEnterScene);
             NetWork.RegisterMessage(CTS.CTS_LoadedScn, OnPlayerLoadedScn);
             NetWork.RegisterMessage(CTS.CTS_TargetChg, TargetChg);
             NetWork.RegisterMessage(CTS.CTS_SkillReq, RequestSkill);
+            NetWork.RegisterMessage(CTS.CTS_SkillBegin, SkillBeginFunc);
 
             NetWork.RegisterRemote(STS.STS_CreateScn, CreateScene);
         }
