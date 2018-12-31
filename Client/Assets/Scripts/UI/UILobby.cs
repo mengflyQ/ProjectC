@@ -142,6 +142,7 @@ public class UILobby : MonoBehaviour
         ReqEnterScene reqEnterScn = GetReqEnterScn();
         reqEnterScn.UserID = GameController.mUserInfo.uid;
         reqEnterScn.NickName = GameController.mUserInfo.nickName;
+        reqEnterScn.ClassID = 1;
         NetWork.SendPacket<ReqEnterScene>(CTS.CTS_EnterScn, reqEnterScn, null);
     }
 

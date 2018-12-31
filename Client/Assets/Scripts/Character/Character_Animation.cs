@@ -40,6 +40,23 @@ public partial class Character : MonoBehaviour
 
 	public uint AnimBaseMachineID = 1;
 	private float mAnimSpeed = 1.0f;
+    private string mAnimPath = string.Empty;
+
+    void InitAnim()
+    {
+        if (mChaList != null)
+        {
+            string path = mChaList.path;
+            int first = path.IndexOf('/');
+            int last = path.LastIndexOf('/');
+            if (first < 0 || last < 0 || first >= last)
+            {
+                return;
+            }
+            mAnimPath = path.Substring(first, last - first);
+            mAnimPath = "Animations" + mAnimPath + "/";
+        }
+    }
 
 	public bool PlayPriorityAnimation(string name, AnimPriority priority, float speed = 1.0f, bool loop = false, bool reverse = false, float fadeLength = 0.15f, float time = 0.0f, bool async = true)
 	{
@@ -151,7 +168,31 @@ public partial class Character : MonoBehaviour
 		return true;
 	}
 
-	public AnimationState PlayClipAnimation(AnimationClip clip, string animName, AnimPlayType type = AnimPlayType.General,
+    public bool PlayAnimation(int id, AnimPlayType type, float speed = 1.0f, bool loop = false, bool reverse = false, float fadeLength = 0.15f, float time = 0.0f, bool async = true)
+    {
+        excel_anim_list animList = excel_anim_list.Find(id);
+        if (animList == null)
+        {
+            Debug.LogError("未找到ID为" + id + "的动画表");
+            return false;
+        }
+        string path = mAnimPath + animList.name;
+        return PlayAnimation(path, type, speed, loop, reverse, fadeLength, time, async);
+    }
+
+    public bool PlayPriorityAnimation(int id, AnimPriority priority, float speed = 1.0f, bool loop = false, bool reverse = false, float fadeLength = 0.15f, float time = 0.0f, bool async = true)
+    {
+        excel_anim_list animList = excel_anim_list.Find(id);
+        if (animList == null)
+        {
+            Debug.LogError("未找到ID为" + id + "的动画表");
+            return false;
+        }
+        string path = mAnimPath + animList.name;
+        return PlayPriorityAnimation(path, priority, speed, loop, reverse, fadeLength, time, async);
+    }
+
+    public AnimationState PlayClipAnimation(AnimationClip clip, string animName, AnimPlayType type = AnimPlayType.General,
 		float speed = 1.0f, bool loop = false, bool reverse = false, float fadeLength = 0.3f, float time = 0.0f)
 	{
 		if (mAnimation == null)

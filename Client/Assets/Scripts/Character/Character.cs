@@ -27,7 +27,7 @@ public partial class Character : MonoBehaviour
 
     protected virtual void Initialize()
     {
-
+        InitAnim();
     }
 
     public void SetTarget(Character target, bool msg = true)

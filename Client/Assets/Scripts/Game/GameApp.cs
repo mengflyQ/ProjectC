@@ -47,6 +47,7 @@ public class GameApp : MonoBehaviour
 
     void FixedUpdate()
     {
+        ResourceSystem.LogicTick();
         GameController.LogicTick();
     }
 

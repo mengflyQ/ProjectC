@@ -92,19 +92,6 @@ public partial class Character
         get;
     }
 
-    public Character Target
-    {
-        set
-        {
-            
-        }
-        get
-        {
-            Character target = mScene.FindCharacter(targetID);
-            return target;
-        }
-    }
-
     public float Speed
     {
         set { mSpeed = value; }

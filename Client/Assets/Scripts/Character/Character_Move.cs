@@ -16,6 +16,8 @@ public partial class Character : MonoBehaviour
 
 	protected void UpdateMove()
 	{
+        if (SyncMove == null)
+            return;
         SyncMove.LogicTick();
 
         if (mDirectionChg)

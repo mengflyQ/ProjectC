@@ -25,6 +25,13 @@ namespace GameServer.RoomServer
             if (player != null)
             {
                 player.mNickName = enterScn.NickName;
+                player.mChaClass = excel_cha_class.Find(enterScn.ClassID);
+                if (player.mChaClass == null)
+                {
+                    Debug.LogError("未找到ID为{0}的职业表", enterScn.ClassID);
+                    return;
+                }
+                player.mChaList = excel_cha_list.Find(player.mChaClass.chaListID);
             }
         }
 

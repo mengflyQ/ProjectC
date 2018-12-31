@@ -88,6 +88,10 @@ public partial class Character
 
     public void SearchMove(Vector3 pos, float destRadius = 0.3f, bool sync = true)
     {
+        if (mNavLayer == 0)
+        {
+            mNavLayer = NavigationSystem.GetLayer(pos);
+        }
         Vector3[] path;
         if (!NavigationSystem.Nav_CalcLayerPath(Position, pos, mNavLayer, out path))
         {

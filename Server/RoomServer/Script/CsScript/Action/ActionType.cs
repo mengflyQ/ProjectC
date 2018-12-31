@@ -5,5 +5,6 @@
         BytesPackage = 5001,
         KeyValuePackage = 5002,
         OnNotify = 6001,
+        Heartbeat = 6002,
     }
 }

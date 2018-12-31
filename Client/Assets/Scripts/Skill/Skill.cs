@@ -69,6 +69,7 @@ public class Skill
                     }
                     if (IsInRange() && mSkillState != SkillState.Break)
                     {
+                        Owner.StopMove();
                         BeginSkill();
                     }
                     rst = true;

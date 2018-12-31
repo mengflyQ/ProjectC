@@ -39,7 +39,7 @@ public class SocketConnect
     private const int HearInterval = 10000;
     private Timer _heartbeatThread = null;
     private byte[] _hearbeatPackage;
-
+    public Action<object> heartbeatEvent = null;
 
     public SocketConnect(string host, int port, IHeadFormater formater)
     {
@@ -296,6 +296,10 @@ public class SocketConnect
     {
         try
         {
+            if (heartbeatEvent != null)
+            {
+                heartbeatEvent(null);
+            }
             if (_hearbeatPackage != null && !PostSend(_hearbeatPackage))
             {
                 Debug.Log("send heartbeat paketage fail");
@@ -369,6 +373,7 @@ public class SocketConnect
     }
     private void sendCallback(IAsyncResult asyncSend)
     {
+
     }
     public void Send(byte[] data, SocketPackage package)
     {

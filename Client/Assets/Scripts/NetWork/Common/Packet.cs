@@ -119,6 +119,8 @@ public class ReqEnterScene
     public int UserID;
     [ProtoMember(2)]
     public string NickName;
+    [ProtoMember(3)]
+    public int ClassID;
 }
 
 [Serializable, ProtoContract]
@@ -145,6 +147,8 @@ public class NotifyStartGame
 {
     [ProtoMember(1)]
     public List<ScnPlayerInfo> Players;
+    [ProtoMember(2)]
+    public float ServerStartTime;
 }
 
 [Serializable, ProtoContract]

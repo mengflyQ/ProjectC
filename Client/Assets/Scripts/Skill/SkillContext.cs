@@ -27,4 +27,5 @@ public class SkillContext
 
     public Character mOwner = null;
     public Character mHitTarget = null;
+    public List<int> mPlayingAnimations = new List<int>();
 }

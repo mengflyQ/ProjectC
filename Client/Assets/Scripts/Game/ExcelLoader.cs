@@ -102,6 +102,11 @@ public class ExcelLoader
 				string filename = fileData.ToString();
 
 				asset = Resources.Load<TextAsset>("Excel/" + filename);
+                if (asset == null)
+                {
+                    Debug.LogError("无法加载表格: " + "Excel/" + filename);
+                    continue;
+                }
 				string[] excel_lines = GetLines(asset);
 				for (int l = 1; l < excel_lines.Length; ++l)
 				{
@@ -195,7 +200,11 @@ public class ExcelLoader
                     rst[i] = r;
                 }
             }
-			return rst;
+            else
+            {
+                rst = new int[0];
+            }
+            return rst;
 		}
 		if (fieldType == "float[]")
 		{
@@ -216,7 +225,11 @@ public class ExcelLoader
                     rst[i] = r;
                 }
             }
-			return rst;
+            else
+            {
+                rst = new float[0];
+            }
+            return rst;
 		}
 		Debug.LogError("Excel Error: Bad Data Type -- Unknown -- " + fieldType);
 		return null;

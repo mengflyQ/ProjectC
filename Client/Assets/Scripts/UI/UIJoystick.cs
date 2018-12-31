@@ -5,6 +5,8 @@ public class UIJoystick : MonoBehaviour
 {
 	void Update()
 	{
+        if (GameController.mMainPlayer == null)
+            return;
 		Vector3 touchPos = Input.mousePosition;
 		bool touchBegin = false;
 		bool touchEnd = false;

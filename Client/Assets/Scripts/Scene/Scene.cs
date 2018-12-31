@@ -30,6 +30,9 @@ public class Scene
     {
         NotifyStartGame startGame = ProtoBufUtils.Deserialize<NotifyStartGame>(data);
         excel_scn_list scnList = SceneSystem.Instance.mCurrentScene.mScnLists;
+
+        GameController.mServerStartTime = startGame.ServerStartTime;
+        GameController.mClientStartTime = Time.realtimeSinceStartup;
         
         for (int i = 0; i < startGame.Players.Count; ++i)
         {
@@ -40,22 +43,25 @@ public class Scene
 
             excel_cha_list chaList = excel_cha_list.Find(scnList.temp);
 
-            GameObject o = ResourceSystem.Load<GameObject>(chaList.path);
-            if (o != null)
+            ResourceSystem.LoadAsync<GameObject>(chaList.path, (obj) =>
             {
-                GameObject mainPlayer = GameObject.Instantiate(o);
-                Player player = mainPlayer.GetComponent<Player>();
-                player.UserID = playerInfo.UserID;
-                player.mChaList = chaList;
+                GameObject o = obj as GameObject;
+                if (o != null)
+                {
+                    GameObject mainPlayer = GameObject.Instantiate(o);
+                    Player player = mainPlayer.GetComponent<Player>();
+                    player.UserID = playerInfo.UserID;
+                    player.mChaList = chaList;
 
-                mainPlayer.transform.position = new Vector3(82.51f, 7.25f, 34.82f);
-                mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
+                    mainPlayer.transform.position = new Vector3(82.51f, 7.25f, 34.82f);
+                    mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
 
-                mPlayersList.Add(player);
-                mCharacterList.Add(player);
-                mPlayers.Add(playerInfo.UserID, player);
-                mCharacters.Add(playerInfo.UserID, player);
-            }
+                    mPlayersList.Add(player);
+                    mCharacterList.Add(player);
+                    mPlayers.Add(playerInfo.UserID, player);
+                    mCharacters.Add(playerInfo.UserID, player);
+                }
+            });
         }
     }
 

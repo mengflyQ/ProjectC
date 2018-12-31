@@ -202,6 +202,7 @@ public class Scene
             playerInfo.UserID = player.uid;
             startGame.Players.Add(playerInfo);
         }
+        startGame.ServerStartTime = Time.ElapsedSeconds;
 
         for (int i = 0; i < mPlayersList.Count; ++i)
         {

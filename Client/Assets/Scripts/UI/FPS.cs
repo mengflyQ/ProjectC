@@ -13,7 +13,7 @@ public class FPS : MonoBehaviour
 		mTime += Time.deltaTime;
 		if (mTime >= 1.0f)
 		{
-			mText.text = string.Format("FPS {0}", mTick);
+			mText.text = string.Format("FPS {0} NetDelay {1}", mTick, GameController.mNetDelay);
 			mTime = 0.0f;
 			mTick = 0;
 			return;

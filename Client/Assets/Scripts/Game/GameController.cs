@@ -13,13 +13,15 @@ public class GameController
             return;
 
         excel_cha_class chaClass = excel_cha_class.Find(scn.mScnLists.temp);
+        if (chaClass == null)
+            return;
         excel_cha_list chaList = excel_cha_list.Find(chaClass.chaListID);
 
-		GameObject o = Resources.Load<GameObject>(chaList.path);
-		if (o != null)
-		{
-			GameObject mainPlayer = GameObject.Instantiate(o);
-			mMainPlayer = mainPlayer.GetComponent<Player>();
+        ResourceSystem.LoadAsync<GameObject>(chaList.path, (obj)=>
+        {
+            GameObject o = obj as GameObject;
+            GameObject mainPlayer = GameObject.Instantiate(o);
+            mMainPlayer = mainPlayer.GetComponent<Player>();
             mMainPlayer.UserID = mUserInfo.uid;
             mMainPlayer.mChaList = chaList;
             mMainPlayer.mChaClass = chaClass;
@@ -30,20 +32,20 @@ public class GameController
             mPlayerSync = new MainPlayerRecord(mMainPlayer);
 
             mainPlayer.transform.position = new Vector3(81.51f, 7.25f, 34.82f);
-			mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
+            mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
 
-			if (MobaMainCamera.MainCameraCtrl != null)
-			{
-				MobaMainCamera.MainCameraCtrl.target = mainPlayer.transform;
-			}
+            if (MobaMainCamera.MainCameraCtrl != null)
+            {
+                MobaMainCamera.MainCameraCtrl.target = mainPlayer.transform;
+            }
 
             scn.mPlayersList.Add(mMainPlayer);
             scn.mCharacterList.Add(mMainPlayer);
             scn.mPlayers.Add(mUserInfo.uid, mMainPlayer);
             scn.mCharacters.Add(mUserInfo.uid, mMainPlayer);
-        }
+        });
 
-		RectTransform canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
+        RectTransform canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
 
 		GameObject joystick = Resources.Load<GameObject>("GUI/UI_Joystick");
 		if (joystick != null)
@@ -55,10 +57,17 @@ public class GameController
 
         NavigationSystem.OnEnterScene();
 
+        NetWork.SetSendHeartbeatCallback(OnHeartbeatSend);
+
         NetWork.RegisterNotify(STC.STC_PlayerMove, OnPlayerMove);
         NetWork.RegisterNotify(STC.STC_TargetChg, OnTargetChg);
         NetWork.RegisterNotify(STC.STC_SkillNotify, SkillNotify);
         NetWork.RegisterNotify(STC.STC_SkillBegin, SkillBeginFunc);
+    }
+
+    static void OnHeartbeatSend(object o)
+    {
+        mHeartbeatStartTime = mTime;
     }
 
     public static bool IsConntrller(Character cha)
@@ -72,6 +81,7 @@ public class GameController
         {
             mPlayerSync.LogicTick();
         }
+        mTime = Time.realtimeSinceStartup;
     }
 
     static void TargetChgEvent(CharacterEventType evtType, Character self)
@@ -148,6 +158,7 @@ public class GameController
         }
         cha.Position = msg.position.ToVector3();
         cha.Direction = msg.direction.ToVector3();
+        cha.StopMove();
         skill.BeginSkill();
     }
 
@@ -158,4 +169,11 @@ public class GameController
     public static UserInfo mUserInfo = new UserInfo();
 
     public static int mScnUID = -1;
+
+    public static float mServerStartTime = 0.0f;
+    public static float mClientStartTime = 0.0f;
+
+    public static float mHeartbeatStartTime = 0.0f;
+    public static float mTime = 0.0f;
+    public static int mNetDelay = 0;
 }

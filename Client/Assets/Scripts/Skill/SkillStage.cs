@@ -22,6 +22,7 @@ public class SkillStage
         mBreak = 0;
 
         mTick = 0;
+        DoEvent(this, SkillEventTriggerType.StageBegin);
     }
 
     public bool LogicTick()
@@ -205,6 +206,8 @@ public class SkillStage
     public static void DoEvent(SkillStage stage, SkillEventTriggerType triggerType, int param1 = -1, int param2 = -1)
     {
         excel_skill_stage stageInfo = stage.mStageInfo;
+        if (stageInfo.events == null)
+            return;
         for (int i = 0; i < stageInfo.events.Length; ++i)
         {
             int eventID = stageInfo.events[i];
@@ -231,6 +234,8 @@ public class SkillStage
     public static void DoLoopEvent(SkillStage stage, int curTick)
     {
         excel_skill_stage stageInfo = stage.mStageInfo;
+        if (stageInfo.events == null)
+            return;
         for (int i = 0; i < stageInfo.events.Length; ++i)
         {
             int eventID = stageInfo.events[i];

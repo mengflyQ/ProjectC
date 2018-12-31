@@ -35,7 +35,8 @@ public class CharactorReplay
             mCurrentIndex = nextIndex;
             return;
         }
-        float span = Time.realtimeSinceStartup - mLastTimeStamp;
+        float time = Time.realtimeSinceStartup - GameController.mClientStartTime;
+        float span = time - mLastTimeStamp;
         if (span >= moveData.timespan)
         {
             mCha.MoveSpeed = moveData.speed;

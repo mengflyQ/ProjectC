@@ -15,16 +15,18 @@ public class MainPlayerRecord
 
         if (mDirty)
         {
+            float time = Time.realtimeSinceStartup - GameController.mClientStartTime;
+
             ReqPlayerMove req = new ReqPlayerMove();
             req.speed = mMainPlayer.MoveSpeed;
             req.direction = Vector3Packat.FromVector3(mMainPlayer.Direction);
             req.position = Vector3Packat.FromVector3(mMainPlayer.Position);
             req.control = mMainPlayer.IsControl;
-            req.timestamp = Time.realtimeSinceStartup;
-            req.timespan = Time.realtimeSinceStartup - mLastTimeStamp;
+            req.timestamp = time;
+            req.timespan = time - mLastTimeStamp;
             NetWork.SendPacket<ReqPlayerMove>(CTS.CTS_PlayerMove, req, null);
 
-            mLastTimeStamp = Time.realtimeSinceStartup;
+            mLastTimeStamp = time;
 
             ClearDirty();
         }

@@ -189,6 +189,14 @@ public class Net : MonoBehaviour, IHttpCallback
         }
     }
 
+    public void SetSendHeartbeatCallback(Action<object> action)
+    {
+        if (mSocket != null)
+        {
+            mSocket.heartbeatEvent = action;
+        }
+    }
+
     /// <summary>
     /// Send
     /// </summary>

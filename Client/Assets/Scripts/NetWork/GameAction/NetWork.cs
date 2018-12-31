@@ -65,5 +65,10 @@ public static class NetWork
         NetWriter.SetUrl(url);
     }
 
+    public static void SetSendHeartbeatCallback(Action<object> action)
+    {
+        Net.Instance.SetSendHeartbeatCallback(action);
+    }
+
     public static Dictionary<STC, Action<byte[]>> mRegsterBytesSTC = new Dictionary<STC, Action<byte[]>>();
 }

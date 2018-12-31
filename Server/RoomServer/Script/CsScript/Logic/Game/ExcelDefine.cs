@@ -2,18 +2,25 @@
 
 public class excel_scn_list : ExcelBase<excel_scn_list>
 {
-	public string name;
+    public string name;
     public int temp;
     public float[] min;
     public float[] max;
     public float viewDist;
 }
 
+public class excel_cha_class : ExcelBase<excel_cha_class>
+{
+    public string name;
+    public int chaListID;
+    public int[] skillIDs;
+}
+
 public class excel_cha_list : ExcelBase<excel_cha_list>
 {
-	public string name;
-	public string path;
-	public float[] scale;
+    public string name;
+    public string path;
+    public float[] scale;
     public float radius;
     public int campID;
 }

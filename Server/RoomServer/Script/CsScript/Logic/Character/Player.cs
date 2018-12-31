@@ -40,6 +40,8 @@ public class Player : Character
         }
     }
 
+    public excel_cha_class mChaClass = null;
+
     public GameSession mSession;
 
     public PlayerStatus mStatus;

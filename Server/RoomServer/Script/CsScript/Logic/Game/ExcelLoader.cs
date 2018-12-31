@@ -154,6 +154,10 @@ public class ExcelLoader
                     rst[i] = r;
                 }
             }
+            else
+            {
+                rst = new int[0];
+            }
             return rst;
         }
         if (fieldType == "float[]")
@@ -174,6 +178,10 @@ public class ExcelLoader
                     }
                     rst[i] = r;
                 }
+            }
+            else
+            {
+                rst = new float[0];
             }
             return rst;
         }

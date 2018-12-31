@@ -8,6 +8,7 @@ public class ResourceSystem
     public delegate void OnLoadedAsset(UnityEngine.Object o);
 
     static Dictionary<string, AssetLoadRequest> mRequests = new Dictionary<string, AssetLoadRequest>();
+    static List<AssetLoadRequest> mRequestList = new List<AssetLoadRequest>();
 
     public static void LoadAsync<T>(string path, OnLoadedAsset onLoaded) where T : UnityEngine.Object
     {
@@ -20,12 +21,48 @@ public class ResourceSystem
 
         ResourceRequest request = Resources.LoadAsync<T>(path);
 
+        if (request.isDone)
+        {
+            if (onLoaded != null)
+            {
+                onLoaded(request.asset);
+            }
+            return;
+        }
+
         AssetLoadRequest alr = new AssetLoadRequest();
         alr.path = path;
         alr.callback = onLoaded;
         alr.request = request;
 
+        mRequests.Add(path, alr);
+        mRequestList.Add(alr);
         GameApp.Instance.StartCoroutine(OnLoading(alr));
+    }
+
+    public static void LogicTick()
+    {
+        //for (int i = mRequestList.Count - 1; i >= 0; --i)
+        //{
+        //    AssetLoadRequest request = mRequestList[i];
+        //    if (!request.request.isDone)
+        //    {
+        //        continue;
+        //    }
+        //    if (request.callback != null)
+        //    {
+        //        request.callback(request.request.asset);
+        //    }
+        //    else
+        //    {
+        //        UnityEngine.Object.Destroy(request.request.asset);
+        //    }
+        //    int lastCount = mRequestList.Count - 1;
+        //    mRequestList[i] = mRequestList[lastCount];
+        //    mRequestList[lastCount] = request;
+        //    mRequestList.RemoveAt(lastCount);
+        //    mRequests.Remove(request.path);
+        //}
     }
 
     static IEnumerator OnLoading(AssetLoadRequest request)
@@ -43,6 +80,7 @@ public class ResourceSystem
             UnityEngine.Object.Destroy(request.request.asset);
         }
         mRequests.Remove(request.path);
+        mRequestList.Remove(request);
     }
 
     class AssetLoadRequest

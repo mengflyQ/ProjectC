@@ -4,6 +4,7 @@ public class Player : Character
 {
     protected override void Initialize()
     {
+        base.Initialize();
         Type = CharacterType.Player;
     }
 

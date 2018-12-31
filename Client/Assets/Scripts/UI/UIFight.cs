@@ -51,6 +51,7 @@ public class UIFight : MonoBehaviour
         reqSkill.direction = Vector3Packat.FromVector3(player.Direction);
         reqSkill.targetID = target == null ? 0 : target.UserID;
         reqSkill.autoTargetPos = true;
+        reqSkill.targetPos = Vector3Packat.FromVector3(Vector3.zero);
         NetWork.SendPacket<ReqSkill>(CTS.CTS_SkillReq, reqSkill, null);
     }
 
