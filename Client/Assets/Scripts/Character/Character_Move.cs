@@ -156,30 +156,15 @@ public partial class Character : MonoBehaviour
         mCurrentNodeIndex = 0;
     }
 
-    protected string GetAnimDirectory()
-    {
-        string[] dirs = mChaList.path.Split(new char[] { '/' }, System.StringSplitOptions.None);
-        if (dirs.Length < 3)
-            return null;
-        string dir = dirs[dirs.Length - 2];
-        return "Animations/" + dir;
-    }
-
     protected void UpdateAnim()
     {
-        string animDirectory = GetAnimDirectory();
-
         if (MoveSpeed > 0.0f)
         {
-            excel_anim_list animList = excel_anim_list.Find(2);
-            string path = animDirectory + "/" + animList.name;
-            PlayAnimation(path, AnimPlayType.Base, 1.0f, true);
+            PlayAnimation(2, AnimPlayType.Base, 1.0f, true);
         }
         else
         {
-            excel_anim_list animList = excel_anim_list.Find(1);
-            string path = animDirectory + "/" + animList.name;
-            PlayAnimation(path, AnimPlayType.Base, 1.0f, true);
+            PlayAnimation(1, AnimPlayType.Base, 1.0f, true);
         }
     }
 

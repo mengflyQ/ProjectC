@@ -141,14 +141,7 @@ public partial class Character : MonoBehaviour
                 AnimationClip c = o as AnimationClip;
                 if (c == null)
                     return;
-                var state = PlayClipAnimation(c, c.name, type, speed, loop, reverse, fadeLength, time);
-                if (state != null)
-                {
-                    float sign = 1.0f;
-                    if (state.speed < 0.0f)
-                        sign = -1.0f;
-                    state.speed = mAnimSpeed * sign;
-                }
+                PlayClipAnimation(c, c.name, type, speed * mAnimSpeed, loop, reverse, fadeLength, time);
             });
 		}
 		else
@@ -156,14 +149,7 @@ public partial class Character : MonoBehaviour
             AnimationClip c = ResourceSystem.Load<AnimationClip>(path);
 			if (c == null)
 				return false;
-			var state = PlayClipAnimation(c, c.name, type, speed, loop, reverse, fadeLength, time);
-			if (state != null)
-			{
-				float sign = 1.0f;
-				if (state.speed < 0.0f)
-					sign = -1.0f;
-				state.speed = mAnimSpeed * sign;
-			}
+			PlayClipAnimation(c, c.name, type, speed * mAnimSpeed, loop, reverse, fadeLength, time);
 		}
 		return true;
 	}

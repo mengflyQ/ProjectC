@@ -84,6 +84,11 @@ namespace GameServer.LobbyServer
                 // 更新客户端的Ready标志;
                 NetWork.NotifyMessage<ReqMatch>(p.mUserID, STC.STC_MatchReady, msg);
             }
+            if (mNotReady.Count <= 0 && mPlayers.Count >= mMaxCount)
+            {
+                IsVanish = true;
+                OnTimeOver();
+            }
         }
 
         public void Tick()
