@@ -210,7 +210,7 @@ public class Skill
         {
             if (SkillStage.IsStageTrait(SkillStageTrait.MoveBreak, mCurStage.mStageInfo))
             {
-                mCurStage.SetBreak(SkillBreakType.Move);
+                mCurStage.SetBreak(SkillBreakType.Move, true);
             }
         }
         else
