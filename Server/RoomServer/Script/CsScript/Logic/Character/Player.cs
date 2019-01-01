@@ -25,14 +25,29 @@ public class Player : Character
         }
     }
 
+    public override void SetCannotFlag(CannotFlag flag, OptType type, bool cannot)
+    {
+        if (flag == CannotFlag.CannotControl && cannot)
+        {
+            IsControl = false;
+        }
+        base.SetCannotFlag(flag, type, cannot);
+    }
+
     private bool mIsControl = false;
     public bool IsControl
     {
         set
         {
+            if (IsCannotFlag(CannotFlag.CannotControl))
+                return;
             if (mIsControl == value)
                 return;
             mIsControl = value;
+            if (mIsControl && mCurSkill != null)
+            {
+                mCurSkill.OnMove();
+            }
         }
         get
         {

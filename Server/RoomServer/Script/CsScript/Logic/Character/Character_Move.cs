@@ -19,7 +19,7 @@ public partial class Character
             UpdateVisibleInfo();
             mPosDirty = false;
         }
-        if (Speed > 0.0f)
+        if (!IsCannotFlag(CannotFlag.CannotMove) && Speed > 0.0f)
         {
             Position += Time.DeltaTime * mDirection;
             float h;

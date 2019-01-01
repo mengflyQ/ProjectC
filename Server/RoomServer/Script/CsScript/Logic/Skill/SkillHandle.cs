@@ -13,7 +13,7 @@ public struct SkillHandle
 
     public static SkillResult UseSkill(SkillHandle handle)
     {
-        if (handle.caster == null)
+        if (handle.caster == null || handle.caster.IsCannotFlag(CannotFlag.CannotSkill))
         {
             return SkillResult.InvalidCaster;
         }

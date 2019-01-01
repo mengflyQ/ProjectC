@@ -78,7 +78,8 @@ public class UIJoystick : MonoBehaviour
 			pos.y = delta.y;
 			bar.localPosition = pos;
 
-			if (GameController.mMainPlayer != null && MobaMainCamera.MainCamera != null)
+			if (GameController.mMainPlayer != null && MobaMainCamera.MainCamera != null
+                && !GameController.mMainPlayer.IsCannotFlag(CannotFlag.CannotControl))
 			{
 				float strength = length / joystickRadius;
 				Vector3 joystickDir = new Vector3(delta.x, 0.0f, delta.y);
@@ -92,7 +93,10 @@ public class UIJoystick : MonoBehaviour
 		}
         else
         {
-            GameController.mMainPlayer.IsControl = false;
+            if (!GameController.mMainPlayer.IsCannotFlag(CannotFlag.CannotControl))
+            {
+                GameController.mMainPlayer.IsControl = false;
+            }
         }
 	}
 

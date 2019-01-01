@@ -12,6 +12,8 @@ public struct SkillHandle
 
     public static SkillResult UseSkill(SkillHandle handle)
     {
+        if (handle.caster == null || handle.caster.IsCannotFlag(CannotFlag.CannotSkill))
+            return SkillResult.InvalidCaster;
         SkillContext context = new SkillContext();
         context.mOwner = handle.caster;
         context.SkillTargetID = handle.skillTargetID;

@@ -25,7 +25,7 @@ public partial class Character : MonoBehaviour
 			transform.forward = mDirection;
 			mDirectionChg = false;
 		}
-		if (MoveSpeed > 0.0f)
+		if (!IsCannotFlag(CannotFlag.CannotMove) && MoveSpeed > 0.0f)
 		{
 			Vector3 deltaPos = mSpeed * Time.fixedDeltaTime * mDirection;
 			deltaPos.y = 0.0f;

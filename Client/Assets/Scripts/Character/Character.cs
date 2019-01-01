@@ -12,6 +12,24 @@ public enum CharacterEventType
     OnTargetChg,
 }
 
+public enum CannotFlag
+{
+    CannotMove,
+    CannotControl,
+    CannotSkill,
+    CannotSelected,
+    
+    Count
+}
+
+public enum OptType
+{
+    Unknown,
+    Skill,
+
+    Count
+}
+
 public partial class Character : MonoBehaviour
 {
 	void Awake()
@@ -93,6 +111,26 @@ public partial class Character : MonoBehaviour
         return mCurSkill;
     }
 
+    public virtual void SetCannotFlag(CannotFlag flag, OptType type, bool cannot)
+    {
+        int mask = mCannotFlag[(int)flag];
+        if (cannot)
+        {
+            mask |= (1 << (int)type);
+        }
+        else
+        {
+            mask &= ~(1 << (int)type);
+        }
+        mCannotFlag[(int)flag] = mask;
+    }
+
+    public bool IsCannotFlag(CannotFlag flag)
+    {
+        int mask = mCannotFlag[(int)flag];
+        return mask != 0;
+    }
+
     public float Radius
     {
         get
@@ -123,6 +161,8 @@ public partial class Character : MonoBehaviour
     public excel_cha_list mChaList;
 
     protected Skill mCurSkill = null;
+
+    private int[] mCannotFlag = new int[(int)CannotFlag.Count];
 
     public delegate void OnEvent(CharacterEventType evtType, Character self);
     public OnEvent mEvent = null;

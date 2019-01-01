@@ -12,6 +12,29 @@ public enum CharacterType
     NPC,
 }
 
+public enum CharacterEventType
+{
+    OnTargetChg,
+}
+
+public enum CannotFlag
+{
+    CannotMove,
+    CannotControl,
+    CannotSkill,
+    CannotSelected,
+
+    Count
+}
+
+public enum OptType
+{
+    Unknown,
+    Skill,
+
+    Count
+}
+
 public partial class Character
 {
     public Character()
@@ -46,6 +69,11 @@ public partial class Character
         if (targetID != tid)
         {
             targetID = tid;
+
+            if (mEvent != null)
+            {
+                mEvent(CharacterEventType.OnTargetChg, this);
+            }
 
             for (int i = 0; i < mScene.GetPlayerCount(); ++i)
             {
@@ -84,6 +112,26 @@ public partial class Character
     public Skill GetSkill()
     {
         return mCurSkill;
+    }
+
+    public virtual void SetCannotFlag(CannotFlag flag, OptType type, bool cannot)
+    {
+        int mask = mCannotFlag[(int)flag];
+        if (cannot)
+        {
+            mask |= (1 << (int)type);
+        }
+        else
+        {
+            mask &= ~(1 << (int)type);
+        }
+        mCannotFlag[(int)flag] = mask;
+    }
+
+    public bool IsCannotFlag(CannotFlag flag)
+    {
+        int mask = mCannotFlag[(int)flag];
+        return mask != 0;
     }
 
     protected int TargetID
@@ -153,6 +201,9 @@ public partial class Character
     protected float mSpeed;
     protected Vector3 mDirection;
     protected Vector3 mPosition;
-    protected bool mPosDirty = true;
+    private bool mPosDirty = true;
     protected Skill mCurSkill = null;
+    private int[] mCannotFlag = new int[(int)CannotFlag.Count];
+    public delegate void OnEvent(CharacterEventType evtType, Character self);
+    public OnEvent mEvent = null;
 }

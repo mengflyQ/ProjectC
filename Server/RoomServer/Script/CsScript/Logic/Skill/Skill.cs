@@ -199,6 +199,25 @@ public class Skill
         return true;
     }
 
+    public void OnMove()
+    {
+        if (mCurStage != null)
+        {
+            if (SkillStage.IsStageTrait(SkillStageTrait.MoveBreak, mCurStage.mStageInfo))
+            {
+                mCurStage.SetBreak(SkillBreakType.Move);
+            }
+        }
+        else
+        {
+            if (mSkillState == SkillState.TrackEnemy)
+            {
+                Owner.StopMove(false);
+            }
+            mSkillState = SkillState.Break;
+        }
+    }
+
     Character Owner
     {
         get

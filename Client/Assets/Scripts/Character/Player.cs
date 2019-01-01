@@ -8,6 +8,15 @@ public class Player : Character
         Type = CharacterType.Player;
     }
 
+    public override void SetCannotFlag(CannotFlag flag, OptType type, bool cannot)
+    {
+        if (flag == CannotFlag.CannotControl && cannot)
+        {
+            IsControl = false;
+        }
+        base.SetCannotFlag(flag, type, cannot);
+    }
+
     private bool mIsControl = false;
     public bool IsControl
     {
@@ -16,6 +25,10 @@ public class Player : Character
             if (mIsControl == value)
                 return;
             mIsControl = value;
+            if (mIsControl && mCurSkill != null)
+            {
+                mCurSkill.OnMove();
+            }
         }
         get
         {

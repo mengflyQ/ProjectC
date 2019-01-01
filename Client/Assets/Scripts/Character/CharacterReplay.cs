@@ -42,6 +42,11 @@ public class CharactorReplay
             mCha.MoveSpeed = moveData.speed;
             mCha.Direction = moveData.direction.ToVector3();
             mCha.Position = moveData.position.ToVector3();
+            if (mCha.Type == CharacterType.Player)
+            {
+                Player player = mCha as Player;
+                player.IsControl = moveData.control;
+            }
             mMoveDatas[mCurrentIndex] = null;
             mCurrentIndex = nextIndex;
             mLastTimeStamp = moveData.timestamp;

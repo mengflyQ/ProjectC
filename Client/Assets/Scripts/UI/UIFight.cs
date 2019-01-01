@@ -44,6 +44,8 @@ public class UIFight : MonoBehaviour
         Player player = GameController.mMainPlayer;
         if (player == null)
             return;
+        if (player.IsCannotFlag(CannotFlag.CannotSkill))
+            return;
         Character target = player.GetTarget();
         ReqSkill reqSkill = new ReqSkill();
         reqSkill.skillID = skillID;

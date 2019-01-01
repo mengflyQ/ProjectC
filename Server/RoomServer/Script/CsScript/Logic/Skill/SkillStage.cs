@@ -20,7 +20,14 @@ public class SkillStage
         mJumpTick = 0;
         mBreak = 0;
 
+        if (!SkillStage.IsStageTrait(SkillStageTrait.AllowMove, mStageInfo))
+        {
+            Owner.SetCannotFlag(CannotFlag.CannotControl, OptType.Skill, true);
+            Owner.SetCannotFlag(CannotFlag.CannotMove, OptType.Skill, true);
+        }
+
         mTick = 0;
+        DoEvent(this, SkillEventTriggerType.StageBegin);
     }
 
     public bool LogicTick()
@@ -43,6 +50,12 @@ public class SkillStage
             DoEvent(this, SkillEventTriggerType.NormalEnd);
         }
         DoEvent(this, SkillEventTriggerType.FinalEnd);
+
+        if (!SkillStage.IsStageTrait(SkillStageTrait.AllowMove, mStageInfo))
+        {
+            Owner.SetCannotFlag(CannotFlag.CannotControl, OptType.Skill, false);
+            Owner.SetCannotFlag(CannotFlag.CannotMove, OptType.Skill, false);
+        }
     }
 
     public void SetVanish()

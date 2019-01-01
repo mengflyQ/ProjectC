@@ -61,6 +61,7 @@ public enum SkillResult
     Success,
     ExcelNotExist,
     InvalidTarget,
+    InvalidCaster,
     Unknown,
 }
 

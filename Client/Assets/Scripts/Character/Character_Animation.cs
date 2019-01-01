@@ -324,6 +324,14 @@ public partial class Character : MonoBehaviour
 		}
 	}
 
+    public void StopClip(int id)
+    {
+        excel_anim_list animList = excel_anim_list.Find(id);
+        if (animList == null)
+            return;
+        StopClip(animList.name);
+    }
+
 	protected void MixingClip(AnimationState state, AnimPlayType type)
 	{
 		if (type == AnimPlayType.Up)

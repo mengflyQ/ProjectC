@@ -94,6 +94,12 @@ public class Skill
     public void Exit()
     {
         SetStage(0);
+
+        for (int i = 0; i < mSkillContext.mPlayingAnimations.Count; ++i)
+        {
+            int animID = mSkillContext.mPlayingAnimations[i];
+            Owner.StopClip(animID);
+        }
     }
 
     public void BeginSkill()
@@ -188,6 +194,25 @@ public class Skill
         Owner.SearchMove(target.Position, target.Radius);
         mLastTargetPosition = target.Position;
         return true;
+    }
+
+    public void OnMove()
+    {
+        if (mCurStage != null)
+        {
+            if (SkillStage.IsStageTrait(SkillStageTrait.MoveBreak, mCurStage.mStageInfo))
+            {
+                mCurStage.SetBreak(SkillBreakType.Move);
+            }
+        }
+        else
+        {
+            if (mSkillState == SkillState.TrackEnemy)
+            {
+                Owner.StopMove();
+            }
+            mSkillState = SkillState.Break;
+        }
     }
 
     Character Owner

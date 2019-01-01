@@ -21,6 +21,12 @@ public class SkillStage
         mJumpTick = 0;
         mBreak = 0;
 
+        if (!SkillStage.IsStageTrait(SkillStageTrait.AllowMove, mStageInfo))
+        {
+            Owner.SetCannotFlag(CannotFlag.CannotControl, OptType.Skill, true);
+            Owner.SetCannotFlag(CannotFlag.CannotMove, OptType.Skill, true);
+        }
+
         mTick = 0;
         DoEvent(this, SkillEventTriggerType.StageBegin);
     }
@@ -45,6 +51,12 @@ public class SkillStage
             DoEvent(this, SkillEventTriggerType.NormalEnd);
         }
         DoEvent(this, SkillEventTriggerType.FinalEnd);
+
+        if (!SkillStage.IsStageTrait(SkillStageTrait.AllowMove, mStageInfo))
+        {
+            Owner.SetCannotFlag(CannotFlag.CannotControl, OptType.Skill, false);
+            Owner.SetCannotFlag(CannotFlag.CannotMove, OptType.Skill, false);
+        }
     }
 
     public void SetVanish()
@@ -106,6 +118,7 @@ public class SkillStage
             if (IsBreak())
             {
                 DoEvent(this, SkillEventTriggerType.ExeptEnd);
+                mSkill.mSkillState = SkillState.Break;
                 SetVanish();
                 nextStageID = 0;
             }
@@ -161,6 +174,7 @@ public class SkillStage
         if (force)
         {
             DoEvent(this, SkillEventTriggerType.ExeptEnd);
+            mSkill.mSkillState = SkillState.Break;
             SetVanish();
         }
     }
