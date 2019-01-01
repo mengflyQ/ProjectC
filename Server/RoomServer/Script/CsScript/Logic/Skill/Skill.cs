@@ -94,6 +94,11 @@ public class Skill
     public void Exit()
     {
         SetStage(0);
+
+        if (mSkillEnd != null)
+        {
+            mSkillEnd(SkillID);
+        }
     }
 
     public void BeginSkill()
@@ -246,4 +251,6 @@ public class Skill
     public SkillState mSkillState;
 
     private Vector3 mLastTargetPosition;
+
+    public SkillHandle.OnSkillEnd mSkillEnd = null;
 }

@@ -9,6 +9,11 @@ public struct SkillHandle
     public bool autoTargetPos;
     public Vector3 targetPos;
     public int skillTargetID;
+    public OnSkillEnd skillEndMethod;
+    public OnStageEnd stageEndMethod;
+
+    public delegate void OnStageEnd(int skillID, int stageID);
+    public delegate void OnSkillEnd(int skillID);
 
     public static SkillResult UseSkill(SkillHandle handle)
     {

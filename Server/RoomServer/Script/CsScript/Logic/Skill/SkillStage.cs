@@ -56,6 +56,11 @@ public class SkillStage
             Owner.SetCannotFlag(CannotFlag.CannotControl, OptType.Skill, false);
             Owner.SetCannotFlag(CannotFlag.CannotMove, OptType.Skill, false);
         }
+
+        if (mStageEnd != null)
+        {
+            mStageEnd(mSkill.SkillID, mStageInfo.id);
+        }
     }
 
     public void SetVanish()
@@ -166,13 +171,24 @@ public class SkillStage
         return false;
     }
 
-    public void SetBreak(SkillBreakType type, bool force = true)
+    public void SetBreak(SkillBreakType type, bool force = true, SkillHandle.OnStageEnd callback = null)
     {
         mBreak |= (1 << (int)type);
         if (force)
         {
             DoEvent(this, SkillEventTriggerType.ExeptEnd);
+            if (callback != null)
+            {
+                callback(mSkill.SkillID, mStageInfo.id);
+            }
             SetVanish();
+        }
+        else
+        {
+            if (callback != null)
+            {
+                mStageEnd = callback;
+            }
         }
     }
 
@@ -287,4 +303,6 @@ public class SkillStage
     bool mVanish = false;
     int mBreak = 0;
     int mTick = 0;
+
+    public SkillHandle.OnStageEnd mStageEnd = null;
 }

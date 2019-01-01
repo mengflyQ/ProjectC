@@ -40,6 +40,7 @@ public enum SkillResult
     ExcelNotExist,
     InvalidTarget,
     InvalidCaster,
+    CannotBreak,
     Unknown,
 }
 

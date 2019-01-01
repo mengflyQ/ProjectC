@@ -10,6 +10,10 @@ public struct SkillHandle
     public bool autoTargetPos;
     public Vector3 targetPos;
     public int skillTargetID;
+    public OnSkillEnd skillEndMethod;
+
+    public delegate void OnStageEnd(int skillID, int stageID);
+    public delegate void OnSkillEnd(int skillID);
 
     public static SkillResult UseSkill(SkillHandle handle)
     {
@@ -17,6 +21,35 @@ public struct SkillHandle
         {
             return SkillResult.InvalidCaster;
         }
+        Skill lastSkill = handle.caster.GetSkill();
+        if (lastSkill != null)
+        {
+            SkillStage stage = lastSkill.mCurStage;
+            if (stage != null)
+            {
+                if (SkillStage.IsStageTrait(SkillStageTrait.WaitBreakStage, stage.mStageInfo))
+                {
+                    if (stage.mStageEnd == null)
+                    {
+                        WaitBreakStage onStageEnd = new WaitBreakStage();
+                        onStageEnd.nextSkillHandle = handle;
+                        stage.SetBreak(SkillBreakType.OtherSkill, false, onStageEnd.OnStageEnd);
+                    }
+
+                    return SkillResult.CannotBreak;
+                }
+                if (!SkillStage.IsStageTrait(SkillStageTrait.BreakSelf, stage.mStageInfo)
+                    && lastSkill.SkillID == handle.skillID)
+                {
+                    return SkillResult.CannotBreak;
+                }
+                if (!SkillStage.IsStageTrait(SkillStageTrait.SkillBreak, stage.mStageInfo))
+                {
+                    return SkillResult.CannotBreak;
+                }
+            }
+        }
+
         excel_skill_list skillExcel = excel_skill_list.Find(handle.skillID);
         if (skillExcel == null)
         {
@@ -56,6 +89,7 @@ public struct SkillHandle
         }
         Skill skill = new Skill(handle.skillID, context);
         handle.caster.SetSkill(skill);
+        skill.mSkillEnd = handle.skillEndMethod;
 
         ReqSkill notifyMsg = new ReqSkill();
         notifyMsg.skillID = handle.skillID;
@@ -73,5 +107,15 @@ public struct SkillHandle
         }
 
         return SkillResult.Success;
+    }
+
+    public class WaitBreakStage
+    {
+        public void OnStageEnd(int skillID, int stageID)
+        {
+            SkillHandle.UseSkill(nextSkillHandle);
+        }
+
+        public SkillHandle nextSkillHandle;
     }
 }

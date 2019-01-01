@@ -97,6 +97,7 @@ namespace GameServer.RoomServer
             handle.skillTargetID = req.targetID;
             handle.autoTargetPos = req.autoTargetPos;
             handle.targetPos = req.targetPos.ToVector3();
+            handle.skillEndMethod = null;
             SkillHandle.UseSkill(handle);
         }
 
