@@ -10,6 +10,8 @@ public class SkillHit
         if (hitExcel == null)
             return;
 
+        DisplayHit(true, hitExcel, cha.gameObject);
+
         SkillHitShape type = (SkillHitShape)hitExcel.hitType;
         SkillTargetType targetType = (SkillTargetType)hitExcel.targetType;
 
@@ -59,11 +61,13 @@ public class SkillHit
                 case SkillHitShape.FanSingle:
                 case SkillHitShape.FanMultiple:
                     {
-                        if (Hit_Fan(srcPosition, srcForward, target, data1, data2, height))
+                        if (Hit_Fan(srcPosition, srcForward, target, data1, data2 * 1000.0f, height))
                         {
                             ++hitCount;
                             context.mHitTarget = target;
                             // calc damage
+                            target.PlayAnimation(4, AnimPlayType.Addition);
+
                             AddHitCount(target, context, hitExcel);
                         }
                     }
@@ -76,6 +80,8 @@ public class SkillHit
                             ++hitCount;
                             context.mHitTarget = target;
                             // calc damage
+                            target.PlayAnimation(4, AnimPlayType.Addition);
+
                             AddHitCount(target, context, hitExcel);
                         }
                     }
@@ -88,6 +94,8 @@ public class SkillHit
                             ++hitCount;
                             context.mHitTarget = target;
                             // calc damage
+                            target.PlayAnimation(4, AnimPlayType.Addition);
+
                             AddHitCount(target, context, hitExcel);
                         }
                     }
@@ -98,6 +106,18 @@ public class SkillHit
                 break;
             }
         }
+    }
+
+    static void DisplayHit(bool display, excel_skill_hit hitExcel, GameObject go)
+    {
+        if (!display)
+            return;
+        GameObject displayGO = new GameObject("Hit");
+        displayGO.transform.position = go.transform.position;
+        displayGO.transform.rotation = go.transform.rotation;
+        displayGO.transform.localScale = go.transform.localScale;
+        SkillHitDisplay hitDisplay = displayGO.AddComponent<SkillHitDisplay>();
+        hitDisplay.mHitExcel = hitExcel;
     }
 
     static bool CheckTargetType(Character cha, Character target, SkillTargetType type)
