@@ -139,6 +139,14 @@ public partial class Character : MonoBehaviour
         }
     }
 
+    public float Height
+    {
+        get
+        {
+            return 1.8f;
+        }
+    }
+
     public CharacterType Type
     {
         set;

@@ -15,8 +15,6 @@ public static class SkillEventEditorRegister
         GUIContent c = new GUIContent("动画ID", "anim_list的ID");
         e.evnetParam1 = EditorGUILayout.IntField(c, e.evnetParam1);
 
-        int trait = e.evnetParam2;
-
         string[] traitTxts = new string[]
         {
             "循环播放", "逆向播放", "只播上身动画", "高优先级动画"

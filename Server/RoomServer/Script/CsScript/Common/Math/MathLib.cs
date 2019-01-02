@@ -38,5 +38,9 @@ namespace MathLib
         {
             return (int)System.Math.Ceiling((double)f);
         }
+
+        public const float Rad2Deg = 57.29578f;
+        public const float Deg2Rad = 0.01745329f;
+        public const float PI = 3.141593f;
     }
 }

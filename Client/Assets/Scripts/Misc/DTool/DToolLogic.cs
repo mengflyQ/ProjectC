@@ -47,29 +47,29 @@ public class DToolLogic
 
         return;
 
-        int maxLen = int.MaxValue;
-        int groupCount = Mathf.CeilToInt(((float)msg.Length + 6.0f) / (float)maxLen);
-        string[] msgGroups = new string[groupCount];
+        //int maxLen = int.MaxValue;
+        //int groupCount = Mathf.CeilToInt(((float)msg.Length + 6.0f) / (float)maxLen);
+        //string[] msgGroups = new string[groupCount];
 
-        mClient.SetBigMsgLock(true);
-        for (int i = 0; i < msgGroups.Length; ++i)
-        {
-            msgGroups[i] = "";
-            if (i == 0)
-                msgGroups[i] += "BIG";
+        //mClient.SetBigMsgLock(true);
+        //for (int i = 0; i < msgGroups.Length; ++i)
+        //{
+        //    msgGroups[i] = "";
+        //    if (i == 0)
+        //        msgGroups[i] += "BIG";
 
-            if (i == msgGroups.Length - 1)
-            {
-                msgGroups[i] += msg.Substring(i * maxLen);
-                msgGroups[i] += "BIG";
-            }
-            else
-            {
-                msgGroups[i] += msg.Substring(i * maxLen, maxLen);
-            }
-            //mClient.SendToServer((int)DTool_CTS.DTool_CTS_UpdateHierarchy, msgGroups[i]);
-            mClient.StartCoroutine(SendHierarchyInfo(msgGroups[i], 0.2f * (float)i, i == msgGroups.Length - 1));
-        }
+        //    if (i == msgGroups.Length - 1)
+        //    {
+        //        msgGroups[i] += msg.Substring(i * maxLen);
+        //        msgGroups[i] += "BIG";
+        //    }
+        //    else
+        //    {
+        //        msgGroups[i] += msg.Substring(i * maxLen, maxLen);
+        //    }
+        //    //mClient.SendToServer((int)DTool_CTS.DTool_CTS_UpdateHierarchy, msgGroups[i]);
+        //    mClient.StartCoroutine(SendHierarchyInfo(msgGroups[i], 0.2f * (float)i, i == msgGroups.Length - 1));
+        //}
 
 
         //mClient.SendToServer((int)DTool_CTS.DTool_CTS_UpdateHierarchy, msg);
@@ -87,7 +87,6 @@ public class DToolLogic
 
     void AddChildNode(GameObject rootGO, ref JsonData jsonRoot)
     {
-        List<GameObject> children = new List<GameObject>();
         for (int i = 0; i < rootGO.transform.childCount; ++i)
         {
             Transform tChild = rootGO.transform.GetChild(i);

@@ -60,7 +60,4 @@ public class SceneSystem
     public const int roomScnID = 3;
 
     public Scene mCurrentScene = null;
-
-    public delegate void OnLoadedScene(Scene scn);
-    OnLoadedScene mOnLoaded = null;
 }

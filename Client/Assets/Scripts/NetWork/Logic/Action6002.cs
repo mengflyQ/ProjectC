@@ -25,7 +25,6 @@ public class Action6002 : BaseAction
     {
         if (reader != null && reader.StatusCode == 0)
         {
-            actionResult = new ActionResult();
             byte[] data = reader.Buffer;
 
             int floatSize = sizeof(float);
@@ -40,6 +39,4 @@ public class Action6002 : BaseAction
             GameController.mNetDelay = Mathf.FloorToInt(delay / 0.03333f * 1000.0f);
         }
     }
-
-    private ActionResult actionResult;
 }

@@ -15,7 +15,6 @@ namespace Assets.Scripts.Editor.AssetsTools
             for (int i = 0; i < clips.Length; ++i)
             {
                 AnimationClip clip = clips[i];
-                string clipPath = AssetDatabase.GetAssetPath(clip);
                 clip.legacy = true;
                 EditorUtility.CopySerialized(clip, clip);
                 EditorUtility.SetDirty(clip);

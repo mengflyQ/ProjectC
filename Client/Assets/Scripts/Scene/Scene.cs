@@ -85,6 +85,16 @@ public class Scene
         return null;
     }
 
+    public int GetCharacterCount()
+    {
+        return mCharacterList.Count;
+    }
+
+    public Character GetCharacterByIndex(int index)
+    {
+        return mCharacterList[index];
+    }
+
     void InitializeNet()
     {
         NetWork.RegisterNotify(STC.STC_StartClienGame, OnInitPlayers);

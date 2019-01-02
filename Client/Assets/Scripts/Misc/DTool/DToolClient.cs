@@ -133,7 +133,7 @@ public class DToolClient : MonoBehaviour
             {
                 recv = clientSocket.Receive(receiveData);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 clientSocket = null;
                 recv = 0;
@@ -180,7 +180,7 @@ public class DToolClient : MonoBehaviour
         System.Buffer.BlockCopy(concent, 0, tmp, intBuff.Length, concent.Length);
         try
         {
-            int count = clientSocket.Send(tmp, tmp.Length, SocketFlags.None);
+            // int count = clientSocket.Send(tmp, tmp.Length, SocketFlags.None);
         }
         catch (SocketException e)
         {

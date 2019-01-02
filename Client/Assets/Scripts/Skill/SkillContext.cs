@@ -27,5 +27,6 @@ public class SkillContext
 
     public Character mOwner = null;
     public Character mHitTarget = null;
+    public Dictionary<int, Dictionary<Character, int>> mChaHitCount = new Dictionary<int, Dictionary<Character, int>>();
     public List<int> mPlayingAnimations = new List<int>();
 }

@@ -6,7 +6,8 @@ public static class SkillEventRegister
 {
     static void Hit(Character cha, SkillContext context, excel_skill_event e)
     {
-
+        int hitID = e.evnetParam1;
+        SkillHit.Hit(context.mOwner, hitID, context);
     }
 
     static void PlayAnimation(Character cha, SkillContext context, excel_skill_event e)

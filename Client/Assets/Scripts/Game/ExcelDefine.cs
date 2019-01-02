@@ -76,6 +76,9 @@ public class excel_skill_hit : ExcelBase<excel_skill_hit>
     public int hitData1;
     public int hitData2;
     public int hitData3;
+    public int targetType;
+    public int maxHitCount;
+    public int targetMaxHitCnt;
 }
 
 public class excel_cha_camp_list : ExcelBase<excel_cha_camp_list>

@@ -186,6 +186,14 @@ public partial class Character
         }
     }
 
+    public float Height
+    {
+        get
+        {
+            return 1.8f;
+        }
+    }
+
     public CharacterType Type
     {
         set;
