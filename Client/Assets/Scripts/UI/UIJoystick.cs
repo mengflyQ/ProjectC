@@ -81,7 +81,7 @@ public class UIJoystick : MonoBehaviour
 			if (GameController.mMainPlayer != null && MobaMainCamera.MainCamera != null
                 && !GameController.mMainPlayer.IsCannotFlag(CannotFlag.CannotControl))
 			{
-				float strength = length / joystickRadius;
+                float strength = 1.0f; //length / joystickRadius;
 				Vector3 joystickDir = new Vector3(delta.x, 0.0f, delta.y);
 				Quaternion rot = MobaMainCamera.MainCamera.transform.rotation;
 				Vector3 dir = rot * joystickDir;
