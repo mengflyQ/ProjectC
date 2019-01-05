@@ -43,9 +43,27 @@ public partial class Character : MonoBehaviour
         OnInitMove();
 	}
 
+    private void OnDestroy()
+    {
+        Uninitialize();
+    }
+
     protected virtual void Initialize()
     {
+        HingePoints = GetComponent<HingePoints>();
+        if (HingePoints != null)
+        {
+            HingePoints.Initialize();
+        }
         InitAnim();
+    }
+
+    protected virtual void Uninitialize()
+    {
+        if (HingePoints != null)
+        {
+            HingePoints.Uninitialize();
+        }
     }
 
     public void SetTarget(Character target, bool msg = true)
@@ -162,6 +180,12 @@ public partial class Character : MonoBehaviour
     protected int TargetID
     {
         set;
+        get;
+    }
+
+    public HingePoints HingePoints
+    {
+        private set;
         get;
     }
     
