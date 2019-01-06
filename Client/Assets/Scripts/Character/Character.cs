@@ -183,6 +183,12 @@ public partial class Character : MonoBehaviour
         get;
     }
 
+    public bool IsDead
+    {
+        set;
+        get;
+    }
+
     public HingePoints HingePoints
     {
         private set;

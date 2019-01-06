@@ -47,14 +47,27 @@ public class UIFight : MonoBehaviour
         if (player.IsCannotFlag(CannotFlag.CannotSkill))
             return;
         Character target = player.GetTarget();
-        ReqSkill reqSkill = new ReqSkill();
-        reqSkill.skillID = skillID;
-        reqSkill.position = Vector3Packat.FromVector3(player.Position);
-        reqSkill.direction = Vector3Packat.FromVector3(player.Direction);
-        reqSkill.targetID = target == null ? 0 : target.UserID;
-        reqSkill.autoTargetPos = true;
-        reqSkill.targetPos = Vector3Packat.FromVector3(Vector3.zero);
-        NetWork.SendPacket<ReqSkill>(CTS.CTS_SkillReq, reqSkill, null);
+        if (GameApp.Instance.directGame)
+        {
+            SkillHandle handle = new SkillHandle();
+            handle.skillID = skillID;
+            handle.caster = player;
+            handle.autoTargetPos = true;
+            handle.targetPos = Vector3.zero;
+            handle.skillTargetID = 0;
+            SkillHandle.UseSkill(handle);
+        }
+        else
+        {
+            ReqSkill reqSkill = new ReqSkill();
+            reqSkill.skillID = skillID;
+            reqSkill.position = Vector3Packat.FromVector3(player.Position);
+            reqSkill.direction = Vector3Packat.FromVector3(player.Direction);
+            reqSkill.targetID = target == null ? 0 : target.UserID;
+            reqSkill.autoTargetPos = true;
+            reqSkill.targetPos = Vector3Packat.FromVector3(Vector3.zero);
+            NetWork.SendPacket<ReqSkill>(CTS.CTS_SkillReq, reqSkill, null);
+        }
     }
 
     public Button[] skillBtns;
