@@ -35,7 +35,7 @@ Shader "Toon/Basic" {
 			struct v2f {
 				float4 pos : POSITION;
 				float2 texcoord : TEXCOORD0;
-				float3 cubenormal : TEXCOORD1;
+				// float3 cubenormal : TEXCOORD1;
 			};
 
 			v2f vert (appdata v)
@@ -43,34 +43,19 @@ Shader "Toon/Basic" {
 				v2f o;
 				o.pos = UnityObjectToClipPos (v.vertex);
 				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
-				o.cubenormal = mul (UNITY_MATRIX_MV, float4(v.normal,0));
+				// o.cubenormal = mul (UNITY_MATRIX_MV, float4(v.normal,0));
 				return o;
 			}
 
 			float4 frag (v2f i) : COLOR
 			{
 				float4 col = _Color * tex2D(_MainTex, i.texcoord);
-				float4 cube = texCUBE(_ToonShade, i.cubenormal);
-				return float4(2.0f * cube.rgb * col.rgb, col.a);
+				// float4 cube = texCUBE(_ToonShade, i.cubenormal);
+				return float4(2.0f * col.rgb, col.a);
 			}
 			ENDCG			
 		}
-	} 
-
-	SubShader {
-		Tags { "RenderType"="Opaque" }
-		Pass {
-			Name "BASE"
-			Cull Off
-			SetTexture [_MainTex] {
-				constantColor [_Color]
-				Combine texture * constant
-			} 
-			SetTexture [_ToonShade] {
-				combine texture * previous DOUBLE, previous
-			}
-		}
-	} 
+	}
 	
 	Fallback "VertexLit"
 }

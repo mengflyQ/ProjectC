@@ -27,12 +27,13 @@ Shader "Toon/Basic Outline" {
 	
 	v2f vert(appdata v) {
 		v2f o;
-		o.pos = UnityObjectToClipPos(v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex + v.normal * float4(_Outline, _Outline, _Outline, 0));
+		//o.pos = UnityObjectToClipPos(v.vertex);
 
-		float3 norm   = mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal);
-		float2 offset = TransformViewToProjection(norm.xy);
+		//float3 norm   = mul ((float3x3)UNITY_MATRIX_MV, v.normal);
+		//float2 offset = TransformViewToProjection(norm.xy);
 
-		o.pos.xy += offset * o.pos.z * _Outline;
+		//o.pos.xy += offset * o.pos.z * _Outline;
 		o.color = _OutlineColor;
 		return o;
 	}
@@ -48,6 +49,7 @@ Shader "Toon/Basic Outline" {
 			ZWrite On
 			ColorMask RGB
 			Blend SrcAlpha OneMinusSrcAlpha
+			Offset 25, 25
 
 			CGPROGRAM
 			#pragma vertex vert
@@ -56,25 +58,6 @@ Shader "Toon/Basic Outline" {
 			ENDCG
 		}
 	}
-	
-	SubShader {
-		Tags { "RenderType"="Opaque" }
-		UsePass "Toon/Basic/BASE"
-		Pass {
-			Name "OUTLINE"
-			Tags { "LightMode" = "Always" }
-			Cull Front
-			ZWrite On
-			ColorMask RGB
-			Blend SrcAlpha OneMinusSrcAlpha
 
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma exclude_renderers shaderonly
-			ENDCG
-			SetTexture [_MainTex] { combine primary }
-		}
-	}
-	
 	Fallback "Toon/Basic"
 }
