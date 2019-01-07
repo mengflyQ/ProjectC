@@ -53,7 +53,7 @@ public class UIFight : MonoBehaviour
             handle.skillID = skillID;
             handle.caster = player;
             handle.autoTargetPos = true;
-            handle.targetPos = Vector3.zero;
+            handle.targetPos = player.Position;
             handle.skillTargetID = 0;
             SkillHandle.UseSkill(handle);
         }

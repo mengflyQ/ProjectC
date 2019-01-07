@@ -134,4 +134,12 @@ public static class NavigationSystem
         }
         return rst;
     }
+
+    public static bool IsInNavigation(Vector3 pos)
+    {
+        NAV_VEC3 vPos = new NAV_VEC3(pos);
+        float height = 0.0f;
+        uint layer = 0;
+        return NavSystemImport.Nav_GetNavHeight(ref vPos, out height, out layer);
+    }
 }

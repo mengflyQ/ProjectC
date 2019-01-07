@@ -41,6 +41,8 @@ public enum SkillEventType
     Hit                 = 1,
     [EnumDescription("创建子物体")]
     CreateChildObject   = 2,
+    [EnumDescription("重置目标位置")]
+    ResetTargePos       = 3,
 
     // 客户端事件
     [EnumDescription("播放动画")]
@@ -217,4 +219,11 @@ public enum ChildObjectInitPosType
     TargetPos,
     [EnumDescription("上一个子物体")]
     CurSkillObject,
+}
+
+public enum TargetPosTestType
+{
+    None,
+    LineTest,
+    TargetInNav,
 }

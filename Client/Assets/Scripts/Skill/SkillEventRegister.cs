@@ -113,11 +113,65 @@ public static class SkillEventRegister
         }
     }
 
-        public static void Initialize()
+    static void ResetTargePos(Character cha, ChildObject childObject, SkillContext context, excel_skill_event e)
+    {
+        SkillSelectCharactorType selType = (SkillSelectCharactorType)e.evnetParam1;
+        Character selTarget = context.SelectCharactorByType(selType);
+        if (selTarget == null)
+        {
+            return;
+        }
+
+        float fAngle = (float)e.evnetParam2;
+        if (e.evnetParam3 > 0)
+        {
+            float fAngleR = (float)e.evnetParam3 * 2.0f;
+            float fPct = UnityEngine.Random.Range(0.0f, 1.0f);
+            fAngle += fPct * fAngleR - fAngleR;
+        }
+
+        Quaternion q = Quaternion.AngleAxis(fAngle, Vector3.up);
+        Vector3 dir = selTarget.Direction;
+        if (e.evnetParam4 > 0 && context.mOwner != selTarget)
+        {
+            dir = selTarget.Position - context.mOwner.Position;
+            dir.y = 0.0f;
+            dir.Normalize();
+        }
+        dir = q * dir;
+        float dist = (float)e.evnetParam5 * 0.001f;
+        Vector3 targetPos = selTarget.Position + dir * dist;
+
+        TargetPosTestType testType = (TargetPosTestType)e.evnetParam6;
+        switch (testType)
+        {
+            case TargetPosTestType.None:
+                break;
+            case TargetPosTestType.LineTest:
+                {
+                    uint layer = NavigationSystem.GetLayer(context.mOwner.Position);
+                    if (NavigationSystem.LineCast(context.mOwner.Position, targetPos, layer, out targetPos))
+                        break;
+                    break;
+                }
+            case TargetPosTestType.TargetInNav:
+                {
+                    if (!NavigationSystem.IsInNavigation(targetPos))
+                    {
+                        targetPos = selTarget.Position;
+                    }
+                    break;
+                }
+        }
+        context.TargetPos = targetPos;
+    }
+
+    public static void Initialize()
     {
         events[SkillEventType.Hit]                      = Hit;
         events[SkillEventType.PlayAnimation]            = PlayAnimation;
         events[SkillEventType.CreateChildObject]        = CreateChildObject;
+        events[SkillEventType.ResetTargePos]            = ResetTargePos;
     }
     public delegate void SkillEventMethod(Character cha, ChildObject childObject, SkillContext context, excel_skill_event e);
     public static Dictionary<SkillEventType, SkillEventMethod> events = new Dictionary<SkillEventType, SkillEventMethod>();

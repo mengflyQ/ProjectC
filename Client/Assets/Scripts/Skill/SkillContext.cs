@@ -14,6 +14,24 @@ public class SkillContext
         mPlayingAnimations.Clear();
     }
 
+    public Character SelectCharactorByType(SkillSelectCharactorType selType)
+    {
+        switch (selType)
+        {
+            case SkillSelectCharactorType.Self:
+                return mOwner;
+            case SkillSelectCharactorType.FightTarget:
+                {
+                    return mOwner.GetTarget();
+                }
+            case SkillSelectCharactorType.HitTarget:
+                return mHitTarget;
+            case SkillSelectCharactorType.SkillTarget:
+                return SkillTarget;
+        }
+        return null;
+    }
+
     public Character SkillTarget
     {
         get
