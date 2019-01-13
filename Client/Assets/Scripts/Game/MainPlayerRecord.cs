@@ -42,14 +42,14 @@ public class MainPlayerRecord
 
     void UpdateDirty()
     {
-        if (mMainPlayer.Direction != mLastDirection)
-        {
-            mDirty = true;
-        }
-        if (mMainPlayer.MoveSpeed != mLastSpeed)
-        {
-            mDirty = true;
-        }
+        //if (mMainPlayer.Direction != mLastDirection)
+        //{
+        //    mDirty = true;
+        //}
+        //if (mMainPlayer.MoveSpeed != mLastSpeed)
+        //{
+        //    mDirty = true;
+        //}
         if (mMainPlayer.IsControl != mLastControl)
         {
             mDirty = true;

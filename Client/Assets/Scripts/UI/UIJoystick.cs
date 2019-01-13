@@ -39,10 +39,10 @@ public class UIJoystick : MonoBehaviour
             mStartPos = touchPos;
 
 			joystick.gameObject.SetActive(true);
-			Vector3 pos = joystick.localPosition;
+			Vector3 pos = joystick.position;
 			pos.x = mStartPos.x;
 			pos.y = mStartPos.y;
-			joystick.localPosition = pos;
+			joystick.position = pos;
 			mDraging = true;
 		}
 

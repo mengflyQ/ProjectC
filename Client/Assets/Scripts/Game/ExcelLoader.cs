@@ -34,11 +34,11 @@ public class ExcelLoader
             {
                 string excel_line = excel_lines[l];
                 string[] excel_line_data = excel_line.Split('\t');
-                if (excel_line_data.Length != fieldData.Count)
-                {
-                    Debug.LogError("Excel Error: Excel Data Number Is Not Equal To Config Data Number!");
-                    continue;
-                }
+                //if (excel_line_data.Length != fieldData.Count)
+                //{
+                //    Debug.LogError("Excel Error: Excel Data Number Is Not Equal To Config Data Number!");
+                //    continue;
+                //}
 
                 object excel = System.Activator.CreateInstance(excel_type);
                 int id = 0;
@@ -49,7 +49,11 @@ public class ExcelLoader
                     string fieldName = fieldDef["name"].ToString();
                     string fieldType = fieldDef["type"].ToString();
                     FieldInfo excelField = excel_type.GetField(fieldName);
-                    string strValue = excel_line_data[m];
+                    string strValue = string.Empty;
+                    if (m < excel_line_data.Length)
+                    {
+                        strValue = excel_line_data[m];
+                    }
                     object value = GetFieldValueByType(fieldType, strValue);
                     if (value != null)
                     {

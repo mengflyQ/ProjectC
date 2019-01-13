@@ -39,6 +39,9 @@ public class excel_skill_list : ExcelBase<excel_skill_list>
     public int trait;
     public float maxDistance;
     public int targetType;
+    public int skillPreOpType;
+    public int skillPreOpData1;
+    public int skillPreOpData2;
 }
 
 public class excel_skill_stage : ExcelBase<excel_skill_stage>

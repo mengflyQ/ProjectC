@@ -108,7 +108,13 @@ public partial class Character : MonoBehaviour
         }
         UpdateMove();
         UpdateAnim();
+        LogicTickAction();
 	}
+
+    private void Update()
+    {
+        RenderTickAction();
+    }
 
     public void SetSkill(Skill skill)
     {

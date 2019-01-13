@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class UIFight : MonoBehaviour
 {
-	void Start()
+    void Awake()
+    {
+        
+    }
+
+    void Start()
     {
         MessageSystem.Instance.MsgRegister(MessageType.OnSetChaClass, OnSetChaClass);
 	}
@@ -25,21 +30,46 @@ public class UIFight : MonoBehaviour
         excel_cha_class chaClass = param[0] as excel_cha_class;
         if (chaClass == null)
             return;
-        if (skillBtns == null)
+        if (btnTriggers == null)
             return;
-        for (int i = 0; i < chaClass.skillIDs.Length && i < skillBtns.Length; ++i)
+        for (int i = 0; i < chaClass.skillIDs.Length && i < btnTriggers.Length; ++i)
         {
-            Button btn = skillBtns[i];
             int skillID = chaClass.skillIDs[i];
-
-            btn.onClick.AddListener(() =>
+            excel_skill_list skillList = excel_skill_list.Find(skillID);
+            if (skillList == null)
             {
-                DoSkill(skillID);
-            });
+                Debug.LogError("UIFight技能初始化失败，未找到ID为" + skillID + "的技能数据");
+                continue;
+            }
+
+            EventTriggerListener listener = btnTriggers[i];
+
+            GameObject go = listener.gameObject;
+            SkillBtnData skillBtnData = new SkillBtnData();
+            Transform joystick = go.transform.Find("Joystick");
+            if (joystick != null)
+            {
+                skillBtnData.joystick = joystick.transform;
+            }
+            Transform joystickBG = go.transform.Find("Joystick_BG");
+            if (joystickBG != null)
+            {
+                skillBtnData.joystickBG = joystickBG.gameObject;
+            }
+            skillBtnData.btnImage = go.GetComponent<Image>();
+            skillBtnData.maxRadius = 64.0f;
+            skillBtnData.opType = (SkillPreOpType)skillList.skillPreOpType;
+            skillBtnData.opData1 = skillList.skillPreOpData1;
+            skillBtnData.skillID = skillID;
+            skillDatas.Add(go, skillBtnData);
+            
+            listener.onDrag += OnSkillBtnDrag;
+            listener.onPointerDown += OnSkillBtnPress;
+            listener.onPointerUp += OnSkillBtnRelease;
         }
     }
 
-    public void DoSkill(int skillID)
+    public void DoSkill(int skillID, bool autoTarget, Vector3 targetPos)
     {
         Player player = GameController.mMainPlayer;
         if (player == null)
@@ -52,8 +82,8 @@ public class UIFight : MonoBehaviour
             SkillHandle handle = new SkillHandle();
             handle.skillID = skillID;
             handle.caster = player;
-            handle.autoTargetPos = true;
-            handle.targetPos = player.Position;
+            handle.autoTargetPos = autoTarget;
+            handle.targetPos = targetPos;
             handle.skillTargetID = 0;
             SkillHandle.UseSkill(handle);
         }
@@ -64,11 +94,161 @@ public class UIFight : MonoBehaviour
             reqSkill.position = Vector3Packat.FromVector3(player.Position);
             reqSkill.direction = Vector3Packat.FromVector3(player.Direction);
             reqSkill.targetID = target == null ? 0 : target.UserID;
-            reqSkill.autoTargetPos = true;
-            reqSkill.targetPos = Vector3Packat.FromVector3(Vector3.zero);
+            reqSkill.autoTargetPos = autoTarget;
+            reqSkill.targetPos = Vector3Packat.FromVector3(targetPos);
             NetWork.SendPacket<ReqSkill>(CTS.CTS_SkillReq, reqSkill, null);
         }
     }
 
-    public Button[] skillBtns;
+    Vector3 GetPointPos()
+    {
+        Vector3 touchPos = Input.mousePosition;
+        if (Input.touchCount > 0)
+        {
+            touchPos = Input.touches[0].position;
+        }
+        return touchPos;
+    }
+
+    // 技能图标开始拖拽（按下）;
+    private void OnSkillBtnPress(GameObject btn)
+    {
+        SkillBtnData data = null;
+        if (!skillDatas.TryGetValue(btn, out data))
+        {
+            return;
+        }
+        data.btnImage.enabled = false;
+        data.joystickBG.SetActive(true);
+        if (data.opType != SkillPreOpType.TargetDir && data.opType != SkillPreOpType.TargetPos)
+        {
+            return;
+        }
+        data.joystick.gameObject.SetActive(true);
+
+        Vector3 touchPos = GetPointPos();
+        data.joystick.position = touchPos;
+        data.startPos = new Vector2(touchPos.x, touchPos.y);
+    }
+
+    // 技能图标开始拖拽（放开）;
+    private void OnSkillBtnRelease(GameObject btn)
+    {
+        SkillBtnData data = null;
+        if (!skillDatas.TryGetValue(btn, out data))
+        {
+            return;
+        }
+        data.joystickBG.SetActive(false);
+        data.btnImage.enabled = true;
+        if (data.opType == SkillPreOpType.Click)
+        {
+            DoSkill(data.skillID, true, Vector3.zero);
+        }
+        if (data.opType != SkillPreOpType.TargetDir && data.opType != SkillPreOpType.TargetPos)
+        {
+            return;
+        }
+        data.joystick.gameObject.SetActive(false);
+
+        Vector3 pos = data.joystick.position;
+        Vector3 btnPos = btn.transform.position;
+        Vector2 endPos = new Vector2(pos.x, pos.y);
+        Vector2 delta = new Vector2(pos.x - btnPos.x, pos.y - btnPos.y);
+        Vector2 dir = delta.normalized;
+        
+        data.joystick.transform.localPosition = Vector3.zero;
+
+        if (endPos == data.startPos)
+        {
+            return;
+        }
+        data.startPos = Vector2.zero;
+        Player player = GameController.mMainPlayer;
+        if (player == null)
+            return;
+        if (data.opType == SkillPreOpType.TargetDir)
+        {
+            float dist = data.opData1 * 0.001f;
+            Vector3 v = player.Position;
+            v += new Vector3(v.x + dir.x * dist, v.y, v.z + dir.y * dist);
+            DoSkill(data.skillID, false, v);
+        }
+        else if (data.opType == SkillPreOpType.TargetPos)
+        {
+            float dist = data.opData1 * 0.001f;
+            float r = delta.magnitude;
+            float t = r / data.maxRadius;
+            Vector3 v = player.Position;
+            dist = dist * t;
+            v += new Vector3(v.x + dir.x * dist, v.y, v.z + dir.y * dist);
+            DoSkill(data.skillID, false, v);
+        }
+    }
+
+    // 技能图标拖拽中;
+    private void OnSkillBtnDrag(GameObject btn)
+    {
+        SkillBtnData data = null;
+        if (!skillDatas.TryGetValue(btn, out data))
+        {
+            return;
+        }
+        if (data.opType != SkillPreOpType.TargetDir && data.opType != SkillPreOpType.TargetPos)
+        {
+            return;
+        }
+        Vector3 touchPos = GetPointPos();
+        Vector3 pos = data.joystick.position;
+        pos.x = touchPos.x;
+        pos.y = touchPos.y;
+
+        Vector3 btnPos = btn.transform.position;
+        Vector2 delta = new Vector2(pos.x - btnPos.x, pos.y - btnPos.y);
+        Vector2 dir = delta.normalized;
+        float r = delta.magnitude;
+        if (r >= data.maxRadius)
+        {
+            Vector2 finalPos = dir * data.maxRadius;
+            pos.x = btnPos.x + finalPos.x;
+            pos.y = btnPos.y + finalPos.y;
+        }
+
+        data.joystick.position = pos;
+
+        Player player = GameController.mMainPlayer;
+        if (player == null)
+            return;
+
+        if (data.opType == SkillPreOpType.TargetDir)
+        {
+            float dist = data.opData1 * 0.001f;
+            Vector3 v = player.Position;
+            v += new Vector3(v.x + dir.x * dist, v.y, v.z + dir.y * dist);
+        }
+        else if (data.opType == SkillPreOpType.TargetPos)
+        {
+            float dist = data.opData1 * 0.001f;
+            float t = r / data.maxRadius;
+            Vector3 v = player.Position;
+            dist = dist * t;
+            v += new Vector3(v.x + dir.x * dist, v.y, v.z + dir.y * dist);
+        }
+    }
+
+    public class SkillBtnData
+    {
+        public Image btnImage;
+        public Transform joystick;
+        public GameObject joystickBG;
+        public SkillPreOpType opType;
+        public int opData1;
+        public float maxRadius;
+        public int skillID;
+        public Vector2 startPos;
+    }
+    
+    public EventTriggerListener[] btnTriggers;
+    public Dictionary<GameObject, SkillBtnData> skillDatas = new Dictionary<GameObject, SkillBtnData>();
+
 }

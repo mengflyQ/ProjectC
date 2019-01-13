@@ -332,6 +332,17 @@ public partial class Character : MonoBehaviour
         StopClip(animList.name);
     }
 
+    public void SetAnimTime(AnimPlayType type, float time)
+    {
+        string animName = mCurAnimNames[(int)type];
+        if (string.IsNullOrEmpty(animName))
+            return;
+        AnimationState state = mAnimation[animName];
+        if (state == null)
+            return;
+        state.time = time;
+    }
+
 	protected void MixingClip(AnimationState state, AnimPlayType type)
 	{
 		if (type == AnimPlayType.Up)

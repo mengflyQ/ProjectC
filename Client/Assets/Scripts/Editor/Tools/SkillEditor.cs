@@ -1275,6 +1275,22 @@ public class SkillEditor : EditorWindow
             texts[i] = ((SkillTargetType)i).ToDescription();
         }
         skillExcel.targetType = EditorGUILayout.IntPopup("目标类型", (int)skillExcel.targetType, texts, values);
+
+        values = Enum.GetValues(typeof(SkillPreOpType)) as int[];
+        texts = new string[values.Length];
+        for (int i = 0; i < values.Length; ++i)
+        {
+            SkillPreOpType skillPreOpType = (SkillPreOpType)values[i];
+            texts[i] = skillPreOpType.ToDescription();
+        }
+        skillExcel.skillPreOpType = EditorGUILayout.IntPopup("预操作类型", (int)skillExcel.skillPreOpType, texts, values);
+        SkillPreOpType opType = (SkillPreOpType)skillExcel.skillPreOpType;
+        if (opType == SkillPreOpType.TargetDir || opType == SkillPreOpType.TargetPos)
+        {
+            float opRadius = (float)skillExcel.skillPreOpData1 * 0.001f;
+            opRadius = EditorGUILayout.FloatField("  最大半径", opRadius);
+            skillExcel.skillPreOpData1 = opRadius < 0.0f ? 0 : (int)(opRadius * 1000.0f);
+        }
     }
 
     void ShowChildObjectData()
@@ -1625,7 +1641,10 @@ public class SkillEditor : EditorWindow
             skillExcelText.Append(IntArrayToString(excel.hits)).Append("\t");
             skillExcelText.Append(excel.trait).Append("\t");
             skillExcelText.Append(excel.maxDistance).Append("\t");
-            skillExcelText.Append(excel.targetType).Append("\r\n");
+            skillExcelText.Append(excel.targetType).Append("\t");
+            skillExcelText.Append(excel.skillPreOpType).Append("\t");
+            skillExcelText.Append(excel.skillPreOpData1).Append("\t");
+            skillExcelText.Append(excel.skillPreOpData2).Append("\r\n");
         }
     }
 
@@ -1895,6 +1914,28 @@ public static class EnumExtension
             Debug.LogWarning(e.Message);
         }
         
+        return type.ToString();
+    }
+
+    public static string ToDescription(this SkillPreOpType enumType)
+    {
+        Type type = typeof(SkillPreOpType);
+        try
+        {
+            FieldInfo info = type.GetField(enumType.ToString());
+            if (info == null)
+                return "Unkown";
+            EnumDescriptionAttribute descAttribute = info.GetCustomAttributes(typeof(EnumDescriptionAttribute), true)[0] as EnumDescriptionAttribute;
+            if (descAttribute != null)
+            {
+                return descAttribute.Description;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning(e.Message);
+        }
+
         return type.ToString();
     }
 }

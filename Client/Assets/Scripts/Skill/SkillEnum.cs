@@ -227,3 +227,13 @@ public enum TargetPosTestType
     LineTest,
     TargetInNav,
 }
+
+public enum SkillPreOpType
+{
+    [EnumDescription("点击施放")]
+    Click,
+    [EnumDescription("目标方向")]
+    TargetDir,
+    [EnumDescription("目标位置")]
+    TargetPos,
+}

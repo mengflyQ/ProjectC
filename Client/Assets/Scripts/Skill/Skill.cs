@@ -100,6 +100,8 @@ public class Skill
             int animID = mSkillContext.mPlayingAnimations[i];
             Owner.StopClip(animID);
         }
+
+        Owner.SetAnimTime(AnimPlayType.Base, 0.0f);
     }
 
     public void BeginSkill()
