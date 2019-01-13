@@ -166,12 +166,40 @@ public static class SkillEventRegister
         context.TargetPos = targetPos;
     }
 
+    static void SkillMoveEvent(Character cha, ChildObject childObject, SkillContext context, excel_skill_event e)
+    {
+        if (cha == null)
+            return;
+        if (!GameApp.Instance.directGame)
+            return;
+        SkillMoveDataType type = (SkillMoveDataType)e.evnetParam1;
+        if (type == SkillMoveDataType.MoveType1)
+        {
+            float time = (float)e.evnetParam2 * 0.001f;
+            SkillMove skillMove = IAction.CreateAction<SkillMove>(ChaActionType.SkillMove);
+            skillMove.Init1(cha, context.TargetPos, time);
+            cha.AddAction(skillMove);
+        }
+        else if (type == SkillMoveDataType.MoveType2)
+        {
+            float time = (float)e.evnetParam2 * 0.001f;
+            float speed = (float)e.evnetParam3 * 0.001f;
+
+            Vector3 dir = context.TargetPos - cha.Position;
+
+            SkillMove skillMove = IAction.CreateAction<SkillMove>(ChaActionType.SkillMove);
+            skillMove.Init2(cha, dir, speed, time);
+            cha.AddAction(skillMove);
+        }
+    }
+
     public static void Initialize()
     {
         events[SkillEventType.Hit]                      = Hit;
         events[SkillEventType.PlayAnimation]            = PlayAnimation;
         events[SkillEventType.CreateChildObject]        = CreateChildObject;
         events[SkillEventType.ResetTargePos]            = ResetTargePos;
+        events[SkillEventType.SkillMove]                = SkillMoveEvent;
     }
     public delegate void SkillEventMethod(Character cha, ChildObject childObject, SkillContext context, excel_skill_event e);
     public static Dictionary<SkillEventType, SkillEventMethod> events = new Dictionary<SkillEventType, SkillEventMethod>();

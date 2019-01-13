@@ -140,6 +140,11 @@ public class Skill
             Vector3 dir = skillTarget.Position - Owner.Position;
             Owner.Direction = dir;
         }
+        else
+        {
+            Vector3 dir = mSkillContext.TargetPos - Owner.Position;
+            Owner.Direction = dir;
+        }
 
         if (!SkillStage.IsStageTrait(SkillStageTrait.AllowMove, mCurStage.mStageInfo)
             || SkillStage.IsStageTrait(SkillStageTrait.MoveBreak, mCurStage.mStageInfo))

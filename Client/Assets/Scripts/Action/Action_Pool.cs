@@ -5,7 +5,7 @@ using System.Text;
 
 public partial class IAction
 {
-    public static IAction CreateAction<T>(ChaActionType type) where T : IAction, new()
+    public static T CreateAction<T>(ChaActionType type) where T : IAction, new()
     {
         Queue<IAction> pool = null;
         if (!ActionPool.TryGetValue(type, out pool))
@@ -24,8 +24,10 @@ public partial class IAction
         {
             action = pool.Dequeue();
         }
+        if (action != null)
+            return action as T;
 
-        return action;
+        return null;
     }
 
     public static void DeleteAction(IAction action)

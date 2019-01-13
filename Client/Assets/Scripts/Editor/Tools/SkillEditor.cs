@@ -1938,4 +1938,26 @@ public static class EnumExtension
 
         return type.ToString();
     }
+
+    public static string ToDescription(this SkillMoveDataType enumType)
+    {
+        Type type = typeof(SkillMoveDataType);
+        try
+        {
+            FieldInfo info = type.GetField(enumType.ToString());
+            if (info == null)
+                return "Unkown";
+            EnumDescriptionAttribute descAttribute = info.GetCustomAttributes(typeof(EnumDescriptionAttribute), true)[0] as EnumDescriptionAttribute;
+            if (descAttribute != null)
+            {
+                return descAttribute.Description;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning(e.Message);
+        }
+
+        return type.ToString();
+    }
 }

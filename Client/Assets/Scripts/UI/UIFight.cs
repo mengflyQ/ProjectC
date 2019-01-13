@@ -154,8 +154,7 @@ public class UIFight : MonoBehaviour
         Vector3 pos = data.joystick.position;
         Vector3 btnPos = btn.transform.position;
         Vector2 endPos = new Vector2(pos.x, pos.y);
-        Vector2 delta = new Vector2(pos.x - btnPos.x, pos.y - btnPos.y);
-        Vector2 dir = delta.normalized;
+        Vector3 delta = new Vector3(pos.x - btnPos.x, 0.0f, pos.y - btnPos.y);
         
         data.joystick.transform.localPosition = Vector3.zero;
 
@@ -167,11 +166,18 @@ public class UIFight : MonoBehaviour
         Player player = GameController.mMainPlayer;
         if (player == null)
             return;
+
+        Quaternion rot = MobaMainCamera.MainCamera.transform.rotation;
+        Vector3 dir = delta;
+        dir = rot* dir;
+        dir.y = 0.0f;
+        dir.Normalize();
+
         if (data.opType == SkillPreOpType.TargetDir)
         {
             float dist = data.opData1 * 0.001f;
             Vector3 v = player.Position;
-            v += new Vector3(v.x + dir.x * dist, v.y, v.z + dir.y * dist);
+            v += dist * dir;
             DoSkill(data.skillID, false, v);
         }
         else if (data.opType == SkillPreOpType.TargetPos)
@@ -181,7 +187,7 @@ public class UIFight : MonoBehaviour
             float t = r / data.maxRadius;
             Vector3 v = player.Position;
             dist = dist * t;
-            v += new Vector3(v.x + dir.x * dist, v.y, v.z + dir.y * dist);
+            v += dist * dir;
             DoSkill(data.skillID, false, v);
         }
     }

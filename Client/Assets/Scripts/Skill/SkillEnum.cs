@@ -38,18 +38,19 @@ public enum SkillEventType
 {
     // 公共事件
     [EnumDescription("判定事件")]
-    Hit                 = 1,
+    Hit = 1,
     [EnumDescription("创建子物体")]
-    CreateChildObject   = 2,
+    CreateChildObject = 2,
     [EnumDescription("重置目标位置")]
-    ResetTargePos       = 3,
+    ResetTargePos = 3,
 
     // 客户端事件
     [EnumDescription("播放动画")]
-    PlayAnimation       = 1001,
+    PlayAnimation = 1001,
 
     // 服务器事件
-
+    [EnumDescription("技能移动")]
+    SkillMove = 2001,
 }
 
 public enum SkillState

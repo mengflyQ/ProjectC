@@ -96,7 +96,7 @@ public static class SkillEventEditorRegister
         e.evnetParam6 = EditorGUILayout.IntPopup("导航检测", e.evnetParam6, texts, values);
     }
 
-        static int MaskField(string label, int mask, string[] texts)
+    static int MaskField(string label, int mask, string[] texts)
     {
         EditorGUILayout.BeginHorizontal("Box");
         GUILayout.Space(12.0f);
@@ -117,12 +117,42 @@ public static class SkillEventEditorRegister
         return m;
     }
 
+    static void SkillMoveEvent(excel_skill_event e)
+    {
+        int[] values = Enum.GetValues(typeof(SkillMoveDataType)) as int[];
+        string[] texts = new string[values.Length];
+        for (int i = 0; i < values.Length; ++i)
+        {
+            SkillMoveDataType t = (SkillMoveDataType)values[i];
+            texts[i] = t.ToDescription();
+        }
+        e.evnetParam1 = EditorGUILayout.IntPopup("移动类型", e.evnetParam1, texts, values);
+        SkillMoveDataType moveType = (SkillMoveDataType)e.evnetParam1;
+        if (moveType == SkillMoveDataType.MoveType1)
+        {
+            float time = (float)e.evnetParam2 * 0.001f;
+            time = EditorGUILayout.FloatField("移动时间", time);
+            e.evnetParam2 = (int)(time * 1000.0f);
+        }
+        else if (moveType == SkillMoveDataType.MoveType2)
+        {
+            float time = (float)e.evnetParam2 * 0.001f;
+            time = EditorGUILayout.FloatField("移动时间(s)", time);
+            e.evnetParam2 = (int)(time * 1000.0f);
+
+            float speed = (float)e.evnetParam3 * 0.001f;
+            speed = EditorGUILayout.FloatField("移动速度(m/s)", speed);
+            e.evnetParam3 = (int)(speed * 1000.0f);
+        }
+    }
+
     static SkillEventEditorRegister()
     {
         mSkillEventMethods[SkillEventType.Hit]                      = Hit;
         mSkillEventMethods[SkillEventType.PlayAnimation]            = PlayAnimation;
         mSkillEventMethods[SkillEventType.CreateChildObject]        = CreateChildObject;
         mSkillEventMethods[SkillEventType.ResetTargePos]            = ResetTargePos;
+        mSkillEventMethods[SkillEventType.SkillMove]                = SkillMoveEvent;
     }
     public delegate void SkillEventEditorMethod(excel_skill_event e);
     public static Dictionary<SkillEventType, SkillEventEditorMethod> mSkillEventMethods = new Dictionary<SkillEventType, SkillEventEditorMethod>();
