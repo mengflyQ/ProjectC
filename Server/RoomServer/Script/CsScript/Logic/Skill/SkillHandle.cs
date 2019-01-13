@@ -85,7 +85,7 @@ public struct SkillHandle
         }
         else
         {
-            context.TargetPos = target.Position;
+            context.TargetPos = target == null ? Vector3.zero : target.Position;
         }
         Skill skill = new Skill(handle.skillID, context);
         handle.caster.SetSkill(skill);

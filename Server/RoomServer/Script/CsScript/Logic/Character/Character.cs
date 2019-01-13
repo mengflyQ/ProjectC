@@ -57,6 +57,7 @@ public partial class Character
             }
         }
         UpdateMove();
+        LogicTickAction();
     }
 
     public void SetTarget(Character target, bool sendToSelf = true)

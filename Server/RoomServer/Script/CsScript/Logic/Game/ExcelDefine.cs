@@ -38,6 +38,9 @@ public class excel_skill_list : ExcelBase<excel_skill_list>
     public int trait;
     public float maxDistance;
     public int targetType;
+    public int skillPreOpType;
+    public int skillPreOpData1;
+    public int skillPreOpData2;
 }
 
 public class excel_skill_stage : ExcelBase<excel_skill_stage>
@@ -78,6 +81,22 @@ public class excel_skill_hit : ExcelBase<excel_skill_hit>
     public int targetType;
     public int maxHitCount;
     public int targetMaxHitCnt;
+}
+
+public class excel_child_object : ExcelBase<excel_child_object>
+{
+    public string name;
+    public string path;
+    public int duration;
+    public float size;
+    public int initPos;
+    public string initHinge;
+    public float yOffset;
+    public int initDir;
+    public int moveType;
+    public float speed;
+    public int[] events;
+    public int trait;
 }
 
 public class excel_cha_camp_list : ExcelBase<excel_cha_camp_list>

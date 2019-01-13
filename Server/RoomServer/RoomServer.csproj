@@ -143,7 +143,12 @@
     <Compile Include="Script\CsScript\Common\ProtocalDef.cs" />
     <Compile Include="Script\CsScript\Common\STCPackageHead.cs" />
     <Compile Include="Script\CsScript\Locale\SimplifiedLanguage.cs" />
+    <Compile Include="Script\CsScript\Logic\Action\ActionContainer.cs" />
+    <Compile Include="Script\CsScript\Logic\Action\Action_Pool.cs" />
+    <Compile Include="Script\CsScript\Logic\Action\IAction.cs" />
+    <Compile Include="Script\CsScript\Logic\Action\ImpAction\SkillMove.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\Character_Action.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character_Move.cs" />
     <Compile Include="Script\CsScript\Logic\Common\BaseSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Common\Debug.cs" />
