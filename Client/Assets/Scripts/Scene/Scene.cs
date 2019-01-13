@@ -41,7 +41,11 @@ public class Scene
             if (GameController.mUserInfo.uid == playerInfo.UserID)
                 continue;
 
-            excel_cha_list chaList = excel_cha_list.Find(scnList.temp);
+            excel_cha_class chaClass = excel_cha_class.Find(mScnLists.temp);
+            if (chaClass == null)
+                continue;
+
+            excel_cha_list chaList = excel_cha_list.Find(chaClass.chaListID);
 
             ResourceSystem.LoadAsync<GameObject>(chaList.path, (obj) =>
             {
