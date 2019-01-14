@@ -178,6 +178,10 @@ public class UIFight : MonoBehaviour
         {
             return;
         }
+        if (data.warning != null)
+        {
+            data.warning.Release();
+        }
         data.joystickBG.SetActive(false);
         data.btnImage.enabled = true;
         if (data.opType == SkillPreOpType.Click)
@@ -221,11 +225,6 @@ public class UIFight : MonoBehaviour
             Vector3 v = player.Position;
             v += dist * dir;
             DoSkill(data.skillID, false, v);
-
-            if (data.warning != null)
-            {
-                data.warning.Release();
-            }
         }
         else if (data.opType == SkillPreOpType.TargetPos)
         {
@@ -237,11 +236,6 @@ public class UIFight : MonoBehaviour
             dist = dist * t;
             v += dist * dir;
             DoSkill(data.skillID, false, v);
-
-            if (data.warning != null)
-            {
-                data.warning.Release();
-            }
         }
     }
 
