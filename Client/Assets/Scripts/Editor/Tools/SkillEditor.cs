@@ -1302,6 +1302,12 @@ public class SkillEditor : EditorWindow
             skillExcel.skillPreOpData2 = EditorGUILayout.IntField("  扇形半角", skillExcel.skillPreOpData2);
             skillExcel.skillPreOpData2 = skillExcel.skillPreOpData2 < 0 ? 0 : skillExcel.skillPreOpData2;
         }
+        else if (opType == SkillPreOpType.TargetPos)
+        {
+            float tRadius = (float)skillExcel.skillPreOpData2 * 0.001f;
+            tRadius = EditorGUILayout.FloatField("  目标半径", tRadius);
+            skillExcel.skillPreOpData2 = tRadius < 0.0f ? 0 : (int)(tRadius * 1000.0f);
+        }
     }
 
     void ShowChildObjectData()

@@ -160,7 +160,7 @@ public class UIFight : MonoBehaviour
         }
         else if (data.opType == SkillPreOpType.TargetPos)
         {
-            float radius = data.opData1 * 0.001f;
+            float radius = data.opData2 * 0.001f;
             SkillWarning.CreateSkillWarning("GUI/SkillWarning/Prefabs/warning_circle", SkillWarningType.PreOpCircle, radius, radius,
                 -1.0f, player.Position, player.transform.rotation, true, player.transform, (o) =>
                 {
@@ -232,6 +232,7 @@ public class UIFight : MonoBehaviour
             float dist = data.opData1 * 0.001f;
             float r = delta.magnitude;
             float t = r / data.maxRadius;
+            t = Mathf.Clamp01(t);
             Vector3 v = player.Position;
             dist = dist * t;
             v += dist * dir;
@@ -303,6 +304,7 @@ public class UIFight : MonoBehaviour
         {
             float dist = data.opData1 * 0.001f;
             float t = r / data.maxRadius;
+            t = Mathf.Clamp01(t);
             dist = dist * t;
             Vector3 v = player.Position;
             v += dist * dir;
