@@ -193,6 +193,22 @@ public static class SkillEventRegister
         }
     }
 
+    static void TowardTargetPos(Character cha, ChildObject childObject, SkillContext context, excel_skill_event e)
+    {
+        Vector3 ownerPos = Vector3.zero;
+        if (cha != null)
+            ownerPos = cha.Position;
+        else if (childObject != null)
+            ownerPos = childObject.Position;
+        else
+            return;
+        Vector3 dir = context.TargetPos - ownerPos;
+        if (cha != null)
+            cha.Direction = dir;
+        else if (childObject != null)
+            childObject.Direction = dir;
+    }
+
     public static void Initialize()
     {
         events[SkillEventType.Hit]                      = Hit;
@@ -200,6 +216,7 @@ public static class SkillEventRegister
         events[SkillEventType.CreateChildObject]        = CreateChildObject;
         events[SkillEventType.ResetTargePos]            = ResetTargePos;
         events[SkillEventType.SkillMove]                = SkillMoveEvent;
+        events[SkillEventType.TowardTargetPos]          = TowardTargetPos;
     }
     public delegate void SkillEventMethod(Character cha, ChildObject childObject, SkillContext context, excel_skill_event e);
     public static Dictionary<SkillEventType, SkillEventMethod> events = new Dictionary<SkillEventType, SkillEventMethod>();

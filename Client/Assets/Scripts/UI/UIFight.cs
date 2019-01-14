@@ -105,7 +105,7 @@ public class UIFight : MonoBehaviour
         Vector3 touchPos = Input.mousePosition;
         if (Input.touchCount > 0)
         {
-            touchPos = Input.touches[0].position;
+            touchPos = Input.touches[Input.touchCount - 1].position;
         }
         return touchPos;
     }

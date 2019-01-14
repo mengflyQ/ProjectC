@@ -43,6 +43,8 @@ public enum SkillEventType
     CreateChildObject = 2,
     [EnumDescription("重置目标位置")]
     ResetTargePos = 3,
+    [EnumDescription("朝向目标位置")]
+    TowardTargetPos = 4,
 
     // 客户端事件
     [EnumDescription("播放动画")]
