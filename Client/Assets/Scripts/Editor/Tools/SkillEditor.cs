@@ -1285,11 +1285,22 @@ public class SkillEditor : EditorWindow
         }
         skillExcel.skillPreOpType = EditorGUILayout.IntPopup("预操作类型", (int)skillExcel.skillPreOpType, texts, values);
         SkillPreOpType opType = (SkillPreOpType)skillExcel.skillPreOpType;
-        if (opType == SkillPreOpType.TargetDir || opType == SkillPreOpType.TargetPos)
+        if (opType == SkillPreOpType.TargetDirLine || opType == SkillPreOpType.TargetDirFan || opType == SkillPreOpType.TargetPos)
         {
             float opRadius = (float)skillExcel.skillPreOpData1 * 0.001f;
             opRadius = EditorGUILayout.FloatField("  最大半径", opRadius);
             skillExcel.skillPreOpData1 = opRadius < 0.0f ? 0 : (int)(opRadius * 1000.0f);
+        }
+        if (opType == SkillPreOpType.TargetDirLine)
+        {
+            float opWidth = (float)skillExcel.skillPreOpData2 * 0.001f;
+            opWidth = EditorGUILayout.FloatField("  判定宽度", opWidth);
+            skillExcel.skillPreOpData2 = opWidth < 0.0f ? 0 : (int)(opWidth * 1000.0f);
+        }
+        else if (opType == SkillPreOpType.TargetDirFan)
+        {
+            skillExcel.skillPreOpData2 = EditorGUILayout.IntField("  扇形半角", skillExcel.skillPreOpData2);
+            skillExcel.skillPreOpData2 = skillExcel.skillPreOpData2 < 0 ? 0 : skillExcel.skillPreOpData2;
         }
     }
 

@@ -60,6 +60,7 @@ public class UIFight : MonoBehaviour
             skillBtnData.maxRadius = 64.0f;
             skillBtnData.opType = (SkillPreOpType)skillList.skillPreOpType;
             skillBtnData.opData1 = skillList.skillPreOpData1;
+            skillBtnData.opData2 = skillList.skillPreOpData2;
             skillBtnData.skillID = skillID;
             skillDatas.Add(go, skillBtnData);
             
@@ -120,7 +121,9 @@ public class UIFight : MonoBehaviour
         }
         data.btnImage.enabled = false;
         data.joystickBG.SetActive(true);
-        if (data.opType != SkillPreOpType.TargetDir && data.opType != SkillPreOpType.TargetPos)
+        if (data.opType != SkillPreOpType.TargetDirLine
+            && data.opType != SkillPreOpType.TargetDirFan
+            && data.opType != SkillPreOpType.TargetPos)
         {
             return;
         }
@@ -129,6 +132,42 @@ public class UIFight : MonoBehaviour
         Vector3 touchPos = GetPointPos();
         data.joystick.position = touchPos;
         data.startPos = new Vector2(touchPos.x, touchPos.y);
+
+        Player player = GameController.mMainPlayer;
+        if (player == null)
+            return;
+        if (data.opType == SkillPreOpType.TargetDirLine)
+        {
+            float dist = data.opData1 * 0.001f;
+            float width = data.opData2 * 0.001f;
+            SkillWarning.CreateSkillWarning("GUI/SkillWarning/Prefabs/warning_line", SkillWarningType.PreOpRect, width, dist,
+                -1.0f, player.Position, player.transform.rotation, true, player.transform, (o) =>
+                {
+                    o.NavLayer = player.NavLayer;
+                    data.warning = o;
+                });
+        }
+        else if (data.opType == SkillPreOpType.TargetDirFan)
+        {
+            float dist = data.opData1 * 0.001f;
+            float angle = (float)data.opData2;
+            SkillWarning.CreateSkillWarning("GUI/SkillWarning/Prefabs/warning_fan", SkillWarningType.PreOpFan, dist, angle,
+                -1.0f, player.Position, player.transform.rotation, true, player.transform, (o) =>
+                {
+                    o.NavLayer = player.NavLayer;
+                    data.warning = o;
+                });
+        }
+        else if (data.opType == SkillPreOpType.TargetPos)
+        {
+            float radius = data.opData1 * 0.001f;
+            SkillWarning.CreateSkillWarning("GUI/SkillWarning/Prefabs/warning_circle", SkillWarningType.PreOpCircle, radius, radius,
+                -1.0f, player.Position, player.transform.rotation, true, player.transform, (o) =>
+                {
+                    o.NavLayer = player.NavLayer;
+                    data.warning = o;
+                });
+        }
     }
 
     // 技能图标开始拖拽（放开）;
@@ -145,7 +184,9 @@ public class UIFight : MonoBehaviour
         {
             DoSkill(data.skillID, true, Vector3.zero);
         }
-        if (data.opType != SkillPreOpType.TargetDir && data.opType != SkillPreOpType.TargetPos)
+        if (data.opType != SkillPreOpType.TargetDirLine
+            && data.opType != SkillPreOpType.TargetDirFan
+            && data.opType != SkillPreOpType.TargetPos)
         {
             return;
         }
@@ -173,12 +214,18 @@ public class UIFight : MonoBehaviour
         dir.y = 0.0f;
         dir.Normalize();
 
-        if (data.opType == SkillPreOpType.TargetDir)
+        if (data.opType == SkillPreOpType.TargetDirLine
+            || data.opType == SkillPreOpType.TargetDirFan)
         {
             float dist = data.opData1 * 0.001f;
             Vector3 v = player.Position;
             v += dist * dir;
             DoSkill(data.skillID, false, v);
+
+            if (data.warning != null)
+            {
+                data.warning.Release();
+            }
         }
         else if (data.opType == SkillPreOpType.TargetPos)
         {
@@ -189,6 +236,11 @@ public class UIFight : MonoBehaviour
             dist = dist * t;
             v += dist * dir;
             DoSkill(data.skillID, false, v);
+
+            if (data.warning != null)
+            {
+                data.warning.Release();
+            }
         }
     }
 
@@ -200,7 +252,9 @@ public class UIFight : MonoBehaviour
         {
             return;
         }
-        if (data.opType != SkillPreOpType.TargetDir && data.opType != SkillPreOpType.TargetPos)
+        if (data.opType != SkillPreOpType.TargetDirLine
+            && data.opType != SkillPreOpType.TargetDirFan
+            && data.opType != SkillPreOpType.TargetPos)
         {
             return;
         }
@@ -211,11 +265,12 @@ public class UIFight : MonoBehaviour
 
         Vector3 btnPos = btn.transform.position;
         Vector2 delta = new Vector2(pos.x - btnPos.x, pos.y - btnPos.y);
-        Vector2 dir = delta.normalized;
+        
         float r = delta.magnitude;
         if (r >= data.maxRadius)
         {
-            Vector2 finalPos = dir * data.maxRadius;
+            Vector2 dir2D = delta.normalized;
+            Vector2 finalPos = dir2D * data.maxRadius;
             pos.x = btnPos.x + finalPos.x;
             pos.y = btnPos.y + finalPos.y;
         }
@@ -226,19 +281,36 @@ public class UIFight : MonoBehaviour
         if (player == null)
             return;
 
-        if (data.opType == SkillPreOpType.TargetDir)
+        Quaternion rot = MobaMainCamera.MainCamera.transform.rotation;
+        Vector3 dir = new Vector3(delta.x, 0.0f, delta.y);
+        dir = rot * dir;
+        dir.y = 0.0f;
+        dir.Normalize();
+
+        if (data.opType == SkillPreOpType.TargetDirLine
+            || data.opType == SkillPreOpType.TargetDirFan)
         {
             float dist = data.opData1 * 0.001f;
             Vector3 v = player.Position;
-            v += new Vector3(v.x + dir.x * dist, v.y, v.z + dir.y * dist);
+            v += dist * dir;
+
+            if (data.warning != null)
+            {
+                data.warning.transform.forward = dir;
+            }
         }
         else if (data.opType == SkillPreOpType.TargetPos)
         {
             float dist = data.opData1 * 0.001f;
             float t = r / data.maxRadius;
-            Vector3 v = player.Position;
             dist = dist * t;
-            v += new Vector3(v.x + dir.x * dist, v.y, v.z + dir.y * dist);
+            Vector3 v = player.Position;
+            v += dist * dir;
+
+            if (data.warning != null)
+            {
+                data.warning.transform.position = v;
+            } 
         }
     }
 
@@ -249,9 +321,11 @@ public class UIFight : MonoBehaviour
         public GameObject joystickBG;
         public SkillPreOpType opType;
         public int opData1;
+        public int opData2;
         public float maxRadius;
         public int skillID;
         public Vector2 startPos;
+        public SkillWarning warning;
     }
     
     public EventTriggerListener[] btnTriggers;
