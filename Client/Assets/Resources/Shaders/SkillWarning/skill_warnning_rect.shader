@@ -50,6 +50,17 @@ Shader "ZDStudio/技能预警/技能提醒-矩形"
 			fixed4 psMesh(v2f_surf IN) : SV_Target
 			{
 				fixed2 tc = IN.pack1.xy;
+				//tc.y = 1.0f - tc.y;
+
+				fixed fMid = 0.5f;
+
+				fixed fMax1 = max(tc.y - _A, 0.0f);
+				float v1 = (fMax1 - fMid *fMax1) / (1.0f - _A);
+				fixed fMax2 = max(_A - tc.y, 0.0f);
+				float v2 = fMid - fMid * fMax2 / _A;
+
+				float v = v1 + v2;
+				tc.y = v;
 
 				fixed4 map_base = tex2D(_MainTex, tc);
 				fixed4 col;
