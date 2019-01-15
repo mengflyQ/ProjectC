@@ -88,7 +88,10 @@ public class ExcelLoader
 			string line = lines[i];
 			string[] datas = line.Split('\t');
 			string className = datas[1];
-			asset = Resources.Load<TextAsset>("Excel/config/" + className);
+            string loadPort = datas[2];
+            if (!loadPort.Contains("c"))
+                continue;
+            asset = Resources.Load<TextAsset>("Excel/config/" + className);
 			JsonData data = JsonMapper.ToObject(asset.text);
 
             Type excel_type = Type.GetType("excel_" + className);
@@ -115,10 +118,12 @@ public class ExcelLoader
 				for (int l = 1; l < excel_lines.Length; ++l)
 				{
 					string excel_line = excel_lines[l];
-					string[] excel_line_data = excel_line.Split('\t');
+                    if (string.IsNullOrEmpty(excel_line))
+                        continue;
+                    string[] excel_line_data = excel_line.Split('\t');
 					if (excel_line_data.Length != fieldData.Count)
 					{
-						Debug.LogError("Excel Error: Excel Data Number Is Not Equal To Config Data Number!");
+						Debug.LogError("Excel Error: Excel Data Number Is Not Equal To Config Data Number! File: " + filename);
 						continue;
 					}
 
