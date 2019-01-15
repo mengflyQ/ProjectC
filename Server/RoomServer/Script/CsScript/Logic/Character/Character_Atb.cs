@@ -24,4 +24,16 @@ public partial class Character
     }
 
     AtbTree mAtb = null;
+
+    public int HP
+    {
+        set;
+        get;
+    }
+
+    public int MP
+    {
+        set;
+        get;
+    }
 }

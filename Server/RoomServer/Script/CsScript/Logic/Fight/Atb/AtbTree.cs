@@ -27,9 +27,12 @@ public class AtbTree
             token.Add(false);
         }
 
+        // Build Tree
         for (int i = 0; i < nodes.Count; ++i)
         {
             AtbNode node = nodes[i];
+            if (node.excel.inflAtbs == null)
+                continue;
             for (int j = 0; j < node.excel.inflAtbs.Length; ++j)
             {
                 int inflID = node.excel.inflAtbs[j];
@@ -46,6 +49,7 @@ public class AtbTree
             }
         }
 
+        // Update Tree
         for (int i = 0; i < nodes.Count; ++i)
         {
             AtbNode node = nodes[i];

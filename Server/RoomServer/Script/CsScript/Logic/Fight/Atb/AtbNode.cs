@@ -69,12 +69,12 @@ public class AtbNode
                 node.Dirty = false;
             }
 
-            for (int i = 0; i < node.children.Count; ++i)
+            for (int i = 0; i < node.parents.Count; ++i)
             {
-                AtbNode child = node.parents[i];
-                if (!child.Dirty)
+                AtbNode parent = node.parents[i];
+                if (!parent.Dirty)
                     continue;
-                qParents.Enqueue(child);
+                qParents.Enqueue(parent);
             }
         }
     }

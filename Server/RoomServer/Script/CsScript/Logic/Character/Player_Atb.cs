@@ -34,5 +34,8 @@ public partial class Player : Character
         SetAtb(AtbType.Base_CDReducePct,    chaAtbExcel.cdReducePct);
         SetAtb(AtbType.Base_AtkSpeedPct,    chaAtbExcel.atkSpeedPct);
         SetAtb(AtbType.Base_HRTimeDefPct,   chaAtbExcel.hrTimeDefPct);
+
+        HP = GetAtb(AtbType.MaxHP);
+        MP = GetAtb(AtbType.MaxMP);
     }
 }
