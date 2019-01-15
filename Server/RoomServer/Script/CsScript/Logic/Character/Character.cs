@@ -44,6 +44,7 @@ public partial class Character
 
     public virtual void Initialize()
     {
+        InitAtb();
         InitMove();
     }
 

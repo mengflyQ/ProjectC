@@ -28,6 +28,9 @@ public class ExcelLoader
                 continue;
             string[] datas = line.Split('\t');
             string className = datas[1];
+            string loadPort = datas[2];
+            if (!loadPort.Contains("s"))
+                continue;
             string configText = string.Empty;
             using (FileStream fsRead = new FileStream(@"../Data/Excel/config/" + className + ".json", FileMode.Open))
             {
@@ -65,12 +68,12 @@ public class ExcelLoader
                 for (int l = 1; l < excel_lines.Length; ++l)
                 {
                     string excel_line = excel_lines[l];
-                    if (string.IsNullOrWhiteSpace(excel_line))
+                    if (string.IsNullOrWhiteSpace(excel_line) || string.IsNullOrEmpty(excel_line))
                         continue;
                     string[] excel_line_data = excel_line.Split('\t');
                     if (excel_line_data.Length != fieldData.Count)
                     {
-                        Console.WriteLine("Excel Error: Excel Data Number Is Not Equal To Config Data Number!");
+                        Console.WriteLine("Excel Error: Excel Data Number Is Not Equal To Config Data Number! File: " + filename);
                         continue;
                     }
 

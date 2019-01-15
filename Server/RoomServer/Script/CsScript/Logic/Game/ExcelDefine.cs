@@ -14,6 +14,7 @@ public class excel_cha_class : ExcelBase<excel_cha_class>
     public string name;
     public int chaListID;
     public int[] skillIDs;
+    public int chaAtbID;
 }
 
 public class excel_cha_list : ExcelBase<excel_cha_list>
@@ -105,4 +106,43 @@ public class excel_cha_camp_list : ExcelBase<excel_cha_camp_list>
     public int[] enemyCamps;
     public int[] friendCamps;
     public int teamFriend;
+}
+
+public class excel_atb_data : ExcelBase<excel_atb_data>
+{
+    public string name;
+    public int[] inflAtbs;
+    public int maxAtb;
+    public int defValue;
+    public int minValue;
+    public int maxValue;
+    public int isPct;
+    public int syncClient;
+}
+
+public class excel_cha_atb : ExcelBase<excel_cha_atb>
+{
+    public string name;
+    public int maxHP;
+    public int maxMP;
+    public int phyAtk;
+    public int magAtk;
+    public int phyDef;
+    public int magDef;
+    public int phyPen;
+    public int magPen;
+    public int phyPenPct;
+    public int magPenPct;
+    public int regenHP;
+    public int regenMP;
+    public int phyVampPct;
+    public int magVampPct;
+    public int critPct;
+    public int critDecPct;
+    public int critEffect;
+    public int critDecEffect;
+    public int moveSpeed;
+    public int cdReducePct;
+    public int atkSpeedPct;
+    public int hrTimeDefPct;
 }

@@ -10,11 +10,17 @@ public enum PlayerStatus
     Offline
 }
 
-public class Player : Character
+public partial class Player : Character
 {
     public Player() : base()
     {
         Type = CharacterType.Player;
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        InitPlayerAtb();
     }
 
     public void OnReplace()

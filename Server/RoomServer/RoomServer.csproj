@@ -149,11 +149,17 @@
     <Compile Include="Script\CsScript\Logic\Action\ImpAction\SkillMove.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character_Action.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\Character_Atb.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character_Move.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\Player_Atb.cs" />
     <Compile Include="Script\CsScript\Logic\Common\BaseSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Common\Debug.cs" />
     <Compile Include="Script\CsScript\Logic\Common\DescriptionAttribute.cs" />
     <Compile Include="Script\CsScript\Logic\Common\Time.cs" />
+    <Compile Include="Script\CsScript\Logic\Fight\Atb\AtbCalcFuncRegister.cs" />
+    <Compile Include="Script\CsScript\Logic\Fight\Atb\AtbDefine.cs" />
+    <Compile Include="Script\CsScript\Logic\Fight\Atb\AtbNode.cs" />
+    <Compile Include="Script\CsScript\Logic\Fight\Atb\AtbTree.cs" />
     <Compile Include="Script\CsScript\Logic\Fight\CampSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Game\ExcelDefine.cs" />
     <Compile Include="Script\CsScript\Logic\Game\ExcelLoader.cs" />
