@@ -161,6 +161,7 @@
     <Compile Include="Script\CsScript\Logic\Fight\Atb\AtbNode.cs" />
     <Compile Include="Script\CsScript\Logic\Fight\Atb\AtbTree.cs" />
     <Compile Include="Script\CsScript\Logic\Fight\CampSystem.cs" />
+    <Compile Include="Script\CsScript\Logic\Fight\FightUtility.cs" />
     <Compile Include="Script\CsScript\Logic\Game\ExcelDefine.cs" />
     <Compile Include="Script\CsScript\Logic\Game\ExcelLoader.cs" />
     <Compile Include="Script\CsScript\Logic\Game\NavigationSystem.cs" />
