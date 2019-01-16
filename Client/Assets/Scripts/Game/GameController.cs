@@ -63,6 +63,8 @@ public class GameController
         NetWork.RegisterNotify(STC.STC_TargetChg, OnTargetChg);
         NetWork.RegisterNotify(STC.STC_SkillNotify, SkillNotify);
         NetWork.RegisterNotify(STC.STC_SkillBegin, SkillBeginFunc);
+        NetWork.RegisterNotify(STC.STC_AtbNotify, AtbNotify);
+        NetWork.RegisterNotify(STC.STC_HPChg, OnChgHp);
     }
 
     static void OnHeartbeatSend(object o)
@@ -160,6 +162,38 @@ public class GameController
         cha.Direction = msg.direction.ToVector3();
         cha.StopMove();
         skill.BeginSkill();
+    }
+
+    static void AtbNotify(byte[] data)
+    {
+        Scene scn = SceneSystem.Instance.mCurrentScene;
+        if (scn == null)
+            return;
+        NotifyAtb msg = ProtoBufUtils.Deserialize<NotifyAtb>(data);
+        Character cha = scn.GetCharacter(msg.uid);
+        if (cha == null)
+            return;
+        for (int i = 0; i < msg.atbTypes.Count; ++i)
+        {
+            AtbType atbType = (AtbType)msg.atbTypes[i];
+            cha.SetAtb(atbType, msg.atbValues[i]);
+        }
+    }
+
+    static void OnChgHp(byte[] data)
+    {
+        Scene scn = SceneSystem.Instance.mCurrentScene;
+        if (scn == null)
+            return;
+        NotifyHPChg msg = ProtoBufUtils.Deserialize<NotifyHPChg>(data);
+        Character cha = scn.GetCharacter(msg.uid);
+        if (cha == null)
+            return;
+
+        int oldHp = cha.HP;
+        cha.HP = msg.hp;
+        HPChgType chgType = (HPChgType)msg.chgType;
+        // do something here...
     }
 
     public static Player mMainPlayer = null;

@@ -246,3 +246,25 @@ public class SkillBegin
     [ProtoMember(4)]
     public Vector3Packat position;
 }
+
+[Serializable, ProtoContract]
+public class NotifyAtb
+{
+    [ProtoMember(1)]
+    public int uid;
+    [ProtoMember(2)]
+    public List<int> atbTypes = new List<int>();
+    [ProtoMember(3)]
+    public List<int> atbValues = new List<int>();
+}
+
+[Serializable, ProtoContract]
+public class NotifyHPChg
+{
+    [ProtoMember(1)]
+    public int uid;
+    [ProtoMember(2)]
+    public int hp;
+    [ProtoMember(3)]
+    public HPChgType chgType;
+}
