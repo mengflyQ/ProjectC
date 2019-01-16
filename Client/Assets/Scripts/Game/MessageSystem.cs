@@ -5,6 +5,7 @@ public enum MessageType
 {
     SetPlayerInfo,
     OnSetChaClass,
+    InitHeadBar,
 }
 
 public class MessageSystem

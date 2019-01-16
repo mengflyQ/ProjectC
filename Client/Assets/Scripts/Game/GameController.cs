@@ -45,7 +45,7 @@ public class GameController
             scn.mCharacters.Add(mUserInfo.uid, mMainPlayer);
         });
 
-        RectTransform canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
+        RectTransform canvas = UIRoot2D.Instance.GetComponent<RectTransform>();
 
 		GameObject joystick = Resources.Load<GameObject>("GUI/UI_Joystick");
 		if (joystick != null)
@@ -53,7 +53,9 @@ public class GameController
 			joystick = GameObject.Instantiate(joystick);
 			RectTransform jt = joystick.GetComponent<RectTransform>();
 			jt.parent = canvas;
-		}
+            jt.localScale = new Vector3(2.2f, 2.2f, 2.2f);
+
+        }
 
         NavigationSystem.OnEnterScene();
 

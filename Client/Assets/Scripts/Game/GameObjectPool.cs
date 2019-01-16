@@ -16,6 +16,9 @@ class GameObjectPool : MonoBehaviour
 
     static public GameObject Spawn(string name)
     {
+        if (m_inst == null)
+            return new GameObject(name);
+
         List<GameObject> pool = m_inst.mPool;
         if (pool.Count > 0)
         {
@@ -33,6 +36,9 @@ class GameObjectPool : MonoBehaviour
     {
         if (!Application.isPlaying || go == null) return;
 
+        if (m_inst == null)
+            return;
+
         List<GameObject> pool = m_inst.mPool;
         if (!pool.Contains(go))
         {
@@ -40,6 +46,18 @@ class GameObjectPool : MonoBehaviour
             go.SetActive(false);
             pool.Add(go);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (m_inst == this)
+            m_inst = null;
+        for (int i = 0; i < mPool.Count; ++i)
+        {
+            GameObject go = mPool[i];
+            GameObject.Destroy(go);
+        }
+        mPool.Clear();
     }
 
     List<GameObject> mPool = new List<GameObject>();

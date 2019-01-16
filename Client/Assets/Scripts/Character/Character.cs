@@ -41,6 +41,8 @@ public partial class Character : MonoBehaviour
 	{
         Initialize();
         OnInitMove();
+
+        MessageSystem.Instance.MsgDispatch(MessageType.InitHeadBar, this);
 	}
 
     private void OnDestroy()
@@ -210,4 +212,6 @@ public partial class Character : MonoBehaviour
 
     public delegate void OnEvent(CharacterEventType evtType, Character self);
     public OnEvent mEvent = null;
+
+    public UIHeadBar headBar = null;
 }

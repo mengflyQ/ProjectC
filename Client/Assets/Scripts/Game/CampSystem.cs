@@ -5,6 +5,8 @@ public static class CampSystem
 {
     public static bool IsEnemy(Character cha1, Character cha2)
     {
+        if (cha1 == cha2)
+            return false;
         int campID1 = cha1.mChaList.campID;
         int campID2 = cha2.mChaList.campID;
 
@@ -32,6 +34,8 @@ public static class CampSystem
 
     public static bool IsFriend(Character cha1, Character cha2)
     {
+        if (cha1 == cha2)
+            return false;
         int campID1 = cha1.mChaList.campID;
         int campID2 = cha2.mChaList.campID;
 

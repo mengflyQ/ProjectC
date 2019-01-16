@@ -14,6 +14,7 @@ public class GameApp : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        GameObjectPool.Startup();
 
         UserName = "";
         Platform = Application.platform.ToString();
