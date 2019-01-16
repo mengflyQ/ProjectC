@@ -37,5 +37,15 @@ public partial class Player : Character
 
         HP = GetAtb(AtbType.MaxHP);
         MP = GetAtb(AtbType.MaxMP);
+
+        Scene scn = mScene;
+        if (scn != null)
+        {
+            for (int i = 0; i < scn.GetPlayerCount(); ++i)
+            {
+                Player p = scn.GetPlayerByIndex(i);
+                FightUtility.SendHpChg(p.uid, uid, HP, HPChgType.Init);
+            }
+        }
     }
 }

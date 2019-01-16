@@ -5,7 +5,7 @@ public partial class Character
 {
     void InitAtb()
     {
-        mAtb = new AtbTree();
+        mAtb = new AtbTree(this);
     }
 
     public void SetAtb(AtbType atb, int value)

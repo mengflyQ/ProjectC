@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameServer.RoomServer;
 
 public class AtbTree
 {
-    public AtbTree()
+    public AtbTree(Character cha)
     {
+        mCharacter = cha;
+
         List<AtbNode> nodes = new List<AtbNode>();
         List<bool> token = new List<bool>();
         for (int i = 0; i < excel_atb_data.Count; ++i)
@@ -97,10 +100,40 @@ public class AtbTree
         return (float)v * 0.0001f;
     }
 
+    public void Update()
+    {
+        if (mAtbMsgSelf != null)
+        {
+            mAtbMsgSelf.uid = mCharacter.uid;
+            NetWork.NotifyMessage<NotifyAtb>(mCharacter.uid, STC.STC_AtbNotify, mAtbMsgSelf);
+            mAtbMsgSelf = null;
+        }
+        if (mAtbMsgAround != null)
+        {
+            Scene scn = mCharacter.mScene;
+            if (scn == null)
+            {
+                mAtbMsgAround = null;
+                return;
+            }
+            mAtbMsgAround.uid = mCharacter.uid;
+            for (int i = 0; i < scn.GetPlayerCount(); ++i)
+            {
+                Player p = scn.GetPlayerByIndex(i);
+                NetWork.NotifyMessage<NotifyAtb>(p.uid, STC.STC_AtbNotify, mAtbMsgAround);
+            }
+            mAtbMsgAround = null;
+        }
+    }
+
     // List<AtbNode> trees = new List<AtbNode>();
     Dictionary<AtbType, AtbNode> atbNodes = new Dictionary<AtbType, AtbNode>();
 
     public delegate void OnAtbChgFunc(AtbType atb, int oldValue, int newValue);
     public OnAtbChgFunc mOnAtbChg = null;
 
+    private Character mCharacter = null;
+
+    public NotifyAtb mAtbMsgSelf = null;
+    public NotifyAtb mAtbMsgAround = null;
 }

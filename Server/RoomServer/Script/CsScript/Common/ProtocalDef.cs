@@ -34,6 +34,8 @@ public enum STC
     STC_TargetChg           = 2004,
     STC_SkillNotify         = 2005,
     STC_SkillBegin          = 2006,
+    STC_AtbNotify           = 2007,
+    STC_HPChg               = 2008,
 }
 
 public enum STS
