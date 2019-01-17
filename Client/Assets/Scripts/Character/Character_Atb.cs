@@ -27,6 +27,9 @@ public enum AtbType
     AtkSpeedPct,
     HRTimeDefPct,
 
+    HP = 100,
+    MP = 101,
+
     Grow_MaxHP = 1001,
     Grow_MaxMP,
     Grow_PhyAtk,
@@ -79,9 +82,6 @@ public enum AtbType
     State_CDReducePct,
     State_AtkSpeedPct,
     State_HRTimeDefPct,
-
-    HP  = 50001,
-    MP  = 50002,
 }
 
 public enum HPChgType
@@ -103,20 +103,6 @@ public partial class Character : MonoBehaviour
         {
             int atbInt = msg.atbTypes[i];
             AtbType atbType = (AtbType)atbInt;
-            if (atbType == AtbType.HP)
-            {
-                int newValue = msg.atbValues[i];
-                OnHPChg(HP, newValue);
-                HP = newValue;
-                continue;
-            }
-            if (atbType == AtbType.MP)
-            {
-                int newValue = msg.atbValues[i];
-                MP = newValue;
-                continue;
-            }
-
             SetAtb(atbType, msg.atbValues[i]);
         }
     }
@@ -165,23 +151,30 @@ public partial class Character : MonoBehaviour
         return pct;
     }
 
-    public void OnHPChg(int oldValue, int newValue)
-    {
-
-    }
-
     public Dictionary<AtbType, int> mAtbs = new Dictionary<AtbType, int>();
 
     public int HP
     {
-        set;
-        get;
+        set
+        {
+            SetAtb(AtbType.HP, value);
+        }
+        get
+        {
+            return GetAtb(AtbType.HP);
+        }
     }
 
     public int MP
     {
-        set;
-        get;
+        set
+        {
+            SetAtb(AtbType.MP, value);
+        }
+        get
+        {
+            return GetAtb(AtbType.MP);
+        }
     }
 
     public static Dictionary<int, NotifyAtb> AtbInitData = new Dictionary<int, NotifyAtb>();

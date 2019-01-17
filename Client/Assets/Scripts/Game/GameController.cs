@@ -191,12 +191,6 @@ public class GameController
         Character cha = scn.GetCharacter(msg.uid);
         if (cha == null)
             return;
-
-        int oldHp = cha.HP;
-        cha.HP = msg.hp;
-        HPChgType chgType = (HPChgType)msg.chgType;
-
-        cha.OnHPChg(0, cha.HP);
     }
 
     public static Player mMainPlayer = null;
