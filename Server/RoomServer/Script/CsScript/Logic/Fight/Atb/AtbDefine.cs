@@ -26,6 +26,9 @@ public enum AtbType
     AtkSpeedPct,
     HRTimeDefPct,
 
+    HP = 100,
+    MP = 101,
+
     Grow_MaxHP          = 1001,
     Grow_MaxMP,
     Grow_PhyAtk,

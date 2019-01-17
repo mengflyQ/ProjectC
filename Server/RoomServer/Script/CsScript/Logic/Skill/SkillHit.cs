@@ -59,7 +59,7 @@ public class SkillHit
                 case SkillHitShape.FanSingle:
                 case SkillHitShape.FanMultiple:
                     {
-                        if (Hit_Fan(srcPosition, srcForward, target, data1, data2, height))
+                        if (Hit_Fan(srcPosition, srcForward, target, data1, data2 * 1000.0f, height))
                         {
                             ++hitCount;
                             context.mHitTarget = target;
@@ -93,16 +93,56 @@ public class SkillHit
                     }
                     break;
             }
-            if (hitCount > hitExcel.maxHitCount)
+            if (hitExcel.maxHitCount > 0 && hitCount > hitExcel.maxHitCount)
             {
                 break;
             }
         }
     }
 
-    static int CalcDamage(Character src, Character target, excel_skill_hit hitExcel)
+    static int CalcDamage(Character src, Character target, excel_skill_hit hitExcel, excel_skill_list skillList)
     {
-        return 152;
+        // 参数;
+        float param = 350.0f;
+        if (hitExcel.hurtType == (int)SkillHurtType.PhyDamage)
+        {
+            // 攻击力;
+            float atk = (float)src.GetAtb(AtbType.PhyAtk);
+            // 面板伤害 = 技能基础伤害 + 攻击力 + 技能伤害加成(%);
+            float panelDamage = skillList.phyDamage + src.GetAtb(AtbType.PhyAtk) + atk * (float)skillList.phyPct * 0.0001f;
+            // 防御力;
+            float def = (float)target.GetAtb(AtbType.PhyDef);
+            // 穿透;
+            float pen = (float)src.GetAtb(AtbType.PhyPen);
+            // 防御穿透比;
+            float penPct = src.GetAtbPct(AtbType.PhyPenPct);
+            // 伤害上下浮动;
+            float ud = MathLib.Math.RandRange(-1.0f, 1.0f);
+            // 伤害 = 面板伤害 / ( (防御力 - 穿透) * (1 - 防御穿透比) / 参数 + 1) + [-1, 1];
+            float damage = panelDamage / ((def - pen) * (1.0f - penPct) / param + 1.0f) + ud;
+
+            return (int)MathLib.Math.Max(1.0f, damage);
+        }
+        else if (hitExcel.hurtType == (int)SkillHurtType.MagDamage)
+        {
+            // 攻击力;
+            float atk = (float)src.GetAtb(AtbType.MagAtk);
+            // 面板伤害 = 技能基础伤害 + 攻击力 + 技能伤害加成(%);
+            float panelDamage = skillList.magDamage + src.GetAtb(AtbType.MagAtk) + atk * (float)skillList.magPct * 0.0001f;
+            // 防御力;
+            float def = (float)target.GetAtb(AtbType.MagDef);
+            // 穿透;
+            float pen = (float)src.GetAtb(AtbType.MagPen);
+            // 防御穿透比;
+            float penPct = src.GetAtbPct(AtbType.MagPenPct);
+            // 伤害上下浮动;
+            float ud = MathLib.Math.RandRange(-1.0f, 1.0f);
+            // 伤害 = 面板伤害 / ( (防御力 - 穿透) * (1 - 防御穿透比) / 参数 + 1) + [-1, 1];
+            float damage = panelDamage / ((def - pen) * (1.0f - penPct) / param + 1.0f) + ud;
+
+            return (int)MathLib.Math.Max(1.0f, damage);
+        }
+        return 0;
     }
 
     static void OnHit(Character src, Character target, excel_skill_hit hitExcel)
@@ -113,7 +153,7 @@ public class SkillHit
             Debug.LogError("判定表[" + hitExcel.id + "]的所属技能错误！");
             return;
         }
-        int hurt = CalcDamage(src, target, hitExcel);
+        int hurt = CalcDamage(src, target, hitExcel, skillList);
         int oldHP = target.HP;
         target.HP = target.HP - hurt;
         if (hitExcel.hurtType == (int)SkillHurtType.PhyDamage)
@@ -186,8 +226,8 @@ public class SkillHit
             return true;
         }
         int maxHitCount = (int)hitExcel.targetMaxHitCnt;
-        if (maxHitCount == 0)
-            maxHitCount = 1;
+        if (maxHitCount <= 0)
+            return true;
         if (hitCount > maxHitCount)
             return false;
         return true;
@@ -212,9 +252,7 @@ public class SkillHit
             return;
         }
         int maxHitCount = (int)hitExcel.targetMaxHitCnt;
-        if (maxHitCount == 0)
-            maxHitCount = 1;
-        if (hitCount > maxHitCount)
+        if (maxHitCount > 0 && hitCount > maxHitCount)
             return;
         ++hitCount;
         hitmap[cha] = hitCount;

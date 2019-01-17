@@ -53,7 +53,14 @@ public class Skill
         }
         else
         {
-            BeginSkill();
+            if (Owner.Type != CharacterType.Player)
+            {
+                BeginSkill();
+            }
+            else
+            {
+                mSkillState = SkillState.TrackEnemy;
+            }
         }
     }
 

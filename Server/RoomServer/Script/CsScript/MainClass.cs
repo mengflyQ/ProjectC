@@ -38,6 +38,7 @@ namespace Game.Script
         {
             GameEnvironment.Setting.ActionDispatcher = new CustomActionDispatcher();
             ExcelLoader.Init();
+            SkillEventRegister.Initialize();
             NavigationSystem.LoadAllNavigation();
         }
      

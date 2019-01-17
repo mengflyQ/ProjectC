@@ -91,6 +91,8 @@ public partial class Character
         if (mNavLayer == 0)
         {
             mNavLayer = NavigationSystem.GetLayer(pos);
+            if (mNavLayer == 0)
+                return;
         }
         Vector3[] path;
         if (!NavigationSystem.Nav_CalcLayerPath(Position, pos, mNavLayer, out path))

@@ -26,28 +26,31 @@ public partial class Character
     public void PacketAtb()
     {
         mAtb.PacketToMsg();
-        mAtb.mAtbMsgAround.atbTypes.Add(50001);
-        mAtb.mAtbMsgAround.atbValues.Add(HP);
-        mAtb.mAtbMsgAround.atbTypes.Add(50002);
-        mAtb.mAtbMsgAround.atbValues.Add(MP);
-
-        mAtb.mAtbMsgSelf.atbTypes.Add(50001);
-        mAtb.mAtbMsgSelf.atbValues.Add(HP);
-        mAtb.mAtbMsgSelf.atbTypes.Add(50002);
-        mAtb.mAtbMsgSelf.atbValues.Add(MP);
     }
 
     AtbTree mAtb = null;
 
     public int HP
     {
-        set;
-        get;
+        set
+        {
+            SetAtb(AtbType.HP, value);
+        }
+        get
+        {
+            return GetAtb(AtbType.HP);
+        }
     }
 
     public int MP
     {
-        set;
-        get;
+        set
+        {
+            SetAtb(AtbType.MP, value);
+        }
+        get
+        {
+            return GetAtb(AtbType.MP);
+        }
     }
 }

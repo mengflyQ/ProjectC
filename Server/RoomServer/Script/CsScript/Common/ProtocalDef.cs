@@ -16,7 +16,6 @@ public enum CTS
     CTS_TargetChg           = 2004,
     CTS_SkillReq            = 2005,
     CTS_SkillBegin          = 2006,
-    CTS_ChaFinishInit       = 2007,
 }
 
 public enum STC
