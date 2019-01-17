@@ -1268,12 +1268,15 @@ public class SkillEditor : EditorWindow
         skillExcel.name = EditorGUILayout.TextField("技能名称", skillExcel.name);
         skillExcel.maxDistance = EditorGUILayout.FloatField("技能最大距离", skillExcel.maxDistance);
 
-        int[] values = new int[(int)SkillTargetType.Count];
-        string[] texts = new string[(int)SkillTargetType.Count];
-        for (int i = 0; i < (int)SkillTargetType.Count; ++i)
+        int[] values = null;
+        string[] texts = null;
+
+        values = Enum.GetValues(typeof(SkillTargetType)) as int[];
+        texts = new string[values.Length];
+        for (int i = 0; i < values.Length; ++i)
         {
-            values[i] = i;
-            texts[i] = ((SkillTargetType)i).ToDescription();
+            SkillTargetType type = (SkillTargetType)values[i];
+            texts[i] = type.ToDescription();
         }
         skillExcel.targetType = EditorGUILayout.IntPopup("目标类型", (int)skillExcel.targetType, texts, values);
 
@@ -1309,6 +1312,16 @@ public class SkillEditor : EditorWindow
             tRadius = EditorGUILayout.FloatField("  目标半径", tRadius);
             skillExcel.skillPreOpData2 = tRadius < 0.0f ? 0 : (int)(tRadius * 1000.0f);
         }
+        skillExcel.phyDamage = EditorGUILayout.IntField("基础物理伤害", skillExcel.phyDamage);
+        skillExcel.magDamage = EditorGUILayout.IntField("基础法术伤害", skillExcel.magDamage);
+
+        float phyPct = (float)skillExcel.phyPct * 0.01f;
+        phyPct = EditorGUILayout.FloatField("附加物理伤害(%)", phyPct);
+        skillExcel.phyPct = (int)(phyPct * 100.0f);
+
+        float magPct = (float)skillExcel.magPct * 0.01f;
+        magPct = EditorGUILayout.FloatField("附加法术伤害(%)", magPct);
+        skillExcel.magPct = (int)(magPct * 100.0f);
     }
 
     void ShowChildObjectData()
@@ -1424,6 +1437,27 @@ public class SkillEditor : EditorWindow
         height = EditorGUILayout.FloatField("高度", height);
         height = Mathf.Max(height, 0.0f);
         hitExcel.hitData3 = Mathf.FloorToInt(height * 1000.0f);
+
+        hitExcel.maxHitCount = EditorGUILayout.IntField("最大命中次数", hitExcel.maxHitCount);
+        hitExcel.targetMaxHitCnt = EditorGUILayout.IntField("单目标最大命中次数", hitExcel.targetMaxHitCnt);
+
+        values = Enum.GetValues(typeof(SkillTargetType)) as int[];
+        texts = new string[values.Length];
+        for (int i = 0; i < values.Length; ++i)
+        {
+            SkillTargetType type = (SkillTargetType)values[i];
+            texts[i] = type.ToDescription();
+        }
+        hitExcel.targetType = EditorGUILayout.IntPopup("目标类型", hitExcel.targetType, texts, values);
+
+        values = Enum.GetValues(typeof(SkillHurtType)) as int[];
+        texts = new string[values.Length];
+        for (int i = 0; i < values.Length; ++i)
+        {
+            SkillHurtType type = (SkillHurtType)values[i];
+            texts[i] = type.ToDescription();
+        }
+        hitExcel.hurtType = EditorGUILayout.IntPopup("伤害类型", hitExcel.hurtType, texts, values);
     }
 
     void ShowSkillStageData()
@@ -1662,7 +1696,11 @@ public class SkillEditor : EditorWindow
             skillExcelText.Append(excel.targetType).Append("\t");
             skillExcelText.Append(excel.skillPreOpType).Append("\t");
             skillExcelText.Append(excel.skillPreOpData1).Append("\t");
-            skillExcelText.Append(excel.skillPreOpData2).Append("\r\n");
+            skillExcelText.Append(excel.skillPreOpData2).Append("\t");
+            skillExcelText.Append(excel.phyDamage).Append("\t");
+            skillExcelText.Append(excel.magDamage).Append("\t");
+            skillExcelText.Append(excel.phyPct).Append("\t");
+            skillExcelText.Append(excel.magPct).Append("\r\n");
         }
     }
 
@@ -1699,7 +1737,11 @@ public class SkillEditor : EditorWindow
             skillExcelText.Append(excel.hitType).Append("\t");
             skillExcelText.Append(excel.hitData1).Append("\t");
             skillExcelText.Append(excel.hitData2).Append("\t");
-            skillExcelText.Append(excel.hitData3).Append("\r\n");
+            skillExcelText.Append(excel.hitData3).Append("\t");
+            skillExcelText.Append(excel.targetType).Append("\t");
+            skillExcelText.Append(excel.maxHitCount).Append("\t");
+            skillExcelText.Append(excel.targetMaxHitCnt).Append("\t");
+            skillExcelText.Append(excel.hurtType).Append("\r\n");
         }
     }
 
@@ -1777,13 +1819,20 @@ public static class EnumExtension
     public static string ToDescription(this SkillTargetType enumType)
     {
         Type type = typeof(SkillTargetType);
-        FieldInfo info = type.GetField(enumType.ToString());
-        if (info == null)
-            return "Unkown";
-        EnumDescriptionAttribute descAttribute = info.GetCustomAttributes(typeof(EnumDescriptionAttribute), true)[0] as EnumDescriptionAttribute;
-        if (descAttribute != null)
+        try
         {
-            return descAttribute.Description;
+            FieldInfo info = type.GetField(enumType.ToString());
+            if (info == null)
+                return "Unkown";
+            EnumDescriptionAttribute descAttribute = info.GetCustomAttributes(typeof(EnumDescriptionAttribute), true)[0] as EnumDescriptionAttribute;
+            if (descAttribute != null)
+            {
+                return descAttribute.Description;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning(e.Message);
         }
         return type.ToString();
     }
@@ -1961,6 +2010,28 @@ public static class EnumExtension
     public static string ToDescription(this SkillMoveDataType enumType)
     {
         Type type = typeof(SkillMoveDataType);
+        try
+        {
+            FieldInfo info = type.GetField(enumType.ToString());
+            if (info == null)
+                return "Unkown";
+            EnumDescriptionAttribute descAttribute = info.GetCustomAttributes(typeof(EnumDescriptionAttribute), true)[0] as EnumDescriptionAttribute;
+            if (descAttribute != null)
+            {
+                return descAttribute.Description;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning(e.Message);
+        }
+
+        return type.ToString();
+    }
+
+    public static string ToDescription(this SkillHurtType enumType)
+    {
+        Type type = typeof(SkillHurtType);
         try
         {
             FieldInfo info = type.GetField(enumType.ToString());

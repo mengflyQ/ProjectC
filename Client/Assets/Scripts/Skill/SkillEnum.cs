@@ -93,9 +93,7 @@ public enum SkillTargetType
     [EnumDescription("友方死亡")]
     FriendDead,
     [EnumDescription("中立")]
-    Neutral,
-    
-    Count
+    Neutral
 }
 
 public enum SkillBreakType
@@ -241,4 +239,14 @@ public enum SkillPreOpType
     TargetDirFan,
     [EnumDescription("目标位置")]
     TargetPos,
+}
+
+public enum SkillHurtType
+{
+    [EnumDescription("物理伤害")]
+    PhyDamage,
+    [EnumDescription("法术伤害")]
+    MagDamage,
+    [EnumDescription("治疗")]
+    Cure
 }
