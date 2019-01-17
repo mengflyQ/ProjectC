@@ -79,6 +79,9 @@ public enum AtbType
     State_CDReducePct,
     State_AtkSpeedPct,
     State_HRTimeDefPct,
+
+    HP  = 50001,
+    MP  = 50002,
 }
 
 public enum HPChgType
@@ -94,6 +97,40 @@ public enum HPChgType
 
 public partial class Character : MonoBehaviour
 {
+    public void InitAtbFromMsg(NotifyAtb msg)
+    {
+        for (int i = 0; i < msg.atbTypes.Count; ++i)
+        {
+            int atbInt = msg.atbTypes[i];
+            AtbType atbType = (AtbType)atbInt;
+            if (atbType == AtbType.HP)
+            {
+                int newValue = msg.atbValues[i];
+                OnHPChg(HP, newValue);
+                HP = newValue;
+                continue;
+            }
+            if (atbType == AtbType.MP)
+            {
+                int newValue = msg.atbValues[i];
+                MP = newValue;
+                continue;
+            }
+
+            SetAtb(atbType, msg.atbValues[i]);
+        }
+    }
+
+    void InitAtb()
+    {
+        NotifyAtb msg = null;
+        if (AtbInitData.TryGetValue(UserID, out msg))
+        {
+            InitAtbFromMsg(msg);
+            AtbInitData.Remove(UserID);
+        }
+    }
+
     public void SetAtb(AtbType atb, int value)
     {
         int oldValue = 0;
@@ -128,6 +165,11 @@ public partial class Character : MonoBehaviour
         return pct;
     }
 
+    public void OnHPChg(int oldValue, int newValue)
+    {
+
+    }
+
     public Dictionary<AtbType, int> mAtbs = new Dictionary<AtbType, int>();
 
     public int HP
@@ -141,4 +183,6 @@ public partial class Character : MonoBehaviour
         set;
         get;
     }
+
+    public static Dictionary<int, NotifyAtb> AtbInitData = new Dictionary<int, NotifyAtb>();
 }

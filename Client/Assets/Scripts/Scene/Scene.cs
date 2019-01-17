@@ -57,6 +57,8 @@ public class Scene
                     player.UserID = playerInfo.UserID;
                     player.mChaList = chaList;
 
+                    player.OnHPChg(0, player.HP);
+
                     mainPlayer.transform.position = new Vector3(82.51f, 7.25f, 34.82f);
                     mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
 

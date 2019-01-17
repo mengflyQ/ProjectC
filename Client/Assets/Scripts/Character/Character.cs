@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using ProtoBuf;
+using ZyGames.Framework.Common.Serialization;
 
 public enum CharacterType
 {
@@ -42,6 +44,7 @@ public partial class Character : MonoBehaviour
         Initialize();
         OnInitMove();
 
+        NetWork.SendPacket(CTS.CTS_ChaFinishInit, UserID, null);
         MessageSystem.Instance.MsgDispatch(MessageType.InitHeadBar, this);
 	}
 
@@ -58,6 +61,7 @@ public partial class Character : MonoBehaviour
             HingePoints.Initialize();
         }
         InitAnim();
+        InitAtb();
     }
 
     protected virtual void Uninitialize()

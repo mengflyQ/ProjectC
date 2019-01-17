@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ProtoBuf;
+using System.Collections.Generic;
 using ZyGames.Framework.Common.Serialization;
 
 public class GameController
@@ -16,8 +17,8 @@ public class GameController
         if (chaClass == null)
             return;
         excel_cha_list chaList = excel_cha_list.Find(chaClass.chaListID);
-
-        ResourceSystem.LoadAsync<GameObject>(chaList.path, (obj)=>
+        
+        ResourceSystem.LoadAsync<GameObject>(chaList.path, (obj) =>
         {
             GameObject o = obj as GameObject;
             GameObject mainPlayer = GameObject.Instantiate(o);
@@ -174,12 +175,11 @@ public class GameController
         NotifyAtb msg = ProtoBufUtils.Deserialize<NotifyAtb>(data);
         Character cha = scn.GetCharacter(msg.uid);
         if (cha == null)
-            return;
-        for (int i = 0; i < msg.atbTypes.Count; ++i)
         {
-            AtbType atbType = (AtbType)msg.atbTypes[i];
-            cha.SetAtb(atbType, msg.atbValues[i]);
+            Character.AtbInitData[msg.uid] = msg;
+            return;
         }
+        cha.InitAtbFromMsg(msg);
     }
 
     static void OnChgHp(byte[] data)
@@ -195,7 +195,8 @@ public class GameController
         int oldHp = cha.HP;
         cha.HP = msg.hp;
         HPChgType chgType = (HPChgType)msg.chgType;
-        // do something here...
+
+        cha.OnHPChg(0, cha.HP);
     }
 
     public static Player mMainPlayer = null;
