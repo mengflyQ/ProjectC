@@ -63,7 +63,7 @@ public class SkillHit
                         {
                             ++hitCount;
                             context.mHitTarget = target;
-                            // calc damage
+                            OnHit(context.mOwner, target, hitExcel);
                             AddHitCount(target, context, hitExcel);
                         }
                     }
@@ -75,7 +75,7 @@ public class SkillHit
                         {
                             ++hitCount;
                             context.mHitTarget = target;
-                            // calc damage
+                            OnHit(context.mOwner, target, hitExcel);
                             AddHitCount(target, context, hitExcel);
                         }
                     }
@@ -87,7 +87,7 @@ public class SkillHit
                         {
                             ++hitCount;
                             context.mHitTarget = target;
-                            // calc damage
+                            OnHit(context.mOwner, target, hitExcel);
                             AddHitCount(target, context, hitExcel);
                         }
                     }
@@ -97,6 +97,36 @@ public class SkillHit
             {
                 break;
             }
+        }
+    }
+
+    static int CalcDamage(Character src, Character target, excel_skill_hit hitExcel)
+    {
+        return 152;
+    }
+
+    static void OnHit(Character src, Character target, excel_skill_hit hitExcel)
+    {
+        excel_skill_list skillList = excel_skill_list.Find(hitExcel.skillID);
+        if (skillList == null)
+        {
+            Debug.LogError("判定表[" + hitExcel.id + "]的所属技能错误！");
+            return;
+        }
+        int hurt = CalcDamage(src, target, hitExcel);
+        int oldHP = target.HP;
+        target.HP = target.HP - hurt;
+        if (hitExcel.hurtType == (int)SkillHurtType.PhyDamage)
+        {
+            FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.PhyDamage);
+        }
+        else if (hitExcel.hurtType == (int)SkillHurtType.MagDamage)
+        {
+            FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.MagDamage);
+        }
+        else if (hitExcel.hurtType == (int)SkillHurtType.Cure)
+        {
+            FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.Cure);
         }
     }
 

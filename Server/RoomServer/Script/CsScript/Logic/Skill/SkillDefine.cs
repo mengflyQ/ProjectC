@@ -128,3 +128,10 @@ public enum SkillHitShape
     [EnumDescription("圆形群体")]
     CircleMultiple,
 }
+
+public enum SkillHurtType
+{
+    PhyDamage,
+    MagDamage,
+    Cure
+}
