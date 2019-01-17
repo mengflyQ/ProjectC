@@ -43,6 +43,10 @@ public class excel_skill_list : ExcelBase<excel_skill_list>
     public int skillPreOpType;
     public int skillPreOpData1;
     public int skillPreOpData2;
+    public int phyDamage;
+    public int magDamage;
+    public int phyPct;
+    public int magPct;
 }
 
 public class excel_skill_stage : ExcelBase<excel_skill_stage>
@@ -76,6 +80,7 @@ public class excel_skill_event : ExcelBase<excel_skill_event>
 public class excel_skill_hit : ExcelBase<excel_skill_hit>
 {
     public string name;
+    public int skillID;
     public int hitType;
     public int hitData1;
     public int hitData2;
@@ -83,6 +88,7 @@ public class excel_skill_hit : ExcelBase<excel_skill_hit>
     public int targetType;
     public int maxHitCount;
     public int targetMaxHitCnt;
+	public int hurtType;
 }
 
 public class excel_child_object : ExcelBase<excel_child_object>

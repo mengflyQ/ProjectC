@@ -1062,6 +1062,7 @@ public class SkillEditor : EditorWindow
             excel_skill_hit hitExcel = new excel_skill_hit();
             hitExcel.id = GetEmptySkillHitID();
             hitExcel.name = "newHit";
+            hitExcel.skillID = skillId;
             if (skillExcel.hits == null)
             {
                 skillExcel.hits = new int[1];
@@ -1694,6 +1695,7 @@ public class SkillEditor : EditorWindow
                 continue;
             skillExcelText.Append(excel.id).Append("\t");
             skillExcelText.Append(excel.name).Append("\t");
+            skillExcelText.Append(excel.skillID).Append("\t");
             skillExcelText.Append(excel.hitType).Append("\t");
             skillExcelText.Append(excel.hitData1).Append("\t");
             skillExcelText.Append(excel.hitData2).Append("\t");
