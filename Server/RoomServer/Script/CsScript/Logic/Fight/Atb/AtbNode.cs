@@ -94,39 +94,7 @@ public class AtbNode
             {
                 atbTree.mOnAtbChg(AtbType, oldValue, this.value);
             }
-
-            if (excel.syncClient == 1
-                || excel.syncClient == 3)
-            {
-                if (atbTree.mAtbMsgSelf == null)
-                {
-                    atbTree.mAtbMsgSelf = new NotifyAtb();
-                }
-                int index = atbTree.mAtbMsgSelf.atbTypes.IndexOf((int)AtbType);
-                if (index > 0)
-                    atbTree.mAtbMsgSelf.atbValues[index] = this.value;
-                else
-                {
-                    atbTree.mAtbMsgSelf.atbTypes.Add((int)AtbType);
-                    atbTree.mAtbMsgSelf.atbValues.Add(this.value);
-                }
-            }
-            else if (excel.syncClient == 2
-                || excel.syncClient == 3)
-            {
-                if (atbTree.mAtbMsgAround == null)
-                {
-                    atbTree.mAtbMsgAround = new NotifyAtb();
-                }
-                int index = atbTree.mAtbMsgAround.atbTypes.IndexOf((int)AtbType);
-                if (index > 0)
-                    atbTree.mAtbMsgAround.atbValues[index] = this.value;
-                else
-                {
-                    atbTree.mAtbMsgAround.atbTypes.Add((int)AtbType);
-                    atbTree.mAtbMsgAround.atbValues.Add(this.value);
-                }
-            }            
+            PacketToMsg();
         }
     }
 
@@ -142,6 +110,42 @@ public class AtbNode
                 value = excel.minValue;
         }
         return value;
+    }
+
+    public void PacketToMsg()
+    {
+        if (excel.syncClient == 1
+                || excel.syncClient == 3)
+        {
+            if (atbTree.mAtbMsgSelf == null)
+            {
+                atbTree.mAtbMsgSelf = new NotifyAtb();
+            }
+            int index = atbTree.mAtbMsgSelf.atbTypes.IndexOf((int)AtbType);
+            if (index > 0)
+                atbTree.mAtbMsgSelf.atbValues[index] = this.value;
+            else
+            {
+                atbTree.mAtbMsgSelf.atbTypes.Add((int)AtbType);
+                atbTree.mAtbMsgSelf.atbValues.Add(this.value);
+            }
+        }
+        if (excel.syncClient == 2
+            || excel.syncClient == 3)
+        {
+            if (atbTree.mAtbMsgAround == null)
+            {
+                atbTree.mAtbMsgAround = new NotifyAtb();
+            }
+            int index = atbTree.mAtbMsgAround.atbTypes.IndexOf((int)AtbType);
+            if (index > 0)
+                atbTree.mAtbMsgAround.atbValues[index] = this.value;
+            else
+            {
+                atbTree.mAtbMsgAround.atbTypes.Add((int)AtbType);
+                atbTree.mAtbMsgAround.atbValues.Add(this.value);
+            }
+        }
     }
 
     private bool dirty = true;

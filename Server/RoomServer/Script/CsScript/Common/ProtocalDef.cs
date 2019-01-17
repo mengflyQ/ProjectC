@@ -2,20 +2,21 @@
 
 public enum CTS
 {
-    CTS_Default     = 0,
-    CTS_Login       = 1,
-    CTS_Regist      = 2,
+    CTS_Default             = 0,
+    CTS_Login               = 1,
+    CTS_Regist              = 2,
 
-    CTS_EnterLobby  = 1001,
-    CTS_Match       = 1002,
-    CTS_MatchReady  = 1003,
+    CTS_EnterLobby          = 1001,
+    CTS_Match               = 1002,
+    CTS_MatchReady          = 1003,
 
-    CTS_EnterScn    = 2001,
-    CTS_LoadedScn   = 2002,
-    CTS_PlayerMove  = 2003,
-    CTS_TargetChg   = 2004,
-    CTS_SkillReq    = 2005,
-    CTS_SkillBegin  = 2006,
+    CTS_EnterScn            = 2001,
+    CTS_LoadedScn           = 2002,
+    CTS_PlayerMove          = 2003,
+    CTS_TargetChg           = 2004,
+    CTS_SkillReq            = 2005,
+    CTS_SkillBegin          = 2006,
+    CTS_ChaFinishInit       = 2007,
 }
 
 public enum STC

@@ -100,6 +100,27 @@ public class AtbTree
         return (float)v * 0.0001f;
     }
 
+    public void PacketToMsg()
+    {
+        if (mAtbMsgAround == null)
+        {
+            mAtbMsgAround = new NotifyAtb();
+            mAtbMsgAround.uid = mCharacter.uid;
+        }
+        if (mAtbMsgSelf == null)
+        {
+            mAtbMsgSelf = new NotifyAtb();
+            mAtbMsgSelf.uid = mCharacter.uid;
+        }
+        foreach (var kv in atbNodes)
+        {
+            AtbNode node = kv.Value;
+            if (node == null)
+                return;
+            node.PacketToMsg();
+        }
+    }
+
     public void Update()
     {
         if (mAtbMsgSelf != null)

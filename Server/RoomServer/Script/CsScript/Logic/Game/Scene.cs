@@ -209,6 +209,8 @@ public class Scene
             Player player = mPlayersList[i];
 
             NetWork.NotifyMessage<NotifyStartGame>(player.uid, STC.STC_StartClienGame, startGame);
+
+            player.PacketAtb();
         }
     }
 

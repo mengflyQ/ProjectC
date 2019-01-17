@@ -59,6 +59,7 @@ public partial class Character
         }
         UpdateMove();
         LogicTickAction();
+        mAtb.Update();
     }
 
     public void SetTarget(Character target, bool sendToSelf = true)
