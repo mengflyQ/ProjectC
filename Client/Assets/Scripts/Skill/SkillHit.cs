@@ -101,7 +101,7 @@ public class SkillHit
                     }
                     break;
             }
-            if (hitCount > hitExcel.maxHitCount)
+            if (hitExcel.maxHitCount > 0 && hitCount > hitExcel.maxHitCount)
             {
                 break;
             }
@@ -176,8 +176,8 @@ public class SkillHit
             return true;
         }
         int maxHitCount = (int)hitExcel.targetMaxHitCnt;
-        if (maxHitCount == 0)
-            maxHitCount = 1;
+        if (maxHitCount <= 0)
+            return true;
         if (hitCount > maxHitCount)
             return false;
         return true;
@@ -202,9 +202,7 @@ public class SkillHit
             return;
         }
         int maxHitCount = (int)hitExcel.targetMaxHitCnt;
-        if (maxHitCount == 0)
-            maxHitCount = 1;
-        if (hitCount > maxHitCount)
+        if (maxHitCount > 0 && hitCount > maxHitCount)
             return;
         ++hitCount;
         hitmap[cha] = hitCount;
