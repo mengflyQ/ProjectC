@@ -1,16 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using PathologicalGames;
 
 public class UIRoot3D : MonoBehaviour
 {
     private void Awake()
     {
         MessageSystem.Instance.MsgRegister(MessageType.InitHeadBar, OnInitHeadBar);
+
+        GameObject spawnPoolGO = new GameObject("HeadTextPool");
+        spawnPoolGO.transform.position = Vector3.zero;
+        spawnPoolGO.transform.rotation = Quaternion.identity;
+        spawnPoolGO.transform.localScale = Vector3.one;
+        mHeadTextPool = spawnPoolGO.AddComponent<SpawnPool>();
+        mHeadTextPool.poolName = "HeadTextPool";
+        mHeadTextPool.dontDestroyOnLoad = true;
+
+        PrefabPool refabPool = new PrefabPool(Resources.Load<Transform>("GUI/UI_HeadText"));
+        //默认初始化两个Prefab
+        refabPool.preloadAmount = 0;
+        //开启限制
+        refabPool.limitInstances = true;
+        //关闭无限取Prefab
+        refabPool.limitFIFO = false;
+        //限制池子里最大的Prefab数量
+        refabPool.limitAmount = 20;
+        //开启自动清理池子
+        refabPool.cullDespawned = true;
+        //最终保留
+        refabPool.cullAbove = 5;
+        //多久清理一次
+        refabPool.cullDelay = 20;
+        //每次清理几个
+        refabPool.cullMaxPerPass = 10;
+        //初始化内存池
+        mHeadTextPool._perPrefabPoolOptions.Add(refabPool);
+        mHeadTextPool.CreatePrefabPool(mHeadTextPool._perPrefabPoolOptions[mHeadTextPool.Count]);
     }
 
     private void OnDestroy()
     {
+        mHeadTextPool.DespawnAll();
+        Destroy(mHeadTextPool.gameObject);
         MessageSystem.Instance.MsgUnregister(MessageType.InitHeadBar, OnInitHeadBar);
     }
 
@@ -50,4 +82,6 @@ public class UIRoot3D : MonoBehaviour
     }
 
     public Camera uiCamera;
+
+    SpawnPool mHeadTextPool;
 }
