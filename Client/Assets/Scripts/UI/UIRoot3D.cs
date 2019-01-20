@@ -17,7 +17,8 @@ public class UIRoot3D : MonoBehaviour
         mHeadTextPool.poolName = "HeadTextPool";
         mHeadTextPool.dontDestroyOnLoad = true;
 
-        PrefabPool refabPool = new PrefabPool(Resources.Load<Transform>("GUI/UI_HeadText"));
+        headTextTransform = ResourceSystem.Load<Transform>("GUI/UI_HeadText");
+        PrefabPool refabPool = new PrefabPool(headTextTransform);
         //默认初始化两个Prefab
         refabPool.preloadAmount = 0;
         //开启限制
@@ -76,12 +77,15 @@ public class UIRoot3D : MonoBehaviour
             if (hinge == null)
                 return;
             headBar.Hinge = hinge;
+            headBar.UIRoot = this;
 
             cha.headBar = headBar;
         });
     }
 
+    public Transform headTextTransform = null;
+
     public Camera uiCamera;
 
-    SpawnPool mHeadTextPool;
+    public SpawnPool mHeadTextPool;
 }

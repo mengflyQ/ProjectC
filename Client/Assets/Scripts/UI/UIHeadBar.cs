@@ -68,6 +68,54 @@ public class UIHeadBar : MonoBehaviour
         }
     }
 
+    struct HeadTextTweenCB
+    {
+        public void OnTweenFinish()
+        {
+            tween.transform.parent = uiRoot.mHeadTextPool.transform;
+            uiRoot.mHeadTextPool.Despawn(tween.transform);
+            tween.onFinished.RemoveAllListeners();
+        }
+
+        public TweenBase tween;
+        public UIRoot3D uiRoot;
+    }
+
+    public void CreateHeadText(HPChgType hurtType, int hurt)
+    {
+        Transform t = UIRoot.mHeadTextPool.Spawn(UIRoot.headTextTransform);
+        t.parent = transform;
+        t.localPosition = Vector3.zero;
+        t.localRotation = Quaternion.identity;
+        t.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+
+        TweenBase tween = t.GetComponent<TweenBase>();
+        tween.PlayForward();
+        if (tween.onFinished == null)
+        {
+            tween.onFinished = new UnityEngine.Events.UnityEvent();
+        }
+        HeadTextTweenCB cb = new HeadTextTweenCB();
+        cb.tween = tween;
+        cb.uiRoot = UIRoot;
+        tween.onFinished.AddListener(cb.OnTweenFinish);
+
+        Text text = t.GetComponent<Text>();
+        if (hurtType == HPChgType.PhyDamage)
+        {
+            text.color = Color.red;
+        }
+        else if (hurtType == HPChgType.MagDamage)
+        {
+            text.color = new Color(0.8f, 0.0f, 1.0f);
+        }
+        else if (hurtType == HPChgType.Cure)
+        {
+            text.color = Color.green;
+        }
+        text.text = string.Format("{0}", hurt);
+    }
+
     public Camera UICamera
     {
         set;
@@ -87,6 +135,12 @@ public class UIHeadBar : MonoBehaviour
     }
 
     public Character Owner
+    {
+        set;
+        get;
+    }
+
+    public UIRoot3D UIRoot
     {
         set;
         get;

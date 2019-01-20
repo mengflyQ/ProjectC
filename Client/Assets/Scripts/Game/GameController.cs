@@ -191,6 +191,8 @@ public class GameController
         Character cha = scn.GetCharacter(msg.uid);
         if (cha == null)
             return;
+        HPChgType hurtType = (HPChgType)msg.chgType;
+        cha.headBar.CreateHeadText(hurtType, msg.hp);
     }
 
     public static Player mMainPlayer = null;

@@ -66,6 +66,14 @@ public class BMFontEditor : EditorWindow
             fontMaterial.shader = Shader.Find("UI/Default");//这一行很关键，如果用standard的shader，放到Android手机上，第一次加载会很慢
 
             Debug.Log("create font <" + targetFont.name + "> success");
+
+            Font newFont = Instantiate(targetFont);
+            string path = AssetDatabase.GetAssetPath(targetFont);
+            AssetDatabase.DeleteAsset(path);
+            AssetDatabase.Refresh();
+
+            AssetDatabase.CreateAsset(newFont, path);
+
             AssetDatabase.SaveAssets();
             Close();
         }

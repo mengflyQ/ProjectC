@@ -15,6 +15,12 @@ public enum LerpMethod
     Curve,
 }
 
+public enum TweenTransformType
+{
+    World,
+    Local,
+}
+
 public abstract class TweenBase : MonoBehaviour
 {
     void OnEnable()
@@ -24,13 +30,26 @@ public abstract class TweenBase : MonoBehaviour
         UpdateTime();
     }
 
+    private void OnDisable()
+    {
+        time = 0;
+        delay = stateDelay;
+    }
+
     void UpdateTime()
     {
         time += Time.deltaTime * sign;
         if (time > duration)
         {
             if (style == TweenStyle.Once)
+            {
                 time = duration;
+                if (onFinished != null)
+                {
+                    onFinished.Invoke();
+                }
+                enabled = false;
+            }
             else if (style == TweenStyle.Loop)
                 time = 0.0f;
             else if (style == TweenStyle.PingPong)
@@ -64,6 +83,7 @@ public abstract class TweenBase : MonoBehaviour
     {
         if (duration <= 0.0f)
             return;
+        if (!enabled) return;
         if (delay > 0.0f)
         {
             delay -= Time.deltaTime;
@@ -78,6 +98,7 @@ public abstract class TweenBase : MonoBehaviour
         time = 0;
         sign = 1.0f;
         delay = stateDelay;
+        if (!enabled) enabled = true;
         UpdateTime();
     }
 
@@ -86,6 +107,7 @@ public abstract class TweenBase : MonoBehaviour
         time = duration;
         sign = -1.0f;
         delay = stateDelay;
+        if (!enabled) enabled = true;
         UpdateTime();
     }
 
