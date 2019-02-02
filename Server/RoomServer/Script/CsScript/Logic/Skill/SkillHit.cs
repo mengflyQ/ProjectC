@@ -158,15 +158,27 @@ public class SkillHit
         target.HP = target.HP - hurt;
         if (hitExcel.hurtType == (int)SkillHurtType.PhyDamage)
         {
-            FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.PhyDamage);
+            if (src != target)
+            {
+                FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.PhyDamage);
+            }
+            FightUtility.SendHpChg(target.uid, target.uid, hurt, HPChgType.PhyDamage);
         }
         else if (hitExcel.hurtType == (int)SkillHurtType.MagDamage)
         {
-            FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.MagDamage);
+            if (src != target)
+            {
+                FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.MagDamage);
+            }
+            FightUtility.SendHpChg(target.uid, target.uid, hurt, HPChgType.MagDamage);
         }
         else if (hitExcel.hurtType == (int)SkillHurtType.Cure)
         {
-            FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.Cure);
+            if (src != target)
+            {
+                FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.Cure);
+            }
+            FightUtility.SendHpChg(target.uid, target.uid, hurt, HPChgType.Cure);
         }
     }
 

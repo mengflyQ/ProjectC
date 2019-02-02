@@ -21,6 +21,6 @@ public static class FightUtility
         msg.hp = hp;
         msg.chgType = chgType;
         msg.uid = chgHPUID;
-        NetWork.NotifyMessage<NotifyHPChg>(sendToUID, STC.STC_AtbNotify, msg);
+        NetWork.NotifyMessage<NotifyHPChg>(sendToUID, STC.STC_HPChg, msg);
     }
 }
