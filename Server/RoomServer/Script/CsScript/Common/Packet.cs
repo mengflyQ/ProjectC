@@ -159,3 +159,14 @@ public class NotifyHPChg
     [ProtoMember(3)]
     public HPChgType chgType;
 }
+
+[Serializable, ProtoContract]
+public class NotifySetPos
+{
+    [ProtoMember(1)]
+    public int uid;
+    [ProtoMember(2)]
+    public Vector3Packat position;
+    [ProtoMember(3)]
+    public Vector3Packat direction;
+}

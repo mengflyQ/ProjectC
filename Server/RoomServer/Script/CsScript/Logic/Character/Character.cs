@@ -35,9 +35,9 @@ public enum OptType
     Count
 }
 
-public partial class Character
+public partial class Character : GameObject
 {
-    public Character()
+    public Character() : base()
     {
         
     }
@@ -48,7 +48,7 @@ public partial class Character
         InitMove();
     }
 
-    public virtual void Update()
+    public override void Update()
     {
         if (mCurSkill != null)
         {
@@ -153,13 +153,11 @@ public partial class Character
     {
         set
         {
-            mDirection = value;
-            mDirection.y = 0.0f;
-            mDirection.Normalize();
+            transform.forward = value;
         }
         get
         {
-            return mDirection;
+            return transform.forward;
         }
     }
 
@@ -167,15 +165,15 @@ public partial class Character
     {
         set
         {
-            if (mPosition != value)
+            if (transform.position != value)
             {
                 mPosDirty = true;
             }
-            mPosition = value;
+            transform.position = value;
         }
         get
         {
-            return mPosition;
+            return transform.position;
         }
     }
 
@@ -197,6 +195,12 @@ public partial class Character
         }
     }
 
+    public bool IsDead
+    {
+        set;
+        get;
+    }
+
     public CharacterType Type
     {
         set;
@@ -210,8 +214,6 @@ public partial class Character
     public int targetID;
 
     protected float mSpeed;
-    protected Vector3 mDirection;
-    protected Vector3 mPosition;
     private bool mPosDirty = true;
     protected Skill mCurSkill = null;
     private int[] mCannotFlag = new int[(int)CannotFlag.Count];

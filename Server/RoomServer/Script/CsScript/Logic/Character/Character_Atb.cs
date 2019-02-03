@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public partial class Character
+public partial class Character : GameObject
 {
     void InitAtb()
     {

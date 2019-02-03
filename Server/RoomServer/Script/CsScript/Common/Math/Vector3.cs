@@ -154,6 +154,13 @@ namespace MathLib
                 a.z + (b.z - a.z) * t);
         }
 
+        public static float Angle(Vector3 a, Vector3 b)
+        {
+            float cos = Vector3.Dot(a.normalize, b.normalize);
+            float rad = MathLib.Mathf.Acos(cos);
+            return rad * MathLib.Mathf.Rad2Deg;
+        }
+
         public Vector3 normalize
         {
             get

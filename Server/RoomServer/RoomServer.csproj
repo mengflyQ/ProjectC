@@ -136,6 +136,7 @@
     <Compile Include="Script\CsScript\Common\CTSPackageHead.cs" />
     <Compile Include="Script\CsScript\Common\Math\MathLib.cs" />
     <Compile Include="Script\CsScript\Common\Math\Matrix4x4.cs" />
+    <Compile Include="Script\CsScript\Common\Math\Quaternion.cs" />
     <Compile Include="Script\CsScript\Common\Math\Vector2.cs" />
     <Compile Include="Script\CsScript\Common\Math\Vector3.cs" />
     <Compile Include="Script\CsScript\Common\Math\Vector4.cs" />
@@ -151,11 +152,14 @@
     <Compile Include="Script\CsScript\Logic\Character\Character_Action.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character_Atb.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character_Move.cs" />
+    <Compile Include="Script\CsScript\Logic\Skill\ChildObject.cs" />
+    <Compile Include="Script\CsScript\Logic\Common\GameObject.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Player_Atb.cs" />
     <Compile Include="Script\CsScript\Logic\Common\BaseSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Common\Debug.cs" />
     <Compile Include="Script\CsScript\Logic\Common\DescriptionAttribute.cs" />
     <Compile Include="Script\CsScript\Logic\Common\Time.cs" />
+    <Compile Include="Script\CsScript\Logic\Common\Transform.cs" />
     <Compile Include="Script\CsScript\Logic\Fight\Atb\AtbCalcFuncRegister.cs" />
     <Compile Include="Script\CsScript\Logic\Fight\Atb\AtbDefine.cs" />
     <Compile Include="Script\CsScript\Logic\Fight\Atb\AtbNode.cs" />

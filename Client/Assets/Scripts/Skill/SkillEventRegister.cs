@@ -170,8 +170,6 @@ public static class SkillEventRegister
     {
         if (cha == null)
             return;
-        if (!GameApp.Instance.directGame)
-            return;
         SkillMoveDataType type = (SkillMoveDataType)e.evnetParam1;
         if (type == SkillMoveDataType.MoveType1)
         {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-public partial class Character
+public partial class Character : GameObject
 {
     void LogicTickAction()
     {

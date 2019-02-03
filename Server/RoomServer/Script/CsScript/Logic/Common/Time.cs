@@ -31,6 +31,7 @@ namespace GameServer.RoomServer
             mLastTime = curTime;
 
             BaseSystem.DoTick();
+            GameObject.DoTick();
         }
 
         public static float DeltaTime

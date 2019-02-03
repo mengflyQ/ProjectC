@@ -33,7 +33,7 @@ namespace GameServer.RoomServer
                 bool rst = NavSystemImport.Nav_CreateFromMemory(datas, scnName);
                 if (!rst)
                 {
-                    Console.WriteLine("[navigation]创建导航失败");
+                    Debug.LogError("[navigation]创建导航失败");
                 }
             }
         }

@@ -218,16 +218,6 @@ public class Scene
     {
         if (IsVanish)
             return;
-        for (int i = 0; i < mCharactersList.Count; ++i)
-        {
-            Character cha = mCharactersList[i];
-            if (cha == null)
-            {
-                Console.WriteLine("Error: Character List Contains Empty Character!");
-                continue;
-            }
-            cha.Update();
-        }
     }
 
     public bool IsVanish

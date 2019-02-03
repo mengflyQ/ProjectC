@@ -5,7 +5,7 @@ using ZyGames.Framework.Game.Contract;
 using MathLib;
 using GameServer.RoomServer;
 
-public partial class Character
+public partial class Character : GameObject
 {
     protected void InitMove()
     {
@@ -21,7 +21,7 @@ public partial class Character
         }
         if (!IsCannotFlag(CannotFlag.CannotMove) && Speed > 0.0f)
         {
-            Position += Time.DeltaTime * mDirection;
+            Position += mSpeed * Time.DeltaTime * Direction;
             float h;
             if (NavigationSystem.GetLayerHeight(Position, mNavLayer, out h))
             {
@@ -137,7 +137,7 @@ public partial class Character
     public List<Character> mVisibleObjs = new List<Character>();
     public float mStartTime;
 
-    protected uint mNavLayer = 0;
+    public uint mNavLayer = 1;
     
     // Search Path
     private Vector3[] mPath;

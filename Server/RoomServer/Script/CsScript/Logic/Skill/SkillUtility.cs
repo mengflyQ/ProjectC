@@ -11,16 +11,16 @@ public static class SkillUtility
                 break;
             case DistanceCalcType.OuterA:
                 dist -= a.Radius;
-                dist = MathLib.Math.Max(dist, 0.0f);
+                dist = MathLib.Mathf.Max(dist, 0.0f);
                 break;
             case DistanceCalcType.OuterB:
                 dist -= b.Radius;
-                dist = MathLib.Math.Max(dist, 0.0f);
+                dist = MathLib.Mathf.Max(dist, 0.0f);
                 break;
             case DistanceCalcType.OuterAB:
                 dist -= b.Radius;
                 dist -= a.Radius;
-                dist = MathLib.Math.Max(dist, 0.0f);
+                dist = MathLib.Mathf.Max(dist, 0.0f);
                 break;
         }
         return dist;

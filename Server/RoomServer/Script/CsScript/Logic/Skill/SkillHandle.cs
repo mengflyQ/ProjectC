@@ -77,6 +77,7 @@ public struct SkillHandle
             return SkillResult.InvalidTarget;
 
         SkillContext context = new SkillContext();
+        context.mSkillID = handle.skillID;
         context.mOwner = handle.caster;
         context.SkillTargetID = handle.skillTargetID;
         if (!handle.autoTargetPos)

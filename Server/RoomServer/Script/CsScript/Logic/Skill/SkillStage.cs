@@ -254,7 +254,7 @@ public class SkillStage
             {
                 continue;
             }
-            e(stage.Owner, stage.mSkillContext, eventInfo);
+            e(stage.Owner, null, stage.mSkillContext, eventInfo);
         }
     }
 
@@ -278,7 +278,7 @@ public class SkillStage
                 SkillEventType type = (SkillEventType)eventInfo.eventType;
                 if (!SkillEventRegister.events.TryGetValue(type, out e))
                     continue;
-                e(stage.mSkillContext.mOwner, stage.mSkillContext, eventInfo);
+                e(stage.mSkillContext.mOwner, null, stage.mSkillContext, eventInfo);
             }
         }
     }

@@ -21,7 +21,7 @@ namespace GameServer.LobbyServer
                 }
                 return;
             }
-            room = new Room(30.0f, 2);
+            room = new Room(30.0f, 1);
             mRooms.Add(room);
             mRooms.Sort(CompareRoom);
             full = room.AddPlayer(player);

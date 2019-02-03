@@ -68,6 +68,7 @@ public class GameController
         NetWork.RegisterNotify(STC.STC_SkillBegin, SkillBeginFunc);
         NetWork.RegisterNotify(STC.STC_AtbNotify, AtbNotify);
         NetWork.RegisterNotify(STC.STC_HPChg, OnChgHp);
+        NetWork.RegisterNotify(STC.STC_SetPos, OnSetPos);
     }
 
     static void OnHeartbeatSend(object o)
@@ -193,6 +194,19 @@ public class GameController
             return;
         HPChgType hurtType = (HPChgType)msg.chgType;
         cha.headBar.CreateHeadText(hurtType, msg.hp);
+    }
+
+    static void OnSetPos(byte[] data)
+    {
+        Scene scn = SceneSystem.Instance.mCurrentScene;
+        if (scn == null)
+            return;
+        NotifySetPos msg = ProtoBufUtils.Deserialize<NotifySetPos>(data);
+        Character cha = scn.GetCharacter(msg.uid);
+        if (cha == null)
+            return;
+        cha.Position = msg.position.ToVector3();
+        cha.Direction = msg.direction.ToVector3();
     }
 
     public static Player mMainPlayer = null;

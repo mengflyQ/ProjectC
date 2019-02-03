@@ -1506,7 +1506,7 @@ public class SkillEditor : EditorWindow
         texts = new string[values.Length];
         for (int i = 0; i < values.Length; ++i)
         {
-            texts[i] = ((SkillEventType)values[i]).ToDescription();
+            texts[i] = string.Format("{0:D4}. {1}", values[i],((SkillEventType)values[i]).ToDescription());
         }
         eventExcel.eventType = EditorGUILayout.IntPopup("事件类型", eventExcel.eventType, texts, values);
 

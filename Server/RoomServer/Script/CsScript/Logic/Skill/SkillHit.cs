@@ -117,11 +117,11 @@ public class SkillHit
             // 防御穿透比;
             float penPct = src.GetAtbPct(AtbType.PhyPenPct);
             // 伤害上下浮动;
-            float ud = MathLib.Math.RandRange(-1.0f, 1.0f);
+            float ud = MathLib.Mathf.RandRange(-1.0f, 1.0f);
             // 伤害 = 面板伤害 / ( (防御力 - 穿透) * (1 - 防御穿透比) / 参数 + 1) + [-1, 1];
             float damage = panelDamage / ((def - pen) * (1.0f - penPct) / param + 1.0f) + ud;
 
-            return (int)MathLib.Math.Max(1.0f, damage);
+            return (int)MathLib.Mathf.Max(1.0f, damage);
         }
         else if (hitExcel.hurtType == (int)SkillHurtType.MagDamage)
         {
@@ -136,11 +136,11 @@ public class SkillHit
             // 防御穿透比;
             float penPct = src.GetAtbPct(AtbType.MagPenPct);
             // 伤害上下浮动;
-            float ud = MathLib.Math.RandRange(-1.0f, 1.0f);
+            float ud = MathLib.Mathf.RandRange(-1.0f, 1.0f);
             // 伤害 = 面板伤害 / ( (防御力 - 穿透) * (1 - 防御穿透比) / 参数 + 1) + [-1, 1];
             float damage = panelDamage / ((def - pen) * (1.0f - penPct) / param + 1.0f) + ud;
 
-            return (int)MathLib.Math.Max(1.0f, damage);
+            return (int)MathLib.Mathf.Max(1.0f, damage);
         }
         return 0;
     }
@@ -288,7 +288,7 @@ public class SkillHit
         float cos = Vector3.Dot(srcForward, dir.normalize);
         float radian = (float)System.Math.Acos((double)cos);
 
-        float angleDiff = radian * MathLib.Math.Rad2Deg;
+        float angleDiff = radian * MathLib.Mathf.Rad2Deg;
         if (angleDiff > halfAngle)
         {
             return false;

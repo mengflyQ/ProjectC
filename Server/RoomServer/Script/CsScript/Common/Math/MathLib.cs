@@ -2,7 +2,7 @@
 
 namespace MathLib
 {
-    public class Math
+    public class Mathf
     {
         public static float Max(float a, float b)
         {
@@ -37,6 +37,21 @@ namespace MathLib
         public static int CeilToInt(float f)
         {
             return (int)System.Math.Ceiling((double)f);
+        }
+
+        public static float Acos(float cos)
+        {
+            return (float)System.Math.Acos((double)cos);
+        }
+
+        public static float Sin(float rad)
+        {
+            return (float)System.Math.Sin((double)rad);
+        }
+
+        public static float Cos(float rad)
+        {
+            return (float)System.Math.Cos((double)rad);
         }
 
         public static float RandRange(float min, float max)

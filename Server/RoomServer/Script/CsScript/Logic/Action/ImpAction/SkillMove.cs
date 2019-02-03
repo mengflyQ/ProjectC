@@ -111,6 +111,15 @@ public class SkillMove : IAction
 
             mOwner.Position = moveData.mDestPos;
         }
+
+        Vector3 pos = mOwner.Position;
+        pos.y += 10.0f;
+        float h = 0.0f;
+        if (NavigationSystem.GetLayerHeight(pos, mOwner.mNavLayer, out h))
+        {
+            pos.y = h;
+            mOwner.Position = pos;
+        }
     }
 
     SkillMoveBaseData mMoveData = null;

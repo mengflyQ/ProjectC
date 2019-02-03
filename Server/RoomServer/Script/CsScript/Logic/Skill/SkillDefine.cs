@@ -135,3 +135,65 @@ public enum SkillHurtType
     MagDamage,
     Cure
 }
+
+public enum ChildObjectTrait
+{
+    [EnumDescription("到达消失")]
+    DestroyOnArrive,
+    [EnumDescription("命中消失")]
+    DestroyOnHit,
+    [EnumDescription("技能施放者死亡消失")]
+    DestroyOnSrcDead,
+    [EnumDescription("目标死亡消失")]
+    DestroyOnTargetDead,
+}
+
+public enum ChildObjectMoveType
+{
+    [EnumDescription("静止")]
+    None,
+    [EnumDescription("绑定技能施放者")]
+    Bind,
+    [EnumDescription("绑定目标")]
+    BindPos,
+    [EnumDescription("飞向目标")]
+    FlyToTarget,
+    [EnumDescription("飞向目标位置")]
+    FlyToTargetPos,
+    [EnumDescription("贴图飞向目标")]
+    FlyToTarget_OnLand,
+    [EnumDescription("贴地飞向目标位置")]
+    FlyToTargetPos_OnLand,
+}
+
+public enum ChildObjectInitDirType
+{
+    [EnumDescription("技能施放者")]
+    SrcDir,
+    [EnumDescription("技能施放者挂点")]
+    SrcHingeDir,
+    [EnumDescription("目标")]
+    TargetDir,
+    [EnumDescription("目标挂点")]
+    TargetHingeDir,
+    [EnumDescription("大世界正前方")]
+    WorldZ,
+    [EnumDescription("上一个子物体")]
+    CurSkillObjectDir,
+}
+
+public enum ChildObjectInitPosType
+{
+    [EnumDescription("技能施放者")]
+    Src,
+    [EnumDescription("技能施放者挂点")]
+    SrcHinge,
+    [EnumDescription("目标")]
+    Target,
+    [EnumDescription("目标挂点")]
+    TargetHinge,
+    [EnumDescription("目标位置")]
+    TargetPos,
+    [EnumDescription("上一个子物体")]
+    CurSkillObject,
+}

@@ -47,7 +47,7 @@ public class Skill
                 mSkillState = SkillState.Failed;
                 return;
             }
-            float destRadius = MathLib.Math.Max(mSkillInfo.maxDistance - 0.5f, 0.0f);
+            float destRadius = MathLib.Mathf.Max(mSkillInfo.maxDistance - 0.5f, 0.0f);
             Owner.SearchMove(skillTarget.Position, destRadius, false);
             mSkillState = SkillState.TrackEnemy;
         }
@@ -105,6 +105,24 @@ public class Skill
         if (mSkillEnd != null)
         {
             mSkillEnd(SkillID);
+        }
+
+        if (mSkillContext.IsSkillContextFlag(SkillContextFlag.SyncPosOnSkillEnd))
+        {
+            if (Owner != null)
+            {
+                NotifySetPos notify = new NotifySetPos();
+                notify.uid = Owner.uid;
+                notify.position = Vector3Packat.FromVector3(Owner.Position);
+                notify.direction = Vector3Packat.FromVector3(Owner.Direction);
+                Scene scn = Owner.mScene;
+                for (int i = 0; i < scn.GetPlayerCount(); ++i)
+                {
+                    Player p = scn.GetPlayerByIndex(i);
+
+                    NetWork.NotifyMessage<NotifySetPos>(p.uid, STC.STC_SetPos, notify);
+                }
+            }
         }
     }
 
