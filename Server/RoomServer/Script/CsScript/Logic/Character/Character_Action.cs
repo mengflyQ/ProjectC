@@ -4,27 +4,44 @@ public partial class Character : GameObject
 {
     void LogicTickAction()
     {
-        mContainer.LogicTick();
+        if (mContainer != null)
+        {
+            mContainer.LogicTick();
+        }
     }
 
     public void AddAction(IAction action)
     {
-        mContainer.AddAction(action);
+        if (mContainer != null)
+        {
+            mContainer.AddAction(action);
+        }
     }
 
     public void DelAction(ChaActionType type)
     {
-        mContainer.DelAction(type);
+        if (mContainer != null)
+        {
+            mContainer.DelAction(type);
+        }
     }
 
     public IAction GetAcion(ChaActionType type)
     {
-        return mContainer.GetAction(type);
+        if (mContainer != null)
+        {
+            return mContainer.GetAction(type);
+        }
+        return null;
     }
 
     public bool HasAction(ChaActionType type)
     {
-        return mContainer.HasAction(type);
+        if (mContainer != null)
+        {
+            return mContainer.HasAction(type);
+        }
+        return false;
     }
 
     ActionContainer mContainer = new ActionContainer();

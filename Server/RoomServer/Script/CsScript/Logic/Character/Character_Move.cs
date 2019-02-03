@@ -120,6 +120,8 @@ public partial class Character : GameObject
 
     protected void UpdateVisibleInfo()
     {
+        if (mScene == null)
+            return;
         mScene.UpdateVisible(this);
     }
 

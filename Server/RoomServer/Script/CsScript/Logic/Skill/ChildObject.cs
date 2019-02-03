@@ -415,7 +415,7 @@ public class ChildObject : GameObject
         for (int i = 0; i < mEvents.Count; ++i)
         {
             excel_skill_event eventInfo = mEvents[i];
-            if (!IsClientEvent(eventInfo))
+            if (!IsServerEvent(eventInfo))
                 continue;
             if ((ushort)triggerType != eventInfo.triggerType)
                 continue;
@@ -441,7 +441,7 @@ public class ChildObject : GameObject
             excel_skill_event eventInfo = mEvents[i];
             if (eventInfo.triggerType != (int)SkillEventTriggerType.Loop)
                 continue;
-            if (!IsClientEvent(eventInfo))
+            if (!IsServerEvent(eventInfo))
                 continue;
             int tick = mTick - eventInfo.triggerParam1;
             if (tick >= 0 && eventInfo.triggerParam2 > 0 && tick % eventInfo.triggerParam2 == 0)
@@ -455,10 +455,10 @@ public class ChildObject : GameObject
         }
     }
 
-    bool IsClientEvent(excel_skill_event evt)
+    bool IsServerEvent(excel_skill_event evt)
     {
         int exePort = (int)evt.trait;
-        if ((exePort & (1 << (int)SkillEventTrait.Client)) != 0)
+        if ((exePort & (1 << (int)SkillEventTrait.Server)) != 0)
         {
             return true;
         }

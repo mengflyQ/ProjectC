@@ -241,7 +241,7 @@ public class SkillStage
             excel_skill_event eventInfo = excel_skill_event.Find(eventID);
             if ((int)triggerType != eventInfo.triggerType)
                 continue;
-            if (!IsEventTrait(SkillEventTrait.Client, eventInfo))
+            if (!IsEventTrait(SkillEventTrait.Server, eventInfo))
                 continue;
             if (param1 != -1 && param1 != eventInfo.triggerParam1)
                 continue;
@@ -269,7 +269,7 @@ public class SkillStage
             excel_skill_event eventInfo = excel_skill_event.Find(eventID);
             if ((int)SkillEventTriggerType.Loop != eventInfo.triggerType)
                 continue;
-            if (!IsEventTrait(SkillEventTrait.Client, eventInfo))
+            if (!IsEventTrait(SkillEventTrait.Server, eventInfo))
                 continue;
             int tick = curTick - eventInfo.triggerParam1;
             if (tick >= 0 && eventInfo.triggerParam2 > 0 && tick % eventInfo.triggerParam2 == 0)

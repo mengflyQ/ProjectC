@@ -59,7 +59,10 @@ public partial class Character : GameObject
         }
         UpdateMove();
         LogicTickAction();
-        mAtb.Update();
+        if (mAtb != null)
+        {
+            mAtb.Update();
+        }
     }
 
     public void SetTarget(Character target, bool sendToSelf = true)
