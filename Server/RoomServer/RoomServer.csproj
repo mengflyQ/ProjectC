@@ -182,6 +182,12 @@
     <Compile Include="Script\CsScript\Logic\Skill\SkillHit.cs" />
     <Compile Include="Script\CsScript\Logic\Skill\SkillStage.cs" />
     <Compile Include="Script\CsScript\Logic\Skill\SkillUtility.cs" />
+    <Compile Include="Script\CsScript\Logic\State\StateDefine.cs" />
+    <Compile Include="Script\CsScript\Logic\State\StateGroup.cs" />
+    <Compile Include="Script\CsScript\Logic\State\StateItem.cs" />
+    <Compile Include="Script\CsScript\Logic\State\StateItems\StateItemModifyHp.cs" />
+    <Compile Include="Script\CsScript\Logic\State\StateItem_Pool.cs" />
+    <Compile Include="Script\CsScript\Logic\State\StateMgr.cs" />
     <Compile Include="Script\CsScript\MainClass.cs" />
     <Compile Include="Script\CsScript\Common\CustomActionDispatcher.cs" />
     <Compile Include="Script\CsScript\Plugins\LitJson\IJsonWrapper.cs" />

@@ -152,3 +152,24 @@ public class excel_cha_atb : ExcelBase<excel_cha_atb>
     public int atkSpeedPct;
     public int hrTimeDefPct;
 }
+
+public class excel_state_group : ExcelBase<excel_state_group>
+{
+    public string name;
+    public int[] stateEffectIDs;
+    public int duration;
+    public int type;
+    public string icon;
+    public int mutexID;
+    public int mutexScope;
+    public int mutexPriority;
+    public int mutexNextID;
+}
+
+public class excel_state_effect : ExcelBase<excel_state_effect>
+{
+    public string name;
+    public int type;
+    public int[] dataIntArray;
+    public string dataString;
+}

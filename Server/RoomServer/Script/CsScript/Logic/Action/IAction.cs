@@ -14,7 +14,10 @@ public partial class IAction
         
     }
 
-    public virtual void SetType(ChaActionType etype) { mType = etype; }
+    public IAction(ChaActionType type)
+    {
+        mType = type;
+    }
 
     public virtual void Enter() { }
 

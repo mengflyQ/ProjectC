@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 public partial class IAction
 {
-    public static T CreateAction<T>(ChaActionType type) where T : IAction, new()
+    public static T CreateAction<T>() where T : IAction, new()
     {
         Queue<IAction> pool = null;
+        Type type = typeof(T);
         if (!ActionPool.TryGetValue(type, out pool))
         {
             pool = new Queue<IAction>();
@@ -18,7 +17,6 @@ public partial class IAction
         if (pool.Count == 0)
         {
             action = new T();
-            action.SetType(type);
         }
         else
         {
@@ -32,7 +30,7 @@ public partial class IAction
 
     public static void DeleteAction(IAction action)
     {
-        ChaActionType type = action.mType;
+        Type type = action.GetType();
         Queue<IAction> pool = null;
         if (!ActionPool.TryGetValue(type, out pool))
         {
@@ -41,5 +39,5 @@ public partial class IAction
         pool.Enqueue(action);
     }
 
-    public static Dictionary<ChaActionType, Queue<IAction>> ActionPool = new Dictionary<ChaActionType, Queue<IAction>>();
+    public static Dictionary<Type, Queue<IAction>> ActionPool = new Dictionary<Type, Queue<IAction>>();
 }

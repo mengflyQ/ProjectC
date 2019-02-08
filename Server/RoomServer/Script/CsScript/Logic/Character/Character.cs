@@ -39,7 +39,7 @@ public partial class Character : GameObject
 {
     public Character() : base()
     {
-        
+        mStateMgr = new StateMgr(this);
     }
 
     public virtual void Initialize()
@@ -62,6 +62,10 @@ public partial class Character : GameObject
         if (mAtb != null)
         {
             mAtb.Update();
+        }
+        if (mStateMgr != null)
+        {
+            mStateMgr.LogicTick();
         }
     }
 
@@ -215,6 +219,7 @@ public partial class Character : GameObject
     public Scene mScene = null;
     public excel_cha_list mChaList = null;
     public int targetID;
+    public StateMgr mStateMgr;
 
     protected float mSpeed;
     private bool mPosDirty = true;

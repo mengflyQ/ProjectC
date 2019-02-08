@@ -33,9 +33,10 @@ public class SkillMoveData2 : SkillMoveBaseData
 
 public class SkillMove : IAction
 {
-    public override void SetType(ChaActionType etype)
+    public SkillMove()
+        : base(ChaActionType.SkillMove)
     {
-        base.SetType(ChaActionType.SkillMove);
+
     }
 
     public void Init1(Character owner, Vector3 destPos, float time)
