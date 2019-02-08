@@ -36,7 +36,7 @@ public partial class Character : MonoBehaviour
 {
 	void Awake()
 	{
-		
+        mStateMgr = new StateMgr(this);
 	}
 
 	void Start()
@@ -111,6 +111,10 @@ public partial class Character : MonoBehaviour
             {
                 SetSkill(null);
             }
+        }
+        if (mStateMgr != null)
+        {
+            mStateMgr.LogicTick();
         }
         UpdateMove();
         UpdateAnim();
@@ -218,4 +222,5 @@ public partial class Character : MonoBehaviour
     public OnEvent mEvent = null;
 
     public UIHeadBar headBar = null;
+    public StateMgr mStateMgr;
 }
