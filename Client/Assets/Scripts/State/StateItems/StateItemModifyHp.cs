@@ -4,9 +4,11 @@ using System.Collections.Generic;
 
 public class StateItemModifyHp : BaseStateItem
 {
-    protected enum UseAtbType
+    public enum UseAtbType
     {
+        [EnumDescription("状态目标")]
         Target,
+        [EnumDescription("状态来源")]
         Src
     }
 
@@ -17,7 +19,7 @@ public class StateItemModifyHp : BaseStateItem
         int atbID = excel.dataIntArray[2];
         if (atbID > 0)
         {
-            float v = excel.dataIntArray[3] / 10000.0f;
+            float v = (float)excel.dataIntArray[3] * 0.0001f;
             UseAtbType uat = (UseAtbType)excel.dataIntArray[4];
             if (uat == UseAtbType.Target)
             {
@@ -35,7 +37,7 @@ public class StateItemModifyHp : BaseStateItem
                 fHpModif = (float)cha.GetAtb((AtbType)atbID) * v;
             }
         }
-        mChgHpPeriod = excel.dataIntArray[5];
+        mChgHpPeriod = (float)excel.dataIntArray[5] * 0.001f;
 
         if (mChgHpPeriod > 0)
         {
@@ -62,13 +64,13 @@ public class StateItemModifyHp : BaseStateItem
     private void ChgHp()
     {
         int hp = stateGroup.mSelf.GetAtb(AtbType.HP);
-        bool hpPct = (excel.dataIntArray[0] != 0.0f);
-        float fHp = excel.dataIntArray[1];
+        bool hpPct = (excel.dataIntArray[0] != 0);
+        float fHp = (float)excel.dataIntArray[1];
         int chg = 0;
 
         if (hpPct)
         {
-            float v = (float)stateGroup.mSelf.GetAtb(AtbType.MaxHP) * (fHp / 100) + fHpModif;
+            float v = (float)stateGroup.mSelf.GetAtb(AtbType.MaxHP) * (fHp / 10000) + fHpModif;
             chg = (int)Mathf.Floor(v);
 
             stateGroup.mSelf.SetAtb(AtbType.HP, hp + chg);

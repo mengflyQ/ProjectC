@@ -36,8 +36,9 @@ public class StateGroup
     public bool LogicTick()
     {
         float life = Time.ElapsedSeconds - mStartTime;
+        float duration = (float)mExcel.duration * 0.001f;
 
-        if (mExcel.duration > 0.0f && life > mExcel.duration)
+        if (duration > 0.0f && life > duration)
         {
             return false;
         }

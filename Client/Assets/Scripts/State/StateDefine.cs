@@ -9,12 +9,15 @@ public enum StateType
 
 public enum StateMutexScope
 {
+    [EnumDescription("所有状态")]
     All,
+    [EnumDescription("同一来源的状态")]
     SameSrc,
 }
 
 public enum StateItemType
 {
+    [EnumDescription("恢复\\流失生命")]
     ModifyHp,
 
     Count
