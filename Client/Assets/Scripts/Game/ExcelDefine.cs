@@ -135,3 +135,12 @@ public class excel_state_effect : ExcelBase<excel_state_effect>
     public int[] dataIntArray;
     public string dataString;
 }
+
+public class excel_can_not_flag : ExcelBase<excel_can_not_flag>
+{
+    public string remark;
+    public int canNotMove;
+    public int canNotControl;
+    public int canNotSkill;
+    public int canNotSelected;
+}

@@ -8,6 +8,9 @@ public partial class BaseStateItem
         BaseStateItem stateItem = null;
         switch (type)
         {
+            case StateItemType.CannotFlag:
+                stateItem = new StateItemCannotFlag();
+                break;
             case StateItemType.ModifyHp:
                 stateItem = new StateItemModifyHp();
                 break;

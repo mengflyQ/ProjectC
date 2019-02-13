@@ -17,6 +17,8 @@ public enum StateMutexScope
 
 public enum StateItemType
 {
+    [EnumDescription("修改角色CannotFlag")]
+    CannotFlag,
     [EnumDescription("恢复\\流失生命")]
     ModifyHp,
 

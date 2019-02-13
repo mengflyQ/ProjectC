@@ -28,6 +28,7 @@ public enum OptType
 {
     Unknown,
     Skill,
+    State,
 
     Count
 }

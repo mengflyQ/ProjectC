@@ -45,12 +45,12 @@ public static class StateEffectEditorRegister
         c = new GUIContent("改变间隔", "单位毫秒，填0则只改变一次");
         e.dataIntArray[5] = EditorGUILayout.IntField(c, e.dataIntArray[5]);
 
-        c = new GUIContent("附加Atb属性", "填AtbID，以这个Atb为参考增加/减少血量，填0则不附加血量");
+        c = new GUIContent("附加Atb属性ID", "填AtbID，以这个Atb为参考增加/减少血量，填0则不附加血量");
         e.dataIntArray[2] = EditorGUILayout.IntField(c, e.dataIntArray[2]);
 
         if (e.dataIntArray[2] > 0)
         {
-            c = new GUIContent("Atb百分比", "根据该Atb的一定百分比改变血量，正数表示增加，负数表示减少，填100表示100%");
+            c = new GUIContent("附加Atb百分比", "根据该Atb的一定百分比改变血量，正数表示增加，负数表示减少，填100表示100%");
             float pct = (float)e.dataIntArray[3] * 0.01f;
             pct = EditorGUILayout.FloatField(c, pct);
             e.dataIntArray[3] = (int)(pct * 100.0f);
