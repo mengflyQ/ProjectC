@@ -110,10 +110,10 @@ public partial class Character : MonoBehaviour
     void InitAtb()
     {
         NotifyAtb msg = null;
-        if (AtbInitData.TryGetValue(UserID, out msg))
+        if (AtbInitData.TryGetValue(gid, out msg))
         {
             InitAtbFromMsg(msg);
-            AtbInitData.Remove(UserID);
+            AtbInitData.Remove(gid);
         }
     }
 

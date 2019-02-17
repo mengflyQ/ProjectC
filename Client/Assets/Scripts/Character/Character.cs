@@ -45,7 +45,7 @@ public partial class Character : MonoBehaviour
         Initialize();
         OnInitMove();
 
-        NetWork.SendPacket(CTS.CTS_ChaFinishInit, UserID, null);
+        NetWork.SendPacket(CTS.CTS_ChaFinishInit, gid, null);
         MessageSystem.Instance.MsgDispatch(MessageType.InitHeadBar, this);
 	}
 
@@ -78,7 +78,7 @@ public partial class Character : MonoBehaviour
         int tid = 0;
         if (target != null)
         {
-            tid = target.UserID;
+            tid = target.gid;
         }
         if (TargetID != tid)
         {
@@ -91,7 +91,7 @@ public partial class Character : MonoBehaviour
             if (msg)
             {
                 ReqTargetChg targetChg = new ReqTargetChg();
-                targetChg.uid = UserID;
+                targetChg.uid = gid;
                 targetChg.targetID = tid;
                 NetWork.SendPacket<ReqTargetChg>(CTS.CTS_TargetChg, targetChg, null);
             }
@@ -188,7 +188,7 @@ public partial class Character : MonoBehaviour
         get;
     }
 
-    public int UserID
+    public int gid
     {
         set;
         get;

@@ -36,5 +36,7 @@ public class Player : Character
         }
     }
 
+    public int UserID = 0;
+
     public excel_cha_class mChaClass = null;
 }

@@ -18,6 +18,7 @@ public class MainPlayerRecord
             float time = Time.realtimeSinceStartup - GameController.mClientStartTime;
 
             ReqPlayerMove req = new ReqPlayerMove();
+            req.gid = mMainPlayer.gid;
             req.speed = mMainPlayer.MoveSpeed;
             req.direction = Vector3Packat.FromVector3(mMainPlayer.Direction);
             req.position = Vector3Packat.FromVector3(mMainPlayer.Position);

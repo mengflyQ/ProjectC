@@ -91,10 +91,11 @@ public class UIFight : MonoBehaviour
         else
         {
             ReqSkill reqSkill = new ReqSkill();
+            reqSkill.casterID = player.gid;
             reqSkill.skillID = skillID;
             reqSkill.position = Vector3Packat.FromVector3(player.Position);
             reqSkill.direction = Vector3Packat.FromVector3(player.Direction);
-            reqSkill.targetID = target == null ? 0 : target.UserID;
+            reqSkill.targetID = target == null ? 0 : target.gid;
             reqSkill.autoTargetPos = autoTarget;
             reqSkill.targetPos = Vector3Packat.FromVector3(targetPos);
             NetWork.SendPacket<ReqSkill>(CTS.CTS_SkillReq, reqSkill, null);

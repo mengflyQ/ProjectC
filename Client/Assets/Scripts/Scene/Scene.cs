@@ -38,35 +38,76 @@ public class Scene
         {
             ScnPlayerInfo playerInfo = startGame.Players[i];
 
-            if (GameController.mUserInfo.uid == playerInfo.UserID)
-                continue;
-
             excel_cha_class chaClass = excel_cha_class.Find(mScnLists.temp);
             if (chaClass == null)
                 continue;
 
             excel_cha_list chaList = excel_cha_list.Find(chaClass.chaListID);
 
-            ResourceSystem.LoadAsync<GameObject>(chaList.path, (obj) =>
+            GameObject o = ResourceSystem.Load<GameObject>(chaList.path);
+            if (o != null)
             {
-                GameObject o = obj as GameObject;
-                if (o != null)
+                GameObject mainPlayer = GameObject.Instantiate(o);
+                Player player = mainPlayer.GetComponent<Player>();
+                player.gid = playerInfo.GID;
+                player.UserID = playerInfo.UserID;
+                player.mChaList = chaList;
+
+                mainPlayer.transform.position = new Vector3(82.51f, 7.25f, 34.82f);
+                mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
+
+                mPlayersList.Add(player);
+                mCharacterList.Add(player);
+                mPlayers.Add(player.gid, player);
+                mCharacters.Add(player.gid, player);
+
+                if (GameController.mUserInfo.uid == playerInfo.UserID)
                 {
-                    GameObject mainPlayer = GameObject.Instantiate(o);
-                    Player player = mainPlayer.GetComponent<Player>();
-                    player.UserID = playerInfo.UserID;
-                    player.mChaList = chaList;
+                    player.mEvent += TargetChgEvent;
 
-                    mainPlayer.transform.position = new Vector3(82.51f, 7.25f, 34.82f);
-                    mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
+                    MessageSystem.Instance.MsgDispatch(MessageType.OnSetChaClass, chaClass);
 
-                    mPlayersList.Add(player);
-                    mCharacterList.Add(player);
-                    mPlayers.Add(playerInfo.UserID, player);
-                    mCharacters.Add(playerInfo.UserID, player);
+                    GameController.OnPlayerInit(player);
                 }
-            });
+            }
+
+            //ResourceSystem.LoadAsync<GameObject>(chaList.path, (obj) =>
+            //{
+            //    GameObject o = obj as GameObject;
+            //    if (o != null)
+            //    {
+            //        GameObject mainPlayer = GameObject.Instantiate(o);
+            //        Player player = mainPlayer.GetComponent<Player>();
+            //        player.gid = playerInfo.GID;
+            //        player.UserID = playerInfo.UserID;
+            //        player.mChaList = chaList;
+
+            //        mainPlayer.transform.position = new Vector3(82.51f, 7.25f, 34.82f);
+            //        mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
+
+            //        mPlayersList.Add(player);
+            //        mCharacterList.Add(player);
+            //        mPlayers.Add(player.gid, player);
+            //        mCharacters.Add(player.gid, player);
+
+            //        if (GameController.mUserInfo.uid == playerInfo.UserID)
+            //        {
+            //            player.mEvent += TargetChgEvent;
+
+            //            MessageSystem.Instance.MsgDispatch(MessageType.OnSetChaClass, chaClass);
+
+            //            GameController.OnPlayerInit(player);
+            //        }
+            //    }
+            //});
         }
+    }
+
+    void TargetChgEvent(CharacterEventType evtType, Character self)
+    {
+        if (evtType != CharacterEventType.OnTargetChg)
+            return;
+        TargetCircle.Instance.SetTarget(self.GetTarget());
     }
 
     public Player GetPlayer(int uid)

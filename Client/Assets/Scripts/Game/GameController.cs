@@ -12,39 +12,8 @@ public class GameController
             return;
         if (scn.mScnLists == null)
             return;
-
-        excel_cha_class chaClass = excel_cha_class.Find(scn.mScnLists.temp);
-        if (chaClass == null)
+        if (scn.mScnLists.temp == 0)
             return;
-        excel_cha_list chaList = excel_cha_list.Find(chaClass.chaListID);
-        
-        ResourceSystem.LoadAsync<GameObject>(chaList.path, (obj) =>
-        {
-            GameObject o = obj as GameObject;
-            GameObject mainPlayer = GameObject.Instantiate(o);
-            mMainPlayer = mainPlayer.GetComponent<Player>();
-            mMainPlayer.UserID = mUserInfo.uid;
-            mMainPlayer.mChaList = chaList;
-            mMainPlayer.mChaClass = chaClass;
-            mMainPlayer.mEvent += TargetChgEvent;
-
-            MessageSystem.Instance.MsgDispatch(MessageType.OnSetChaClass, chaClass);
-
-            mPlayerSync = new MainPlayerRecord(mMainPlayer);
-
-            mainPlayer.transform.position = new Vector3(81.51f, 7.25f, 34.82f);
-            mainPlayer.transform.localScale = new Vector3(chaList.scale[0], chaList.scale[1], chaList.scale[2]);
-
-            if (MobaMainCamera.MainCameraCtrl != null)
-            {
-                MobaMainCamera.MainCameraCtrl.target = mainPlayer.transform;
-            }
-
-            scn.mPlayersList.Add(mMainPlayer);
-            scn.mCharacterList.Add(mMainPlayer);
-            scn.mPlayers.Add(mUserInfo.uid, mMainPlayer);
-            scn.mCharacters.Add(mUserInfo.uid, mMainPlayer);
-        });
 
         RectTransform canvas = UIRoot2D.Instance.GetComponent<RectTransform>();
 
@@ -55,7 +24,6 @@ public class GameController
 			RectTransform jt = joystick.GetComponent<RectTransform>();
 			jt.parent = canvas;
             jt.localScale = new Vector3(2.2f, 2.2f, 2.2f);
-
         }
 
         NavigationSystem.OnEnterScene();
@@ -69,6 +37,18 @@ public class GameController
         NetWork.RegisterNotify(STC.STC_AtbNotify, AtbNotify);
         NetWork.RegisterNotify(STC.STC_HPChg, OnChgHp);
         NetWork.RegisterNotify(STC.STC_SetPos, OnSetPos);
+    }
+
+    public static void OnPlayerInit(Player player)
+    {
+        mMainPlayer = player;
+
+        mPlayerSync = new MainPlayerRecord(player);
+
+        if (MobaMainCamera.MainCameraCtrl != null)
+        {
+            MobaMainCamera.MainCameraCtrl.target = player.transform;
+        }
     }
 
     static void OnHeartbeatSend(object o)
@@ -88,13 +68,6 @@ public class GameController
             mPlayerSync.LogicTick();
         }
         mTime = Time.realtimeSinceStartup;
-    }
-
-    static void TargetChgEvent(CharacterEventType evtType, Character self)
-    {
-        if (evtType != CharacterEventType.OnTargetChg)
-            return;
-        TargetCircle.Instance.SetTarget(self.GetTarget());
     }
 
     static void OnPlayerMove(byte[] data)

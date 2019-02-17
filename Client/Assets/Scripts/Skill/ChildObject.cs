@@ -44,7 +44,7 @@ public class ChildObject : MonoBehaviour
         childObject.mContext.Reset();
         childObject.mContext.mOwner = owner;
         childObject.mContext.mChildObject = childObject;
-        childObject.mContext.SkillTargetID = target == null ? 0 : target.UserID;
+        childObject.mContext.SkillTargetID = target == null ? 0 : target.gid;
         childObject.mContext.TargetPos = targetPos;
         childObject.mData = data;
         childObject.mParentObj = null;

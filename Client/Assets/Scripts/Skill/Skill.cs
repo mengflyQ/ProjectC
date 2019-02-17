@@ -153,7 +153,7 @@ public class Skill
         if (GameController.IsConntrller(Owner))
         {
             SkillBegin req = new SkillBegin();
-            req.uid = Owner.UserID;
+            req.uid = Owner.gid;
             req.skillID = mSkillInfo.id;
             req.position = Vector3Packat.FromVector3(Owner.Position);
             req.direction = Vector3Packat.FromVector3(Owner.Direction);
