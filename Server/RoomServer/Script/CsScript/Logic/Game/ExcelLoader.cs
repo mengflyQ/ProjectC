@@ -73,7 +73,7 @@ public class ExcelLoader
                     string[] excel_line_data = excel_line.Split('\t');
                     if (excel_line_data.Length != fieldData.Count)
                     {
-                        Console.WriteLine("Excel Error: Excel Data Number Is Not Equal To Config Data Number! File: " + filename);
+                        Debug.LogError("Excel Error: Excel Data Number Is Not Equal To Config Data Number! File: " + filename);
                         continue;
                     }
 
@@ -126,6 +126,19 @@ public class ExcelLoader
         if (fieldType == "string")
         {
             return value;
+        }
+        if (fieldType == "string[]")
+        {
+            string[] rst = null;
+            if (!string.IsNullOrEmpty(value))
+            {
+                rst = value.Split('*');
+            }
+            else
+            {
+                rst = new string[0];
+            }
+            return rst;
         }
         if (fieldType == "float")
         {
@@ -212,6 +225,102 @@ public class ExcelLoader
         }
         return list.ToArray();
     }
+
+    public static List<excel_refresh> LoadRefreshExcel(int scnID)
+    {
+        var scnRefreshMap = RefreshSystem.Instance.mScnRefreshDatas;
+        List<excel_refresh> refreshDatas = null;
+        if (scnRefreshMap.TryGetValue(scnID, out refreshDatas))
+        {
+            return refreshDatas;
+        }
+        refreshDatas = new List<excel_refresh>();
+        scnRefreshMap.Add(scnID, refreshDatas);
+
+        excel_scn_list scnList = excel_scn_list.Find(scnID);
+        if (scnList == null || string.IsNullOrEmpty(scnList.refreshPath))
+            return null;
+        if (mRefrshFieldData == null)
+        {
+            string configText = string.Empty;
+            using (FileStream fsRead = new FileStream(@"../Data/SvrExcel/config/refresh.json", FileMode.Open))
+            {
+                byte[] configDatas = new byte[fsRead.Length];
+                fsRead.Read(configDatas, 0, configDatas.Length);
+                configText = System.Text.Encoding.UTF8.GetString(configDatas);
+                fsRead.Close();
+            }
+            JsonData data = JsonMapper.ToObject(configText);
+            mRefrshFieldData = data["field"];
+        }
+
+        Type excel_type = typeof(excel_refresh);
+        FieldInfo excelViewField = excel_type.BaseType.GetField("excelView");
+        Type viewType = excelViewField.FieldType;
+        object vd = System.Activator.CreateInstance(viewType);
+        MethodInfo addMethod = viewType.GetMethod("Add");
+
+        MethodInfo initMethod = excel_type.BaseType.GetMethod("Initialize");
+
+        string excelStr = null;
+        using (FileStream fsRead = new FileStream(@"../Data/SvrExcel/" + scnList.refreshPath + ".txt", FileMode.Open))
+        {
+            byte[] excelDatas = new byte[fsRead.Length];
+            fsRead.Read(excelDatas, 0, excelDatas.Length);
+            fsRead.Close();
+            excelStr = System.Text.Encoding.Unicode.GetString(excelDatas);
+        }
+        string[] excel_lines = excelStr.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+        //GetLines(excelDatas);
+        for (int l = 1; l < excel_lines.Length; ++l)
+        {
+            string excel_line = excel_lines[l];
+            if (string.IsNullOrWhiteSpace(excel_line) || string.IsNullOrEmpty(excel_line))
+                continue;
+            string[] excel_line_data = excel_line.Split('\t');
+            if (excel_line_data.Length != mRefrshFieldData.Count)
+            {
+                Console.WriteLine("Excel Error: Excel Data Number Is Not Equal To Config Data Number! File: " + scnList.refreshPath);
+                continue;
+            }
+
+            object excel = System.Activator.CreateInstance(excel_type);
+            int id = 0;
+
+            for (int m = 0; m < mRefrshFieldData.Count; ++m)
+            {
+                JsonData fieldDef = mRefrshFieldData[m];
+                string fieldName = fieldDef["name"].ToString();
+                string fieldType = fieldDef["type"].ToString();
+                FieldInfo excelField = excel_type.GetField(fieldName);
+                string strValue = excel_line_data[m];
+                if (string.IsNullOrWhiteSpace(strValue))
+                    continue;
+                object value = GetFieldValueByType(fieldType, strValue);
+                if (value != null)
+                {
+                    if (fieldName == "id")
+                    {
+                        id = (int)value + scnID * 1000;
+                    }
+                    excelField.SetValue(excel, value);
+                }
+            }
+            if (id != 0)
+            {
+                addMethod.Invoke(vd, new object[] { excel });
+            }
+
+            excel_refresh er = excel as excel_refresh;
+            refreshDatas.Add(er);
+        }
+        excelViewField.SetValue(null, vd);
+        initMethod.Invoke(vd, new object[] { });
+
+        return refreshDatas;
+    }
+
+    private static JsonData mRefrshFieldData = null;
 }
 
 public class ExcelSimple

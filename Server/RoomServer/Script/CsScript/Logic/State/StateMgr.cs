@@ -6,6 +6,16 @@ public class StateMgr
     public StateMgr(Character cha)
     {
         mOwner = cha;
+        for (int i = 0; i < mDefaultStateItems.Length; ++i)
+        {
+            StateItemType type = (StateItemType)i;
+            BaseStateItem item = BaseStateItem.CreateStateItem(type);
+            mDefaultStateItems[i] = item;
+        }
+        for (int i = 0; i < mCannotFlagCount.Length; ++i)
+        {
+            mCannotFlagCount[i] = 0;
+        }
     }
 
     private excel_state_group CheckMutex(excel_state_group excel, int srcUID)
@@ -74,6 +84,8 @@ public class StateMgr
         mStateList.Add(state);
 
         state.Enter();
+
+        UpdateDefaultItem();
     }
 
     public void DelState(int id)
@@ -93,6 +105,19 @@ public class StateMgr
             return;
         }
         mRemoveList.Add(state);
+    }
+
+    void UpdateDefaultItem()
+    {
+        for (int i = 0; i < mStateItems.Length; ++i)
+        {
+            List<BaseStateItem> stateItems = mStateItems[i];
+            if (stateItems == null || stateItems.Count == 0)
+            {
+                BaseStateItem defaultStateItem = mDefaultStateItems[i];
+                defaultStateItem.OnDefault();
+            }
+        }
     }
 
     public void LogicTick()
@@ -117,6 +142,8 @@ public class StateMgr
                 mStateList.Remove(state);
             }
             mRemoveList.Clear();
+
+            UpdateDefaultItem();
         }
 
         for (int i = 0; i < mStateItems.Length; ++i)
@@ -182,6 +209,10 @@ public class StateMgr
     public Dictionary<int, StateGroup> mStates = new Dictionary<int, StateGroup>();
     public List<StateGroup> mStateList = new List<StateGroup>();
     public List<BaseStateItem>[] mStateItems = new List<BaseStateItem>[(int)StateItemType.Count];
+    public BaseStateItem[] mDefaultStateItems = new BaseStateItem[(int)StateItemType.Count];
 
     private List<StateGroup> mRemoveList = new List<StateGroup>();
+
+    // Something
+    public int[] mCannotFlagCount = new int[(int)CannotFlag.Count];
 }

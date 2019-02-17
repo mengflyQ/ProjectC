@@ -23,12 +23,13 @@ public class PlayerLoadingManager : BaseSystem
         session.Bind(user);
 
         Player player = new Player();
-        player.uid = uid;
+        player.UserID = uid;
+        player.gid = GIDManger.Instance.GetGID();
         player.mSession = session;
         player.mStatus = PlayerStatus.Online;
 
         mPlayers.Add(player);
-        mPlayersMap[uid] = player;
+        mPlayersMap[player.UserID] = player;
 
         return player;
     }
@@ -46,7 +47,7 @@ public class PlayerLoadingManager : BaseSystem
     public void RemovePlayer(Player player)
     {
         mPlayers.Remove(player);
-        mPlayersMap.Remove(player.uid);
+        mPlayersMap.Remove(player.UserID);
     }
 
     static PlayerLoadingManager mInstance = null;

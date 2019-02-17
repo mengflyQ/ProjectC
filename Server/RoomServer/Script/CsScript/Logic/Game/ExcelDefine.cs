@@ -7,6 +7,24 @@ public class excel_scn_list : ExcelBase<excel_scn_list>
     public float[] min;
     public float[] max;
     public float viewDist;
+    public string refreshPath;
+    public string markPath;
+}
+
+public class excel_refresh : ExcelBase<excel_refresh>
+{
+    public string name;
+    public int type;
+    public int chaListID;
+    public string[] birthpoint;
+    public int refreshType;
+    public int[] refreshData;
+    public int refreshMinTime;
+    public int refreshMaxTime;
+    public int refreshCount;
+    public float refreshDist;
+    public int[] deadRefreshIDs;
+    public int npcAI;
 }
 
 public class excel_cha_class : ExcelBase<excel_cha_class>
@@ -24,6 +42,21 @@ public class excel_cha_list : ExcelBase<excel_cha_list>
     public float[] scale;
     public float radius;
     public int campID;
+}
+
+public class excel_npc_ai : ExcelBase<excel_npc_ai>
+{
+    public int patrolType;
+    public float patrolRadius;
+    public string patrolPathLine;
+    public float patrolMinInterval;
+    public float patrolMaxInterval;
+    public int searchTargetType;
+    public int searchTargetCondition;
+    public float skillTimeout;
+    public float skillMinInterval;
+    public float skillMaxInterval;
+    public int disoverlap;
 }
 
 public class excel_anim_list : ExcelBase<excel_anim_list>
@@ -172,4 +205,13 @@ public class excel_state_effect : ExcelBase<excel_state_effect>
     public int type;
     public int[] dataIntArray;
     public string dataString;
+}
+
+public class excel_can_not_flag : ExcelBase<excel_can_not_flag>
+{
+    public string remark;
+    public int canNotMove;
+    public int canNotControl;
+    public int canNotSkill;
+    public int canNotSelected;
 }

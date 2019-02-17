@@ -1,0 +1,17 @@
+{
+  "field": [
+    {"name": "id", "type": "int"},
+    {"name": "name", "type": "string"},
+	{"name": "type", "type": "int"},
+	{"name": "chaListID", "type": "int"},
+	{"name": "birthpoint", "type": "string[]"},
+	{"name": "refreshType", "type": "int"},
+	{"name": "refreshData", "type": "int[]"},
+	{"name": "refreshMinTime", "type": "int"},
+	{"name": "refreshMaxTime", "type": "int"},
+	{"name": "refreshCount", "type": "int"},
+	{"name": "refreshDist", "type": "float"},
+	{"name": "deadRefreshIDs", "type": "int[]"},
+	{"name": "npcAI", "type": "int"}
+  ]
+}

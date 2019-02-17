@@ -61,6 +61,12 @@ public partial class Player : Character
         }
     }
 
+    public int UserID
+    {
+        set;
+        get;
+    }
+
     public excel_cha_class mChaClass = null;
 
     public GameSession mSession;

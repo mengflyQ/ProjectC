@@ -88,7 +88,7 @@ namespace GameServer.RoomServer
         static void RequestSkill(byte[] data, Action5001 action)
         {
             ReqSkill req = ProtoBufUtils.Deserialize<ReqSkill>(data);
-            Character cha = SceneManager.Instance.FindCharacter(action.UserId);
+            Character cha = SceneManager.Instance.FindCharacter(req.casterID);
             if (cha == null)
                 return;
             SkillHandle handle = new SkillHandle();
@@ -103,10 +103,12 @@ namespace GameServer.RoomServer
 
         static void SkillBeginFunc(byte[] data, Action5001 action)
         {
-            Player cha = SceneManager.Instance.FindPlayer(action.UserId);
+            SkillBegin msg = ProtoBufUtils.Deserialize<SkillBegin>(data);
+
+            Player cha = SceneManager.Instance.FindPlayer(msg.uid);
             if (cha == null)
                 return;
-            SkillBegin msg = ProtoBufUtils.Deserialize<SkillBegin>(data);
+
             Skill skill = cha.GetSkill();
             if (skill == null)
                 return;

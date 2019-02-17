@@ -31,6 +31,9 @@ public class ScnPlayerInfo
 
     [ProtoMember(2)]
     public int UserID;
+
+    [ProtoMember(3)]
+    public int GID;
 }
 
 [Serializable, ProtoContract]
@@ -75,16 +78,18 @@ public class Vector3Packat
 public class ReqPlayerMove
 {
     [ProtoMember(1)]
-    public float speed;
+    public int gid;
     [ProtoMember(2)]
-    public Vector3Packat direction;
+    public float speed;
     [ProtoMember(3)]
-    public Vector3Packat position;
+    public Vector3Packat direction;
     [ProtoMember(4)]
-    public bool control;
+    public Vector3Packat position;
     [ProtoMember(5)]
-    public float timestamp;
+    public bool control;
     [ProtoMember(6)]
+    public float timestamp;
+    [ProtoMember(7)]
     public float timespan;
 }
 

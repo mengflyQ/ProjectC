@@ -105,12 +105,12 @@ public class AtbTree
         if (mAtbMsgAround == null)
         {
             mAtbMsgAround = new NotifyAtb();
-            mAtbMsgAround.uid = mCharacter.uid;
+            mAtbMsgAround.uid = mCharacter.gid;
         }
         if (mAtbMsgSelf == null)
         {
             mAtbMsgSelf = new NotifyAtb();
-            mAtbMsgSelf.uid = mCharacter.uid;
+            mAtbMsgSelf.uid = mCharacter.gid;
         }
         foreach (var kv in atbNodes)
         {
@@ -125,8 +125,15 @@ public class AtbTree
     {
         if (mAtbMsgSelf != null)
         {
-            mAtbMsgSelf.uid = mCharacter.uid;
-            NetWork.NotifyMessage<NotifyAtb>(mCharacter.uid, STC.STC_AtbNotify, mAtbMsgSelf);
+            Player self = null;
+            if (mCharacter.Type != CharacterType.Player)
+            {
+                mAtbMsgSelf = null;
+                return;
+            }
+            self = mCharacter as Player;
+            mAtbMsgSelf.uid = mCharacter.gid;
+            NetWork.NotifyMessage<NotifyAtb>(self.UserID, STC.STC_AtbNotify, mAtbMsgSelf);
             mAtbMsgSelf = null;
         }
         if (mAtbMsgAround != null)
@@ -137,11 +144,11 @@ public class AtbTree
                 mAtbMsgAround = null;
                 return;
             }
-            mAtbMsgAround.uid = mCharacter.uid;
+            mAtbMsgAround.uid = mCharacter.gid;
             for (int i = 0; i < scn.GetPlayerCount(); ++i)
             {
                 Player p = scn.GetPlayerByIndex(i);
-                NetWork.NotifyMessage<NotifyAtb>(p.uid, STC.STC_AtbNotify, mAtbMsgAround);
+                NetWork.NotifyMessage<NotifyAtb>(p.UserID, STC.STC_AtbNotify, mAtbMsgAround);
             }
             mAtbMsgAround = null;
         }

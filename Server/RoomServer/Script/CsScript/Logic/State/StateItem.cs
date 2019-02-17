@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public partial class BaseStateItem
 {
+    public virtual void OnDefault() { }
+
     public virtual void OnOverlay() { }
 
     public virtual void Enter() { }

@@ -112,7 +112,7 @@ public class Skill
             if (Owner != null)
             {
                 NotifySetPos notify = new NotifySetPos();
-                notify.uid = Owner.uid;
+                notify.uid = Owner.gid;
                 notify.position = Vector3Packat.FromVector3(Owner.Position);
                 notify.direction = Vector3Packat.FromVector3(Owner.Direction);
                 Scene scn = Owner.mScene;
@@ -120,7 +120,7 @@ public class Skill
                 {
                     Player p = scn.GetPlayerByIndex(i);
 
-                    NetWork.NotifyMessage<NotifySetPos>(p.uid, STC.STC_SetPos, notify);
+                    NetWork.NotifyMessage<NotifySetPos>(p.UserID, STC.STC_SetPos, notify);
                 }
             }
         }
@@ -172,7 +172,7 @@ public class Skill
         mSkillState = SkillState.Using;
 
         SkillBegin msg = new SkillBegin();
-        msg.uid = Owner.uid;
+        msg.uid = Owner.gid;
         msg.skillID = SkillID;
         msg.position = Vector3Packat.FromVector3(Owner.Position);
         msg.direction = Vector3Packat.FromVector3(Owner.Direction);
@@ -183,7 +183,7 @@ public class Skill
             Player player = scn.GetPlayerByIndex(i);
             if (player == Owner)
                 continue;
-            NetWork.NotifyMessage(player.uid, STC.STC_SkillBegin, msg);
+            NetWork.NotifyMessage(player.UserID, STC.STC_SkillBegin, msg);
         }
     }
 

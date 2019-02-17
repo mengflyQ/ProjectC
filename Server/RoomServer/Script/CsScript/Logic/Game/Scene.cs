@@ -16,6 +16,8 @@ public class Scene
         mScnList = excel_scn_list.Find(scnID);
 
         ScnUID = SceneManager.Instance.GenSceneID();
+
+        RefreshSystem.Instance.Refresh(this);
     }
 
     public void AddPlayer(Player player)
@@ -26,17 +28,29 @@ public class Scene
         mPlayersList.Add(player);
         mCharactersList.Add(player);
 
-        mPlayers.Add(player.uid, player);
-        mCharacters.Add(player.uid, player);
+        mPlayers.Add(player.gid, player);
+        mCharacters.Add(player.gid, player);
+    }
+
+    public void AddNPC(NPC npc)
+    {
+        npc.mScene = this;
+        npc.Initialize();
+
+        mNPCList.Add(npc);
+        mCharactersList.Add(npc);
+
+        mNPCs.Add(npc.gid, npc);
+        mCharacters.Add(npc.gid, npc);
     }
 
     public void DelPlayer(Player player)
     {
         mPlayersList.Remove(player);
-        mPlayers.Remove(player.uid);
+        mPlayers.Remove(player.gid);
 
         mCharactersList.Remove(player);
-        mCharacters.Remove(player.uid);
+        mCharacters.Remove(player.gid);
     }
 
     public Player FindPlayer(int uid)
@@ -199,7 +213,8 @@ public class Scene
 
             ScnPlayerInfo playerInfo = new ScnPlayerInfo();
             playerInfo.Name = player.mNickName;
-            playerInfo.UserID = player.uid;
+            playerInfo.UserID = player.UserID;
+            playerInfo.GID = player.gid;
             startGame.Players.Add(playerInfo);
         }
         startGame.ServerStartTime = Time.ElapsedSeconds;
@@ -208,7 +223,7 @@ public class Scene
         {
             Player player = mPlayersList[i];
 
-            NetWork.NotifyMessage<NotifyStartGame>(player.uid, STC.STC_StartClienGame, startGame);
+            NetWork.NotifyMessage<NotifyStartGame>(player.UserID, STC.STC_StartClienGame, startGame);
 
             player.PacketAtb();
         }
@@ -238,6 +253,14 @@ public class Scene
         get;
     }
 
+    public excel_scn_list ScnList
+    {
+        get
+        {
+            return mScnList;
+        }
+    }
+
     public int PlayerMaxCount
     {
         private set;
@@ -246,9 +269,11 @@ public class Scene
 
     Dictionary<int, Character> mCharacters = new Dictionary<int, Character>();
     Dictionary<int, Player> mPlayers = new Dictionary<int, Player>();
+    Dictionary<int, NPC> mNPCs = new Dictionary<int, NPC>();
 
     List<Character> mCharactersList = new List<Character>();
     List<Player> mPlayersList = new List<Player>();
+    List<NPC> mNPCList = new List<NPC>();
 
     excel_scn_list mScnList = null;
     float mCellSize = 5.0f;

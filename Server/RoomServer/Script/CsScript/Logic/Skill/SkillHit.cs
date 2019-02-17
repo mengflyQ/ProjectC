@@ -160,25 +160,25 @@ public class SkillHit
         {
             if (src != target)
             {
-                FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.PhyDamage);
+                FightUtility.SendHpChg(src, target.gid, hurt, HPChgType.PhyDamage);
             }
-            FightUtility.SendHpChg(target.uid, target.uid, hurt, HPChgType.PhyDamage);
+            FightUtility.SendHpChg(target, target.gid, hurt, HPChgType.PhyDamage);
         }
         else if (hitExcel.hurtType == (int)SkillHurtType.MagDamage)
         {
             if (src != target)
             {
-                FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.MagDamage);
+                FightUtility.SendHpChg(src, target.gid, hurt, HPChgType.MagDamage);
             }
-            FightUtility.SendHpChg(target.uid, target.uid, hurt, HPChgType.MagDamage);
+            FightUtility.SendHpChg(target, target.gid, hurt, HPChgType.MagDamage);
         }
         else if (hitExcel.hurtType == (int)SkillHurtType.Cure)
         {
             if (src != target)
             {
-                FightUtility.SendHpChg(src.uid, target.uid, hurt, HPChgType.Cure);
+                FightUtility.SendHpChg(src, target.gid, hurt, HPChgType.Cure);
             }
-            FightUtility.SendHpChg(target.uid, target.uid, hurt, HPChgType.Cure);
+            FightUtility.SendHpChg(target, target.gid, hurt, HPChgType.Cure);
         }
     }
 

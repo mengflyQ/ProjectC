@@ -15,6 +15,7 @@ public enum StateMutexScope
 
 public enum StateItemType
 {
+    CannotFlag,
     ModifyHp,
 
     Count

@@ -152,6 +152,10 @@
     <Compile Include="Script\CsScript\Logic\Character\Character_Action.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character_Atb.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character_Move.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\GIDManger.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPC.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPC_StateMachine.cs" />
+    <Compile Include="Script\CsScript\Logic\Game\RefreshSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Skill\ChildObject.cs" />
     <Compile Include="Script\CsScript\Logic\Common\GameObject.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Player_Atb.cs" />
@@ -185,6 +189,7 @@
     <Compile Include="Script\CsScript\Logic\State\StateDefine.cs" />
     <Compile Include="Script\CsScript\Logic\State\StateGroup.cs" />
     <Compile Include="Script\CsScript\Logic\State\StateItem.cs" />
+    <Compile Include="Script\CsScript\Logic\State\StateItems\StateItemCannotFlag.cs" />
     <Compile Include="Script\CsScript\Logic\State\StateItems\StateItemModifyHp.cs" />
     <Compile Include="Script\CsScript\Logic\State\StateItem_Pool.cs" />
     <Compile Include="Script\CsScript\Logic\State\StateMgr.cs" />

@@ -31,6 +31,7 @@ public enum OptType
 {
     Unknown,
     Skill,
+    State,
 
     Count
 }
@@ -74,7 +75,7 @@ public partial class Character : GameObject
         int tid = 0;
         if (target != null)
         {
-            tid = target.uid;
+            tid = target.gid;
         }
         if (targetID != tid)
         {
@@ -93,9 +94,9 @@ public partial class Character : GameObject
                 if (!sendToSelf && player == this)
                     continue;
                 ReqTargetChg targetChg = new ReqTargetChg();
-                targetChg.uid = uid;
+                targetChg.uid = gid;
                 targetChg.targetID = tid;
-                NetWork.NotifyMessage<ReqTargetChg>(player.uid, STC.STC_TargetChg, targetChg);
+                NetWork.NotifyMessage<ReqTargetChg>(player.UserID, STC.STC_TargetChg, targetChg);
             }
         }
     }
@@ -214,7 +215,7 @@ public partial class Character : GameObject
         get;
     }
 
-    public int uid;
+    public int gid;
     public string mNickName;
     public Scene mScene = null;
     public excel_cha_list mChaList = null;

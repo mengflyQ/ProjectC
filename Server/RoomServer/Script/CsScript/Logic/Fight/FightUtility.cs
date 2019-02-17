@@ -15,12 +15,15 @@ public enum HPChgType
 
 public static class FightUtility
 {
-    public static void SendHpChg(int sendToUID, int chgHPUID, int hp, HPChgType chgType)
+    public static void SendHpChg(Character sender, int chgHPGID, int hp, HPChgType chgType)
     {
+        if (sender.Type != CharacterType.Player)
+            return;
+        Player player = sender as Player;
         NotifyHPChg msg = new NotifyHPChg();
         msg.hp = hp;
         msg.chgType = chgType;
-        msg.uid = chgHPUID;
-        NetWork.NotifyMessage<NotifyHPChg>(sendToUID, STC.STC_HPChg, msg);
+        msg.uid = chgHPGID;
+        NetWork.NotifyMessage<NotifyHPChg>(player.UserID, STC.STC_HPChg, msg);
     }
 }

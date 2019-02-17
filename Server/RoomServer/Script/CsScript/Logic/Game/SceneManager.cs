@@ -115,14 +115,14 @@ public class SceneManager : BaseSystem
 
     void OnPlayerMove(byte[] data, Action5001 action)
     {
-        Player player = FindPlayer(action.UserId);
+        ReqPlayerMove req = ProtoBufUtils.Deserialize<ReqPlayerMove>(data);
+
+        Player player = FindPlayer(req.gid);
         if (player == null)
             return;
 
-        ReqPlayerMove req = ProtoBufUtils.Deserialize<ReqPlayerMove>(data);
-
         NotifyPlayerMove msg = new NotifyPlayerMove();
-        msg.uid = action.UserId;
+        msg.uid = req.gid;
         msg.moveData = req;
 
         for (int i = 0; i < player.mScene.GetPlayerCount(); ++i)
@@ -137,7 +137,7 @@ public class SceneManager : BaseSystem
                 continue;
             }
 
-            NetWork.NotifyMessage<NotifyPlayerMove>(p.uid, STC.STC_PlayerMove, msg);
+            NetWork.NotifyMessage<NotifyPlayerMove>(p.UserID, STC.STC_PlayerMove, msg);
         }
     }
 

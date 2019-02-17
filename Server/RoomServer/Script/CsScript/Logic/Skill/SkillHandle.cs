@@ -94,7 +94,7 @@ public struct SkillHandle
 
         ReqSkill notifyMsg = new ReqSkill();
         notifyMsg.skillID = handle.skillID;
-        notifyMsg.casterID = handle.caster.uid;
+        notifyMsg.casterID = handle.caster.gid;
         notifyMsg.targetID = handle.skillTargetID;
         notifyMsg.autoTargetPos = handle.autoTargetPos;
         notifyMsg.targetPos = Vector3Packat.FromVector3(handle.targetPos);
@@ -104,7 +104,7 @@ public struct SkillHandle
         for (int i = 0; i < handle.caster.mScene.GetPlayerCount(); ++i)
         {
             Player player = handle.caster.mScene.GetPlayerByIndex(i);
-            NetWork.NotifyMessage(player.uid, STC.STC_SkillNotify, notifyMsg);
+            NetWork.NotifyMessage(player.UserID, STC.STC_SkillNotify, notifyMsg);
         }
 
         return SkillResult.Success;
