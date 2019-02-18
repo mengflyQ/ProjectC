@@ -39,4 +39,5 @@ public enum STC
     STC_HPChg               = 2008,
     STC_SetPos              = 2009,
     STC_RefreshNPC          = 2010,
+    STC_SearchMove          = 2011,
 }

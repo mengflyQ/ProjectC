@@ -227,6 +227,19 @@ public partial class Scene
         }
     }
 
+    void SearchMove(byte[] data)
+    {
+        SearchMoveMsg msg = ProtoBufUtils.Deserialize<SearchMoveMsg>(data);
+        Character cha = GetCharacter(msg.gid);
+        if (cha == null)
+            return;
+        cha.Position = msg.position.ToVector3();
+        if (msg.moveType == 0)
+        {
+            cha.SearchMove(msg.targetPos.ToVector3(), msg.radius, false);
+        }
+    }
+
     void InitializeNet()
     {
         NetWork.RegisterNotify(STC.STC_StartClienGame, OnInitPlayers);
@@ -238,6 +251,7 @@ public partial class Scene
         NetWork.RegisterNotify(STC.STC_HPChg, OnChgHp);
         NetWork.RegisterNotify(STC.STC_SetPos, OnSetPos);
         NetWork.RegisterNotify(STC.STC_RefreshNPC, NPCBorn);
+        NetWork.RegisterNotify(STC.STC_SearchMove, SearchMove);
     }
 
     void UninitializeNet()
@@ -251,5 +265,6 @@ public partial class Scene
         NetWork.UnregisterNotify(STC.STC_HPChg, OnChgHp);
         NetWork.UnregisterNotify(STC.STC_SetPos, OnSetPos);
         NetWork.UnregisterNotify(STC.STC_RefreshNPC, NPCBorn);
+        NetWork.UnregisterNotify(STC.STC_SearchMove, SearchMove);
     }
 }

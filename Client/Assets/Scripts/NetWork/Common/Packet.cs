@@ -299,3 +299,18 @@ public class ScnNPCInfo
     [ProtoMember(5)]
     public Vector3Packat direction;
 }
+
+[Serializable, ProtoContract]
+public class SearchMoveMsg
+{
+    [ProtoMember(1)]
+    public int gid;
+    [ProtoMember(2)]
+    public Vector3Packat position;
+    [ProtoMember(3)]
+    public byte moveType;
+    [ProtoMember(4)]
+    public Vector3Packat targetPos;
+    [ProtoMember(5)]
+    public float radius;
+}

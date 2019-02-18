@@ -116,6 +116,12 @@ public partial class Character : MonoBehaviour
 
     public void SearchMove(Vector3 pos, float destRadius = 0.3f, bool sync = true)
     {
+        if (NavLayer == 0)
+        {
+            NavLayer = NavigationSystem.GetLayer(pos);
+            if (NavLayer == 0)
+                return;
+        }
         Vector3[] path;
         if (!NavigationSystem.Nav_CalcLayerPath(Position, pos, NavLayer, out path))
         {

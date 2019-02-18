@@ -193,7 +193,7 @@ public class Skill
         {
             return true;
         }
-        Owner.SearchMove(target.Position, target.Radius);
+        Owner.SearchMove(target.Position, target.Radius, false);
         mLastTargetPosition = target.Position;
         return true;
     }
