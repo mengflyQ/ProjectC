@@ -57,6 +57,19 @@ public static class NetWork
         mRegsterBytesSTC.Add(stc, callback);
     }
 
+    public static void UnregisterNotify(STC stc, Action<byte[]> callback)
+    {
+        Action<byte[]> action;
+        if (mRegsterBytesSTC.TryGetValue(stc, out action))
+        {
+            action -= callback;
+            if (action == null)
+            {
+                mRegsterBytesSTC.Remove(stc);
+            }
+        }
+    }
+
     public static void SetUrl(string url)
     {
         if (GameApp.Instance.directGame)

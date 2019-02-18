@@ -38,4 +38,5 @@ public enum STC
     STC_AtbNotify           = 2007,
     STC_HPChg               = 2008,
     STC_SetPos              = 2009,
+    STC_RefreshNPC          = 2010,
 }

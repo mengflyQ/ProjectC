@@ -8,8 +8,9 @@ public class excel_scn_list : ExcelBase<excel_scn_list>
     public float[] min;
     public float[] max;
     public float viewDist;
+    public string refreshPath;
+    public string markPath;
 }
-
 public class excel_cha_class : ExcelBase<excel_cha_class>
 {
     public string name;
