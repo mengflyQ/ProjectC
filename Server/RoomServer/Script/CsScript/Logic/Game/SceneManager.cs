@@ -94,7 +94,7 @@ public class SceneManager : BaseSystem
         for (int i = 0; i < mScenes.Count; ++i)
         {
             Scene scn = mScenes[i];
-            Player player = scn.FindPlayer(uid);
+            Player player = scn.GetPlayer(uid);
             if (player != null)
                 return player;
         }
@@ -106,7 +106,7 @@ public class SceneManager : BaseSystem
         for (int i = 0; i < mScenes.Count; ++i)
         {
             Scene scn = mScenes[i];
-            Character cha = scn.FindCharacter(uid);
+            Character cha = scn.GetCharacter(uid);
             if (cha != null)
                 return cha;
         }

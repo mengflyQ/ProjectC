@@ -175,3 +175,18 @@ public class NotifySetPos
     [ProtoMember(3)]
     public Vector3Packat direction;
 }
+
+[Serializable, ProtoContract]
+public class ScnNPCInfo
+{
+    [ProtoMember(1)]
+    public string name;
+    [ProtoMember(2)]
+    public int chaListID;
+    [ProtoMember(3)]
+    public int gid;
+    [ProtoMember(4)]
+    public Vector3Packat position;
+    [ProtoMember(5)]
+    public Vector3Packat direction;
+}

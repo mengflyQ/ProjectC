@@ -44,7 +44,7 @@ public class SkillContext
     {
         get
         {
-            Character target = mOwner.mScene.FindCharacter(SkillTargetID);
+            Character target = mOwner.mScene.GetCharacter(SkillTargetID);
             return target;
         }
     }

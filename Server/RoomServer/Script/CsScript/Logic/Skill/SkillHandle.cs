@@ -55,7 +55,7 @@ public struct SkillHandle
         {
             return SkillResult.ExcelNotExist;
         }
-        Character target = handle.caster.mScene.FindCharacter(handle.skillTargetID);
+        Character target = handle.caster.mScene.GetCharacter(handle.skillTargetID);
 
         SkillTargetType targetType = (SkillTargetType)skillExcel.targetType;
         if (targetType != SkillTargetType.All)

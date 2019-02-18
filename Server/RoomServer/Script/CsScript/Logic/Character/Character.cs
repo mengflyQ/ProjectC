@@ -103,7 +103,7 @@ public partial class Character : GameObject
 
     public Character GetTarget()
     {
-        return mScene.FindCharacter(TargetID);
+        return mScene.GetCharacter(TargetID);
     }
 
     public void SetSkill(Skill skill)

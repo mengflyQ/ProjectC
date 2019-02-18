@@ -28,7 +28,7 @@ public class StateItemModifyHp : BaseStateItem
                 Scene scn = stateGroup.mSelf.mScene;
                 if (scn == null)
                     return;
-                Character cha = scn.FindCharacter(stateGroup.mSrcUID);
+                Character cha = scn.GetCharacter(stateGroup.mSrcUID);
                 if (cha == null)
                     return;
 

@@ -53,20 +53,39 @@ public class Scene
         mCharacters.Remove(player.gid);
     }
 
-    public Player FindPlayer(int uid)
+    public void DelNPC(NPC npc)
+    {
+        mNPCList.Remove(npc);
+        mNPCs.Remove(npc.gid);
+
+        mCharactersList.Remove(npc);
+        mCharacters.Remove(npc.gid);
+    }
+
+    public Player GetPlayer(int gid)
     {
         Player player = null;
-        if (mPlayers.TryGetValue(uid, out player))
+        if (mPlayers.TryGetValue(gid, out player))
         {
             return player;
         }
         return null;
     }
 
-    public Character FindCharacter(int uid)
+    public NPC GetNPC(int gid)
+    {
+        NPC npc = null;
+        if (mNPCs.TryGetValue(gid, out npc))
+        {
+            return npc;
+        }
+        return null;
+    }
+
+    public Character GetCharacter(int gid)
     {
         Character cha = null;
-        if (mCharacters.TryGetValue(uid, out cha))
+        if (mCharacters.TryGetValue(gid, out cha))
         {
             return cha;
         }
@@ -83,6 +102,18 @@ public class Scene
         if (index < 0 || index >= mPlayersList.Count)
             return null;
         return mPlayersList[index];
+    }
+
+    public int GetNPCCount()
+    {
+        return mNPCList.Count;
+    }
+
+    public NPC GetNPCByIndex(int index)
+    {
+        if (index < 0 || index >= mPlayersList.Count)
+            return null;
+        return mNPCList[index];
     }
 
     public int GetCharacterCount()

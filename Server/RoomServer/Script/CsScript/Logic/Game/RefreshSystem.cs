@@ -133,6 +133,25 @@ public class RefreshSystem : BaseSystem
             targetPos.y = h;
         }
         NPC npc = new NPC();
+        npc.Position = targetPos;
+        npc.Direction = markPoint.direction;
+        npc.gid = GIDManger.Instance.GetGID();
+        npc.mRefreshList = refreshExcel;
+        npc.mChaList = excel_cha_list.Find(refreshExcel.chaListID);
+        scn.AddNPC(npc);
+
+        ScnNPCInfo msg = new ScnNPCInfo();
+        msg.gid = npc.gid;
+        msg.position = Vector3Packat.FromVector3(npc.Position);
+        msg.direction = Vector3Packat.FromVector3(npc.Direction);
+        msg.chaListID = refreshExcel.chaListID;
+
+        for (int i = 0; i < scn.GetPlayerCount(); ++i)
+        {
+            Player player = scn.GetPlayerByIndex(i);
+            NetWork.NotifyMessage<ScnNPCInfo>(player.gid, STC.STC_RefreshNPC, msg);
+        }
+
         return npc;
     }
 

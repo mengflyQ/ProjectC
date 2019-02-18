@@ -79,7 +79,7 @@ namespace GameServer.RoomServer
             Character cha = SceneManager.Instance.FindCharacter(targetChg.uid);
             if (cha == null)
                 return;
-            Character target = cha.mScene.FindCharacter(targetChg.targetID);
+            Character target = cha.mScene.GetCharacter(targetChg.targetID);
             if (target == null)
                 return;
             cha.SetTarget(target, false);
