@@ -103,6 +103,22 @@ public partial class Character : GameObject
         mCurrentNodeIndex = 0;
         Speed = 0.0f;
         mDestRadius = destRadius;
+
+        if (sync)
+        {
+            SearchMoveMsg msg = new SearchMoveMsg();
+            msg.gid = gid;
+            msg.position = Vector3Packat.FromVector3(Position);
+            msg.targetPos = Vector3Packat.FromVector3(pos);
+            msg.radius = destRadius;
+            msg.moveType = 0;
+
+            for (int i = 0; i < mScene.GetPlayerCount(); ++i)
+            {
+                Player player = mScene.GetPlayerByIndex(i);
+                NetWork.NotifyMessage<SearchMoveMsg>(player.UserID, STC.STC_SearchMove, msg);
+            }
+        }
     }
 
     public void LineMove(Vector3 pos, float destRadius = 0.3f, bool sync = true)

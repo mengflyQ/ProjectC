@@ -156,6 +156,8 @@ public class RefreshSystem : BaseSystem
             NetWork.NotifyMessage<ScnNPCInfo>(player.UserID, STC.STC_RefreshNPC, msg);
         }
 
+        npc.PacketAtb();
+
         return npc;
     }
 

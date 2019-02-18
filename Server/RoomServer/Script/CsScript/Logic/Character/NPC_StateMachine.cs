@@ -88,6 +88,11 @@ namespace NPCFramework
                     {
                         targetPos = hitPos;
                     }
+                    float h = 0.0f;
+                    if (NavigationSystem.GetLayerHeight(targetPos, mNPC.mNavLayer, out h))
+                    {
+                        targetPos.y = h;
+                    }
                     mPath = new Vector3[1];
                     mPath[0] = targetPos;
                     mPathIndex = 0;
@@ -97,21 +102,24 @@ namespace NPCFramework
             }
             else if (NormalBehaviourPhase.Patrol == mPhase)
             {
-                if (mPath == null || mPathIndex >= mPath.Length)
+                if (npcAI.patrolType == (int)PatrolType.Scope)
                 {
-                    mIntervalTime = Mathf.RandRange(npcAI.patrolMinInterval, npcAI.patrolMaxInterval);
-                    mPhase = NormalBehaviourPhase.PatrolInterval;
-                    return;
-                }
-                Vector3 targetPos = mPath[mPathIndex];
-                if (!mNPC.IsSearchMoving())
-                {
-                    mNPC.SearchMove(targetPos);
-                }
-                float dist = (targetPos - mNPC.Position).Length();
-                if (dist <= 0.3f)
-                {
-                    ++mPathIndex;
+                    if (mPath == null || mPathIndex >= mPath.Length)
+                    {
+                        mIntervalTime = Mathf.RandRange(npcAI.patrolMinInterval, npcAI.patrolMaxInterval);
+                        mPhase = NormalBehaviourPhase.PatrolInterval;
+                        return;
+                    }
+                    Vector3 targetPos = mPath[mPathIndex];
+                    if (!mNPC.IsSearchMoving())
+                    {
+                        mNPC.SearchMove(targetPos);
+                    }
+                    float dist = (targetPos - mNPC.Position).Length();
+                    if (dist <= 0.3f)
+                    {
+                        ++mPathIndex;
+                    }
                 }
             }
         }
