@@ -16,8 +16,6 @@ public class Scene
         mScnList = excel_scn_list.Find(scnID);
 
         ScnUID = SceneManager.Instance.GenSceneID();
-
-        RefreshSystem.Instance.Refresh(this);
     }
 
     public void AddPlayer(Player player)
@@ -258,6 +256,8 @@ public class Scene
 
             player.PacketAtb();
         }
+
+        RefreshSystem.Instance.Refresh(this);
     }
 
     public void Tick()

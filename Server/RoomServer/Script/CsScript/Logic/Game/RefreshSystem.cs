@@ -52,9 +52,13 @@ public class RefreshSystem : BaseSystem
             scnMarkPoints = new List<MarkPoint>();
             mScnMarkPoints.Add(scnID, scnMarkPoints);
         }
+        else
+        {
+            return;
+        }
 
         string jsonText = string.Empty;
-        using (FileStream fsRead = new FileStream(@"../Data/RefreshInfo/" + markPath + ".json", FileMode.Open))
+        using (FileStream fsRead = new FileStream("../Data/RefreshInfo/" + markPath + ".json", FileMode.Open))
         {
             byte[] configDatas = new byte[fsRead.Length];
             fsRead.Read(configDatas, 0, configDatas.Length);
@@ -149,7 +153,7 @@ public class RefreshSystem : BaseSystem
         for (int i = 0; i < scn.GetPlayerCount(); ++i)
         {
             Player player = scn.GetPlayerByIndex(i);
-            NetWork.NotifyMessage<ScnNPCInfo>(player.gid, STC.STC_RefreshNPC, msg);
+            NetWork.NotifyMessage<ScnNPCInfo>(player.UserID, STC.STC_RefreshNPC, msg);
         }
 
         return npc;

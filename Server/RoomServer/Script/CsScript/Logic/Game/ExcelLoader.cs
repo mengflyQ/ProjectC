@@ -352,6 +352,8 @@ public class ExcelBase<T> : ExcelSimple where T : ExcelSimple
 
     static T BinarySearchExcel(int low, int high, int id)
     {
+        if (low < 0 || high < 0)
+            return null;
         T highScene = excelView[high];
         T lowScene = excelView[low];
 
