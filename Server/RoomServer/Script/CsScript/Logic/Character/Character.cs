@@ -41,6 +41,7 @@ public partial class Character : GameObject
     public Character() : base()
     {
         mStateMgr = new StateMgr(this);
+        mHateData = new HateData(this);
     }
 
     public virtual void Initialize()
@@ -70,11 +71,15 @@ public partial class Character : GameObject
         }
     }
 
-    public void SetTarget(Character target, bool sendToSelf = true)
+    public void SetTarget(Character target, bool sendToSelf = true, bool hateLink = true)
     {
         int tid = 0;
         if (target != null)
         {
+            if (hateLink && mHateData != null && mHateData.mHateLinkID > 0)
+            {
+                target = HateSystem.Instance.UpdateHateLinkTarget(this, target);
+            }
             tid = target.gid;
         }
         if (targetID != tid)
@@ -143,6 +148,20 @@ public partial class Character : GameObject
     {
         int mask = mCannotFlag[(int)flag];
         return mask != 0;
+    }
+
+    public bool IsMaySelected(Character src)
+    {
+        if (IsCannotFlag(CannotFlag.CannotSelected))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public bool IsPlayer()
+    {
+        return Type == CharacterType.Player;
     }
 
     protected int TargetID
@@ -220,7 +239,8 @@ public partial class Character : GameObject
     public Scene mScene = null;
     public excel_cha_list mChaList = null;
     public int targetID;
-    public StateMgr mStateMgr;
+    public StateMgr mStateMgr = null;
+    public HateData mHateData = null;
 
     protected float mSpeed;
     private bool mPosDirty = true;
