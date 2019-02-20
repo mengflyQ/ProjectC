@@ -142,6 +142,10 @@ public class RefreshSystem : BaseSystem
         npc.gid = GIDManger.Instance.GetGID();
         npc.mRefreshList = refreshExcel;
         npc.mChaList = excel_cha_list.Find(refreshExcel.chaListID);
+        if (refreshExcel.hateLinkID > 0)
+        {
+            HateSystem.Instance.SetHateLink(npc, refreshExcel.hateLinkID);
+        }        
         scn.AddNPC(npc);
 
         ScnNPCInfo msg = new ScnNPCInfo();
