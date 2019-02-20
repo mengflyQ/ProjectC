@@ -12,6 +12,7 @@
 	{"name": "refreshCount", "type": "int"},
 	{"name": "refreshDist", "type": "float"},
 	{"name": "deadRefreshIDs", "type": "int[]"},
-	{"name": "npcAI", "type": "int"}
+	{"name": "npcAI", "type": "int"},
+	{"name": "hateLinkID", "type": "int"}
   ]
 }

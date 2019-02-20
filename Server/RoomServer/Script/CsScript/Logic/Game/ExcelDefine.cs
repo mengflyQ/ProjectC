@@ -25,6 +25,7 @@ public class excel_refresh : ExcelBase<excel_refresh>
     public float refreshDist;
     public int[] deadRefreshIDs;
     public int npcAI;
+    public int hateLinkID;
 }
 
 public class excel_cha_class : ExcelBase<excel_cha_class>
