@@ -426,7 +426,7 @@ public class HateSystem : BaseSystem
         return null;
     }
 
-    public Player GetFirstAttackCha(Character src)
+    public Player GetFirstAttackPlayer(Character src)
     {
         HateData srcHate = src.mHateData;
         if (srcHate == null)
@@ -464,7 +464,7 @@ public class HateSystem : BaseSystem
         return null;
     }
 
-    public Player GetLastAttackCha(Character src)
+    public Player GetLastAttackPlayer(Character src)
     {
         HateData srcHate = src.mHateData;
         if (srcHate == null)

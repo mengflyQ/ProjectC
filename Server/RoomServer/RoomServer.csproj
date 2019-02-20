@@ -155,6 +155,7 @@
     <Compile Include="Script\CsScript\Logic\Character\GIDManger.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPC.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPC_StateMachine.cs" />
+    <Compile Include="Script\CsScript\Logic\Fight\HateSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Game\RefreshSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Skill\ChildObject.cs" />
     <Compile Include="Script\CsScript\Logic\Common\GameObject.cs" />
