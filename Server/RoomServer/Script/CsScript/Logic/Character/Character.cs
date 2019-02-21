@@ -17,25 +17,6 @@ public enum CharacterEventType
     OnTargetChg,
 }
 
-public enum CannotFlag
-{
-    CannotMove,
-    CannotControl,
-    CannotSkill,
-    CannotSelected,
-
-    Count
-}
-
-public enum OptType
-{
-    Unknown,
-    Skill,
-    State,
-
-    Count
-}
-
 public partial class Character : GameObject
 {
     public Character() : base()
@@ -47,6 +28,7 @@ public partial class Character : GameObject
     public virtual void Initialize()
     {
         InitAtb();
+        InitFlag();
         InitMove();
     }
 
@@ -128,35 +110,6 @@ public partial class Character : GameObject
     public Skill GetSkill()
     {
         return mCurSkill;
-    }
-
-    public virtual void SetCannotFlag(CannotFlag flag, OptType type, bool cannot)
-    {
-        int mask = mCannotFlag[(int)flag];
-        if (cannot)
-        {
-            mask |= (1 << (int)type);
-        }
-        else
-        {
-            mask &= ~(1 << (int)type);
-        }
-        mCannotFlag[(int)flag] = mask;
-    }
-
-    public bool IsCannotFlag(CannotFlag flag)
-    {
-        int mask = mCannotFlag[(int)flag];
-        return mask != 0;
-    }
-
-    public bool IsMaySelected(Character src)
-    {
-        if (IsCannotFlag(CannotFlag.CannotSelected))
-        {
-            return false;
-        }
-        return true;
     }
 
     public bool IsPlayer()
@@ -245,7 +198,6 @@ public partial class Character : GameObject
     protected float mSpeed;
     private bool mPosDirty = true;
     protected Skill mCurSkill = null;
-    private int[] mCannotFlag = new int[(int)CannotFlag.Count];
     public delegate void OnEvent(CharacterEventType evtType, Character self);
     public OnEvent mEvent = null;
 }

@@ -14,6 +14,19 @@ public partial class NPC : Character
     {
         base.Initialize();
 
+        mNpcAI = excel_npc_ai.Find(mRefreshList.npcAI);
+        if (mNpcAI != null)
+        {
+            SetFlagMemory(FlagMemory.SearchTargetType, mNpcAI.searchTargetType);
+            SetFlagMemory(FlagMemory.SearchTargetType, mNpcAI.searchTargetCondition);
+
+            mSkillAIs = new excel_skill_ai[mNpcAI.skillAI.Length];
+            for (int i = 0; i < mNpcAI.skillAI.Length; ++i)
+            {
+                mSkillAIs[i] = excel_skill_ai.Find(mNpcAI.skillAI[i]);
+            }
+        }
+
         InitStateMachine();
     }
 
@@ -25,4 +38,8 @@ public partial class NPC : Character
     }
 
     public excel_refresh mRefreshList = null;
+
+    public excel_npc_ai mNpcAI = null;
+
+    public excel_skill_ai[] mSkillAIs = null;
 }

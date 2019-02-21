@@ -54,10 +54,22 @@ public class excel_npc_ai : ExcelBase<excel_npc_ai>
     public float patrolMaxInterval;
     public int searchTargetType;
     public int searchTargetCondition;
+    public float searchTargetDist;
     public float skillTimeout;
     public float skillMinInterval;
     public float skillMaxInterval;
     public int disoverlap;
+    public int[] skillAI;
+}
+
+public class excel_skill_ai : ExcelBase<excel_skill_ai>
+{
+    public int conditionType;
+    public int[] conditionDatas;
+    public float distance;
+    public int selectType;
+    public int[] selectSkillIDs;
+    public int overFrame;
 }
 
 public class excel_anim_list : ExcelBase<excel_anim_list>

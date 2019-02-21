@@ -71,7 +71,7 @@ public class ExcelLoader
                     if (string.IsNullOrWhiteSpace(excel_line) || string.IsNullOrEmpty(excel_line))
                         continue;
                     string[] excel_line_data = excel_line.Split('\t');
-                    if (excel_line_data.Length != fieldData.Count)
+                    if (excel_line_data.Length < fieldData.Count)
                     {
                         Debug.LogError("Excel Error: Excel Data Number Is Not Equal To Config Data Number! File: " + filename);
                         continue;

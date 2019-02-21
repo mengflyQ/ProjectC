@@ -107,6 +107,16 @@ public class StateMgr
         mRemoveList.Add(state);
     }
 
+    public bool HasState(int id)
+    {
+        StateGroup state = null;
+        if (!mStates.TryGetValue(id, out state))
+        {
+            return false;
+        }
+        return true;
+    }
+
     void UpdateDefaultItem()
     {
         for (int i = 0; i < mStateItems.Length; ++i)

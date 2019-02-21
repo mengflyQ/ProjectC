@@ -151,9 +151,16 @@
     <Compile Include="Script\CsScript\Logic\Character\Character.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character_Action.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character_Atb.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\Character_Flag.cs" />
     <Compile Include="Script\CsScript\Logic\Character\Character_Move.cs" />
     <Compile Include="Script\CsScript\Logic\Character\GIDManger.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPC.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPCAI\BaseBehaviour.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPCAI\BehaviourContext.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPCAI\BehaviourMachine.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\BetweenSkillBehaviour.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\NormalBehaviour.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\UseSkillBehaviour.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPC_StateMachine.cs" />
     <Compile Include="Script\CsScript\Logic\Fight\HateSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Game\RefreshSystem.cs" />

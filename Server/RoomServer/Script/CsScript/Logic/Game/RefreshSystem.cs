@@ -147,7 +147,7 @@ public class RefreshSystem : BaseSystem
             HateSystem.Instance.SetHateLink(npc, refreshExcel.hateLinkID);
         }        
         scn.AddNPC(npc);
-
+        
         ScnNPCInfo msg = new ScnNPCInfo();
         msg.gid = npc.gid;
         msg.position = Vector3Packat.FromVector3(npc.Position);
