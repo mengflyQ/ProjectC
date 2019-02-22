@@ -193,10 +193,10 @@ public class Skill
     bool IsInRange()
     {
         // 主角追敌相信客户端;
-        if (Owner.Type == CharacterType.Player)
-        {
-            return false;
-        }
+        //if (Owner.Type == CharacterType.Player)
+        //{
+        //    return false;
+        //}
         Character skillTarget = mSkillContext.SkillTarget;
         if (skillTarget == null)
         {
