@@ -20,7 +20,10 @@ public enum CannotFlag
     CannotControl,
     CannotSkill,
     CannotSelected,
-    
+    CannotEnemySelected,
+    CannotFriendSelected,
+    CannotBeHit,
+
     Count
 }
 
