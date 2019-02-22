@@ -50,6 +50,10 @@ namespace NPCFramework
             Character target = mNPC.GetTarget();
             if (target != null)
             {
+                if (!HateSystem.Instance.IsHate(mNPC, target))
+                {
+                    HateSystem.Instance.AddHate(mNPC, target, 1);
+                }
                 mContext.mOrigPosition = mNPC.Position;
                 mContext.mOrigDirection = mNPC.Direction;
                 mNPC.mBehaviourMachine.SetBehaviour(BehaviourType.IntoFight, mContext);

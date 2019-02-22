@@ -47,20 +47,23 @@ public class Skill
                 mSkillState = SkillState.Failed;
                 return;
             }
-            float destRadius = MathLib.Mathf.Max(mSkillInfo.maxDistance - 0.5f, 0.0f);
-            Owner.SearchMove(skillTarget.Position, destRadius, false);
+            if (!Owner.IsSearchMoving())
+            {
+                Owner.SearchMove(skillTarget.Position, skillTarget.Radius, false);
+            }
             mSkillState = SkillState.TrackEnemy;
         }
         else
         {
-            if (Owner.Type != CharacterType.Player)
-            {
-                BeginSkill();
-            }
-            else
-            {
-                mSkillState = SkillState.TrackEnemy;
-            }
+            //if (Owner.Type != CharacterType.Player)
+            //{
+            //    BeginSkill();
+            //}
+            //else
+            //{
+            //    mSkillState = SkillState.TrackEnemy;
+            //}
+            BeginSkill();
         }
     }
 
@@ -171,20 +174,20 @@ public class Skill
 
         mSkillState = SkillState.Using;
 
-        SkillBegin msg = new SkillBegin();
-        msg.uid = Owner.gid;
-        msg.skillID = SkillID;
-        msg.position = Vector3Packat.FromVector3(Owner.Position);
-        msg.direction = Vector3Packat.FromVector3(Owner.Direction);
+        //SkillBegin msg = new SkillBegin();
+        //msg.uid = Owner.gid;
+        //msg.skillID = SkillID;
+        //msg.position = Vector3Packat.FromVector3(Owner.Position);
+        //msg.direction = Vector3Packat.FromVector3(Owner.Direction);
 
-        Scene scn = Owner.mScene;
-        for (int i = 0; i < scn.GetPlayerCount(); ++i)
-        {
-            Player player = scn.GetPlayerByIndex(i);
-            if (player == Owner)
-                continue;
-            NetWork.NotifyMessage(player.UserID, STC.STC_SkillBegin, msg);
-        }
+        //Scene scn = Owner.mScene;
+        //for (int i = 0; i < scn.GetPlayerCount(); ++i)
+        //{
+        //    Player player = scn.GetPlayerByIndex(i);
+        //    if (player == Owner)
+        //        continue;
+        //    NetWork.NotifyMessage(player.UserID, STC.STC_SkillBegin, msg);
+        //}
     }
 
     bool IsInRange()
@@ -211,10 +214,10 @@ public class Skill
     bool TrackEnemy()
     {
         // 主角追敌相信客户端;
-        if (Owner.Type == CharacterType.Player)
-        {
-            return true;
-        }
+        //if (Owner.Type == CharacterType.Player)
+        //{
+        //    return true;
+        //}
         Character target = Owner.GetTarget();
         if (target == null)
         {
@@ -224,7 +227,10 @@ public class Skill
         {
             return true;
         }
-        Owner.SearchMove(target.Position, target.Radius);
+        if (!Owner.IsSearchMoving())
+        {
+            Owner.SearchMove(target.Position, target.Radius, false);
+        }
         mLastTargetPosition = target.Position;
         return true;
     }

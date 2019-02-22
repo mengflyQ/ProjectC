@@ -159,7 +159,9 @@
     <Compile Include="Script\CsScript\Logic\Character\NPCAI\BehaviourContext.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPCAI\BehaviourMachine.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\BetweenSkillBehaviour.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\IntoFightBehaviour.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\NormalBehaviour.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\OffFightBehaviour.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\UseSkillBehaviour.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPC_StateMachine.cs" />
     <Compile Include="Script\CsScript\Logic\Fight\HateSystem.cs" />

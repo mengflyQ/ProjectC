@@ -24,8 +24,10 @@ namespace NPCFramework
         public void Initialize()
         {
             Register(BehaviourType.Normal, new NormalBehaviour());
+            Register(BehaviourType.IntoFight, new IntoFightBehaviour());
             Register(BehaviourType.UseSkill, new UseSkillBehaviour());
             Register(BehaviourType.BetweenSkill, new BetweenSkillBehaviour());
+            Register(BehaviourType.OffFight, new OffFightBehaviour());
 
             SetBehaviour(BehaviourType.Normal, new BehaviourContext(mNPC));
         }
@@ -57,6 +59,7 @@ namespace NPCFramework
             }
             BaseBehaviour lastBehaviour = mCurrentBehaviour;
             mCurrentBehaviour = b;
+            mCurrentBehaviour.mContext = context;
             if (lastBehaviour != null)
             {
                 lastBehaviour.Exit();

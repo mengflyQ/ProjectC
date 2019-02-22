@@ -306,14 +306,16 @@ namespace NPCFramework
                 Vector3 d = c.Position - mSelf.Position;
                 d.y = 0.0f;
                 float dist = d.Length();
+
+                if (dist > npcAI.searchTargetDist)
+                    continue;
+
                 if (minDist > dist)
                 {
                     minDist = dist;
                     minDistCha = c;
                 }
 
-                if (dist > npcAI.searchTargetDist)
-                    continue;
                 selected.Add(c);
             }
 

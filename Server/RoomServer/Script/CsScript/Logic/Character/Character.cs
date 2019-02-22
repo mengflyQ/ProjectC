@@ -90,7 +90,7 @@ public partial class Character : GameObject
 
     public Character GetTarget()
     {
-        return mScene.GetCharacter(TargetID);
+        return mScene.GetCharacter(targetID);
     }
 
     public void SetSkill(Skill skill)
@@ -115,12 +115,6 @@ public partial class Character : GameObject
     public bool IsPlayer()
     {
         return Type == CharacterType.Player;
-    }
-
-    protected int TargetID
-    {
-        set;
-        get;
     }
 
     public float Speed
