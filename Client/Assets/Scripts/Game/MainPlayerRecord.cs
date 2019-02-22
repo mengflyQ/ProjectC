@@ -43,6 +43,10 @@ public class MainPlayerRecord
 
     void UpdateDirty()
     {
+        if (mMainPlayer.GetSkill() != null)
+        {
+            return;
+        }
         if (mMainPlayer.IsControl)
         {
             if (mMainPlayer.Direction != mLastDirection)
