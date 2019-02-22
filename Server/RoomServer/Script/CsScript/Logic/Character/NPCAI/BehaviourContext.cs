@@ -266,9 +266,159 @@ namespace NPCFramework
             return false;
         }
 
+        public void DoSearchTarget()
+        {
+            Scene scn = mSelf.mScene;
+            if (scn == null)
+                return;
+
+            SearchTargetType searchTargetType = (SearchTargetType)mSelf.GetFlagMemory(FlagMemory.SearchTargetType);
+            SearchTargetCondition searchTargetCondition = (SearchTargetCondition)mSelf.GetFlagMemory(FlagMemory.SearchTargetCondition);
+            excel_npc_ai npcAI = excel_npc_ai.Find(mSelf.mRefreshList.npcAI);
+            if (npcAI == null)
+            {
+                return;
+            }
+
+            List<Character> selected = new List<Character>();
+
+            float minDist = float.MaxValue;
+            Character minDistCha = null;
+            for (int i = 0; i < scn.GetCharacterCount(); ++i)
+            {
+                Character c = scn.GetCharacterByIndex(i);
+
+                if (searchTargetType == SearchTargetType.Passive)
+                {
+                    continue;
+                }
+                if (searchTargetType == SearchTargetType.ActiveEnemy
+                    && !CampSystem.IsEnemy(c, mSelf))
+                {
+                    continue;
+                }
+                if (searchTargetType == SearchTargetType.ActiveFriend
+                    && !CampSystem.IsFriend(c, mSelf))
+                {
+                    continue;
+                }
+
+                Vector3 d = c.Position - mSelf.Position;
+                d.y = 0.0f;
+                float dist = d.Length();
+                if (minDist > dist)
+                {
+                    minDist = dist;
+                    minDistCha = c;
+                }
+
+                if (dist > npcAI.searchTargetDist)
+                    continue;
+                selected.Add(c);
+            }
+
+            Character target = SearchTarget(searchTargetCondition, selected, minDistCha);
+
+            mSelf.SetTarget(target);
+        }
+
+        Character SearchTarget(SearchTargetCondition condition, List<Character> characters, Character nearest)
+        {
+            if (SearchTargetCondition.Random == condition)
+            {
+                int index = Mathf.RandRange(0, characters.Count - 1);
+                return characters[index];
+            }
+
+            float maxFloatValue = float.MinValue;
+            int maxIntValue = int.MinValue;
+            int minIntValue = int.MaxValue;
+            Character target = nearest;
+            for (int i = 0; i < characters.Count; ++i)
+            {
+                Character c = characters[i];
+                switch (condition)
+                {
+                    case SearchTargetCondition.Farest:
+                        {
+                            Vector3 d = c.Position - mSelf.Position;
+                            d.y = 0.0f;
+                            float dist = d.Length();
+                            if (dist > maxFloatValue)
+                            {
+                                maxFloatValue = dist;
+                                target = c;
+                            }
+                        }
+                        break;
+                    case SearchTargetCondition.HateHighest:
+                        {
+                            int hate = HateSystem.Instance.GetHate(c, mSelf);
+                            if (hate == 0)
+                            {
+                                break;
+                            }
+                            if (maxIntValue < hate)
+                            {
+                                maxIntValue = hate;
+                                target = c;
+                            }
+                        }
+                        break;
+                    case SearchTargetCondition.LessHP:
+                        {
+                            int hp = c.HP;
+                            if (hp == 0)
+                            {
+                                break;
+                            }
+                            if (minIntValue > hp)
+                            {
+                                minIntValue = hp;
+                                target = c;
+                            }
+                        }
+                        break;
+                    case SearchTargetCondition.MostHP:
+                        {
+                            int hp = c.HP;
+                            if (hp == 0)
+                            {
+                                break;
+                            }
+                            if (maxIntValue < hp)
+                            {
+                                minIntValue = hp;
+                                target = c;
+                            }
+                        }
+                        break;
+                }
+            }
+            return target;
+        }
+
+        public bool CanOffFight()
+        {
+            Vector3 dir = mOrigPosition - mSelf.Position;
+            if (dir.Length() >= mSelf.mNpcAI.offFightDist)
+            {
+                return true;
+            }
+            if (!HateSystem.Instance.HasHate(mSelf))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public excel_skill_ai mCurkillAI = null;
 
         public List<int> mSkillIDs = new List<int>();
+
+        public Vector3 mOrigPosition;
+
+        public Vector3 mOrigDirection;
 
         private NPC mSelf = null;
     }

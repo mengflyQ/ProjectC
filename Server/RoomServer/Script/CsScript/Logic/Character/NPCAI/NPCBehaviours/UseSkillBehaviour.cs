@@ -40,6 +40,11 @@ namespace NPCFramework
 
         public override void LogicTick()
         {
+            if (mContext.CanOffFight())
+            {
+                mNPC.mBehaviourMachine.SetBehaviour(BehaviourType.OffFight, mContext);
+                return;
+            }
             if (mContext.mSkillIDs.Count <= 0)
 	        {
 		        if (mContext.mCurkillAI != null)

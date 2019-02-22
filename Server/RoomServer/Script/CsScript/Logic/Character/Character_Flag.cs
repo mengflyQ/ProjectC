@@ -13,6 +13,8 @@ public enum CannotFlag
     CannotSelected,
     CannotEnemySelected,
     CannotFriendSelected,
+    CannotHurtByMagic,
+    CannotHurtByPhysic,
 
     Count
 }
@@ -22,6 +24,7 @@ public enum OptType
     Unknown,
     Skill,
     State,
+    AI,
 
     Count
 }

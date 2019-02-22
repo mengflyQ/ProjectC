@@ -8,6 +8,7 @@ namespace NPCFramework
     public enum BehaviourType
     {
         Normal,
+        IntoFight,
         UseSkill,
         BetweenSkill,
         OffFight,

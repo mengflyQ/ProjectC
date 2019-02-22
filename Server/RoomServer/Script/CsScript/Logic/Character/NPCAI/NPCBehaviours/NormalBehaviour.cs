@@ -45,7 +45,15 @@ namespace NPCFramework
         public override void LogicTick()
         {
             DoPatrol();
-            DoSearchTarget();
+            mContext.DoSearchTarget();
+
+            Character target = mNPC.GetTarget();
+            if (target != null)
+            {
+                mContext.mOrigPosition = mNPC.Position;
+                mContext.mOrigDirection = mNPC.Direction;
+                mNPC.mBehaviourMachine.SetBehaviour(BehaviourType.IntoFight, mContext);
+            }
         }
 
         void DoPatrol()
@@ -115,143 +123,6 @@ namespace NPCFramework
                     }
                 }
             }
-        }
-
-        void DoSearchTarget()
-        {
-            Scene scn = mNPC.mScene;
-            if (scn == null)
-                return;
-
-            SearchTargetType searchTargetType = (SearchTargetType)mNPC.GetFlagMemory(FlagMemory.SearchTargetType);
-            SearchTargetCondition searchTargetCondition = (SearchTargetCondition)mNPC.GetFlagMemory(FlagMemory.SearchTargetCondition);
-            excel_npc_ai npcAI = excel_npc_ai.Find(mNPC.mRefreshList.npcAI);
-            if (npcAI == null)
-            {
-                return;
-            }
-
-            List<Character> selected = new List<Character>();
-
-            float minDist = float.MaxValue;
-            Character minDistCha = null;
-            for (int i = 0; i < scn.GetCharacterCount(); ++i)
-            {
-                Character c = scn.GetCharacterByIndex(i);
-
-                if (searchTargetType == SearchTargetType.Passive)
-                {
-                    continue;
-                }
-                if (searchTargetType == SearchTargetType.ActiveEnemy
-                    && !CampSystem.IsEnemy(c, mNPC))
-                {
-                    continue;
-                }
-                if (searchTargetType == SearchTargetType.ActiveFriend
-                    && !CampSystem.IsFriend(c, mNPC))
-                {
-                    continue;
-                }
-
-                Vector3 d = c.Position - mNPC.Position;
-                d.y = 0.0f;
-                float dist = d.Length();
-                if (minDist > dist)
-                {
-                    minDist = dist;
-                    minDistCha = c;
-                }
-
-                if (dist > npcAI.searchTargetDist)
-                    continue;
-                selected.Add(c);
-            }
-
-            Character target = SearchTarget(searchTargetCondition, selected, minDistCha);
-
-            mNPC.SetTarget(target);
-
-            if (target != null)
-            {
-                mNPC.mBehaviourMachine.SetBehaviour(BehaviourType.UseSkill, mContext);
-            }
-        }
-
-        Character SearchTarget(SearchTargetCondition condition, List<Character> characters, Character nearest)
-        {
-            if (SearchTargetCondition.Random == condition)
-            {
-                int index = Mathf.RandRange(0, characters.Count - 1);
-                return characters[index];
-            }
-
-            float maxFloatValue = float.MinValue;
-            int maxIntValue = int.MinValue;
-            int minIntValue = int.MaxValue;
-            Character target = nearest;
-            for (int i = 0; i < characters.Count; ++i)
-            {
-                Character c = characters[i];
-                switch (condition)
-                {
-                    case SearchTargetCondition.Farest:
-                        {
-                            Vector3 d = c.Position - mNPC.Position;
-                            d.y = 0.0f;
-                            float dist = d.Length();
-                            if (dist > maxFloatValue)
-                            {
-                                maxFloatValue = dist;
-                                target = c;
-                            }
-                        }
-                        break;
-                    case SearchTargetCondition.HateHighest:
-                        {
-                            int hate = HateSystem.Instance.GetHate(c, mNPC);
-                            if (hate == 0)
-                            {
-                                break;
-                            }
-                            if (maxIntValue < hate)
-                            {
-                                maxIntValue = hate;
-                                target = c;
-                            }
-                        }
-                        break;
-                    case SearchTargetCondition.LessHP:
-                        {
-                            int hp = c.HP;
-                            if (hp == 0)
-                            {
-                                break;
-                            }
-                            if (minIntValue > hp)
-                            {
-                                minIntValue = hp;
-                                target = c;
-                            }
-                        }
-                        break;
-                    case SearchTargetCondition.MostHP:
-                        {
-                            int hp = c.HP;
-                            if (hp == 0)
-                            {
-                                break;
-                            }
-                            if (maxIntValue < hp)
-                            {
-                                minIntValue = hp;
-                                target = c;
-                            }
-                        }
-                        break;
-                }
-            }
-            return target;
         }
 
         NormalBehaviourPhase mPhase = NormalBehaviourPhase.PatrolInterval;

@@ -60,6 +60,7 @@ public class excel_npc_ai : ExcelBase<excel_npc_ai>
     public float skillMaxInterval;
     public int disoverlap;
     public int[] skillAI;
+    public float offFightDist;
 }
 
 public class excel_skill_ai : ExcelBase<excel_skill_ai>
