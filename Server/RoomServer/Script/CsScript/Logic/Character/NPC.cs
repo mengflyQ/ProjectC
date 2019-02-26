@@ -28,6 +28,7 @@ public partial class NPC : Character
         }
 
         InitStateMachine();
+        InitNPCAtb();
     }
 
     public override void Update()

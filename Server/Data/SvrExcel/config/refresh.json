@@ -4,6 +4,7 @@
     {"name": "name", "type": "string"},
 	{"name": "type", "type": "int"},
 	{"name": "chaListID", "type": "int"},
+	{"name": "chaAtbID", "type": "int"},
 	{"name": "birthpoint", "type": "string[]"},
 	{"name": "refreshType", "type": "int"},
 	{"name": "refreshData", "type": "int[]"},

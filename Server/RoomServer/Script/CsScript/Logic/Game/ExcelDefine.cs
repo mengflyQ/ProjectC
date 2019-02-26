@@ -16,6 +16,7 @@ public class excel_refresh : ExcelBase<excel_refresh>
     public string name;
     public int type;
     public int chaListID;
+    public int chaAtbID;
     public string[] birthpoint;
     public int refreshType;
     public int[] refreshData;
@@ -43,6 +44,8 @@ public class excel_cha_list : ExcelBase<excel_cha_list>
     public float[] scale;
     public float radius;
     public int campID;
+    public int deadType;
+    public int[] deadData;
 }
 
 public class excel_npc_ai : ExcelBase<excel_npc_ai>

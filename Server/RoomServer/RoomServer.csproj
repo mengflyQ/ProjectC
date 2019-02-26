@@ -163,6 +163,7 @@
     <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\NormalBehaviour.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\OffFightBehaviour.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPCAI\NPCBehaviours\UseSkillBehaviour.cs" />
+    <Compile Include="Script\CsScript\Logic\Character\NPC_Atb.cs" />
     <Compile Include="Script\CsScript\Logic\Character\NPC_StateMachine.cs" />
     <Compile Include="Script\CsScript\Logic\Fight\HateSystem.cs" />
     <Compile Include="Script\CsScript\Logic\Game\RefreshSystem.cs" />

@@ -17,6 +17,15 @@ public enum CharacterEventType
     OnTargetChg,
 }
 
+public enum DeadType
+{
+    Alive,
+    Kill,
+    Fadeout,
+    Dissolve,
+    Vanish
+}
+
 public partial class Character : GameObject
 {
     public Character() : base()
