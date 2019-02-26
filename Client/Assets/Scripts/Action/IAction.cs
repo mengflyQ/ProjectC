@@ -4,17 +4,16 @@ using System.Collections.Generic;
 public enum ChaActionType
 {
     SkillMove,
+    Dead,
     Count
 }
 
 public partial class IAction
 {
-    public IAction()
+    public IAction(ChaActionType type)
     {
-        
+        mType = type;
     }
-
-    public virtual void SetType(ChaActionType etype) { mType = etype; }
 
     public virtual void Enter() { }
 

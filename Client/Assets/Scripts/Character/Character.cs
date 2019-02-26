@@ -36,6 +36,15 @@ public enum OptType
     Count
 }
 
+public enum DeadType
+{
+    Alive,
+    Kill,
+    Fadeout,
+    Dissolve,
+    Vanish
+}
+
 public partial class Character : MonoBehaviour
 {
 	void Awake()
@@ -47,6 +56,7 @@ public partial class Character : MonoBehaviour
 	{
         Initialize();
         OnInitMove();
+        InitGraphic();
 
         NetWork.SendPacket(CTS.CTS_ChaFinishInit, gid, null);
         MessageSystem.Instance.MsgDispatch(MessageType.InitHeadBar, this);
@@ -55,6 +65,11 @@ public partial class Character : MonoBehaviour
     private void OnDestroy()
     {
         Uninitialize();
+    }
+
+    public void Destroy()
+    {
+        GameObject.Destroy(this);
     }
 
     protected virtual void Initialize()
@@ -167,6 +182,13 @@ public partial class Character : MonoBehaviour
     {
         int mask = mCannotFlag[(int)flag];
         return mask != 0;
+    }
+
+    public void SetDead(DeadType deadType)
+    {
+        DeadAction deadAction = IAction.CreateAction<DeadAction>();
+        deadAction.Init(this, deadType);
+        AddAction(deadAction);
     }
 
     public float Radius

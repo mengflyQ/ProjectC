@@ -26,6 +26,7 @@ public class excel_cha_list : ExcelBase<excel_cha_list>
     public float[] scale;
     public float radius;
     public int campID;
+    public float deadAnimTime;
 }
 
 public class excel_anim_list : ExcelBase<excel_anim_list>

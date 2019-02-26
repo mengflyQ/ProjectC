@@ -174,7 +174,7 @@ public static class SkillEventRegister
         if (type == SkillMoveDataType.MoveType1)
         {
             float time = (float)e.evnetParam2 * 0.001f;
-            SkillMove skillMove = IAction.CreateAction<SkillMove>(ChaActionType.SkillMove);
+            SkillMove skillMove = IAction.CreateAction<SkillMove>();
             skillMove.Init1(cha, context.TargetPos, time);
             cha.AddAction(skillMove);
         }
@@ -185,7 +185,7 @@ public static class SkillEventRegister
 
             Vector3 dir = context.TargetPos - cha.Position;
 
-            SkillMove skillMove = IAction.CreateAction<SkillMove>(ChaActionType.SkillMove);
+            SkillMove skillMove = IAction.CreateAction<SkillMove>();
             skillMove.Init2(cha, dir, speed, time);
             cha.AddAction(skillMove);
         }
