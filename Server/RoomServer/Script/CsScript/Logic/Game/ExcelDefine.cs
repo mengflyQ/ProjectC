@@ -44,8 +44,7 @@ public class excel_cha_list : ExcelBase<excel_cha_list>
     public float[] scale;
     public float radius;
     public int campID;
-    public int deadType;
-    public int[] deadData;
+    public float deadAnimTime;
 }
 
 public class excel_npc_ai : ExcelBase<excel_npc_ai>

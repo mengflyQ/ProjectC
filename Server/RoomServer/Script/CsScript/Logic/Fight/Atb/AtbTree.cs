@@ -77,6 +77,8 @@ public class AtbTree
         node.SetValue(value);
         node.Dirty = true;
         node.UpdateAtbTreeUp();
+
+        mCharacter.OnAtbChg(atb, oldValue, value);
     }
 
     public int GetAtb(AtbType atb)
@@ -98,6 +100,11 @@ public class AtbTree
         }
         int v = node.GetValue();
         return (float)v * 0.0001f;
+    }
+
+    void OnAtbChg(AtbType atb, int oldValue, int newValue)
+    {
+
     }
 
     public void PacketToMsg()

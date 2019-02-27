@@ -15,6 +15,7 @@ public enum CharacterType
 public enum CharacterEventType
 {
     OnTargetChg,
+    OnAtbChg,
 }
 
 public enum DeadType
@@ -121,6 +122,23 @@ public partial class Character : GameObject
         return mCurSkill;
     }
 
+    public void SetDead(DeadType type)
+    {
+        DeadAction deadAcion = IAction.CreateAction<DeadAction>();
+        deadAcion.Init(this, type);
+        AddAction(deadAcion);
+
+        DeadMsg msg = new DeadMsg();
+        msg.gid = gid;
+        msg.deadType = (byte)type;
+        msg.position = Vector3Packat.FromVector3(Position);
+        for (int i = 0; i < mScene.GetPlayerCount(); ++i)
+        {
+            Player player = mScene.GetPlayerByIndex(i);
+            NetWork.NotifyMessage<DeadMsg>(player.UserID, STC.STC_Dead, msg);
+        } 
+    }
+
     public bool IsPlayer()
     {
         return Type == CharacterType.Player;
@@ -201,6 +219,6 @@ public partial class Character : GameObject
     protected float mSpeed;
     private bool mPosDirty = true;
     protected Skill mCurSkill = null;
-    public delegate void OnEvent(CharacterEventType evtType, Character self);
+    public delegate void OnEvent(CharacterEventType evtType, Character self, params object[] datas);
     public OnEvent mEvent = null;
 }

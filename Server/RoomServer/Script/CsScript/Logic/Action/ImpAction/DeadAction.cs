@@ -11,11 +11,10 @@ public class DeadAction : IAction
 
     }
 
-    public void Init(Character self, DeadType deadType, int[] datas)
+    public void Init(Character self, DeadType deadType)
     {
         mSelf = self;
         mDeadType = deadType;
-        mDatas = datas;
     }
 
     public override void Enter()
@@ -37,7 +36,7 @@ public class DeadAction : IAction
             case DeadType.Dissolve:
                 {
                     float time = mStartTime - Time.ElapsedSeconds;
-                    float duration = (float)mDatas[0] * 0.001f;
+                    float duration = 3.0f;
                     if (time > duration)
                     {
                         return false;
@@ -47,7 +46,7 @@ public class DeadAction : IAction
             case DeadType.Kill:
                 {
                     float time = mStartTime - Time.ElapsedSeconds;
-                    float duration = (float)(mDatas[0] + mDatas[1]) * 0.001f;
+                    float duration = mSelf.mChaList.deadAnimTime + 3.0f;
                     if (time > duration)
                     {
                         return false;
@@ -66,6 +65,4 @@ public class DeadAction : IAction
     Character mSelf;
     DeadType mDeadType;
     float mStartTime;
-
-    int[] mDatas;
 }

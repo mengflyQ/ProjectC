@@ -28,6 +28,17 @@ public partial class Character : GameObject
         mAtb.PacketToMsg();
     }
 
+    public void OnAtbChg(AtbType atb, int oldValue, int newValue)
+    {
+        if (atb == AtbType.HP)
+        {
+            if (newValue <= 0)
+            {
+                SetDead(DeadType.Kill);
+            }
+        }
+    }
+
     AtbTree mAtb = null;
 
     public int HP

@@ -39,6 +39,7 @@ public enum STC
     STC_SetPos              = 2009,
     STC_RefreshNPC          = 2010,
     STC_SearchMove          = 2011,
+    STC_Dead                = 2012,
 }
 
 public enum STS
