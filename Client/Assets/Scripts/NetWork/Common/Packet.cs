@@ -314,3 +314,14 @@ public class SearchMoveMsg
     [ProtoMember(5)]
     public float radius;
 }
+
+[Serializable, ProtoContract]
+public class DeadMsg
+{
+    [ProtoMember(1)]
+    public int gid;
+    [ProtoMember(2)]
+    public Vector3Packat position;
+    [ProtoMember(3)]
+    public byte deadType;
+}

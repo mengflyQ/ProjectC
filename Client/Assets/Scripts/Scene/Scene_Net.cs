@@ -240,6 +240,18 @@ public partial class Scene
         }
     }
 
+    void OnDead(byte[] data)
+    {
+        DeadMsg msg = ProtoBufUtils.Deserialize<DeadMsg>(data);
+        Character cha = GetCharacter(msg.gid);
+        if (cha == null)
+            return;
+        cha.Position = msg.position.ToVector3();
+        DeadType deadType = (DeadType)msg.deadType;
+
+        cha.SetDead(deadType);
+    }
+
     void InitializeNet()
     {
         NetWork.RegisterNotify(STC.STC_StartClienGame, OnInitPlayers);
@@ -252,6 +264,7 @@ public partial class Scene
         NetWork.RegisterNotify(STC.STC_SetPos, OnSetPos);
         NetWork.RegisterNotify(STC.STC_RefreshNPC, NPCBorn);
         NetWork.RegisterNotify(STC.STC_SearchMove, SearchMove);
+        NetWork.RegisterNotify(STC.STC_Dead, OnDead);
     }
 
     void UninitializeNet()
@@ -266,5 +279,6 @@ public partial class Scene
         NetWork.UnregisterNotify(STC.STC_SetPos, OnSetPos);
         NetWork.UnregisterNotify(STC.STC_RefreshNPC, NPCBorn);
         NetWork.UnregisterNotify(STC.STC_SearchMove, SearchMove);
+        NetWork.UnregisterNotify(STC.STC_Dead, OnDead);
     }
 }

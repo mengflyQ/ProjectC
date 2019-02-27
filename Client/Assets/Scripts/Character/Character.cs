@@ -12,6 +12,7 @@ public enum CharacterType
 public enum CharacterEventType
 {
     OnTargetChg,
+    OnAtbChg,
 }
 
 public enum CannotFlag
@@ -244,7 +245,7 @@ public partial class Character : MonoBehaviour
 
     private int[] mCannotFlag = new int[(int)CannotFlag.Count];
 
-    public delegate void OnEvent(CharacterEventType evtType, Character self);
+    public delegate void OnEvent(CharacterEventType evtType, Character self, params object[] datas);
     public OnEvent mEvent = null;
 
     public UIHeadBar headBar = null;

@@ -128,6 +128,11 @@ public partial class Character : MonoBehaviour
         {
             mAtbs[atb] = value;
         }
+        if (mEvent != null)
+        {
+            mEvent(CharacterEventType.OnAtbChg, this, atb, oldValue, value);
+        }
+        OnAtbChg(atb, oldValue, value);
     }
 
     public int GetAtb(AtbType atb)
@@ -149,6 +154,17 @@ public partial class Character : MonoBehaviour
         }
         float pct = (float)v * 0.0001f;
         return pct;
+    }
+
+    void OnAtbChg(AtbType atb, int oldValue, int newValue)
+    {
+        if (atb == AtbType.HP)
+        {
+            if (newValue <= 0)
+            {
+                SetDead(DeadType.Kill);
+            }
+        }
     }
 
     public Dictionary<AtbType, int> mAtbs = new Dictionary<AtbType, int>();
