@@ -70,7 +70,23 @@ public partial class Character : GameObject
         Speed = 0.0f;
         if (IsSearchMoving())
         {
-            StopSearchMove(sync);
+            StopSearchMove(false);
+        }
+
+        if (sync)
+        {
+            SearchMoveMsg msg = new SearchMoveMsg();
+            msg.gid = gid;
+            msg.position = Vector3Packat.FromVector3(Position);
+            msg.targetPos = Vector3Packat.FromVector3(Position);
+            msg.radius = 0.0f;
+            msg.moveType = (byte)SearchMoveMsg.MoveType.StopMove;
+
+            for (int i = 0; i < mScene.GetPlayerCount(); ++i)
+            {
+                Player player = mScene.GetPlayerByIndex(i);
+                NetWork.NotifyMessage<SearchMoveMsg>(player.UserID, STC.STC_SearchMove, msg);
+            }
         }
     }
 
@@ -84,6 +100,22 @@ public partial class Character : GameObject
         Speed = 0.0f;
         mPath = null;
         mCurrentNodeIndex = 0;
+
+        if (sync)
+        {
+            SearchMoveMsg msg = new SearchMoveMsg();
+            msg.gid = gid;
+            msg.position = Vector3Packat.FromVector3(Position);
+            msg.targetPos = Vector3Packat.FromVector3(Position);
+            msg.radius = 0.0f;
+            msg.moveType = (byte)SearchMoveMsg.MoveType.StopSearch;
+
+            for (int i = 0; i < mScene.GetPlayerCount(); ++i)
+            {
+                Player player = mScene.GetPlayerByIndex(i);
+                NetWork.NotifyMessage<SearchMoveMsg>(player.UserID, STC.STC_SearchMove, msg);
+            }
+        }
     }
 
     public void SearchMove(Vector3 pos, float destRadius = 0.3f, bool sync = true)
@@ -111,7 +143,7 @@ public partial class Character : GameObject
             msg.position = Vector3Packat.FromVector3(Position);
             msg.targetPos = Vector3Packat.FromVector3(pos);
             msg.radius = destRadius;
-            msg.moveType = 0;
+            msg.moveType = (byte)SearchMoveMsg.MoveType.SearchMove;
 
             for (int i = 0; i < mScene.GetPlayerCount(); ++i)
             {
@@ -132,6 +164,22 @@ public partial class Character : GameObject
         mCurrentNodeIndex = 0;
         Speed = 0.0f;
         mDestRadius = destRadius;
+
+        if (sync)
+        {
+            SearchMoveMsg msg = new SearchMoveMsg();
+            msg.gid = gid;
+            msg.position = Vector3Packat.FromVector3(Position);
+            msg.targetPos = Vector3Packat.FromVector3(pos);
+            msg.radius = destRadius;
+            msg.moveType = (byte)SearchMoveMsg.MoveType.LineMove;
+
+            for (int i = 0; i < mScene.GetPlayerCount(); ++i)
+            {
+                Player player = mScene.GetPlayerByIndex(i);
+                NetWork.NotifyMessage<SearchMoveMsg>(player.UserID, STC.STC_SearchMove, msg);
+            }
+        }
     }
 
     protected void UpdateVisibleInfo()

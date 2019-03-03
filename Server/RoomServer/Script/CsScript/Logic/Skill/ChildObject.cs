@@ -88,7 +88,7 @@ public class ChildObject : GameObject
         }
         DoEvent(SkillEventTriggerType.FinalEnd);
         Reset();
-        Destroy(this);
+        Destroy();
         // .Despawn(transform);
     }
 

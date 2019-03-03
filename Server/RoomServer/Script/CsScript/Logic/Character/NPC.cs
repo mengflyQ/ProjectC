@@ -31,11 +31,27 @@ public partial class NPC : Character
         InitNPCAtb();
     }
 
+    public override void Destroy()
+    {
+        base.Destroy();
+        mScene.DelNPC(this);
+    }
+
     public override void Update()
     {
         base.Update();
 
         UpdateBehaviour();
+    }
+
+    public override void OnDead(DeadType type)
+    {
+        base.OnDead(type);
+
+        if (mBehaviourMachine != null)
+        {
+            mBehaviourMachine.DoEvent(NPCFramework.BehaviourEvent.OnDead);
+        }
     }
 
     public excel_refresh mRefreshList = null;

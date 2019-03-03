@@ -7,6 +7,18 @@ namespace NPCFramework
 {
     public class BetweenSkillBehaviour : BaseBehaviour
     {
+        public override void DoEvent(BehaviourEvent e, params object[] objs)
+        {
+            switch (e)
+            {
+                case BehaviourEvent.OnDead:
+                    {
+                        mNPC.mBehaviourMachine.SetBehaviour(BehaviourType.Normal, mContext);
+                    }
+                    break;
+            }
+        }
+
         public override void Enter()
         {
             mDuration = Mathf.RandRange(mNPC.mNpcAI.skillMinInterval, mNPC.mNpcAI.skillMaxInterval);

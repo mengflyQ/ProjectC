@@ -204,6 +204,14 @@ public class SearchMoveMsg
     public Vector3Packat targetPos;
     [ProtoMember(5)]
     public float radius;
+
+    public enum MoveType
+    {
+        SearchMove,
+        LineMove,
+        StopSearch,
+        StopMove
+    }
 }
 
 [Serializable, ProtoContract]

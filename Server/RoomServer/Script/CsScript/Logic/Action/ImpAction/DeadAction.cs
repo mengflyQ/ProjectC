@@ -21,6 +21,14 @@ public class DeadAction : IAction
     {
         mStartTime = Time.ElapsedSeconds;
 
+        mSelf.StopMove(false);
+
+        mSelf.SetCannotFlag(CannotFlag.CannotControl, OptType.Dead, true);
+        mSelf.SetCannotFlag(CannotFlag.CannotMove, OptType.Dead, true);
+        mSelf.SetCannotFlag(CannotFlag.CannotSkill, OptType.Dead, true);
+        mSelf.SetCannotFlag(CannotFlag.CannotSelected, OptType.Dead, true);
+        mSelf.SetCannotFlag(CannotFlag.CannotBeHit, OptType.Dead, true);
+
         mSelf.SetTarget(null);
 
         HateSystem.Instance.Clear(mSelf);
@@ -35,7 +43,7 @@ public class DeadAction : IAction
             case DeadType.Fadeout:
             case DeadType.Dissolve:
                 {
-                    float time = mStartTime - Time.ElapsedSeconds;
+                    float time = Time.ElapsedSeconds - mStartTime;
                     float duration = 3.0f;
                     if (time > duration)
                     {
@@ -45,7 +53,7 @@ public class DeadAction : IAction
                 break;
             case DeadType.Kill:
                 {
-                    float time = mStartTime - Time.ElapsedSeconds;
+                    float time = Time.ElapsedSeconds - mStartTime;
                     float duration = mSelf.mChaList.deadAnimTime + 3.0f;
                     if (time > duration)
                     {
@@ -59,7 +67,13 @@ public class DeadAction : IAction
 
     public override void Exit()
     {
-        
+        mSelf.SetCannotFlag(CannotFlag.CannotControl, OptType.Dead, false);
+        mSelf.SetCannotFlag(CannotFlag.CannotMove, OptType.Dead, false);
+        mSelf.SetCannotFlag(CannotFlag.CannotSkill, OptType.Dead, false);
+        mSelf.SetCannotFlag(CannotFlag.CannotSelected, OptType.Dead, false);
+        mSelf.SetCannotFlag(CannotFlag.CannotBeHit, OptType.Dead, false);
+
+        mSelf.Destroy();
     }
 
     Character mSelf;

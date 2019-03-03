@@ -14,6 +14,9 @@ public enum CharacterType
 
 public enum CharacterEventType
 {
+    OnInit,
+    OnDead,
+    OnDestory,
     OnTargetChg,
     OnAtbChg,
 }
@@ -40,6 +43,27 @@ public partial class Character : GameObject
         InitAtb();
         InitFlag();
         InitMove();
+
+        if (mEvent != null)
+        {
+            mEvent(CharacterEventType.OnInit, this);
+        }
+    }
+
+    protected virtual void Uninitialize()
+    {
+
+    }
+
+    public override void Destroy()
+    {
+        Uninitialize();
+
+        if (mEvent != null)
+        {
+            mEvent(CharacterEventType.OnDestory, this);
+        }
+        base.Destroy();
     }
 
     public override void Update()
@@ -136,7 +160,28 @@ public partial class Character : GameObject
         {
             Player player = mScene.GetPlayerByIndex(i);
             NetWork.NotifyMessage<DeadMsg>(player.UserID, STC.STC_Dead, msg);
-        } 
+        }
+
+        if (type != DeadType.Alive)
+        {
+            IsDead = true;
+        }
+        else
+        {
+            IsDead = false;
+        }
+
+        OnDead(type);
+
+        if (mEvent != null)
+        {
+            mEvent(CharacterEventType.OnDead, this);
+        }
+    }
+
+    public virtual void OnDead(DeadType type)
+    {
+
     }
 
     public bool IsPlayer()

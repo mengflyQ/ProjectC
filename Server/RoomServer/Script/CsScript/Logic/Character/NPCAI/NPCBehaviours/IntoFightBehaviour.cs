@@ -7,6 +7,18 @@ namespace NPCFramework
 {
     public class IntoFightBehaviour : BaseBehaviour
     {
+        public override void DoEvent(BehaviourEvent e, params object[] objs)
+        {
+            switch (e)
+            {
+                case BehaviourEvent.OnDead:
+                    {
+                        mNPC.mBehaviourMachine.SetBehaviour(BehaviourType.Normal, mContext);
+                    }
+                    break;
+            }
+        }
+
         public override void LogicTick()
         {
             if (mContext.CanOffFight())

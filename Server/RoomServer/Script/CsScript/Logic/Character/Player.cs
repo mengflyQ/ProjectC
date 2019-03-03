@@ -23,6 +23,12 @@ public partial class Player : Character
         InitPlayerAtb();
     }
 
+    public override void Destroy()
+    {
+        base.Destroy();
+        mScene.DelPlayer(this);
+    }
+
     public void OnReplace()
     {
         if (mSession != null)

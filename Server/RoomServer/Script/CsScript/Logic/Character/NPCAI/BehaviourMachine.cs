@@ -16,7 +16,7 @@ namespace NPCFramework
 
     public enum BehaviourEvent
     {
-
+        OnDead,
     }
 
     public class BehaviourMachine

@@ -11,6 +11,11 @@ public class GameObject
         gameObjects.Add(this);
     }
 
+    public virtual void Destroy()
+    {
+        Destroy(this);
+    }
+
     public static void Destroy(GameObject go)
     {
         gameObjects.Remove(go);
