@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<page name="公共">
+		<trigger filename="trigger_list_cmn" min="1" max="3000"/>
+	</page>
+	<page name="公共">
+		<trigger filename="trigger_list_scn" min="3001" max="6000"/>
+	</page>
+	<page name="主角">
+		<trigger filename="trigger_list_player" min="6001" max="9000"/>
+	</page>
+	<page name="NPC">
+		<trigger filename="trigger_list_npc" min="9001" max="12000"/>
+	</page>
+	<page name="怪物">
+		<trigger filename="trigger_list_monster" min="12001" max="15000"/>
+	</page>
+</root>

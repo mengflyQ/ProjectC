@@ -75,10 +75,12 @@ public class UIHeadBar : MonoBehaviour
             tween.transform.parent = uiRoot.mHeadTextPool.transform;
             uiRoot.mHeadTextPool.Despawn(tween.transform);
             tween.onFinished.RemoveAllListeners();
+            headBar.mHeadTexts.Remove(tween.transform);
         }
 
         public TweenBase tween;
         public UIRoot3D uiRoot;
+        public UIHeadBar headBar;
     }
 
     public void CreateHeadText(HPChgType hurtType, int hurt)
@@ -98,6 +100,7 @@ public class UIHeadBar : MonoBehaviour
         HeadTextTweenCB cb = new HeadTextTweenCB();
         cb.tween = tween;
         cb.uiRoot = UIRoot;
+        cb.headBar = this;
         tween.onFinished.AddListener(cb.OnTweenFinish);
 
         Text text = t.GetComponent<Text>();
@@ -114,6 +117,27 @@ public class UIHeadBar : MonoBehaviour
             text.color = Color.green;
         }
         text.text = string.Format("{0}", hurt);
+
+        mHeadTexts.Add(t);
+    }
+
+    public void Destroy()
+    {
+        for (int i = 0; i < mHeadTexts.Count; ++i)
+        {
+            Transform t = mHeadTexts[i];
+            if (t == null)
+                continue;
+            TweenBase tween = t.GetComponent<TweenBase>();
+            if (tween != null)
+            {
+                tween.onFinished.RemoveAllListeners();
+            }
+            t.parent = UIRoot.mHeadTextPool.transform;
+            UIRoot.mHeadTextPool.Despawn(t);
+        }
+        mHeadTexts.Clear();
+        Destroy(gameObject);
     }
 
     public Camera UICamera
@@ -156,4 +180,5 @@ public class UIHeadBar : MonoBehaviour
     private List<Image> displaySeperators = new List<Image>();
 
     private Image mCurHpBar;
+    private List<Transform> mHeadTexts = new List<Transform>();
 }

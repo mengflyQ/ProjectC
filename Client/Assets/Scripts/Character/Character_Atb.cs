@@ -158,13 +158,6 @@ public partial class Character : MonoBehaviour
 
     void OnAtbChg(AtbType atb, int oldValue, int newValue)
     {
-        if (atb == AtbType.HP)
-        {
-            if (newValue <= 0)
-            {
-                SetDead(DeadType.Kill);
-            }
-        }
     }
 
     public Dictionary<AtbType, int> mAtbs = new Dictionary<AtbType, int>();

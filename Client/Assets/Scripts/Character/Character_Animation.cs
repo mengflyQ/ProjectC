@@ -332,6 +332,14 @@ public partial class Character : MonoBehaviour
         StopClip(animList.name);
     }
 
+    public void StopAnim()
+    {
+        if (mAnimation != null)
+        {
+            mAnimation.Stop();
+        }
+    }
+
     public void SetAnimTime(AnimPlayType type, float time)
     {
         string animName = mCurAnimNames[(int)type];

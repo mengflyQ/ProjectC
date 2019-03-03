@@ -7,7 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
 
-public class SkillExcelDomain
+public class ExcelDomain
 {
     public string fileName;
     public int minID;
@@ -17,11 +17,11 @@ public class SkillExcelDomain
 public class SkillExcelDomainSet
 {
     public string domainName = string.Empty;
-    public SkillExcelDomain skillDomain = new SkillExcelDomain();
-    public SkillExcelDomain skillStageDomain = new SkillExcelDomain();
-    public SkillExcelDomain skillHitDomain = new SkillExcelDomain();
-    public SkillExcelDomain skillEventDomain = new SkillExcelDomain();
-    public SkillExcelDomain childObjectDomain = new SkillExcelDomain();
+    public ExcelDomain skillDomain = new ExcelDomain();
+    public ExcelDomain skillStageDomain = new ExcelDomain();
+    public ExcelDomain skillHitDomain = new ExcelDomain();
+    public ExcelDomain skillEventDomain = new ExcelDomain();
+    public ExcelDomain childObjectDomain = new ExcelDomain();
 }
 
 public enum SkillEditorMode
@@ -101,7 +101,7 @@ public class SkillEditor : EditorWindow
 
         string xmlPath = Application.dataPath;
         xmlPath = xmlPath.Substring(0, xmlPath.LastIndexOf("Assets"));
-        xmlPath += "Tools/SkillEditor/skill_excel_domain.xml";
+        xmlPath += "Tools/ExcelDomains/skill_excel_domain.xml";
         string txtXml = string.Empty;
         using (FileStream fsRead = new FileStream(xmlPath, FileMode.Open))
         {
@@ -128,7 +128,7 @@ public class SkillEditor : EditorWindow
             if (domainList.Count > 0)
             {
                 XmlElement domainXml = domainList[0] as XmlElement;
-                SkillExcelDomain domain = new SkillExcelDomain();
+                ExcelDomain domain = new ExcelDomain();
                 domain.fileName = domainXml.GetAttribute("filename");
                 int.TryParse(domainXml.GetAttribute("min"), out domain.minID);
                 int.TryParse(domainXml.GetAttribute("max"), out domain.maxID);
@@ -139,7 +139,7 @@ public class SkillEditor : EditorWindow
             if (domainList.Count > 0)
             {
                 XmlElement domainXml = domainList[0] as XmlElement;
-                SkillExcelDomain domain = new SkillExcelDomain();
+                ExcelDomain domain = new ExcelDomain();
                 domain.fileName = domainXml.GetAttribute("filename");
                 int.TryParse(domainXml.GetAttribute("min"), out domain.minID);
                 int.TryParse(domainXml.GetAttribute("max"), out domain.maxID);
@@ -150,7 +150,7 @@ public class SkillEditor : EditorWindow
             if (domainList.Count > 0)
             {
                 XmlElement domainXml = domainList[0] as XmlElement;
-                SkillExcelDomain domain = new SkillExcelDomain();
+                ExcelDomain domain = new ExcelDomain();
                 domain.fileName = domainXml.GetAttribute("filename");
                 int.TryParse(domainXml.GetAttribute("min"), out domain.minID);
                 int.TryParse(domainXml.GetAttribute("max"), out domain.maxID);
@@ -161,7 +161,7 @@ public class SkillEditor : EditorWindow
             if (domainList.Count > 0)
             {
                 XmlElement domainXml = domainList[0] as XmlElement;
-                SkillExcelDomain domain = new SkillExcelDomain();
+                ExcelDomain domain = new ExcelDomain();
                 domain.fileName = domainXml.GetAttribute("filename");
                 int.TryParse(domainXml.GetAttribute("min"), out domain.minID);
                 int.TryParse(domainXml.GetAttribute("max"), out domain.maxID);
@@ -172,7 +172,7 @@ public class SkillEditor : EditorWindow
             if (domainList.Count > 0)
             {
                 XmlElement domainXml = domainList[0] as XmlElement;
-                SkillExcelDomain domain = new SkillExcelDomain();
+                ExcelDomain domain = new ExcelDomain();
                 domain.fileName = domainXml.GetAttribute("filename");
                 int.TryParse(domainXml.GetAttribute("min"), out domain.minID);
                 int.TryParse(domainXml.GetAttribute("max"), out domain.maxID);
@@ -701,7 +701,7 @@ public class SkillEditor : EditorWindow
         SkillExcelDomainSet domainSet = mSkillDomain[mCurDomainIndex];
         if (domainSet == null)
             return -1;
-        SkillExcelDomain domain = domainSet.skillDomain;
+        ExcelDomain domain = domainSet.skillDomain;
         if (domain == null)
             return -1;
         int id = domain.minID;
@@ -727,7 +727,7 @@ public class SkillEditor : EditorWindow
         SkillExcelDomainSet domainSet = mSkillDomain[mCurDomainIndex];
         if (domainSet == null)
             return -1;
-        SkillExcelDomain domain = domainSet.childObjectDomain;
+        ExcelDomain domain = domainSet.childObjectDomain;
         if (domain == null)
             return -1;
         int id = domain.minID;
@@ -753,7 +753,7 @@ public class SkillEditor : EditorWindow
         SkillExcelDomainSet domainSet = mSkillDomain[mCurDomainIndex];
         if (domainSet == null)
             return -1;
-        SkillExcelDomain domain = domainSet.skillStageDomain;
+        ExcelDomain domain = domainSet.skillStageDomain;
         if (domain == null)
             return -1;
         int id = domain.minID;
@@ -779,7 +779,7 @@ public class SkillEditor : EditorWindow
         SkillExcelDomainSet domainSet = mSkillDomain[mCurDomainIndex];
         if (domainSet == null)
             return -1;
-        SkillExcelDomain domain = domainSet.skillEventDomain;
+        ExcelDomain domain = domainSet.skillEventDomain;
         if (domain == null)
             return -1;
         int id = domain.minID;
@@ -805,7 +805,7 @@ public class SkillEditor : EditorWindow
         SkillExcelDomainSet domainSet = mSkillDomain[mCurDomainIndex];
         if (domainSet == null)
             return -1;
-        SkillExcelDomain domain = domainSet.skillHitDomain;
+        ExcelDomain domain = domainSet.skillHitDomain;
         if (domain == null)
             return -1;
         int id = domain.minID;
@@ -1626,7 +1626,7 @@ public class SkillEditor : EditorWindow
         }
     }
 
-    bool Save(SkillExcelDomain domain, SkillEditorSaveType saveType)
+    bool Save(ExcelDomain domain, SkillEditorSaveType saveType)
     {
         string path = "Assets/Resources/Excel/skill/" + domain.fileName + ".txt";
         TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
@@ -1678,7 +1678,7 @@ public class SkillEditor : EditorWindow
         return true;
     }
 
-    void SaveSkill(SkillExcelDomain domain, ref StringBuilder skillExcelText)
+    void SaveSkill(ExcelDomain domain, ref StringBuilder skillExcelText)
     {
         for (int j = 0; j < excel_skill_list.Count; ++j)
         {
@@ -1704,7 +1704,7 @@ public class SkillEditor : EditorWindow
         }
     }
 
-    void SaveSkillStage(SkillExcelDomain domain, ref StringBuilder skillExcelText)
+    void SaveSkillStage(ExcelDomain domain, ref StringBuilder skillExcelText)
     {
         for (int j = 0; j < excel_skill_stage.Count; ++j)
         {
@@ -1722,7 +1722,7 @@ public class SkillEditor : EditorWindow
         }
     }
 
-    void SaveSkillHit(SkillExcelDomain domain, ref StringBuilder skillExcelText)
+    void SaveSkillHit(ExcelDomain domain, ref StringBuilder skillExcelText)
     {
         for (int j = 0; j < excel_skill_hit.Count; ++j)
         {
@@ -1745,7 +1745,7 @@ public class SkillEditor : EditorWindow
         }
     }
 
-    void SaveSkillEvent(SkillExcelDomain domain, ref StringBuilder skillExcelText)
+    void SaveSkillEvent(ExcelDomain domain, ref StringBuilder skillExcelText)
     {
         for (int j = 0; j < excel_skill_event.Count; ++j)
         {
@@ -1773,7 +1773,7 @@ public class SkillEditor : EditorWindow
         }
     }
 
-    void SaveChildObject(SkillExcelDomain domain, ref StringBuilder skillExcelText)
+    void SaveChildObject(ExcelDomain domain, ref StringBuilder skillExcelText)
     {
         for (int j = 0; j < excel_child_object.Count; ++j)
         {

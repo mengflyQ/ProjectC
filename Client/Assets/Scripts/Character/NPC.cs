@@ -7,4 +7,16 @@ public class NPC : Character
         base.Initialize();
         Type = CharacterType.NPC;
     }
+
+    public override void Destroy()
+    {
+        base.Destroy();
+
+        Scene curScn = SceneSystem.Instance.mCurrentScene;
+        if (curScn != null)
+        {
+            curScn.DelNPC(this);
+        }
+        Destroy(gameObject);
+    }
 }

@@ -8,6 +8,17 @@ public class Player : Character
         Type = CharacterType.Player;
     }
 
+    public override void Destroy()
+    {
+        base.Destroy();
+        Scene curScn = SceneSystem.Instance.mCurrentScene;
+        if (curScn != null)
+        {
+            curScn.DelPlayer(this);
+        }
+        Destroy(gameObject);
+    }
+
     public override void SetCannotFlag(CannotFlag flag, OptType type, bool cannot)
     {
         if (flag == CannotFlag.CannotControl && cannot)

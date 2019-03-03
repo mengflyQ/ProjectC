@@ -83,7 +83,7 @@ public partial class Scene
         }
     }
 
-    void TargetChgEvent(CharacterEventType evtType, Character self)
+    void TargetChgEvent(CharacterEventType evtType, Character self, params object[] datas)
     {
         if (evtType != CharacterEventType.OnTargetChg)
             return;
@@ -234,9 +234,21 @@ public partial class Scene
         if (cha == null)
             return;
         cha.Position = msg.position.ToVector3();
-        if (msg.moveType == 0)
+        if (msg.moveType == (byte)SearchMoveMsg.MoveType.SearchMove)
         {
             cha.SearchMove(msg.targetPos.ToVector3(), msg.radius, false);
+        }
+        else if (msg.moveType == (byte)SearchMoveMsg.MoveType.LineMove)
+        {
+            cha.LineMove(msg.targetPos.ToVector3(), msg.radius, false);
+        }
+        else if (msg.moveType == (byte)SearchMoveMsg.MoveType.StopMove)
+        {
+            cha.StopMove();
+        }
+        else if (msg.moveType == (byte)SearchMoveMsg.MoveType.StopSearch)
+        {
+            cha.StopSearchMove();
         }
     }
 

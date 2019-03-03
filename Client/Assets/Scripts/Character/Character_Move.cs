@@ -146,7 +146,7 @@ public partial class Character : MonoBehaviour
         mDestRadius = destRadius;
     }
 
-    public void StopMove()
+    public void StopMove(bool sync = true)
     {
         MoveSpeed = 0.0f;
         if (IsSearchMoving())
@@ -164,13 +164,16 @@ public partial class Character : MonoBehaviour
 
     protected void UpdateAnim()
     {
-        if (MoveSpeed > 0.0f)
+        if (!IsDead)
         {
-            PlayAnimation(2, AnimPlayType.Base, 1.0f, true);
-        }
-        else
-        {
-            PlayAnimation(1, AnimPlayType.Base, 1.0f, true);
+            if (MoveSpeed > 0.0f)
+            {
+                PlayAnimation(2, AnimPlayType.Base, 1.0f, true);
+            }
+            else
+            {
+                PlayAnimation(1, AnimPlayType.Base, 1.0f, true);
+            }
         }
     }
 
@@ -178,7 +181,7 @@ public partial class Character : MonoBehaviour
 	{
 		set
 		{
-			if (mDirection == value)
+			if (mDirection == value || IsDead)
 				return;
             Vector3 v = value;
             v.y = 0.0f;

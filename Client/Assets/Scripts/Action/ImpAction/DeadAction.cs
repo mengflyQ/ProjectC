@@ -19,6 +19,16 @@ public class DeadAction : IAction
     {
         mStartTime = Time.realtimeSinceStartup;
 
+        mSelf.StopAnim();
+
+        mSelf.StopMove(false);
+
+        mSelf.SetCannotFlag(CannotFlag.CannotControl, OptType.Dead, true);
+        mSelf.SetCannotFlag(CannotFlag.CannotMove, OptType.Dead, true);
+        mSelf.SetCannotFlag(CannotFlag.CannotSkill, OptType.Dead, true);
+        mSelf.SetCannotFlag(CannotFlag.CannotSelected, OptType.Dead, true);
+        mSelf.SetCannotFlag(CannotFlag.CannotBeHit, OptType.Dead, true);
+
         mSelf.SetTarget(null);
 
         switch (mDeadType)
@@ -37,7 +47,7 @@ public class DeadAction : IAction
         {
             case DeadType.Kill:
                 {
-                    float time = mStartTime - Time.realtimeSinceStartup;
+                    float time = Time.realtimeSinceStartup - mStartTime;
                     float animTime = mSelf.mChaList.deadAnimTime;
                     float tweenTime = 3.0f;
                     if (time <= animTime)
@@ -61,7 +71,7 @@ public class DeadAction : IAction
                 break;
             case DeadType.Fadeout:
                 {
-                    float time = mStartTime - Time.realtimeSinceStartup;
+                    float time = Time.realtimeSinceStartup - mStartTime;
                     float duration = 3.0f;
                     if (duration <= 0.0f)
                     {
@@ -80,7 +90,7 @@ public class DeadAction : IAction
                 break;
             case DeadType.Dissolve:
                 {
-                    float time = mStartTime - Time.realtimeSinceStartup;
+                    float time = Time.realtimeSinceStartup - mStartTime;
                     float duration = 3.0f;
                     if (time > duration)
                     {
@@ -107,6 +117,14 @@ public class DeadAction : IAction
                 }
                 break;
         }
+
+        mSelf.SetCannotFlag(CannotFlag.CannotControl, OptType.Dead, false);
+        mSelf.SetCannotFlag(CannotFlag.CannotMove, OptType.Dead, false);
+        mSelf.SetCannotFlag(CannotFlag.CannotSkill, OptType.Dead, false);
+        mSelf.SetCannotFlag(CannotFlag.CannotSelected, OptType.Dead, false);
+        mSelf.SetCannotFlag(CannotFlag.CannotBeHit, OptType.Dead, false);
+
+        mSelf.Destroy();
     }
 
     Character mSelf;

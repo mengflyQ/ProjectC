@@ -59,6 +59,24 @@ public partial class Scene
         return mCharacterList[index];
     }
 
+    public void DelPlayer(Player player)
+    {
+        mPlayersList.Remove(player);
+        mPlayers.Remove(player.gid);
+
+        mCharacterList.Remove(player);
+        mCharacters.Remove(player.gid);
+    }
+
+    public void DelNPC(NPC npc)
+    {
+        mNPCList.Remove(npc);
+        mNPCs.Remove(npc.gid);
+
+        mCharacterList.Remove(npc);
+        mCharacters.Remove(npc.gid);
+    }
+
     public excel_scn_list mScnLists = null;
 
     public List<Character> mCharacterList = new List<Character>();

@@ -11,6 +11,9 @@ public enum CharacterType
 
 public enum CharacterEventType
 {
+    OnInit,
+    OnDead,
+    OnDestory,
     OnTargetChg,
     OnAtbChg,
 }
@@ -23,6 +26,8 @@ public enum CannotFlag
     CannotSelected,
     CannotEnemySelected,
     CannotFriendSelected,
+    CannotHurtByMagic,
+    CannotHurtByPhysic,
     CannotBeHit,
 
     Count
@@ -33,6 +38,8 @@ public enum OptType
     Unknown,
     Skill,
     State,
+    AI,
+    Dead,
 
     Count
 }
@@ -68,8 +75,16 @@ public partial class Character : MonoBehaviour
         Uninitialize();
     }
 
-    public void Destroy()
+    public virtual void Destroy()
     {
+        if (mEvent != null)
+        {
+            mEvent(CharacterEventType.OnDestory, this);
+        }
+        if (headBar != null)
+        {
+            headBar.Destroy();
+        }
         GameObject.Destroy(this);
     }
 
@@ -82,6 +97,11 @@ public partial class Character : MonoBehaviour
         }
         InitAnim();
         InitAtb();
+
+        if (mEvent != null)
+        {
+            mEvent(CharacterEventType.OnInit, this);
+        }
     }
 
     protected virtual void Uninitialize()
@@ -187,9 +207,23 @@ public partial class Character : MonoBehaviour
 
     public void SetDead(DeadType deadType)
     {
+        if (deadType != DeadType.Alive)
+        {
+            IsDead = true;
+        }
+        else
+        {
+            IsDead = false;
+        }
+
         DeadAction deadAction = IAction.CreateAction<DeadAction>();
         deadAction.Init(this, deadType);
         AddAction(deadAction);
+
+        if (mEvent != null)
+        {
+            mEvent(CharacterEventType.OnDead, this);
+        }
     }
 
     public float Radius
