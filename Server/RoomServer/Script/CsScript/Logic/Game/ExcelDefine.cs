@@ -231,3 +231,28 @@ public class excel_can_not_flag : ExcelBase<excel_can_not_flag>
     public int canNotSkill;
     public int canNotSelected;
 }
+
+public class excel_trigger_list : ExcelBase<excel_trigger_list>
+{
+    public string name;
+    public int bindType;
+    public int[] bindParams;
+    public int triggerType;
+    public int[] triggerParams;
+    public int firstCondition;
+    public int[] conditions;
+    public int[] events;
+    public int trait;
+}
+
+public class excel_trigger_condition : ExcelBase<excel_trigger_condition>
+{
+    public int condition;
+    public int[] condParams;
+}
+
+public class excel_trigger_event : ExcelBase<excel_trigger_event>
+{
+    public int eventType;
+    public int[] eventParams;
+}

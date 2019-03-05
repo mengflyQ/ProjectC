@@ -266,4 +266,6 @@ public partial class Character : GameObject
     protected Skill mCurSkill = null;
     public delegate void OnEvent(CharacterEventType evtType, Character self, params object[] datas);
     public OnEvent mEvent = null;
+
+    public List<Trigger> mTriggers = new List<Trigger>();
 }

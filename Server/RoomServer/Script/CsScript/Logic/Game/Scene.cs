@@ -258,6 +258,8 @@ public class Scene
         }
 
         RefreshSystem.Instance.Refresh(this);
+
+        StartTime = Time.ElapsedSeconds;
     }
 
     public void Tick()
@@ -298,6 +300,12 @@ public class Scene
         get;
     }
 
+    public float StartTime
+    {
+        private set;
+        get;
+    }
+
     Dictionary<int, Character> mCharacters = new Dictionary<int, Character>();
     Dictionary<int, Player> mPlayers = new Dictionary<int, Player>();
     Dictionary<int, NPC> mNPCs = new Dictionary<int, NPC>();
@@ -305,6 +313,8 @@ public class Scene
     List<Character> mCharactersList = new List<Character>();
     List<Player> mPlayersList = new List<Player>();
     List<NPC> mNPCList = new List<NPC>();
+
+    public List<Trigger> mTriggers = new List<Trigger>();
 
     excel_scn_list mScnList = null;
     float mCellSize = 5.0f;
