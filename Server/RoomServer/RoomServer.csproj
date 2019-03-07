@@ -205,6 +205,11 @@
     <Compile Include="Script\CsScript\Logic\State\StateItems\StateItemModifyHp.cs" />
     <Compile Include="Script\CsScript\Logic\State\StateItem_Pool.cs" />
     <Compile Include="Script\CsScript\Logic\State\StateMgr.cs" />
+    <Compile Include="Script\CsScript\Logic\Trigger\Trigger.cs" />
+    <Compile Include="Script\CsScript\Logic\Trigger\TiggerSytem.cs" />
+    <Compile Include="Script\CsScript\Logic\Trigger\TriggerConditionRegister.cs" />
+    <Compile Include="Script\CsScript\Logic\Trigger\TriggerDefine.cs" />
+    <Compile Include="Script\CsScript\Logic\Trigger\TriggerEventReigster.cs" />
     <Compile Include="Script\CsScript\MainClass.cs" />
     <Compile Include="Script\CsScript\Common\CustomActionDispatcher.cs" />
     <Compile Include="Script\CsScript\Plugins\LitJson\IJsonWrapper.cs" />

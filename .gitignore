@@ -29,3 +29,4 @@ Release
 /Client/.vs/Client/v15/*.suo
 .vs
 /Server/RoomServer/*.user
+/Client/*.csproj
