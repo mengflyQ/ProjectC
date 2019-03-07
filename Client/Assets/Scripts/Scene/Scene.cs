@@ -27,6 +27,7 @@ public partial class Scene
         {
             UninitializeNet();
         }
+        mTriggers.Clear();
     }
 
     public Player GetPlayer(int uid)
@@ -86,4 +87,6 @@ public partial class Scene
     public List<NPC> mNPCList = new List<NPC>();
     public Dictionary<int, Player> mPlayers = new Dictionary<int, Player>();
     public Dictionary<int, NPC> mNPCs = new Dictionary<int, NPC>();
+
+    public List<Trigger> mTriggers = new List<Trigger>();
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ProtoBuf;
+using System.Collections.Generic;
 using ZyGames.Framework.Common.Serialization;
 
 public enum CharacterType
@@ -110,6 +111,7 @@ public partial class Character : MonoBehaviour
         {
             HingePoints.Uninitialize();
         }
+        mTriggers.Clear();
     }
 
     public void SetTarget(Character target, bool msg = true)
@@ -284,4 +286,6 @@ public partial class Character : MonoBehaviour
 
     public UIHeadBar headBar = null;
     public StateMgr mStateMgr;
+
+    public List<Trigger> mTriggers = new List<Trigger>();
 }

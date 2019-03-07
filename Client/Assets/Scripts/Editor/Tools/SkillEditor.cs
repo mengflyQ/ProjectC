@@ -1814,7 +1814,7 @@ public class SkillEditor : EditorWindow
     #endregion // Save
 }
 
-public static class EnumExtension
+public static partial class EnumExtension
 {
     public static string ToDescription(this SkillTargetType enumType)
     {
