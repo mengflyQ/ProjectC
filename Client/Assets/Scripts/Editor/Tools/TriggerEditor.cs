@@ -216,11 +216,13 @@ public class TriggerEditor : EditorWindow
                 {
                     mCurTriggerID = triggerExcel.id;
                     mCurTriggerCondID = 0;
+                    mCurTriggerEventID = 0;
                 }
                 else
                 {
                     mCurTriggerID = 0;
                     mCurTriggerCondID = 0;
+                    mCurTriggerEventID = 0;
                 }
             }
             if (bCurExpand && !isExpand)
@@ -241,6 +243,7 @@ public class TriggerEditor : EditorWindow
                 EditorGUILayout.Space();
                 EditorGUILayout.BeginVertical();
                 TriggerConditionList(triggerExcel);
+                TriggerEventList(triggerExcel);
                 EditorGUILayout.Space();
 
                 EditorGUILayout.EndVertical();
@@ -328,11 +331,108 @@ public class TriggerEditor : EditorWindow
                 {
                     mCurTriggerID = 0;
                     mCurTriggerCondID = condExcel.id;
+                    mCurTriggerEventID = 0;
                 }
                 else
                 {
                     mCurTriggerID = 0;
                     mCurTriggerCondID = 0;
+                    mCurTriggerEventID = 0;
+                }
+            }
+        }
+
+        EditorGUILayout.EndVertical();
+        GUILayout.FlexibleSpace();
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space();
+    }
+
+    public void TriggerEventList(excel_trigger_list triggerExcel)
+    {
+        EditorGUILayout.BeginHorizontal();
+        Rect rcfold = EditorGUILayout.GetControlRect(GUILayout.Width(12.0f));
+        Rect rcbtn = EditorGUILayout.GetControlRect();
+        EditorGUILayout.EndHorizontal();
+
+        if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
+        {
+            if (rcbtn.Contains(Event.current.mousePosition))
+            {
+                GenericMenu menu = new GenericMenu();
+                menu.AddItem(new GUIContent("添加事件"), false, TriggerMenuEvent, "addEvent*" + triggerExcel.id);
+                menu.ShowAsContext();
+                Event.current.Use();
+            }
+        }
+
+        bool isExpand = expandEventGroups.Contains(triggerExcel.id);
+        GUIStyle triggerStyle = EditorStyles.foldout;
+        bool bCurExpand = GUI.Toggle(rcfold, isExpand, "", triggerStyle);
+        GUI.Button(rcbtn, "事件", mTriggerStyleNormal);
+
+        if (bCurExpand && !isExpand)
+        {
+            expandEventGroups.Add(triggerExcel.id);
+            GUI.FocusControl("");
+        }
+        else if (!bCurExpand && isExpand)
+        {
+            expandEventGroups.Remove(triggerExcel.id);
+            GUI.FocusControl("");
+        }
+        if (!bCurExpand)
+        {
+            return;
+        }
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.BeginVertical();
+        if (triggerExcel == null || triggerExcel.events == null)
+        {
+            EditorGUILayout.EndVertical();
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+            return;
+        }
+
+        for (int i = 0; i < triggerExcel.events.Length; ++i)
+        {
+            int eventID = triggerExcel.events[i];
+            excel_trigger_event eventExcel = excel_trigger_event.Find(eventID);
+            if (eventExcel == null)
+                continue;
+
+            rcbtn = EditorGUILayout.GetControlRect();
+            if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
+            {
+                if (rcbtn.Contains(Event.current.mousePosition))
+                {
+                    GenericMenu menu = new GenericMenu();
+                    menu.AddItem(new GUIContent("删除事件"), false, TriggerMenuEvent, "delEvent*" + triggerExcel.id + "*" + eventExcel.id);
+                    menu.ShowAsContext();
+                    Event.current.Use();
+                }
+            }
+
+            bool isSel = mCurTriggerEventID == eventExcel.id;
+
+            GUIStyle style = isSel ? mTriggerStyleSelected : mTriggerStyleNormal;
+            if (GUI.Button(rcbtn, "◆ 事件表{" + eventExcel.id + "}::类型{" + ((TriggerEventType)eventExcel.eventType).ToString() + "}", style))
+            {
+                if (!isSel)
+                {
+                    mCurTriggerID = 0;
+                    mCurTriggerCondID = 0;
+                    mCurTriggerEventID = eventExcel.id;
+                }
+                else
+                {
+                    mCurTriggerID = 0;
+                    mCurTriggerCondID = 0;
+                    mCurTriggerEventID = 0;
                 }
             }
         }
@@ -395,6 +495,32 @@ public class TriggerEditor : EditorWindow
         return id;
     }
 
+    int GetEmptyEventID()
+    {
+        TriggerExcelDomainSet domainSet = mTriggerDomain[mCurDomainIndex];
+        if (domainSet == null)
+            return -1;
+        ExcelDomain domain = domainSet.eventDomain;
+        if (domain == null)
+            return -1;
+        int id = domain.minID;
+        for (int i = 0; i < excel_trigger_event.Count; ++i)
+        {
+            excel_trigger_event excel = excel_trigger_event.GetByIndex(i);
+            if (excel.id < domain.minID || excel.id > domain.maxID)
+                continue;
+            if (id == excel.id)
+            {
+                ++id;
+            }
+            else
+            {
+                return id;
+            }
+        }
+        return id;
+    }
+
     void DeleteTrigger(int triggerID)
     {
         excel_trigger_list triggerExcel = excel_trigger_list.Find(triggerID);
@@ -412,23 +538,60 @@ public class TriggerEditor : EditorWindow
                 excel_trigger_condition condExcel = excel_trigger_condition.Find(condID);
                 if (condExcel == null)
                     continue;
-                DeleteTriggerCondition(condExcel.id);
+                DeleteTriggerCondition(triggerExcel.id, condExcel.id);
+            }
+        }
+        if (triggerExcel.events != null)
+        {
+            for (int i = 0; i < triggerExcel.events.Length; ++i)
+            {
+                int eventID = triggerExcel.events[i];
+                excel_trigger_event eventExcel = excel_trigger_event.Find(eventID);
+                if (eventExcel == null)
+                    continue;
+                DeleteTriggerEvent(triggerExcel.id, eventExcel.id);
             }
         }
 
         excel_trigger_list.excelView.Remove(triggerExcel);
     }
 
-    void DeleteTriggerCondition(int condID)
+    void DeleteTriggerCondition(int triggerID, int condID)
     {
+        excel_trigger_list triggerExcel = excel_trigger_list.Find(triggerID);
+        if (triggerExcel == null)
+            return;
         excel_trigger_condition condExcel = excel_trigger_condition.Find(condID);
         if (condExcel == null)
             return;
-        expandConditionGroups.Remove(condID);
+        expandConditionGroups.Remove(triggerID);
         if (mCurTriggerCondID == condID)
             mCurTriggerCondID = 0;
 
+        List<int> conditions = new List<int>(triggerExcel.conditions);
+        conditions.Remove(condID);
+        triggerExcel.conditions = conditions.ToArray();
+
         excel_trigger_condition.excelView.Remove(condExcel);
+    }
+
+    void DeleteTriggerEvent(int triggerID, int eventID)
+    {
+        excel_trigger_list triggerExcel = excel_trigger_list.Find(triggerID);
+        if (triggerExcel == null)
+            return;
+        excel_trigger_event eventExcel = excel_trigger_event.Find(eventID);
+        if (eventExcel == null)
+            return;
+        expandEventGroups.Remove(triggerID);
+        if (mCurTriggerEventID == eventID)
+            mCurTriggerEventID = 0;
+
+        List<int> events = new List<int>(triggerExcel.events);
+        events.Remove(eventID);
+        triggerExcel.conditions = events.ToArray();
+
+        excel_trigger_event.excelView.Remove(eventExcel);
     }
 
     void TriggerMenuEvent(object obj)
@@ -493,8 +656,13 @@ public class TriggerEditor : EditorWindow
         }
         else if (data0 == "delCond")
         {
+            int triggerId = 0;
+            if (!int.TryParse(sdatas[1], out triggerId))
+            {
+                return;
+            }
             int conditionId = 0;
-            if (!int.TryParse(sdatas[1], out conditionId))
+            if (!int.TryParse(sdatas[2], out conditionId))
             {
                 return;
             }
@@ -502,7 +670,52 @@ public class TriggerEditor : EditorWindow
             {
                 return;
             }
-            DeleteTriggerCondition(conditionId);
+            DeleteTriggerCondition(triggerId, conditionId);
+        }
+        else if (data0 == "addEvent")
+        {
+            int triggerId = 0;
+            if (!int.TryParse(sdatas[1], out triggerId))
+            {
+                return;
+            }
+            if (!expandEventGroups.Contains(triggerId))
+                expandEventGroups.Add(triggerId);
+            excel_trigger_list triggerExcel = excel_trigger_list.Find(triggerId);
+            if (triggerExcel == null)
+                return;
+            excel_trigger_event eventExcel = new excel_trigger_event();
+            eventExcel.id = GetEmptyEventID();
+            if (triggerExcel.events == null)
+            {
+                triggerExcel.events = new int[1];
+            }
+            else
+            {
+                int[] origList = triggerExcel.events.Clone() as int[];
+                triggerExcel.events = new int[triggerExcel.events.Length + 1];
+                origList.CopyTo(triggerExcel.events, 0);
+            }
+            triggerExcel.events[triggerExcel.events.Length - 1] = eventExcel.id;
+            excel_trigger_event.Add(eventExcel);
+        }
+        else if (data0 == "delEvent")
+        {
+            int triggerId = 0;
+            if (!int.TryParse(sdatas[1], out triggerId))
+            {
+                return;
+            }
+            int eventId = 0;
+            if (!int.TryParse(sdatas[2], out eventId))
+            {
+                return;
+            }
+            if (!EditorUtility.DisplayDialog("提醒", "是否删除触发事件[" + eventId + "]", "是", "否"))
+            {
+                return;
+            }
+            DeleteTriggerEvent(triggerId, eventId);
         }
         else if (data0 == "save")
         {
@@ -514,12 +727,13 @@ public class TriggerEditor : EditorWindow
     #region DataView
     void OnDataView(int wndID)
     {
-        if (mCurTriggerID == 0)
+        if (mCurTriggerID == 0 && mCurTriggerCondID == 0 && mCurTriggerEventID == 0)
         {
             EditorGUILayout.LabelField("没有任何数据");
         }
         ShowTriggerData();
         ShowConditionData();
+        ShowEventData();
     }
     
     void ShowTriggerData()
@@ -540,6 +754,8 @@ public class TriggerEditor : EditorWindow
         }
         triggerExcel.bindType = EditorGUILayout.IntPopup("触发对象类型", triggerExcel.bindType, texts, valuse);
 
+        EditorGUILayout.Separator();
+
         valuse = Enum.GetValues(typeof(TriggerType)) as int[];
         texts = new string[valuse.Length];
         for (int i = 0; i < valuse.Length; ++i)
@@ -547,6 +763,8 @@ public class TriggerEditor : EditorWindow
             texts[i] = ((TriggerType)valuse[i]).ToDescription();
         }
         triggerExcel.triggerType = EditorGUILayout.IntPopup("触发时机", triggerExcel.triggerType, texts, valuse);
+
+        EditorGUILayout.Separator();
 
         TriggerTypeEditorRegister.TriggerTypeEditorMethod method = null;
         if (TriggerTypeEditorRegister.mTriggerTypeMethods.TryGetValue((TriggerType)triggerExcel.triggerType, out method))
@@ -567,6 +785,26 @@ public class TriggerEditor : EditorWindow
                 condMethod(firstCondition, this);
             }
         }
+
+        EditorGUILayout.Separator();
+
+        EditorGUILayout.LabelField("触发事件");
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Space(16.0f);
+        EditorGUILayout.BeginVertical();
+        if (triggerExcel.events == null)
+        {
+            triggerExcel.events = new int[0];
+        }
+
+        for (int i = 0; i < triggerExcel.events.Length; ++i)
+        {
+            int eventID = triggerExcel.events[i];
+
+            EditorGUILayout.LabelField("事件 " + i, string.Format("事件{{0}}", eventID));
+        }
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndHorizontal();
     }
 
     void CheckBindParamCount(excel_trigger_list triggerExcel, int count)
@@ -622,9 +860,40 @@ public class TriggerEditor : EditorWindow
         }
     }
 
+    void ShowEventData()
+    {
+        if (mCurTriggerEventID == 0)
+            return;
+        excel_trigger_event eventExcel = excel_trigger_event.Find(mCurTriggerEventID);
+        EditorGUILayout.LabelField("事件ID", string.Format("{0}", eventExcel.id));
+
+        int[] valuse = Enum.GetValues(typeof(TriggerEventType)) as int[];
+        string[] texts = new string[valuse.Length];
+        for (int i = 0; i < valuse.Length; ++i)
+        {
+            texts[i] = ((TriggerEventType)valuse[i]).ToDescription();
+        }
+        eventExcel.eventType = EditorGUILayout.IntPopup("事件类型", eventExcel.eventType, texts, valuse);
+
+        TriggerEventType eventType = (TriggerEventType)eventExcel.eventType;
+        TriggerEventEditorRegister.TriggerEventEditorMethod method = null;
+        if (TriggerEventEditorRegister.mTriggerEventMethods.TryGetValue(eventType, out method))
+        {
+            method(eventExcel);
+        }
+    }
+
     #endregion
 
     #region Save
+
+    protected enum TriggerEditorSaveType
+    {
+        Trigger,
+        Condition,
+        Event,
+    }
+
     void Save()
     {
         try
@@ -632,7 +901,20 @@ public class TriggerEditor : EditorWindow
             for (int i = 0; i < mTriggerDomain.Count; ++i)
             {
                 TriggerExcelDomainSet domainSet = mTriggerDomain[i];
-                Save(domainSet.triggerDomain);
+
+
+                if (!Save(domainSet.triggerDomain, TriggerEditorSaveType.Trigger))
+                {
+                    Debug.LogError("触发器表保存失败");
+                }
+                if (!Save(domainSet.conditionDomain, TriggerEditorSaveType.Condition))
+                {
+                    Debug.LogError("触发器条件表保存失败");
+                }
+                if (!Save(domainSet.eventDomain, TriggerEditorSaveType.Event))
+                {
+                    Debug.LogError("触发器事件表保存失败");
+                }
             }
         }
         catch (Exception e)
@@ -641,7 +923,7 @@ public class TriggerEditor : EditorWindow
         }
     }
 
-    bool Save(ExcelDomain domain)
+    bool Save(ExcelDomain domain, TriggerEditorSaveType saveType)
     {
         string path = "Assets/Resources/Excel/skill/" + domain.fileName + ".txt";
         TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
@@ -658,11 +940,22 @@ public class TriggerEditor : EditorWindow
             header += asset.text;
         }
 
-        StringBuilder triggerExcelText = new StringBuilder(256);
+        StringBuilder excelText = new StringBuilder(256);
 
-        SaveTrigger(domain, ref triggerExcelText);
+        if (saveType == TriggerEditorSaveType.Trigger)
+        {
+            SaveTrigger(domain, ref excelText);
+        }
+        else if (saveType == TriggerEditorSaveType.Condition)
+        {
+            SaveTriggerCondition(domain, ref excelText);
+        }
+        else if (saveType == TriggerEditorSaveType.Event)
+        {
+            SaveTriggerEvent(domain, ref excelText);
+        }
 
-        string content = triggerExcelText.ToString();
+        string content = excelText.ToString();
 
         string absPath = Application.dataPath + "/Resources/Excel/trigger/" + domain.fileName + ".txt";
         if (File.Exists(absPath))
@@ -677,7 +970,7 @@ public class TriggerEditor : EditorWindow
         return true;
     }
 
-    void SaveTrigger(ExcelDomain domain, ref StringBuilder triggerExcelText)
+    void SaveTrigger(ExcelDomain domain, ref StringBuilder excelText)
     {
         for (int j = 0; j < excel_trigger_list.Count; ++j)
         {
@@ -686,16 +979,46 @@ public class TriggerEditor : EditorWindow
                 continue;
             if (excel.id < domain.minID || excel.id > domain.maxID)
                 continue;
-            triggerExcelText.Append(excel.id).Append("\t");
-            triggerExcelText.Append(excel.name).Append("\t");
-            triggerExcelText.Append(excel.bindType).Append("\t");
-            triggerExcelText.Append(IntArrayToString(excel.bindParams)).Append("\t");
-            triggerExcelText.Append(excel.triggerType).Append("\t");
-            triggerExcelText.Append(IntArrayToString(excel.triggerParams)).Append("\t");
-            triggerExcelText.Append(excel.firstCondition).Append("\t");
-            triggerExcelText.Append(IntArrayToString(excel.conditions)).Append("\t");
-            triggerExcelText.Append(IntArrayToString(excel.events)).Append("\t");
-            triggerExcelText.Append(excel.trait).Append("\r\n");
+            excelText.Append(excel.id).Append("\t");
+            excelText.Append(excel.name).Append("\t");
+            excelText.Append(excel.bindType).Append("\t");
+            excelText.Append(IntArrayToString(excel.bindParams)).Append("\t");
+            excelText.Append(excel.triggerType).Append("\t");
+            excelText.Append(IntArrayToString(excel.triggerParams)).Append("\t");
+            excelText.Append(excel.firstCondition).Append("\t");
+            excelText.Append(IntArrayToString(excel.conditions)).Append("\t");
+            excelText.Append(IntArrayToString(excel.events)).Append("\t");
+            excelText.Append(excel.trait).Append("\r\n");
+        }
+    }
+
+    void SaveTriggerCondition(ExcelDomain domain, ref StringBuilder excelText)
+    {
+        for (int j = 0; j < excel_trigger_condition.Count; ++j)
+        {
+            excel_trigger_condition excel = excel_trigger_condition.GetByIndex(j);
+            if (excel == null)
+                continue;
+            if (excel.id < domain.minID || excel.id > domain.maxID)
+                continue;
+            excelText.Append(excel.id).Append("\t");
+            excelText.Append(excel.condition).Append("\t");
+            excelText.Append(IntArrayToString(excel.condParams)).Append("\r\n");
+        }
+    }
+
+    void SaveTriggerEvent(ExcelDomain domain, ref StringBuilder excelText)
+    {
+        for (int j = 0; j < excel_trigger_event.Count; ++j)
+        {
+            excel_trigger_event excel = excel_trigger_event.GetByIndex(j);
+            if (excel == null)
+                continue;
+            if (excel.id < domain.minID || excel.id > domain.maxID)
+                continue;
+            excelText.Append(excel.id).Append("\t");
+            excelText.Append(excel.eventType).Append("\t");
+            excelText.Append(IntArrayToString(excel.eventParams)).Append("\r\n");
         }
     }
 
@@ -762,6 +1085,27 @@ public static partial class EnumExtension
     public static string ToDescription(this TriggerConditionType enumType)
     {
         Type type = typeof(TriggerConditionType);
+        try
+        {
+            FieldInfo info = type.GetField(enumType.ToString());
+            if (info == null)
+                return "Unkown";
+            EnumDescriptionAttribute descAttribute = info.GetCustomAttributes(typeof(EnumDescriptionAttribute), true)[0] as EnumDescriptionAttribute;
+            if (descAttribute != null)
+            {
+                return descAttribute.Description;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning(e.Message);
+        }
+        return type.ToString();
+    }
+
+    public static string ToDescription(this TriggerEventType enumType)
+    {
+        Type type = typeof(TriggerEventType);
         try
         {
             FieldInfo info = type.GetField(enumType.ToString());
