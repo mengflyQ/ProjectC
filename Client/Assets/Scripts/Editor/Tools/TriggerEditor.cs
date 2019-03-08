@@ -325,7 +325,7 @@ public class TriggerEditor : EditorWindow
             bool isSel = mCurTriggerCondID == condExcel.id;
 
             GUIStyle style = isSel ? mTriggerStyleSelected : mTriggerStyleNormal;
-            if (GUI.Button(rcbtn, "◆ 条件表{" + condExcel.id + "}::类型{" + ((TriggerConditionType)condExcel.condition).ToString() + "}", style))
+            if (GUI.Button(rcbtn, "◆ 条件表{" + condExcel.id + "}::类型{" + ((TriggerConditionType)condExcel.condition).ToDescription() + "}", style))
             {
                 if (!isSel)
                 {
@@ -420,7 +420,7 @@ public class TriggerEditor : EditorWindow
             bool isSel = mCurTriggerEventID == eventExcel.id;
 
             GUIStyle style = isSel ? mTriggerStyleSelected : mTriggerStyleNormal;
-            if (GUI.Button(rcbtn, "◆ 事件表{" + eventExcel.id + "}::类型{" + ((TriggerEventType)eventExcel.eventType).ToString() + "}", style))
+            if (GUI.Button(rcbtn, "◆ 事件表{" + eventExcel.id + "}::类型{" + ((TriggerEventType)eventExcel.eventType).ToDescription() + "}", style))
             {
                 if (!isSel)
                 {
