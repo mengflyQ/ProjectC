@@ -15,6 +15,9 @@ public enum BTNodeType
     Success,
     Inverter,
 
+    HaveTarget = 1001,
+    IsUsingSkill,
+
     MoveTo = 2001,
     PatrolRange,
     PatrolPath,

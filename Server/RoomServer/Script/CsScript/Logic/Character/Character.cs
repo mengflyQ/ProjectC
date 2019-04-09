@@ -260,6 +260,7 @@ public partial class Character : GameObject
     public int targetID;
     public StateMgr mStateMgr = null;
     public HateData mHateData = null;
+    public BTBehaviorTree mBehaviorTree = null;
 
     protected float mSpeed;
     private bool mPosDirty = true;
