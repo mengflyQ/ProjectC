@@ -37,10 +37,6 @@ public enum TriggerType
     CharacterHurt,
     [EnumDescription("角色被治疗")]
     CharacterCure,
-    [EnumDescription("角色添加状态")]
-    CharacterCure,
-    [EnumDescription("角色删除状态")]
-    CharacterCure,
 
     [EnumDescription("玩家点击技能")]
     PlayerClickSkill = 4001,
@@ -100,4 +96,13 @@ public enum TriggerEventType
     PlayerAddExp,
     [EnumDescription("玩家改变等级")]
     PlayerSetLevel,
+}
+
+public enum TriggerObjCheckType
+{
+    ClientMainPlayer,
+    Player,
+    AllNpc,
+    NeutralNpc,
+    Monster,
 }

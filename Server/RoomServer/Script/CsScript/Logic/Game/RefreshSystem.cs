@@ -10,6 +10,7 @@ public class MarkPoint
     public string name;
     public Vector3 position;
     public Vector3 direction;
+    public TriggerCircle triggerCircle;
 }
 
 public enum RefreshType
@@ -34,15 +35,16 @@ public class RefreshSystem : BaseSystem
 
     public List<Character> Refresh(Scene scn)
     {
-        LoadScnMark(scn.ScnID, scn.ScnList.markPath);
+        LoadScnMark(scn, scn.ScnList.markPath);
         List<excel_refresh> excels = ExcelLoader.LoadRefreshExcel(scn.ScnList.id);
         if (excels == null)
             return null;
         return RefreshList(scn);
     }
 
-    void LoadScnMark(int scnID, string markPath)
+    void LoadScnMark(Scene scn, string markPath)
     {
+        int scnID = scn.ScnID;
         if (string.IsNullOrEmpty(markPath))
             return;
 
@@ -74,12 +76,19 @@ public class RefreshSystem : BaseSystem
             JsonData nameJson = markPoint["name"];
             JsonData posJson = markPoint["Pos"];
             JsonData dirJson = markPoint["Dir"];
+            JsonData triggerCirlce = markPoint["TC"];
 
             MarkPoint pt = new MarkPoint();
             pt.name = nameJson.AsString;
             pt.position = new Vector3(posJson[0].AsFloat, posJson[1].AsFloat, posJson[2].AsFloat);
             pt.direction = new Vector3(dirJson[0].AsFloat, dirJson[1].AsFloat, dirJson[2].AsFloat);
             scnMarkPoints.Add(pt);
+
+            if (triggerCirlce != null)
+            {
+                int tcID = triggerCirlce.AsInt;
+                pt.triggerCircle = new TriggerCircle(scn);
+            }
         }
     }
 
