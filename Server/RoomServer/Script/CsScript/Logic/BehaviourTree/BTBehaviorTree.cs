@@ -32,7 +32,7 @@ public class BTBehaviorTree
             JsonData jsonVar = vars[i];
             VariableType varType = (VariableType)jsonVar["Type"].AsInt;
             Variable var = Variable.CreateVariable(varType);
-            var.Load(jsonVar);
+            Variable.BlackboardLoadVariable(jsonVar, ref var);
             LocalBlackboard.AddVariable(var);
         }
 

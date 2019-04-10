@@ -25,11 +25,38 @@ public class Variable
         this.type = type;
     }
 
-    public virtual void Load(LitJson.JsonData data)
+    public static void LoadVariable(LitJson.JsonData data, Character self, Variable inVar, out Variable outVar)
+    {
+        outVar = null;
+        string name = data["Name"].AsString;
+        bool isValue = data["IsValue"].AsInt > 0;
+
+        if (isValue)
+        {
+            outVar = inVar;
+            inVar.Load(data);
+        }
+        else
+        {
+            if (self == null || self.mBehaviorTree == null)
+                return;
+            var blackboard = self.mBehaviorTree.LocalBlackboard;
+            if (blackboard == null)
+                return;
+            Variable v = blackboard.GetVariable(name);
+            outVar = v;
+        }
+    }
+
+    public static void BlackboardLoadVariable(LitJson.JsonData data, ref Variable var)
+    {
+        var.Load(data);
+    }
+
+    protected virtual void Load(LitJson.JsonData data)
     {
         name = data["Name"].AsString;
         type = (VariableType)data["Type"].AsInt;
-        isValue = data["IsValue"].AsInt > 0;
     }
 
     public static Variable CreateVariable(VariableType type)
@@ -72,7 +99,6 @@ public class Variable
 
     public string name;
 	public VariableType type;
-    public bool isValue;
 }
 
 public class VariableFloat : Variable
@@ -83,7 +109,7 @@ public class VariableFloat : Variable
         value = 0.0f;
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
@@ -113,7 +139,7 @@ public class VariableInt : Variable
         value = 0;
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
@@ -143,7 +169,7 @@ public class VariableBool : Variable
 
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
@@ -173,7 +199,7 @@ public class VariableString : Variable
 
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
@@ -203,7 +229,7 @@ public class VariableVector2 : Variable
 
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
@@ -235,7 +261,7 @@ public class VariableVector3 : Variable
 
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
@@ -268,7 +294,7 @@ public class VariableVector4 : Variable
 
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
@@ -302,7 +328,7 @@ public class VariableCharactor : Variable
 
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
