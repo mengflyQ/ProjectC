@@ -18,7 +18,7 @@ public class BTRepeat : BTDecorator
     {
         base.Load(json);
 
-        repeatTime.Load(json, self);
+        Variable.LoadVariable(json, self, repeatTime, out repeatTime);
     }
 
     protected override BTStatus Update()
@@ -28,13 +28,15 @@ public class BTRepeat : BTDecorator
             child.Tick();
             if (child.IsRunning()) return BTStatus.Success;
             if (child.IsFailure()) return BTStatus.Failure;
-            if (++count == repeatTime.value) return BTStatus.Success;
+            VariableInt repeatTimeInt = repeatTime as VariableInt;
+            if (repeatTimeInt == null) return BTStatus.Invalid;
+            if (++count == repeatTimeInt.value) return BTStatus.Success;
             child.Reset();
         }
         return BTStatus.Invalid;
     }
 
-    public VariableInt repeatTime;
+    public Variable repeatTime;
 
     protected int count;
 }

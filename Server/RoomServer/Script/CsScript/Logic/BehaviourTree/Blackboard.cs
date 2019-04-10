@@ -50,4 +50,6 @@ public class Blackboard
     }
 
     private Dictionary<string, Variable> mVars = new Dictionary<string, Variable>();
+
+    public static string BuildinName_Target = "Target";
 }

@@ -36,6 +36,7 @@ public partial class Character : GameObject
     {
         mStateMgr = new StateMgr(this);
         mHateData = new HateData(this);
+        mBehaviorTree = new BTBehaviorTree(this);
     }
 
     public virtual void Initialize()
@@ -101,6 +102,7 @@ public partial class Character : GameObject
         if (targetID != tid)
         {
             targetID = tid;
+            SetBlackboardVar(Blackboard.BuildinName_Target, VariableType.Charactor, tid);
 
             if (mEvent != null)
             {

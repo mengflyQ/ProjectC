@@ -358,7 +358,7 @@ public class VariablePlayer : Variable
 
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
@@ -388,7 +388,7 @@ public class VariableNpc : Variable
 
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
@@ -418,7 +418,7 @@ public class VariableNeutralNpc : Variable
 
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 
@@ -448,7 +448,7 @@ public class VariableMonster : Variable
 
     }
 
-    public override void Load(LitJson.JsonData data)
+    protected override void Load(LitJson.JsonData data)
     {
         base.Load(data);
 

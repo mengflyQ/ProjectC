@@ -47,6 +47,18 @@ public partial class Character : GameObject
         {
             mFlagMemory[i] = 0;
         }
+
+        SetBlackboardVar(Blackboard.BuildinName_Target, VariableType.Charactor, 0);
+    }
+
+    public void SetBlackboardVar(string varName, VariableType varType, object value)
+    {
+        if (mBehaviorTree == null)
+            return;
+        Blackboard blackboard = mBehaviorTree.LocalBlackboard;
+        if (blackboard == null)
+            return;
+        blackboard.SetVariableValue(varName, varType, value);
     }
 
     public int GetFlagMemory(FlagMemory flag)
