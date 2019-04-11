@@ -26,6 +26,7 @@ public class BTComposite : BTBehavior
             LitJson.JsonData jsonBehavior = jsonChildren[i];
             BTNodeType nodeType = (BTNodeType)jsonBehavior["Type"].AsInt;
             BTBehavior child = BTBehaviorTree.CreateBehavior(nodeType, self);
+            child.Load(jsonBehavior);
             children.Add(child);
         }
     }

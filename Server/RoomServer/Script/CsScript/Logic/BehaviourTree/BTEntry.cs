@@ -18,17 +18,18 @@ public class BTEntry : BTBehavior
             return;
 
         BTNodeType nodeType = (BTNodeType)jsonBehavior["Type"].AsInt;
-        child = BTBehaviorTree.CreateBehavior(nodeType, self);
+        mChild = BTBehaviorTree.CreateBehavior(nodeType, self);
+        mChild.Load(jsonBehavior);
     }
 
     protected override BTStatus Update()
     {
-        if (child != null)
+        if (mChild != null)
         {
-            return child.Tick();
+            return mChild.Tick();
         }
         return BTStatus.Invalid;
     }
 
-    BTBehavior child = null;
+    BTBehavior mChild = null;
 }

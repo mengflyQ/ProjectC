@@ -76,7 +76,7 @@ public class RefreshSystem : BaseSystem
             JsonData nameJson = markPoint["name"];
             JsonData posJson = markPoint["Pos"];
             JsonData dirJson = markPoint["Dir"];
-            JsonData triggerCirlce = markPoint["TC"];
+            // JsonData triggerCirlce = markPoint["TC"];
 
             MarkPoint pt = new MarkPoint();
             pt.name = nameJson.AsString;
@@ -84,11 +84,11 @@ public class RefreshSystem : BaseSystem
             pt.direction = new Vector3(dirJson[0].AsFloat, dirJson[1].AsFloat, dirJson[2].AsFloat);
             scnMarkPoints.Add(pt);
 
-            if (triggerCirlce != null)
-            {
-                int tcID = triggerCirlce.AsInt;
-                pt.triggerCircle = new TriggerCircle(scn);
-            }
+            //if (triggerCirlce != null)
+            //{
+            //    int tcID = triggerCirlce.AsInt;
+            //    pt.triggerCircle = new TriggerCircle(scn);
+            //}
         }
     }
 
