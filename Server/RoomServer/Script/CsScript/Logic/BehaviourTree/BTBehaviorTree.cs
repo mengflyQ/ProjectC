@@ -40,6 +40,7 @@ public class BTBehaviorTree
 
         BTBehavior node = BTBehaviorTree.CreateBehavior(nodeType, self);
         node.Load(enterNode);
+        this.root = node;
     }
 
     public static BTBehavior CreateBehavior(BTNodeType type, Character self)
@@ -58,6 +59,14 @@ public class BTBehaviorTree
                 return new BTParallel(self);
             case BTNodeType.Repeat:
                 return new BTRepeat(self);
+            case BTNodeType.IsUsingSkill:
+                return new BTIsUsingSkill(self);
+            case BTNodeType.HaveTarget:
+                return new BTHaveTarget(self);
+            case BTNodeType.SearchTarget:
+                return new BTSerachTarget(self);
+            case BTNodeType.PatrolRange:
+                return new BTPatrolRange(self);
         }
         return null;
     }

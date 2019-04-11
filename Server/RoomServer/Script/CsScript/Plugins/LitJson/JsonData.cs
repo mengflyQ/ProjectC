@@ -91,6 +91,10 @@ namespace LitJson
         {
             get { return inst_string; }
         }
+        public bool AsBool
+        {
+            get { return inst_boolean; }
+        }
 
         #region ICollection Properties
         int ICollection.Count {

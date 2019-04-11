@@ -20,6 +20,7 @@ public class BTDecorator : BTBehavior
 
         BTNodeType nodeType = (BTNodeType)jsonBehavior["Type"].AsInt;
         child = BTBehaviorTree.CreateBehavior(nodeType, self);
+        child.Load(jsonBehavior);
     }
 
     public override void AddChild(BTBehavior child)

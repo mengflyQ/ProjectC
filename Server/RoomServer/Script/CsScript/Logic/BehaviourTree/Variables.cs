@@ -29,10 +29,16 @@ public class Variable
     {
         outVar = null;
         string name = data["Name"].AsString;
-        bool isValue = data["IsValue"].AsInt > 0;
+        bool isValue = data["IsValue"].AsBool;
 
         if (isValue)
         {
+            if (inVar == null)
+            {
+                VariableType type = (VariableType)data["Type"].AsInt;
+                inVar = Variable.CreateVariable(type);
+            }
+
             outVar = inVar;
             inVar.Load(data);
         }
