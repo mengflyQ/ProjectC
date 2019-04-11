@@ -23,7 +23,7 @@
 									"Name":	"",
 									"Type":	2,
 									"IsValue":	true,
-									"Value":	6
+									"Value":	6.0
 								}
 							}]
 					}, {
@@ -33,7 +33,7 @@
 							"Name":	"",
 							"Type":	2,
 							"IsValue":	true,
-							"Value":	6
+							"Value":	6.0
 						},
 						"MinItv":	1,
 						"MaxItv":	3
