@@ -11,7 +11,7 @@ public class BTBehaviorTree
         LocalBlackboard = new Blackboard();
     }
 
-    void LoadFromFile(string filePath)
+    public void LoadFromFile(string filePath)
     {
         string json = string.Empty;
         using (FileStream file = new FileStream(filePath, FileMode.Open))

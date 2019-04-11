@@ -14,6 +14,7 @@
 	{"name": "refreshDist", "type": "float"},
 	{"name": "deadRefreshIDs", "type": "int[]"},
 	{"name": "npcAI", "type": "int"},
-	{"name": "hateLinkID", "type": "int"}
+	{"name": "hateLinkID", "type": "int"},
+	{"name": "behaviorTree", "type": "string"}
   ]
 }

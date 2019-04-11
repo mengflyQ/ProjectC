@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using GameServer.Model;
 using ZyGames.Framework.Game.Contract;
@@ -27,8 +28,19 @@ public partial class NPC : Character
             }
         }
 
+        InitBehaviorTree();
         InitStateMachine();
         InitNPCAtb();
+    }
+
+    public void InitBehaviorTree()
+    {
+        if (string.IsNullOrEmpty(mRefreshList.behaviorTree))
+        {
+            return;
+        }
+
+        mBehaviorTree.LoadFromFile(@"../Data/BehaviorTree/" + mRefreshList.behaviorTree + ".json");
     }
 
     public override void Destroy()
@@ -41,7 +53,8 @@ public partial class NPC : Character
     {
         base.Update();
 
-        UpdateBehaviour();
+        mBehaviorTree.Update();
+        // UpdateBehaviour();
     }
 
     public override void OnDead(DeadType type)
