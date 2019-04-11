@@ -5,18 +5,18 @@
 		"Pos":	[0, 0],
 		"Children":	[{
 				"Type":	2,
-				"Pos":	[4, 120],
+				"Pos":	[4.0, 120.0],
 				"Children":	[{
 						"Type":	1,
-						"Pos":	[-220, 240],
+						"Pos":	[-220.0, 240.0],
 						"Children":	[{
 								"Type":	1001,
-								"Pos":	[-380, 360],
+								"Pos":	[-380.0, 360.0],
 								"Neg":	true,
 								"TargetType":	0
 							}, {
 								"Type":	2004,
-								"Pos":	[-44, 360],
+								"Pos":	[-44.0, 360.0],
 								"SearchTargetType":	1,
 								"SearchTargetCondition":	0,
 								"SearchDist":	{
@@ -28,7 +28,7 @@
 							}]
 					}, {
 						"Type":	2002,
-						"Pos":	[340, 240],
+						"Pos":	[340.0, 240.0],
 						"Range":	{
 							"Name":	"",
 							"Type":	2,
