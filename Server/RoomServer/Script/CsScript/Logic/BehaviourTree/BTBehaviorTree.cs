@@ -57,6 +57,10 @@ public class BTBehaviorTree
                 return new BTSequence(self);
             case BTNodeType.Parallel:
                 return new BTParallel(self);
+            case BTNodeType.RandomSelector:
+                return new BTRandomSelector(self);
+            case BTNodeType.RandomSequence:
+                return new BTRandomSequence(self);
             case BTNodeType.Repeat:
                 return new BTRepeat(self);
             case BTNodeType.IsUsingSkill:

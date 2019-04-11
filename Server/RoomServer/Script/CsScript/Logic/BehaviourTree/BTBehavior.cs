@@ -10,6 +10,8 @@ public enum BTNodeType
     Parallel,
     RandomSelector,
     RandomSequence,
+    WeightRandomSelector,
+    WeightRandomSequence,
 
     Repeat = 101,
     Success,

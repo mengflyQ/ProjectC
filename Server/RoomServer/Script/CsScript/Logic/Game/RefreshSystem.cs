@@ -10,7 +10,6 @@ public class MarkPoint
     public string name;
     public Vector3 position;
     public Vector3 direction;
-    public TriggerCircle triggerCircle;
 }
 
 public enum RefreshType

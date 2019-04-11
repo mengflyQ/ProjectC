@@ -225,7 +225,6 @@
     <Compile Include="Script\CsScript\Logic\State\StateMgr.cs" />
     <Compile Include="Script\CsScript\Logic\Trigger\Trigger.cs" />
     <Compile Include="Script\CsScript\Logic\Trigger\TiggerSytem.cs" />
-    <Compile Include="Script\CsScript\Logic\Trigger\TriggerCircle.cs" />
     <Compile Include="Script\CsScript\Logic\Trigger\TriggerConditionRegister.cs" />
     <Compile Include="Script\CsScript\Logic\Trigger\TriggerDefine.cs" />
     <Compile Include="Script\CsScript\Logic\Trigger\TriggerEventReigster.cs" />

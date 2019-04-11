@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MathLib
 {
@@ -10,6 +11,16 @@ namespace MathLib
         }
 
         public static float Min(float a, float b)
+        {
+            return a < b ? a : b;
+        }
+
+        public static int Max(int a, int b)
+        {
+            return a > b ? a : b;
+        }
+
+        public static int Min(int a, int b)
         {
             return a < b ? a : b;
         }
@@ -65,6 +76,82 @@ namespace MathLib
         public static int RandRange(int min, int max)
         {
             return random.Next(min, max);
+        }
+
+        public static void Shuffle<T>(ref T[] arr)
+        {
+            int j = 0;
+            for (int i = arr.Length - 1; i > 0; --i)
+            {
+                j = RandRange(0, i);
+                T temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        public static void Shuffle<T>(ref List<T> arr)
+        {
+            int j = 0;
+            for (int i = arr.Count - 1; i > 0; --i)
+            {
+                j = RandRange(0, i);
+                T temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        public static void ShuffleWithSeed<T>(ref T[] arr, int seed)
+        {
+            Random r = new Random(seed);
+            int j = 0;
+            for (int i = arr.Length - 1; i > 0; --i)
+            {
+                j = r.Next(0, i);
+                T temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        public static void ShuffleWithSeed<T>(ref List<T> arr, int seed)
+        {
+            Random r = new Random(seed);
+            int j = 0;
+            for (int i = arr.Count - 1; i > 0; --i)
+            {
+                j = r.Next(0, i);
+                T temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        public static T RouletteWheelSelection<T>(List<T> arr, List<int> weights)
+        {
+            T selection = default(T);
+            if (arr.Count != weights.Count)
+            {
+                return selection;
+            }
+            int totalWeight = 0;
+            for (int i = 0; i < weights.Count; ++i)
+            {
+                totalWeight += weights[i];
+            }
+            int m = RandRange(0, totalWeight);
+            int curTotalWeight = 0;
+            for (int i = 0; i < arr.Count; ++i)
+            {
+                curTotalWeight += weights[i];
+                if (curTotalWeight >= m)
+                {
+                    selection = arr[i];
+                    break;
+                }
+            }
+            return selection;
         }
 
         public const float Rad2Deg = 57.29578f;

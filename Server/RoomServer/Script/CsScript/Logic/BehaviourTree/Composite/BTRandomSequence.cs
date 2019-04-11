@@ -1,9 +1,9 @@
 ﻿using System;
+using MathLib;
 
-//顺序器：依次执行所有节点直到其中一个失败或者全部成功位置;
-public class BTSequence : BTComposite
+public class BTRandomSequence : BTComposite
 {
-    public BTSequence(Character self)
+    public BTRandomSequence(Character self)
         : base(self)
     {
 
@@ -12,11 +12,23 @@ public class BTSequence : BTComposite
     protected override void Enter()
     {
         curChildIndex = 0;
+        if (mUseSeed)
+        {
+            Mathf.ShuffleWithSeed(ref children, mSeed);
+        }
+        else
+        {
+            Mathf.Shuffle(ref children);
+        }
     }
 
     public override void Load(LitJson.JsonData json)
     {
         base.Load(json);
+
+        mUseSeed = json["UseSeed"].AsBool;
+        mSeed = json["Seed"].AsInt;
+        mExeCount = json["ExeCount"].AsInt;
     }
 
     protected override BTStatus Update()
@@ -36,9 +48,17 @@ public class BTSequence : BTComposite
             {
                 return BTStatus.Success;
             }
+            if (mExeCount >= 0 && curChildIndex >= mExeCount)
+            {
+                return BTStatus.Success;
+            }
         }
         return BTStatus.Invalid; // 循环意外终止;
     }
 
     protected int curChildIndex = 0;
+
+    protected bool mUseSeed = false;
+    protected int mSeed;
+    protected int mExeCount = -1;
 }
