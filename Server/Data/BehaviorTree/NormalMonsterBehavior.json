@@ -35,8 +35,8 @@
 							"IsValue":	true,
 							"Value":	6.0
 						},
-						"MinItv":	1,
-						"MaxItv":	3
+						"MinItv":	1.0,
+						"MaxItv":	3.0
 					}]
 			}]
 	}
