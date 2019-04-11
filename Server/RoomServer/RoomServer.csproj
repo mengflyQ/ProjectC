@@ -149,6 +149,8 @@
     <Compile Include="Script\CsScript\Logic\Action\IAction.cs" />
     <Compile Include="Script\CsScript\Logic\Action\ImpAction\DeadAction.cs" />
     <Compile Include="Script\CsScript\Logic\Action\ImpAction\SkillMove.cs" />
+    <Compile Include="Script\CsScript\Logic\BehaviourTree\Action\BTPatrolRange.cs" />
+    <Compile Include="Script\CsScript\Logic\BehaviourTree\Action\BTSearchTarget.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Blackboard.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Action\BTAction.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Composite\BTActiveSelector.cs" />

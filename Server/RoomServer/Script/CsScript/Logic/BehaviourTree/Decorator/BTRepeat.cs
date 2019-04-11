@@ -18,7 +18,8 @@ public class BTRepeat : BTDecorator
     {
         base.Load(json);
 
-        Variable.LoadVariable(json, self, repeatTime, out repeatTime);
+        LitJson.JsonData jsonRepeatTime = json["Limited"];
+        Variable.LoadVariable(jsonRepeatTime, self, repeatTime, out repeatTime);
     }
 
     protected override BTStatus Update()
