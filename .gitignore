@@ -30,3 +30,10 @@ Release
 .vs
 /Server/RoomServer/*.user
 /Client/*.csproj
+/Server/LobbyServer/Properties/AssemblyInfo.cs
+/Server/LoginServer/Script/CsScript/Properties/AssemblyInfo.cs
+/Server/LoginServer/Script/Model/Properties/AssemblyInfo.cs
+/Server/RoomServer/Script/Model/Properties/AssemblyInfo.cs
+/Server/RoomServer/Script/CsScript/Properties/AssemblyInfo.cs
+/Server/LobbyServer/Script/Model/Properties/AssemblyInfo.cs
+/Server/LobbyServer/Script/CsScript/Properties/AssemblyInfo.cs
