@@ -71,6 +71,10 @@ public class BTBehaviorTree
                 return new BTSerachTarget(self);
             case BTNodeType.PatrolRange:
                 return new BTPatrolRange(self);
+            case BTNodeType.CastSkill:
+                return new BTCastSkill(self);
+            case BTNodeType.Wait:
+                return new BTWait(self);
         }
         return null;
     }

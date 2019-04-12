@@ -24,6 +24,8 @@ public enum BTNodeType
     PatrolRange,
     PatrolPath,
     SearchTarget,
+    CastSkill,
+    Wait,
 }
 
 public enum BTStatus
