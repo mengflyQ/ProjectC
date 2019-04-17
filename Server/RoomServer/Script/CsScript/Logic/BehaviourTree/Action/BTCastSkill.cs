@@ -36,7 +36,7 @@ public class BTCastSkill : BTAction
         handle.caster = self;
         if (mSpecifyTarget)
         {
-            VariableCharactor varTarget = mSkillTarget as VariableCharactor;
+            VariableCharacter varTarget = mSkillTarget as VariableCharacter;
             handle.skillTargetID = varTarget.gid;
         }
         if (mSpecifyTargetPos)

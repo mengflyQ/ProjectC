@@ -30,6 +30,7 @@ public class BTPatrolRange : BTAction
 
         LitJson.JsonData jsonRange = json["Range"];
         Variable.LoadVariable(jsonRange, self, mRange, out mRange);
+        Variable.LoadVariable(json["Center"], self, mCenter, out mCenter);
         mPatrolMinInterval = json["MinItv"].AsFloat;
         mPatrolMaxInterval = json["MaxItv"].AsFloat;
     }
@@ -37,11 +38,6 @@ public class BTPatrolRange : BTAction
     protected override BTStatus Update()
     {
         if (self.Type == CharacterType.Player)
-        {
-            return BTStatus.Failure;
-        }
-        NPC npc = self as NPC;
-        if (npc.mRefreshList == null)
         {
             return BTStatus.Failure;
         }
@@ -56,13 +52,8 @@ public class BTPatrolRange : BTAction
             if (mIntervalTime > 0.0f)
                 return BTStatus.Running;
 
-            if (npc.mRefreshList.birthpoint.Length <= 0)
-                return BTStatus.Failure;
-            string birthpoint = npc.mRefreshList.birthpoint[0];
-            MarkPoint markPoint = RefreshSystem.Instance.GetMarkPoint(npc.mScene.ScnID, birthpoint);
-            if (markPoint == null)
-                return BTStatus.Failure;
-            Vector3 targetPos = markPoint.position;
+            VariableVector3 p = mCenter as VariableVector3;
+            Vector3 targetPos = p.value;
             Vector3 dir = new Vector3(Mathf.RandRange(-1.0f, 1.0f), 0.0f, Mathf.RandRange(-1.0f, 1.0f));
             dir.Normalize();
             VariableFloat varR = mRange as VariableFloat;
@@ -70,12 +61,12 @@ public class BTPatrolRange : BTAction
             targetPos += (dist * dir);
 
             Vector3 hitPos = Vector3.zero;
-            if (NavigationSystem.LineCast(npc.Position, targetPos, npc.mNavLayer, out hitPos))
+            if (NavigationSystem.LineCast(self.Position, targetPos, self.mNavLayer, out hitPos))
             {
                 targetPos = hitPos;
             }
             float h = 0.0f;
-            if (NavigationSystem.GetLayerHeight(targetPos, npc.mNavLayer, out h))
+            if (NavigationSystem.GetLayerHeight(targetPos, self.mNavLayer, out h))
             {
                 targetPos.y = h;
             }
@@ -94,11 +85,11 @@ public class BTPatrolRange : BTAction
                 return BTStatus.Running;
             }
             Vector3 targetPos = mPath[mPathIndex];
-            if (!npc.IsSearchMoving())
+            if (!self.IsSearchMoving())
             {
-                npc.SearchMove(targetPos);
+                self.SearchMove(targetPos);
             }
-            float dist = (targetPos - npc.Position).Length();
+            float dist = (targetPos - self.Position).Length();
             if (dist <= 0.3f)
             {
                 ++mPathIndex;
@@ -109,6 +100,7 @@ public class BTPatrolRange : BTAction
     }
 
     Variable mRange;
+    Variable mCenter;
     float mPatrolMinInterval;
     float mPatrolMaxInterval;
 

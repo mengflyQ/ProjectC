@@ -17,6 +17,8 @@ public class BTSequence : BTComposite
     public override void Load(LitJson.JsonData json)
     {
         base.Load(json);
+
+        loop = json["Loop"].AsBool;
     }
 
     protected override BTStatus Update()
@@ -34,11 +36,19 @@ public class BTSequence : BTComposite
                 return s;
             if (++curChildIndex >= children.Count)
             {
-                return BTStatus.Success;
+                if (loop)
+                {
+                    Enter();
+                }
+                else
+                {
+                    return BTStatus.Success;
+                }
             }
         }
         return BTStatus.Invalid; // 循环意外终止;
     }
 
     protected int curChildIndex = 0;
+    protected bool loop = false;
 }

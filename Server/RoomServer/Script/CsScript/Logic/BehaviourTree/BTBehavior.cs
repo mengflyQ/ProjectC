@@ -19,6 +19,11 @@ public enum BTNodeType
 
     HaveTarget = 1001,
     IsUsingSkill,
+    BoolCompare,
+    IntCompare,
+    FloatCompare,
+    StringCompare,
+    CharacterCompare,
 
     MoveTo = 2001,
     PatrolRange,
@@ -26,6 +31,7 @@ public enum BTNodeType
     SearchTarget,
     CastSkill,
     Wait,
+    SavePosition,
 }
 
 public enum BTStatus

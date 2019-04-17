@@ -75,6 +75,18 @@ public class BTBehaviorTree
                 return new BTCastSkill(self);
             case BTNodeType.Wait:
                 return new BTWait(self);
+            case BTNodeType.SavePosition:
+                return new BTSavePosition(self);
+            case BTNodeType.BoolCompare:
+                return new BTBoolCompare(self);
+            case BTNodeType.IntCompare:
+                return new BTIntCompare(self);
+            case BTNodeType.FloatCompare:
+                return new BTFloatCompare(self);
+            case BTNodeType.StringCompare:
+                return new BTStringCompare(self);
+            case BTNodeType.CharacterCompare:
+                return new BTCharacterCompare(self);
         }
         return null;
     }

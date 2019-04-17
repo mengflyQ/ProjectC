@@ -84,7 +84,7 @@ public class Variable
             case VariableType.Vector4:
                 return new VariableVector4();
             case VariableType.Charactor:
-                return new VariableCharactor();
+                return new VariableCharacter();
             case VariableType.Player:
                 return new VariablePlayer();
             case VariableType.Npc:
@@ -326,9 +326,9 @@ public class VariableVector4 : Variable
     public Vector4 value;
 }
 
-public class VariableCharactor : Variable
+public class VariableCharacter : Variable
 {
-    public VariableCharactor()
+    public VariableCharacter()
         : base(VariableType.Charactor)
     {
 
