@@ -1,6 +1,6 @@
 ﻿using System;
 
-enum BTCompareOp
+public enum BTCompareOp
 {
     Equal,
     NotEqual,

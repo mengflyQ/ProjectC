@@ -164,9 +164,15 @@
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Composite\BTRandomSequence.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Composite\BTWeightRandomSelector.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Composite\BTWeightRandomSequence.cs" />
+    <Compile Include="Script\CsScript\Logic\BehaviourTree\Condition\BTBoolCompare.cs" />
+    <Compile Include="Script\CsScript\Logic\BehaviourTree\Condition\BTCharacterCompare.cs" />
+    <Compile Include="Script\CsScript\Logic\BehaviourTree\Condition\BTCompare.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Condition\BTCondition.cs" />
+    <Compile Include="Script\CsScript\Logic\BehaviourTree\Condition\BTFloatCompare.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Condition\BTHaveTarget.cs" />
+    <Compile Include="Script\CsScript\Logic\BehaviourTree\Condition\BTIntCompare.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Condition\BTIsUsingSkill.cs" />
+    <Compile Include="Script\CsScript\Logic\BehaviourTree\Condition\BTStringCompare.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Decorator\BTDecorator.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\BTEntry.cs" />
     <Compile Include="Script\CsScript\Logic\BehaviourTree\Composite\BTParallel.cs" />

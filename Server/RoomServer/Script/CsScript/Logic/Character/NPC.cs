@@ -28,7 +28,7 @@ public partial class NPC : Character
             }
         }
 
-        InitBehaviorTree();
+        // InitBehaviorTree();
         InitStateMachine();
         InitNPCAtb();
     }
@@ -53,8 +53,8 @@ public partial class NPC : Character
     {
         base.Update();
 
-        mBehaviorTree.Update();
-        // UpdateBehaviour();
+        // mBehaviorTree.Update();
+        UpdateBehaviour();
     }
 
     public override void OnDead(DeadType type)

@@ -121,6 +121,11 @@ public static class SkillEventRegister
         }
     }
 
+    static void AddState(Character cha, ChildObject childObject, SkillContext context, excel_skill_event e)
+    {
+
+    }
+
     public static void Initialize()
     {
         events[SkillEventType.Hit] = Hit;
